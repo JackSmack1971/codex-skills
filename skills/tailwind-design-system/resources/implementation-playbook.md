@@ -34,7 +34,49 @@ Example:
 Base styles → Variants → Sizes → States → Overrides
 ```
 
+## Version Gate
+
+Before using either setup section, establish the Tailwind major version from
+`package.json` plus the lockfile or installed package metadata. If the version
+cannot be established, or the evidence conflicts, stop and request or gather
+that evidence. Do not default to v3.
+
+### Version evidence
+
+- **v4 evidence:** a resolved `tailwindcss` 4.x package, or a repository using
+  the v4 CSS-first entry point and matching v4 tooling.
+- **v3 evidence:** a resolved `tailwindcss` 3.x package, or a repository using
+  the v3 configuration and directives with matching v3 tooling.
+- A config file or CSS directive by itself is only corroboration; dependency
+  metadata wins when evidence disagrees.
+
+### Tailwind v4 setup
+
+Use CSS-first configuration. Define design tokens in CSS with `@theme` and
+import Tailwind directly:
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --radius-md: var(--radius);
+}
+```
+
+Tailwind v4 automatically detects source files in the normal project layout,
+so do not add a legacy `content` array by default. If a v4 project still needs
+a JavaScript configuration file, load it explicitly with `@config` and explain
+why; do not assume `tailwind.config.ts` is auto-detected. Use the v4 PostCSS or
+framework integration documented for the detected toolchain.
+
+Do not use the v3-only setup below as the default for a v4 project:
+`tailwind.config.ts`, `content: [...]`, or the three `@tailwind` directives.
+
 ## Quick Start
+
+### Tailwind v3 setup
 
 ```typescript
 // tailwind.config.ts

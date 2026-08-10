@@ -1,18 +1,16 @@
 # Verification
 
-- Source package: `.claude/skills/tailwind-design-system/`.
-- Target package: `.agents/skills/tailwind-design-system/`.
-- Preserved the skill and its implementation playbook; removed only Claude source-runtime frontmatter.
-- No scripts, agents, or assets existed in the source package beyond the migrated reference.
+- The skill requires Tailwind major-version evidence before version-sensitive
+  guidance and explicitly stops for unknown or conflicting evidence.
+- The playbook separates Tailwind v4 CSS-first setup from Tailwind v3
+  `tailwind.config`/`content`/`@tailwind` setup.
+- Version-independent token, variant, responsive, dark-mode, and accessibility
+  guidance is preserved.
+- Evaluation fixtures cover v4, v3, and unknown/conflicting version evidence.
 
-Validation is performed with the repository package checks and real Codex discovery smoke test.
+Run:
 
-Observed in this environment on 2026-08-09:
-
-- The 573-line implementation playbook copied with its Tailwind examples and
-  patterns intact.
-- The repository validator returned `{"status":"ok","errors":[]}`.
-- `codex-cli 0.147.0` headless JSONL discovery returned
-  `tailwind-design-system`.
-- The repository TDD runner reports no supported project test runner; this
-  documentation-only package required no executable behavior test.
+```text
+python scripts/validate_repository.py
+python -m unittest discover -s tests -v
+```
