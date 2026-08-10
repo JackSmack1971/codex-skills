@@ -16,9 +16,9 @@ is a repository classification, not a quality ranking.
 Implementation depth and evaluation are kept separate: `prompt-only` maps to
 no executable artifact, `script-backed` to reusable scripts, `evaluated` to
 prose/manual evaluation material, and `tested` to automated behavioral tests.
-Provenance is `unknown` unless repository evidence explicitly establishes
-original, adapted, or vendored origin. No such origin evidence was found for
-these skill directories, so unknown is intentional rather than inferred.
+Provenance status is one of `original`, `adapted`, `vendored`, or `unknown`.
+The status is followed by repository evidence when available; authorship is
+never inferred from writing style, filenames, or similarity.
 Consolidation decisions and compatibility paths are tracked in
 [`skill-consolidation.md`](skill-consolidation.md).
 
@@ -41,13 +41,13 @@ Consolidation decisions and compatibility paths are tracked in
 | `git-commit` | Create Git commits and Conventional Commits messages when explicitly requested. | Explicitly request a Git commit or Conventional Commit message. | Core | prompt-only | none | unknown | pr-review, github-issue-to-pr |
 | `git-workflow` | Safely perform Git repository inspection, branching, synchronization, staging, merging, rebasing, and recovery. | Any requested Git action, including status inspection or synchronization. | Core | prompt-only | none | unknown | git-commit, using-git-worktrees |
 | `github-issue-to-pr` | Convert open GitHub issues into focused pull requests with isolation, planning, and state tracking. | Convert an open GitHub issue into an isolated, planned pull request. | Core | evaluated | prose/manual evals | unknown | feature-implementation, pr-review |
-| `grill-me` | Compatibility alias for grilling. | Explicitly invoke the legacy `/grill-me` compatibility command. | Vendored-or-Adapted | prompt-only | none | unknown | grilling; intentional overlap: grilling |
+| `grill-me` | Compatibility alias for grilling. | Explicitly invoke the legacy `/grill-me` compatibility command. | Vendored-or-Adapted | prompt-only | none | adapted; [SKILL.md](../skills/grill-me/SKILL.md) explicitly identifies the compatibility alias | grilling; intentional overlap: grilling |
 | `grilling` | Stress-test a new plan or design by asking one recommended question at a time. | Request a new interactive plan or design stress-test. | Specialized | evaluated | prose/manual evals | unknown | grill-me, product-spec; intentional overlap: grill-me |
 | `imagegen` | Generate or edit raster images when bitmap visuals are the right deliverable. | Request a new bitmap image or edit to an attached/generated image. | Specialized | evaluated | prose/manual evals | unknown | design-md-ideator, taste-engine |
 | `improve` | Audit a repository for evidence-backed improvements and prepare plan-only handoffs. | Audit a repository for improvement opportunities or prepare an evidence-backed handoff. | Specialized | script-backed | deterministic validation | unknown | maintaining-repository-hygiene, skill-auditor, simplification-cascades |
 | `integration-engineering` | Safely implement or review integrations with external APIs, SDKs, webhooks, OAuth, and service providers. | Product behavior depends on a third-party API, SDK, webhook, OAuth provider, or service. | Specialized | prompt-only | none | unknown | api-design, testing-qa, security-best-practices |
 | `intent-layer` | Set up hierarchical AGENTS.md intent context for codebases. | Initialize or add AGENTS.md context infrastructure to a codebase. | Specialized | evaluated | prose/manual evals | unknown | context-doctor, generating-readmes |
-| `last30days` | Research current public sentiment and trend signals across social, community, and web sources. | Request current public sentiment, trend research, or a shareable briefing. | Specialized | script-backed | deterministic validation | unknown | product-discovery, read-the-damn-docs |
+| `last30days` | Research current public sentiment and trend signals across social, community, and web sources. | Request current public sentiment, trend research, or a shareable briefing. | Specialized | script-backed | deterministic validation | vendored; [bird-search package](../skills/last30days/scripts/lib/vendor/bird-search/package.json) and [MIT notice](../skills/last30days/scripts/lib/vendor/bird-search/LICENSE) | product-discovery, read-the-damn-docs |
 | `maintaining-repository-hygiene` | Audit and professionalize GitHub repositories: stack, topology, worktrees, labels, governance, documentation, settings, and tracked artifacts. | Request repository hygiene, cleanup, governance, or professionalization work. | Core | tested | automated behavioral tests | unknown | generate-codeowners, generating-readmes, improve |
 | `mvp-scope` | Turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions. | Reduce a product idea or capability list to MVP scope before specification or architecture. | Specialized | prompt-only | none | unknown | product-discovery, product-spec, grill-me; intentional overlap: product-discovery, product-spec |
 | `openai-docs` | Use authoritative OpenAI documentation for OpenAI products, APIs, Codex, models, and configuration. | Ask about OpenAI products, APIs, Codex, models, pricing, setup, or configuration. | Specialized | evaluated | prose/manual evals | unknown | context-doctor, context7-skill-wizard |
@@ -74,3 +74,17 @@ Consolidation decisions and compatibility paths are tracked in
 | `visual-plan` | Turn text plans into interactive visual plans with diagrams, file maps, annotated code, and review artifacts. | Request a visual or interactive representation of an implementation plan. | Specialized | evaluated | prose/manual evals | unknown | visual-recap, architecture, design-md-ideator |
 | `visual-recap` | Turn PRs, branches, commits, or diffs into interactive visual recaps with diagrams and focused review notes. | Request a visual recap of a PR, branch, commit, or Git diff. | Specialized | evaluated | prose/manual evals | unknown | visual-plan, review-agent, git-workflow |
 | `writing-plans` | Create concrete TDD-first implementation plans with file maps and validation. | Produce an implementation plan from a specification or feature request. | Core | script-backed | deterministic validation | unknown | product-spec, feature-implementation, testing-qa |
+
+## Provenance evidence
+
+- `last30days` is `vendored`; its wrapper identifies the carried `bird-search`
+  subset and its version/source in [`bird_x.py`](../skills/last30days/scripts/lib/bird_x.py)
+  and [`package.json`](../skills/last30days/scripts/lib/vendor/bird-search/package.json),
+  with the retained [`MIT notice`](../skills/last30days/scripts/lib/vendor/bird-search/LICENSE).
+- `grill-me` is `adapted`; its compatibility relationship is explicit in
+  [`SKILL.md`](../skills/grill-me/SKILL.md).
+- The following remain `unknown` because the repository contains a license
+  notice but no established authorship or upstream source: [`imagegen notice`](../skills/imagegen/LICENSE.txt),
+  [`openai-docs notice`](../skills/openai-docs/LICENSE.txt),
+  [`security-best-practices notice`](../skills/security-best-practices/LICENSE.txt),
+  and [`skill-installer notice`](../skills/skill-installer/LICENSE.txt).
