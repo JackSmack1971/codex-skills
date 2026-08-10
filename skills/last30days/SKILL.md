@@ -6,6 +6,9 @@ license: MIT
 
 # last30days
 
+Source and runtime behavior can change. Verify the bundled engine and each
+live source contract before treating research results as current.
+
 Use the bundled engine and keep the trigger surface thin.
 
 ## What to read

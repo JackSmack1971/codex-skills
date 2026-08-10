@@ -5,6 +5,9 @@ description: "Build production-ready design systems with Tailwind CSS, including
 
 # Tailwind Design System
 
+Before using version-sensitive utilities or configuration, detect the
+project's Tailwind version and consult current Tailwind documentation.
+
 Build production-ready design systems with Tailwind CSS, including design tokens, component variants, responsive patterns, and accessibility.
 
 ## Use this skill when

@@ -5,6 +5,9 @@ description: Use to create or update a Codex plugin, its `.codex-plugin/plugin.j
 
 # Plugin Creator
 
+Before relying on manifest fields, commands, or packaging behavior, detect the
+installed tooling and verify the current plugin contract.
+
 ## Quick Start
 
 1. Run the scaffold script:

@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "last_updated": "2026-08-10",
+  "skills": {
+    "changelog-updater": {
+      "status": "version-sensitive",
+      "technology": ["Git"],
+      "checked_version": "repository guidance; Git version unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Detect the installed Git version before relying on command behavior.",
+      "references": ["skills/changelog-updater/SKILL.md"]
+    },
+    "context-doctor": {
+      "status": "version-sensitive",
+      "technology": ["Codex CLI", "Python"],
+      "checked_version": "Codex CLI unspecified; Python 3.11+",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Detect Codex CLI and Python versions and inspect current local configuration before applying guidance.",
+      "references": ["skills/context-doctor/SKILL.md"]
+    },
+    "context7-skill-wizard": {
+      "status": "version-sensitive",
+      "technology": ["Context7", "Codex CLI", "Python"],
+      "checked_version": "Context7 and Codex CLI unspecified; Python 3.11+",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Resolve the current library documentation and detect the local CLI/runtime before generating a skill.",
+      "references": ["skills/context7-skill-wizard/SKILL.md"]
+    },
+    "generate-codeowners": {
+      "status": "version-sensitive",
+      "technology": ["Git", "GitHub CLI"],
+      "checked_version": "Git and GitHub CLI unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Detect available GitHub CLI behavior and verify ownership data against the live repository before writing.",
+      "references": ["skills/generate-codeowners/SKILL.md"]
+    },
+    "github-issue-to-pr": {
+      "status": "version-sensitive",
+      "technology": ["Git", "GitHub CLI", "GitHub"],
+      "checked_version": "GitHub CLI and GitHub API unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Inspect current repository and GitHub CLI/API behavior before changing issue or pull-request state.",
+      "references": ["skills/github-issue-to-pr/SKILL.md"]
+    },
+    "imagegen": {
+      "status": "version-sensitive",
+      "technology": ["Image generation runtime"],
+      "checked_version": "unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Confirm the available image-generation tool contract before using provider-specific options.",
+      "references": ["skills/imagegen/SKILL.md"]
+    },
+    "integration-engineering": {
+      "status": "version-sensitive",
+      "technology": ["External APIs", "SDKs", "OAuth providers"],
+      "checked_version": "provider-specific; unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Read current authoritative provider documentation for the exact integration surface before implementation.",
+      "references": ["skills/integration-engineering/SKILL.md"]
+    },
+    "last30days": {
+      "status": "version-sensitive",
+      "technology": ["Reddit", "X", "YouTube", "TikTok", "Hacker News", "Polymarket", "GitHub", "web sources"],
+      "checked_version": "provider-specific; unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Run the bundled engine and verify each live source/API contract before research.",
+      "references": ["skills/last30days/SKILL.md"]
+    },
+    "maintaining-repository-hygiene": {
+      "status": "version-sensitive",
+      "technology": ["Git", "GitHub CLI", "GitHub"],
+      "checked_version": "GitHub CLI and GitHub API unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Inspect current repository state and live GitHub capabilities before applying governance changes.",
+      "references": ["skills/maintaining-repository-hygiene/SKILL.md"]
+    },
+    "openai-docs": {
+      "status": "version-sensitive",
+      "technology": ["OpenAI products", "OpenAI APIs", "Codex"],
+      "checked_version": "current official documentation required; model/version unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Use current official OpenAI documentation for the exact product, model, API, or CLI surface.",
+      "references": ["skills/openai-docs/SKILL.md"]
+    },
+    "plugin-creator": {
+      "status": "version-sensitive",
+      "technology": ["Codex plugins", "Python"],
+      "checked_version": "Codex plugin manifest unspecified; Python version unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Validate the manifest against the installed Codex/plugin tooling before packaging or publishing.",
+      "references": ["skills/plugin-creator/SKILL.md"]
+    },
+    "pr-review": {
+      "status": "version-sensitive",
+      "technology": ["Git", "GitHub CLI", "GitHub"],
+      "checked_version": "GitHub CLI and GitHub API unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Inspect current Git and GitHub review interfaces before collecting or submitting review data.",
+      "references": ["skills/pr-review/SKILL.md"]
+    },
+    "read-the-damn-docs": {
+      "status": "version-sensitive",
+      "technology": ["Third-party APIs", "libraries", "frameworks", "CLIs", "cloud services"],
+      "checked_version": "surface-specific; unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Identify the exact installed or target version and read current authoritative documentation before relying on behavior.",
+      "references": ["skills/read-the-damn-docs/SKILL.md"]
+    },
+    "skill-creator": {
+      "status": "version-sensitive",
+      "technology": ["Codex skills", "Codex CLI", "Python"],
+      "checked_version": "Codex skill contract unspecified; Python 3.11+",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Inspect the current skill contract and detect the local CLI/runtime before authoring or validating a skill.",
+      "references": ["skills/skill-creator/SKILL.md"]
+    },
+    "skill-installer": {
+      "status": "version-sensitive",
+      "technology": ["Codex CLI", "GitHub"],
+      "checked_version": "Codex CLI and GitHub behavior unspecified",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Verify the current install command and source repository contract before installing a skill.",
+      "references": ["skills/skill-installer/SKILL.md"]
+    },
+    "tailwind-design-system": {
+      "status": "version-sensitive",
+      "technology": ["Tailwind CSS"],
+      "checked_version": "unspecified; detect project Tailwind version",
+      "last_verified": "2026-08-10",
+      "runtime_detection_required": true,
+      "verification": "Detect the project's Tailwind version and consult current Tailwind documentation before using version-sensitive configuration or utilities.",
+      "references": ["skills/tailwind-design-system/SKILL.md"]
+    }
+  },
+  "exemptions": {
+      "acceptance-criteria": {"status": "exempt", "exemption": "Self-contained requirements-writing method; no external runtime contract.", "references": ["skills/acceptance-criteria/SKILL.md"]},
+      "api-design": {"status": "exempt", "exemption": "Protocol-agnostic design method; it does not prescribe a current API implementation.", "references": ["skills/api-design/SKILL.md"]},
+      "architecture": {"status": "exempt", "exemption": "Self-contained architecture method.", "references": ["skills/architecture/SKILL.md"]},
+      "brainstorming-ux-features": {"status": "exempt", "exemption": "Repository-grounded product method; no external product behavior is prescribed.", "references": ["skills/brainstorming-ux-features/SKILL.md"]},
+      "data-modeling": {"status": "exempt", "exemption": "Technology-neutral data modeling method.", "references": ["skills/data-modeling/SKILL.md"]},
+      "database-migrations": {"status": "exempt", "exemption": "Technology-neutral migration planning method; repository tooling is inspected at use time.", "references": ["skills/database-migrations/SKILL.md"]},
+      "design-md-ideator": {"status": "exempt", "exemption": "Design artifact method; integrations are optional and version lookup is delegated to the target tool.", "references": ["skills/design-md-ideator/SKILL.md"]},
+      "efficient-frontier": {"status": "exempt", "exemption": "Delegation and review method; no external API or CLI syntax is prescribed.", "references": ["skills/efficient-frontier/SKILL.md"]},
+      "feature-implementation": {"status": "exempt", "exemption": "Repository-local implementation method.", "references": ["skills/feature-implementation/SKILL.md"]},
+      "generating-readmes": {"status": "exempt", "exemption": "Repository-local documentation method.", "references": ["skills/generating-readmes/SKILL.md"]},
+      "git-commit": {"status": "exempt", "exemption": "Commit intent and message method; exact Git behavior is delegated to git-workflow and local Git checks.", "references": ["skills/git-commit/SKILL.md"]},
+      "git-workflow": {"status": "exempt", "exemption": "Procedural Git method with repository-local verification; no pinned version behavior is claimed.", "references": ["skills/git-workflow/SKILL.md"]},
+      "grill-me": {"status": "exempt", "exemption": "Conversation alias with no external runtime contract.", "references": ["skills/grill-me/SKILL.md"]},
+      "grilling": {"status": "exempt", "exemption": "Conversation method with no external runtime contract.", "references": ["skills/grilling/SKILL.md"]},
+      "improve": {"status": "exempt", "exemption": "Repository audit method; findings require local evidence.", "references": ["skills/improve/SKILL.md"]},
+      "intent-layer": {"status": "exempt", "exemption": "Repository documentation method; local file conventions are inspected at use time.", "references": ["skills/intent-layer/SKILL.md"]},
+      "mvp-scope": {"status": "exempt", "exemption": "Product scoping method with no external runtime contract.", "references": ["skills/mvp-scope/SKILL.md"]},
+      "product-discovery": {"status": "exempt", "exemption": "Product discovery method with no external runtime contract.", "references": ["skills/product-discovery/SKILL.md"]},
+      "product-spec": {"status": "exempt", "exemption": "Product specification method with no external runtime contract.", "references": ["skills/product-spec/SKILL.md"]},
+      "review-agent": {"status": "exempt", "exemption": "Read-only review method; repository evidence is authoritative.", "references": ["skills/review-agent/SKILL.md"]},
+      "security-best-practices": {"status": "exempt", "exemption": "This skill routes framework-specific guidance to authoritative documentation rather than pinning behavior.", "references": ["skills/security-best-practices/SKILL.md"]},
+      "simplification-cascades": {"status": "exempt", "exemption": "Repository-local refactoring method.", "references": ["skills/simplification-cascades/SKILL.md"]},
+      "skill-auditor": {"status": "exempt", "exemption": "Skill audit method; it evaluates supplied artifacts rather than claiming current external behavior.", "references": ["skills/skill-auditor/SKILL.md"]},
+      "stack-detection": {"status": "exempt", "exemption": "Local stack inspection method; detected versions are evidence at use time.", "references": ["skills/stack-detection/SKILL.md"]},
+      "stay-within-limits": {"status": "exempt", "exemption": "Usage-limit monitoring method; provider-specific tooling is explicitly detected at use time.", "references": ["skills/stay-within-limits/SKILL.md"]},
+      "systematic-debugging": {"status": "exempt", "exemption": "Technology-neutral debugging method.", "references": ["skills/systematic-debugging/SKILL.md"]},
+      "taste-engine": {"status": "exempt", "exemption": "Opt-in preference application method with user-supplied data.", "references": ["skills/taste-engine/SKILL.md"]},
+      "test-driven-development": {"status": "exempt", "exemption": "Testing method; the project runner is detected at use time.", "references": ["skills/test-driven-development/SKILL.md"]},
+      "testing-qa": {"status": "exempt", "exemption": "QA method that explicitly uses the existing project tooling.", "references": ["skills/testing-qa/SKILL.md"]},
+      "using-git-worktrees": {"status": "exempt", "exemption": "Repository-local isolation method; exact Git behavior is checked at use time.", "references": ["skills/using-git-worktrees/SKILL.md"]},
+      "vertical-slice": {"status": "exempt", "exemption": "Cross-layer planning method; implementation contracts are inspected locally.", "references": ["skills/vertical-slice/SKILL.md"]},
+      "visual-plan": {"status": "exempt", "exemption": "Planning artifact method with no external runtime contract.", "references": ["skills/visual-plan/SKILL.md"]},
+      "visual-recap": {"status": "exempt", "exemption": "Repository evidence presentation method with no external runtime contract.", "references": ["skills/visual-recap/SKILL.md"]},
+      "writing-plans": {"status": "exempt", "exemption": "Repository-local planning method; local Python tooling is verified at use time.", "references": ["skills/writing-plans/SKILL.md"]}
+  }
+}

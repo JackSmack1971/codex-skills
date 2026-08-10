@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.validate_repository import validate
+from scripts.validate_repository import validate, validate_freshness
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_repository.py"
 
@@ -32,6 +32,39 @@ class RepositoryValidatorTests(unittest.TestCase):
     def assert_cli_fails(self, root: Path) -> None:
         result = subprocess.run([sys.executable, str(SCRIPT), str(root)], capture_output=True, text=True, check=False)
         self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_valid_freshness_registry_passes(self) -> None:
+        root = Path(tempfile.mkdtemp())
+        self.addCleanup(lambda: __import__("shutil").rmtree(root, ignore_errors=True))
+        skill = root / "skills" / "one"
+        skill.mkdir(parents=True)
+        (skill / "SKILL.md").write_text("# One\n", encoding="utf-8")
+        (root / "docs").mkdir()
+        (root / "docs" / "skill-freshness.json").write_text(json.dumps({
+            "version": 1,
+            "last_updated": "2026-01-01",
+            "skills": {},
+            "exemptions": {"one": {"status": "exempt", "exemption": "local method", "references": ["skills/one/SKILL.md"]}},
+        }), encoding="utf-8")
+        self.assertEqual(validate_freshness(root, {"one"}), [])
+
+    def test_freshness_registry_rejects_bad_date_and_reference(self) -> None:
+        root = Path(tempfile.mkdtemp())
+        self.addCleanup(lambda: __import__("shutil").rmtree(root, ignore_errors=True))
+        (root / "docs").mkdir()
+        (root / "docs" / "skill-freshness.json").write_text(json.dumps({
+            "version": 1,
+            "last_updated": "not-a-date",
+            "skills": {"one": {
+                "status": "version-sensitive", "technology": ["Tool"], "checked_version": "unknown",
+                "last_verified": "2026-01-01", "runtime_detection_required": True,
+                "verification": "probe", "references": ["skills/one/SKILL.md"],
+            }},
+            "exemptions": {},
+        }), encoding="utf-8")
+        errors = validate_freshness(root, {"one"})
+        self.assertTrue(any("last_updated" in error for error in errors))
+        self.assertTrue(any("missing reference" in error for error in errors))
 
     def test_missing_relative_reference_fails(self) -> None:
         errors = validate(self.make_repo({"one": "[missing](references/nope.md)"}))
