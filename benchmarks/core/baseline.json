@@ -1,0 +1,38 @@
+{
+  "artifact_policy": "metadata-only: no response bodies, transcripts, secrets, or rollout data",
+  "deterministic": {
+    "cases": 69,
+    "errors": [],
+    "skills": 23,
+    "status": "pass"
+  },
+  "generated_at_utc": "2026-08-10T06:53:47.923170+00:00",
+  "manifest": "benchmarks/core/manifest.json",
+  "measurement_modes": {
+    "explicit_invocation": {
+      "criteria": "exit_code == 0; response reviewed by a human",
+      "failed": 0,
+      "model_runtime": "codex-cli 0.147.0",
+      "passed": 1,
+      "results": [
+        {
+          "exit_code": 0,
+          "response_chars": 1723,
+          "response_sha256": "8d65da8acde67d9fe8d1e739cd71ec31ffbb23c014ff287ce87f1fe416e0b4f6",
+          "status": "pass"
+        }
+      ],
+      "run_count": 1,
+      "skill": "acceptance-criteria",
+      "status": "measured",
+      "task_id": "acceptance-criteria-positive",
+      "uncertainty": "One sample is a baseline, not a trigger-accuracy estimate."
+    },
+    "implicit_selection": {
+      "measurement": "unreported",
+      "reason": "The local Codex exec JSONL stream does not expose which skill was selected.",
+      "status": "unavailable"
+    }
+  },
+  "schema_version": 1
+}
