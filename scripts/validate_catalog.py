@@ -24,6 +24,20 @@ REQUIRED = {
     "destructive_actions",
     "validation_artifacts",
 }
+STRING_FIELDS = {
+    "name",
+    "path",
+    "description",
+    "category",
+    "lifecycle_stage",
+    "capability_level",
+}
+LIST_FIELDS = {
+    "dependencies",
+    "related_skills",
+    "destructive_actions",
+    "validation_artifacts",
+}
 
 
 def frontmatter_name(path: Path) -> str | None:
@@ -56,22 +70,39 @@ def main() -> int:
         print("catalog must contain a skills list")
         return 1
 
-    names = [r.get("name") for r in records if isinstance(r, dict)]
-    paths = [r.get("path") for r in records if isinstance(r, dict)]
+    valid_records: list[dict] = []
+    for index, record in enumerate(records):
+        if not isinstance(record, dict):
+            errors.append(f"record {index}: must be an object")
+            continue
+        missing = REQUIRED - record.keys()
+        if missing:
+            errors.append(f"{record.get('name', '<unknown>')}: missing {sorted(missing)}")
+            continue
+        bad_types = [field for field in STRING_FIELDS if not isinstance(record[field], str)]
+        bad_types.extend(field for field in LIST_FIELDS if not isinstance(record[field], list))
+        if bad_types:
+            errors.append(f"{record.get('name', '<unknown>')}: invalid types for {sorted(bad_types)}")
+            continue
+        bad_items = [
+            field
+            for field in LIST_FIELDS
+            if any(not isinstance(item, str) for item in record[field])
+        ]
+        if bad_items:
+            errors.append(f"{record['name']}: list items must be strings in {sorted(bad_items)}")
+            continue
+        valid_records.append(record)
+
+    names = [r["name"] for r in valid_records]
+    paths = [r["path"] for r in valid_records]
     if len(names) != len(set(names)):
         errors.append("duplicate catalog names")
     if len(paths) != len(set(paths)):
         errors.append("duplicate catalog paths")
     catalog_names = set(names)
     aliases: dict[str, str] = {}
-    for record in records:
-        if not isinstance(record, dict):
-            errors.append("non-object catalog record")
-            continue
-        missing = REQUIRED - record.keys()
-        if missing:
-            errors.append(f"{record.get('name', '<unknown>')}: missing {sorted(missing)}")
-            continue
+    for record in valid_records:
         name = record["name"]
         path = record["path"]
         if name not in actual:
@@ -90,7 +121,17 @@ def main() -> int:
                 if ref not in catalog_names:
                     errors.append(f"{name}: nonexistent referenced skill {ref}")
         for artifact in record["validation_artifacts"]:
-            if not (ROOT / artifact).is_file():
+            artifact_path = Path(artifact)
+            if artifact_path.is_absolute():
+                errors.append(f"{name}: validation artifact must be relative {artifact}")
+                continue
+            resolved = (ROOT / artifact_path).resolve()
+            try:
+                resolved.relative_to(ROOT.resolve())
+            except ValueError:
+                errors.append(f"{name}: validation artifact escapes repository {artifact}")
+                continue
+            if not resolved.is_file():
                 errors.append(f"{name}: nonexistent validation artifact {artifact}")
         for alias in record.get("aliases", []):
             if not isinstance(alias, str) or not alias.strip():
