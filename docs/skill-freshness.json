@@ -143,8 +143,8 @@
       "checked_version": "unspecified; detect project Tailwind version",
       "last_verified": "2026-08-10",
       "runtime_detection_required": true,
-      "verification": "Detect the project's Tailwind version and consult current Tailwind documentation before using version-sensitive configuration or utilities.",
-      "references": ["skills/tailwind-design-system/SKILL.md"]
+      "verification": "Detect Tailwind major version from package metadata and corroborating repository evidence; use the matching v3/v4 playbook and consult current Tailwind documentation before version-sensitive guidance.",
+      "references": ["skills/tailwind-design-system/SKILL.md", "skills/tailwind-design-system/resources/implementation-playbook.md"]
     }
   },
   "exemptions": {
