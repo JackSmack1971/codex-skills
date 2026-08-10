@@ -1,5 +1,19 @@
 {
   "version": 1,
+  "front_doors": {
+    "discover": {"owner":"product-discovery","description":"Clarify the problem, user, evidence, and scope.","skills":["product-discovery","brainstorming-ux-features","last30days","mvp-scope","grill-me","grilling"]},
+    "specify": {"owner":"product-spec","description":"Turn intent into behavior, acceptance criteria, and plans.","skills":["product-spec","acceptance-criteria","writing-plans","visual-plan","taste-engine"]},
+    "design": {"owner":"architecture","description":"Shape system, API, data, integration, and visual boundaries.","skills":["architecture","api-design","data-modeling","design-md-ideator","stack-detection","tailwind-design-system"]},
+    "build": {"owner":"feature-implementation","description":"Implement the requested product change.","skills":["feature-implementation","vertical-slice","database-migrations","integration-engineering","imagegen"]},
+    "verify": {"owner":"testing-qa","description":"Test, diagnose, and secure a change.","skills":["testing-qa","test-driven-development","systematic-debugging","security-best-practices","simplification-cascades"]},
+    "review": {"owner":"review-agent","description":"Inspect changes and merge risk.","skills":["review-agent","pr-review","visual-recap"]},
+    "release": {"owner":"github-issue-to-pr","description":"Move work through isolation, commits, and pull requests.","skills":["github-issue-to-pr","using-git-worktrees","git-commit","git-workflow"]},
+    "maintain": {"owner":"maintaining-repository-hygiene","description":"Keep history, documentation, and repository governance healthy.","skills":["maintaining-repository-hygiene","changelog-updater","generating-readmes","generate-codeowners"]},
+    "improve": {"owner":"improve","description":"Find evidence-backed repository improvements.","skills":["improve"]},
+    "extend-skills": {"owner":"skill-creator","description":"Author, audit, generate, and distribute skills.","skills":["skill-creator","skill-auditor","context7-skill-wizard","skill-installer","plugin-creator"]},
+    "configure-codex": {"owner":"context-doctor","description":"Inspect Codex context and control-plane behavior.","skills":["context-doctor","intent-layer","openai-docs","read-the-damn-docs"]},
+    "orchestrate": {"owner":"efficient-frontier","description":"Coordinate delegated work and usage limits.","skills":["efficient-frontier","stay-within-limits"]}
+  },
   "skills": [
     {"name":"acceptance-criteria","path":"skills/acceptance-criteria/SKILL.md","description":"Turn ambiguous requirements into observable pass/fail acceptance criteria.","category":"product","lifecycle_stage":"specification","dependencies":[],"related_skills":["product-spec","testing-qa"],"capability_level":"prompt-only","destructive_actions":[],"validation_artifacts":[]},
     {"name":"api-design","path":"skills/api-design/SKILL.md","description":"Design or review API contracts, schemas, errors, authorization, pagination, idempotency, and versioning.","category":"architecture","lifecycle_stage":"architecture","dependencies":[],"related_skills":["product-spec","data-modeling","integration-engineering"],"capability_level":"prompt-only","destructive_actions":[],"validation_artifacts":[]},

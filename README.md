@@ -66,13 +66,30 @@ bundled executable artifact, while `script-backed`, `evaluated`, and `tested`
 indicate progressively richer supporting evidence. These labels describe
 available validation, not a guarantee of output quality.
 
-## Recommended starting set
+## Front-door set
 
-Start with these general-purpose Core skills, then add a specialist when the
-task calls for one:
+Start with one lifecycle-oriented domain, then follow its default owner or
+choose a named specialist. Ownership is maintained once in the machine-
+readable catalog; precedence remains canonical in the routing guide.
 
-`product-discovery` → `product-spec` → `writing-plans` →
-`feature-implementation` → `testing-qa` → `review-agent` → `git-workflow`
+| Domain | Default owner | Use for |
+|---|---|---|
+| Discover | `product-discovery` | Problems, users, evidence, and scope |
+| Specify | `product-spec` | Behavior, acceptance criteria, and plans |
+| Design | `architecture` | System, API, data, integration, and visual boundaries |
+| Build | `feature-implementation` | Product implementation |
+| Verify | `testing-qa` | Tests, diagnosis, and security |
+| Review | `review-agent` | Change and merge-risk review |
+| Release | `github-issue-to-pr` | Isolation, commits, and pull requests |
+| Maintain | `maintaining-repository-hygiene` | History, docs, and governance |
+| Improve | `improve` | Evidence-backed repository improvement |
+| Extend skills | `skill-creator` | Skill authoring and distribution |
+| Configure Codex | `context-doctor` | Codex context and control-plane behavior |
+| Orchestrate | `efficient-frontier` | Delegated work and usage limits |
+
+The complete 50-skill catalog follows below. Explicit specialist nouns still
+override broad lifecycle routing: PR review, TDD, vertical slices, worktrees,
+skill audits, Codex audits, Context7 skill generation, and plugin packaging.
 
 Use `systematic-debugging` when something fails, `acceptance-criteria` when
 behavior needs an observable contract, and `read-the-damn-docs` when a

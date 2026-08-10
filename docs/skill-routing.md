@@ -8,6 +8,30 @@ delegation does not change the primary route.
 The overlap and compatibility decisions behind these boundaries are documented
 in [`skill-consolidation.md`](skill-consolidation.md).
 
+## Front-door set
+
+Choose a lifecycle domain first when a request does not name a specialist.
+Ownership is declared once in [`skills/catalog.json`](../skills/catalog.json),
+where every skill belongs to exactly one domain; the owner is the default
+entrypoint. The precedence rules below remain canonical for explicit nouns.
+
+| Domain | Default owner | Scope |
+|---|---|---|
+| Discover | `product-discovery` | Problems, users, evidence, and scope |
+| Specify | `product-spec` | Behavior, acceptance criteria, and plans |
+| Design | `architecture` | System, API, data, integration, and visual boundaries |
+| Build | `feature-implementation` | Product implementation |
+| Verify | `testing-qa` | Tests, diagnosis, and security |
+| Review | `review-agent` | Change and merge-risk review |
+| Release | `github-issue-to-pr` | Isolation, commits, and pull requests |
+| Maintain | `maintaining-repository-hygiene` | History, docs, and governance |
+| Improve | `improve` | Evidence-backed repository improvement |
+| Extend skills | `skill-creator` | Skill authoring and distribution |
+| Configure Codex | `context-doctor` | Codex context and control-plane behavior |
+| Orchestrate | `efficient-frontier` | Delegated work and usage limits |
+
+Front doors are navigation only. Named specialists remain directly invokable.
+
 ## Review
 
 | Skill | Use when | Do not use when | Delegates/composes with | Precedence |

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "contract": "explicit specialist nouns override a broad lifecycle front door",
+  "cases": [
+    {"id":"pr-review-over-review","front_door":"review","broad":"review this change","explicit":"Review pull request 42 and prepare merge-risk findings.","expected_skill":"pr-review"},
+    {"id":"tdd-over-verify","front_door":"verify","broad":"verify this feature","explicit":"Use a red-green-refactor TDD cycle for this feature.","expected_skill":"test-driven-development"},
+    {"id":"vertical-slice-over-build","front_door":"build","broad":"build this feature","explicit":"Trace one user action end to end across UI, API, and persistence.","expected_skill":"vertical-slice"},
+    {"id":"worktrees-over-release","front_door":"release","broad":"prepare this work for release","explicit":"Create and verify an isolated Git worktree.","expected_skill":"using-git-worktrees"},
+    {"id":"skill-audit-over-extend","front_door":"extend-skills","broad":"improve the skill collection","explicit":"Audit SKILL.md metadata and multi-skill routing handoffs.","expected_skill":"skill-auditor"},
+    {"id":"codex-audit-over-configure","front_door":"configure-codex","broad":"configure Codex","explicit":"Audit Codex hooks, MCP, and control-plane settings.","expected_skill":"context-doctor"},
+    {"id":"context7-over-extend","front_door":"extend-skills","broad":"create a skill","explicit":"Build a skill for React using current Context7 docs.","expected_skill":"context7-skill-wizard"},
+    {"id":"plugin-over-extend","front_door":"extend-skills","broad":"create a skill package","explicit":"Create a Codex plugin with a plugin.json manifest.","expected_skill":"plugin-creator"}
+  ]
+}

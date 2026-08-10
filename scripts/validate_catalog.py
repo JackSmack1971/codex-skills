@@ -69,6 +69,11 @@ def main() -> int:
     if not isinstance(records, list):
         print("catalog must contain a skills list")
         return 1
+    front_doors = data.get("front_doors") if isinstance(data, dict) else None
+    if not isinstance(front_doors, dict) or not (10 <= len(front_doors) <= 15):
+        errors = ["catalog front_doors must declare 10 to 15 domains"]
+    else:
+        errors = []
 
     valid_records: list[dict] = []
     for index, record in enumerate(records):
@@ -101,6 +106,26 @@ def main() -> int:
     if len(paths) != len(set(paths)):
         errors.append("duplicate catalog paths")
     catalog_names = set(names)
+    if isinstance(front_doors, dict):
+        owned: dict[str, list[str]] = {}
+        for domain, declaration in front_doors.items():
+            if not isinstance(domain, str) or not isinstance(declaration, dict):
+                errors.append(f"invalid front-door declaration: {domain}")
+            elif declaration.get("owner") not in catalog_names:
+                errors.append(f"front door {domain}: owner is not a catalog skill")
+            elif not isinstance(declaration.get("skills"), list):
+                errors.append(f"front door {domain}: skills must be a list")
+            else:
+                for skill in declaration["skills"]:
+                    owned.setdefault(skill, []).append(domain)
+        for skill in catalog_names:
+            if owned.get(skill, []) and len(owned[skill]) != 1:
+                errors.append(f"{skill}: must map to exactly one front door")
+            elif not owned.get(skill):
+                errors.append(f"{skill}: missing front-door mapping")
+        for skill in owned:
+            if skill not in catalog_names:
+                errors.append(f"front door mapping references unknown skill {skill}")
     aliases: dict[str, str] = {}
     for record in valid_records:
         name = record["name"]
