@@ -1,7 +1,6 @@
 # Verification
 
-- Source package: `.claude/skills/systematic-debugging/`.
-- Target package: `.agents/skills/systematic-debugging/`.
+- Migrated package: `.agents/skills/systematic-debugging/`.
 - Preserved the debugging workflow, reference documents, TypeScript example, and pressure tests.
 - Omitted `CREATION-LOG.md` because it is provenance about the source runtime, not operational skill behavior.
 - Replaced Bash `find-polluter.sh` with standard-library Python `scripts/find_polluter.py`.
