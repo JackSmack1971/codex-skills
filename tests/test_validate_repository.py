@@ -64,6 +64,28 @@ class RepositoryValidatorTests(unittest.TestCase):
         errors = validate(root)
         self.assertTrue(any("invalid provenance status" in error for error in errors))
 
+    def test_duplicate_core_trigger_declaration_fails(self) -> None:
+        root = self.make_repo({"one": "## Minimum contract\n\n- **Trigger and exclusion:** one\n- **Trigger and exclusion:** two\n"})
+        (root / "docs").mkdir()
+        (root / "docs" / "skill-inventory.md").write_text(
+            "| Name | Purpose | Primary trigger / use case | Maturity | Implementation depth | Evaluation level | Provenance | Overlapping / adjacent skills |\n"
+            "|---|---|---|---|---|---|---|---|\n| `one` | x | x | Core | prompt-only | none | unknown | — |\n",
+            encoding="utf-8",
+        )
+        errors = validate(root)
+        self.assertTrue(any("exactly one Trigger and exclusion" in error for error in errors))
+
+    def test_malformed_core_contract_bullet_fails(self) -> None:
+        root = self.make_repo({"one": "## Minimum contract\n\n - **Trigger and exclusion:** one\n"})
+        (root / "docs").mkdir()
+        (root / "docs" / "skill-inventory.md").write_text(
+            "| Name | Purpose | Primary trigger / use case | Maturity | Implementation depth | Evaluation level | Provenance | Overlapping / adjacent skills |\n"
+            "|---|---|---|---|---|---|---|---|\n| `one` | x | x | Core | prompt-only | none | unknown | — |\n",
+            encoding="utf-8",
+        )
+        errors = validate(root)
+        self.assertTrue(any("malformed leading whitespace" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

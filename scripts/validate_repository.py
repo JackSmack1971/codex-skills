@@ -226,8 +226,20 @@ def validate(root: Path) -> list[str]:
     for name in sorted(core):
         metadata = evaluation.get(name, {})
         skill_text = (root / f"skills/{name}/SKILL.md").read_text(encoding="utf-8") if (root / f"skills/{name}/SKILL.md").is_file() else ""
-        if "## Minimum contract" not in skill_text:
+        contract_match = re.search(r"^## Minimum contract\n(?P<body>.*?)(?=^## |\Z)", skill_text, re.M | re.S)
+        if not contract_match:
             errors.append(f"Core skill {name}: minimum contract is missing from SKILL.md")
+            contract = ""
+        else:
+            contract = contract_match.group("body")
+            trigger_count = len(re.findall(r"^[- ]+\*\*Trigger and exclusion:\*\*", contract, re.M))
+            if trigger_count != 1:
+                errors.append(f"Core skill {name}: minimum contract must contain exactly one Trigger and exclusion declaration")
+            malformed = [line for line in contract.splitlines() if line and line[0].isspace() and line.lstrip().startswith("-")]
+            if malformed:
+                errors.append(f"Core skill {name}: minimum contract has malformed leading whitespace on a bullet")
+            if any(line and not line.startswith("- ") and re.match(r"\s*\*\*[A-Za-z/-]+:\*\*", line) for line in contract.splitlines()):
+                errors.append(f"Core skill {name}: minimum contract labels must use Markdown list bullets")
         labels = {
             "trigger": r"\*\*Trigger and exclusion:\*\*",
             "inputs": r"\*\*Inputs:\*\*",
@@ -240,7 +252,11 @@ def validate(root: Path) -> list[str]:
             "references": r"\*\*References:\*\*",
         }
         for dimension, pattern in labels.items():
-            if not re.search(pattern, skill_text):
+            if dimension in {"inputs", "failure-stop", "security", "evaluation", "runtime-claims", "references"}:
+                present = re.search(pattern, contract) or re.search(r"^[- ]+\*\*Shared baseline:\*\*", contract, re.M)
+            else:
+                present = re.search(pattern, contract)
+            if not present:
                 errors.append(f"Core skill {name}: missing quality dimension {dimension}")
         if metadata.get("level") == "none":
             errors.append(f"Core skill {name}: evaluation level cannot be none")
