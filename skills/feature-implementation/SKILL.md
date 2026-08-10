@@ -1,6 +1,6 @@
 ---
 name: feature-implementation
-description: Implement a specified feature as the smallest verified vertical change in an existing codebase. Use when a user asks to build, add, or implement product behavior from requirements or an issue.
+description: Implement specified product behavior as the smallest verified change in an existing codebase. Use after requirements are concrete when the request is not primarily a cross-layer slice plan, an explicit red-green-refactor TDD cycle, or QA-only verification; compose those narrower skills when requested.
 compatibility: Requires a readable repository and its available local toolchain.
 ---
 
@@ -25,3 +25,7 @@ existing repository conventions and dependencies.
 Do not invent product scope, broad refactors, abstractions for one use, or new
 dependencies without need. Stop and ask when requirements conflict or a safe
 data migration is required but not specified.
+
+Use `vertical-slice` when the request centers on one user action crossing UI,
+service/API, persistence, and verification. Use `test-driven-development` for
+an explicit red-green-refactor constraint and `testing-qa` for QA without TDD.

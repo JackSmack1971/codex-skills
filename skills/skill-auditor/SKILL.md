@@ -1,6 +1,6 @@
 ---
 name: skill-auditor
-description: Audits Open Agent skills and multi-skill workflows for discovery failures, rule drift, unsupported claims, integration friction, token waste, unsafe behavior, and missing validation. Use when asked to audit a skill, review SKILL.md, diagnose skill enforcement gaps, inspect skill handoffs, self-audit a meta-skill, or produce an evidence-based remediation plan without modifying files.
+description: Use to audit Open Agent skill packages, SKILL.md metadata, or multi-skill handoffs for discovery failures, routing drift, unsupported claims, integration friction, unsafe behavior, token waste, and missing validation. Do not use for broad repository improvement audits or Codex control-plane loading; use improve or context-doctor respectively.
 ---
 
 # Skill Auditor
@@ -217,6 +217,10 @@ When remediation is requested:
 - hand execution to an available skill-authoring or file-editing capability.
 
 Do not hard-code a dependency on a skill named `skill-creator`; capabilities and names vary by surface.
+
+Use `improve` for a broad repository audit and `context-doctor` for Codex
+control-plane files or runtime loading. If remediation is authorized, compose
+with `skill-creator`; this skill remains the audit and evidence owner.
 
 ## Special cases
 
