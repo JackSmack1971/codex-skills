@@ -13,4 +13,6 @@ exists today, not expected quality or trigger accuracy.
 
 Manual scenarios remain separate from executable tests. The repository makes
 no claim about implicit skill selection unless a runtime measurement exists.
+The delivery validators cover objective artifact invariants only; judgment-heavy
+quality such as prioritization, wording, and review completeness remains manual.
 Scores and benchmark results are not recorded here.

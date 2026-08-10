@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "skill": "product-discovery",
+      "artifact": {
+        "problem": "Parents cannot see school deadlines in one place.",
+        "target_user": "Parents managing multiple school-age children.",
+        "evidence": ["Three support tickets report missed deadlines."],
+        "assumptions": ["A consolidated view reduces missed deadlines."],
+        "riskiest_assumptions": ["Parents will check a consolidated view weekly."],
+        "experiments": [{"signal": "Weekly return rate", "decision_rule": "Continue if >= 40% return."}],
+        "solution_design": null
+      }
+    },
+    {
+      "skill": "product-spec",
+      "artifact": {
+        "sections": ["User", "Problem", "Journey", "Functional Requirements", "Non-Functional Requirements", "States and Errors", "Permissions", "Acceptance Criteria", "Analytics", "Out of Scope", "Open Questions"],
+        "states": ["loading", "empty", "success", "failure", "retry", "recovery"],
+        "acceptance_criteria": [{"given": "a member", "when": "they share an expense", "then": "the group balance updates"}],
+        "technology_choice": null
+      }
+    },
+    {
+      "skill": "acceptance-criteria",
+      "artifact": {
+        "criteria": [{"given": "the user is signed in", "when": "they submit a valid reminder", "then": "the reminder appears in the list"}],
+        "trace": [{"criterion": 1, "requirement": "Create reminder"}],
+        "assumptions": [],
+        "implementation_steps": null
+      }
+    },
+    {
+      "skill": "feature-implementation",
+      "artifact": {
+        "specification": "saved-search alert",
+        "callers_inspected": ["search_service", "notification_worker"],
+        "changed_files": ["alerts.py", "test_alerts.py"],
+        "verification": ["python -m unittest tests/test_alerts.py"],
+        "deferred_work": ["email channel"],
+        "conflicting_requirements": null
+      }
+    },
+    {
+      "skill": "testing-qa",
+      "artifact": {
+        "risk": "Uploaded files cross a trust boundary.",
+        "checks": ["unit", "integration", "security", "release"],
+        "tool_status": {"browser_runner": "UNKNOWN: not configured"},
+        "evidence": ["integration upload test passed"],
+        "claimed_pass": false
+      }
+    },
+    {
+      "skill": "review-agent",
+      "artifact": {
+        "findings": [{"severity": "P1", "file": "src/cache.py", "line": 42, "description": "Cache key is not tenant-scoped."}],
+        "ordered_by_severity": true,
+        "read_only": true,
+        "mutations": [],
+        "target_available": true
+      }
+    },
+    {
+      "skill": "git-workflow",
+      "artifact": {
+        "inspection_before_mutation": true,
+        "status": "clean",
+        "refs_inspected": true,
+        "operation": "fast-forward synchronization",
+        "destructive_target_verified": true,
+        "approval": "explicit",
+        "unresolved_operation": null
+      }
+    }
+  ]
+}
