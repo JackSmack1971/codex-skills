@@ -24,6 +24,12 @@ Run the complete offline repository validation with one command:
 python scripts/validate_repository.py
 ```
 
+Run the deterministic Core benchmark with:
+
+```text
+python scripts/run_core_benchmark.py --deterministic-only
+```
+
 The gate is offline and dependency-free. Its tests, including three negative
 fixtures, run with:
 
@@ -60,8 +66,34 @@ task calls for one:
 
 Use `systematic-debugging` when something fails, `acceptance-criteria` when
 behavior needs an observable contract, and `read-the-damn-docs` when a
-third-party technology is involved. The full routing map below is the better
-choice once the task is no longer general-purpose.
+third-party technology is involved. Use the [canonical routing
+guide](docs/skill-routing.md) when adjacent skills overlap.
+
+## Routing rules
+
+Route to the narrowest skill whose primary deliverable matches the request.
+Explicit constraints and deliverables take precedence: PR or merge review
+beats generic review, TDD beats standalone QA, a cross-layer slice beats
+ordinary implementation, and a skill-package or Codex-control-plane audit
+beats a broad repository audit. Compose later skills only when the request
+explicitly contains both scopes. The legacy `grill-me` entry is retained only
+for explicit `/grill-me` compatibility; new stress-test requests use
+`grilling`.
+
+## Validation command center
+
+| Check | Command |
+|---|---|
+| Repository quality gate | `python scripts/validate_repository.py` |
+| Full automated tests | `python -m unittest discover -s tests -v` |
+| Deterministic Core benchmark | `python scripts/run_core_benchmark.py --deterministic-only` |
+| Skill inventory count and coverage | `python scripts/validate_skill_inventory.py` |
+
+The quality gate enforces catalog integrity, inventory coverage, Core contract
+dimensions, evaluation evidence, Python/JSON validity, tracked-artifact
+hygiene, and committed whitespace checks. The benchmark validates positive,
+negative, and ambiguous cases for every Core skill; implicit runtime selection
+is intentionally reported as unavailable until telemetry exists.
 
 ## Maturity and provenance
 
@@ -81,6 +113,11 @@ The inventory records per-skill provenance as `original`, `adapted`,
 `vendored`, or `unknown`, with repository links where evidence exists. The
 repository is licensed under MIT; see [`LICENSE`](LICENSE). Per-skill status
 belongs in the canonical inventory, not in duplicated README claims.
+
+The post-consolidation repository retains all 50 skill entrypoints. The only
+compatibility alias is `grill-me` → `grilling`; no skill is deprecated or
+removed. The canonical human-readable inventory is [`docs/skill-inventory.md`](docs/skill-inventory.md), and it must contain each top-level
+`skills/` directory exactly once.
 
 ## Software-delivery lifecycle
 
