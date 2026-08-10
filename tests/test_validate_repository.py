@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.validate_repository import validate, validate_freshness
+from scripts.validate_repository import CONTROL_PLANE_DIRECTORIES, control_plane_layout_errors, validate, validate_freshness
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_repository.py"
 
@@ -65,6 +65,27 @@ class RepositoryValidatorTests(unittest.TestCase):
         errors = validate_freshness(root, {"one"})
         self.assertTrue(any("last_updated" in error for error in errors))
         self.assertTrue(any("missing reference" in error for error in errors))
+
+    def test_control_plane_directories_are_structural_not_skill_packages(self) -> None:
+        root = self.make_repo({"one": ""})
+        (root / "AGENTS.md").write_text("# Policy\n", encoding="utf-8")
+        for relative in CONTROL_PLANE_DIRECTORIES:
+            (root / relative).mkdir(parents=True, exist_ok=True)
+        local_skill = root / ".agents" / "skills" / "compatibility-example"
+        local_skill.mkdir()
+        (local_skill / "SKILL.md").write_text("not a canonical package", encoding="utf-8")
+
+        self.assertEqual(control_plane_layout_errors(root), [])
+        errors = validate(root)
+        self.assertFalse(any("compatibility-example" in error for error in errors))
+
+    def test_control_plane_layout_reports_missing_directory(self) -> None:
+        root = self.make_repo({"one": ""})
+        (root / "AGENTS.md").write_text("# Policy\n", encoding="utf-8")
+
+        errors = control_plane_layout_errors(root)
+
+        self.assertIn(".codex/hooks: required control-plane directory missing", errors)
 
     def test_missing_relative_reference_fails(self) -> None:
         errors = validate(self.make_repo({"one": "[missing](references/nope.md)"}))
