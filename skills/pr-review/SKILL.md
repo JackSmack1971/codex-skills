@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Reviews pull requests, branch diffs, and proposed merges with evidence-backed findings, merge-risk scoring, and structured GitHub review output. Use when asked to review a PR, inspect a pull request, validate a diff before merge, request changes, approve, or prepare reviewer comments.
+description: Use for pull-request, branch-diff, or proposed-merge review, including merge-risk scoring and structured GitHub review output. Do not use for a generic delegated or read-only code-change review; use review-agent instead.
 ---
 
 ## Contents

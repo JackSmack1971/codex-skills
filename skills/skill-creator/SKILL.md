@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Use when creating, migrating, improving, or evaluating Open Agent skills for Codex, including drafting a skill, converting it from another runtime, designing evaluation cases, validating metadata, or improving its description.
+description: Use for general Open Agent skill authoring, migration, improvement, evaluation, metadata, or description work. Do not use when the task is specifically to build a skill from current documentation for a named library or framework; use context7-skill-wizard.
 compatibility: Requires Codex CLI and Python 3.11+ for optional local validators and evaluation scripts.
 ---
 

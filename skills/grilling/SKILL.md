@@ -1,6 +1,6 @@
 ---
 name: grilling
-description: Relentlessly stress-test a plan or design through one recommended question at a time until the user confirms shared understanding.
+description: Use for a new interactive plan or design stress-test, asking one recommended question at a time until shared understanding. Do not use for explicit /grill-me compatibility invocations; route those to grill-me.
 compatibility: Requires an interactive conversation with user feedback.
 ---
 

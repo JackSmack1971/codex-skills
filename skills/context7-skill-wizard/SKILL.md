@@ -1,6 +1,6 @@
 ---
 name: context7-skill-wizard
-description: Build a focused Open Agent skill from a named library or framework using current documentation retrieved through Context7. Trigger on "build a skill for", "create a skill using Context7", "skill wizard", "generate a skill from docs", or "make an expert skill for [library]". Requires the Context7 MCP tools and a writable workspace. Do not trigger for general skill-authoring advice without a specific technology.
+description: Use only to build a focused Open Agent skill from current Context7 documentation for a named library or framework, including “build a skill for” or “generate a skill from docs”. Do not use for general skill authoring, migration, or evaluation without a specific technology; use skill-creator.
 compatibility: Requires Codex CLI, Context7 MCP tools, and Python 3.11+ for local validation.
 ---
 
