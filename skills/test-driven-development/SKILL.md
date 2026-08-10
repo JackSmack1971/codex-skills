@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Use a red-green-refactor TDD cycle for a requested feature, bug fix, refactor, or test change; gate each stage on a local test result.
+description: Use only for a requested feature, bug fix, refactor, or test change that explicitly needs a red-green-refactor TDD cycle gated by local results. For broader QA planning or execution without TDD, use testing-qa.
 compatibility: Requires Python 3.11+ and the project's existing test runner.
 ---
 
