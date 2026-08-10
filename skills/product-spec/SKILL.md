@@ -1,6 +1,6 @@
 ---
 name: product-spec
-description: Convert product intent into an implementable feature specification covering user journey, functional behavior, non-functional requirements, edge cases, permissions, analytics, acceptance criteria, and scope. Use before architecture or coding.
+description: Use after product intent is sufficiently understood to write an implementable feature specification covering behavior, requirements, edge cases, permissions, analytics, and acceptance criteria. Do not use to clarify a vague problem or reduce scope; use product-discovery or mvp-scope.
 compatibility: Requires product intent and available repository or domain context when the feature belongs to an existing system.
 ---
 

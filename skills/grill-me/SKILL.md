@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Use when a user wants a plan, proposal, or design stress-tested through relentless questioning.
+description: Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling.
 compatibility: Requires the `grilling` skill to be available.
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: product-discovery
-description: Turn a vague product idea into an evidence-backed problem statement, target user, assumptions, and validation plan. Use when the product, user, or problem is not yet well defined.
+description: Use first when the product problem, target user, or desired outcome is still vague; produce an evidence-backed problem statement, assumptions, and validation plan. Do not use for fixed scope decisions or an implementable feature specification; use mvp-scope or product-spec.
 compatibility: Requires access to the supplied product context; external research is optional and must use authoritative sources.
 ---
 

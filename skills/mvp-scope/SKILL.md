@@ -1,6 +1,6 @@
 ---
 name: mvp-scope
-description: Reduce a product idea or capability list to a coherent minimum viable product with explicit must-have, later, and won't-build decisions. Use before architecture or implementation planning when scope is at risk of expanding.
+description: Use to turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions before specification or architecture. Do not use to discover the problem or write detailed feature behavior; use product-discovery or product-spec.
 compatibility: Requires a product problem, desired outcome, constraints, or feature list.
 ---
 

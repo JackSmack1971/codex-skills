@@ -9,17 +9,35 @@ description: "Use when encountering any bug, test failure, or unexpected behavio
 
 Random fixes waste time and create new bugs. Quick patches mask underlying issues.
 
-**Core principle:** ALWAYS find root cause before attempting fixes. Symptom fixes are failure.
+**Core principle:** Permanent fixes require root cause investigation first. A narrowly
+scoped temporary mitigation may precede root-cause resolution only when necessary
+for security, safety, data integrity, or service restoration.
 
 **Violating the letter of this process is violating the spirit of debugging.**
 
 ## The Iron Law
 
 ```
-NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+NO PERMANENT FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 ```
 
-If you haven't completed Phase 1, you cannot propose fixes.
+For ordinary bugs, if you haven't completed Phase 1, you cannot propose fixes.
+
+### Emergency Containment Exception
+
+When immediate action is necessary for security, safety, data integrity, or
+service restoration, you may apply a temporary mitigation before completing
+root-cause investigation. The mitigation MUST:
+
+1. Be explicitly labeled **temporary mitigation**, not a fix.
+2. Be the smallest practical scope and reversible where feasible.
+3. Preserve existing diagnostic evidence or collect additional evidence when feasible.
+4. Never be reported as proof that the root cause is solved.
+5. Include a concrete handoff to resume root-cause investigation after containment.
+
+This exception permits containment only. The permanent fix still follows all
+four phases below, and it does not apply merely because a bug is inconvenient,
+simple, or under schedule pressure.
 
 ## When to Use
 Use for ANY technical issue:
