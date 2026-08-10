@@ -11,6 +11,20 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = "skills"
+CONTROL_PLANE_DIRECTORIES = (
+    ".agents",
+    ".agents/skills",
+    ".codex",
+    ".codex/rules",
+    ".codex/hooks",
+    ".codex/agents",
+    "evals/codex",
+    "evals/codex/tasks",
+    "evals/codex/expected_invariants",
+    "evals/codex/graders",
+    "evals/codex/results",
+    "docs/control-plane",
+)
 EVALUATION_INVENTORY = "docs/evaluation-inventory.json"
 EVALUATION_LEVELS = {"none", "manual-prose", "deterministic-validator", "automated-behavioral"}
 QUALITY_DIMENSIONS = ["trigger", "inputs", "workflow", "output", "failure-stop", "security", "evaluation", "runtime-claims", "references"]
@@ -20,6 +34,19 @@ KEBAB = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK = re.compile(r"!?(?:\[[^\]]*\])\(([^)]+)\)")
 PORTABLE_PATH = re.compile(r"(?:[A-Za-z]:[\\/]Users[\\/][A-Za-z0-9._-]+|/(?:Users|home)/[A-Za-z0-9._-]+)")
 SECRET = re.compile(r"(?:AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)", re.I)
+
+
+def control_plane_layout_errors(root: Path) -> list[str]:
+    """Validate structure only; control-plane contents remain intentionally inert."""
+    errors = []
+    if not (root / "AGENTS.md").is_file():
+        errors.append("AGENTS.md: missing")
+    errors.extend(
+        f"{path}: required control-plane directory missing"
+        for path in CONTROL_PLANE_DIRECTORIES
+        if not (root / path).is_dir()
+    )
+    return errors
 
 
 def frontmatter(text: str) -> tuple[dict[str, str], str | None]:
@@ -108,6 +135,8 @@ def schema_errors(value: Any, schema: dict[str, Any], path: str = "$") -> list[s
 
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
+    if root == ROOT:
+        errors.extend(control_plane_layout_errors(root))
     skills_root = root / SKILLS
     skill_dirs = sorted(p for p in skills_root.iterdir() if p.is_dir()) if skills_root.is_dir() else []
     records: list[dict[str, Any]] = []

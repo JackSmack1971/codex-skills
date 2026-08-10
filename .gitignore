@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 *.pyo
 *$py.class
+
+# Generated Codex evaluation output (keep authored tasks and invariants tracked).
+evals/codex/results/*
+!evals/codex/results/.gitkeep
