@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = "skills"
 EVALUATION_INVENTORY = "docs/evaluation-inventory.json"
 EVALUATION_LEVELS = {"none", "manual-prose", "deterministic-validator", "automated-behavioral"}
+QUALITY_DIMENSIONS = ["trigger", "inputs", "workflow", "output", "failure-stop", "security", "evaluation", "runtime-claims", "references"]
 SUPPORTED_FRONTMATTER = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 KEBAB = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK = re.compile(r"!?(?:\[[^\]]*\])\(([^)]+)\)")
@@ -206,15 +207,34 @@ def validate(root: Path) -> list[str]:
         skill_text = (root / f"skills/{name}/SKILL.md").read_text(encoding="utf-8") if (root / f"skills/{name}/SKILL.md").is_file() else ""
         if "## Minimum contract" not in skill_text:
             errors.append(f"Core skill {name}: minimum contract is missing from SKILL.md")
+        labels = {
+            "trigger": r"\*\*Trigger and exclusion:\*\*",
+            "inputs": r"\*\*Inputs:\*\*",
+            "workflow": r"\*\*Bounded workflow:\*\*",
+            "output": r"\*\*Output:\*\*",
+            "failure-stop": r"\*\*Failure/stop:\*\*",
+            "security": r"\*\*Security:\*\*",
+            "evaluation": r"\*\*Evaluation:\*\*",
+            "runtime-claims": r"\*\*Runtime claims:\*\*",
+            "references": r"\*\*References:\*\*",
+        }
+        for dimension, pattern in labels.items():
+            if not re.search(pattern, skill_text):
+                errors.append(f"Core skill {name}: missing quality dimension {dimension}")
         if metadata.get("level") == "none":
             errors.append(f"Core skill {name}: evaluation level cannot be none")
         cases = root / f"skills/{name}/tests/evaluation-cases.md"
         if not cases.is_file():
             errors.append(f"Core skill {name}: evaluation cases missing")
         else:
-            count = len(re.findall(r"^\s*\d+\.\s", cases.read_text(encoding="utf-8"), re.M))
-            if count < 3:
+            case_text = cases.read_text(encoding="utf-8")
+            count = len(re.findall(r"^\s*\d+\.\s", case_text, re.M))
+            if count < 3 or not all(re.search(rf"^\s*\d+\.\s+\*\*{kind}:\*\*", case_text, re.M) for kind in ("Normal", "Negative", "Boundary")):
                 errors.append(f"Core skill {name}: fewer than 3 evaluation cases")
+        artifact_groups = [record.get("validation_artifacts", []) for record in records if isinstance(record, dict) and record.get("name") == name]
+        has_helper = any("/scripts/" in artifact or artifact.endswith(".py") for group in artifact_groups for artifact in group)
+        if has_helper and metadata.get("level") not in {"deterministic-validator", "automated-behavioral"}:
+            errors.append(f"Core skill {name}: executable helper requires deterministic or automated evaluation evidence")
 
     quality_path = root / "docs/core-quality.json"
     if not quality_path.is_file():
@@ -222,7 +242,7 @@ def validate(root: Path) -> list[str]:
     else:
         try:
             quality = json.loads(quality_path.read_text(encoding="utf-8"))
-            dimensions = ["trigger", "inputs", "workflow", "output", "failure-stop", "security", "evaluation", "runtime-claims", "references"]
+            dimensions = QUALITY_DIMENSIONS
             if quality.get("version") != 1 or quality.get("dimensions") != dimensions:
                 errors.append("docs/core-quality.json: invalid dimensions")
             if set(quality.get("skills", {})) != core:
@@ -292,10 +312,10 @@ def main(argv: list[str] | None = None) -> int:
                 core.add(fields[0].strip("`"))
         evaluation = json.loads((root / EVALUATION_INVENTORY).read_text(encoding="utf-8"))["skills"]
         print("CORE EVALUATION MATRIX")
-        print("skill | level | evidence | command | quality")
+        print("skill | trigger | inputs | workflow | output | failure-stop | security | evaluation | runtime-claims | references | evidence")
         for name in sorted(core):
             metadata = evaluation[name]
-            print(f"{name} | {metadata['level']} | {metadata['evidence']} | {metadata['command']} | PASS")
+            print(f"{name} | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | {metadata['level']}: {metadata['evidence']}")
     print("REPOSITORY_VALIDATION_OK"); return 0
 
 
