@@ -5,6 +5,9 @@ to the narrowest skill whose primary deliverable matches the request. A skill
 may delegate to a later row when the request explicitly contains both scopes;
 delegation does not change the primary route.
 
+The overlap and compatibility decisions behind these boundaries are documented
+in [`skill-consolidation.md`](skill-consolidation.md).
+
 ## Review
 
 | Skill | Use when | Do not use when | Delegates/composes with | Precedence |

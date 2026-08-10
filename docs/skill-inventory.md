@@ -19,6 +19,8 @@ prose/manual evaluation material, and `tested` to automated behavioral tests.
 Provenance is `unknown` unless repository evidence explicitly establishes
 original, adapted, or vendored origin. No such origin evidence was found for
 these skill directories, so unknown is intentional rather than inferred.
+Consolidation decisions and compatibility paths are tracked in
+[`skill-consolidation.md`](skill-consolidation.md).
 
 | Name | Purpose | Primary trigger / use case | Maturity | Implementation depth | Evaluation level | Provenance | Overlapping / adjacent skills |
 |---|---|---|---|---|---|---|---|
@@ -46,7 +48,7 @@ these skill directories, so unknown is intentional rather than inferred.
 | `integration-engineering` | Safely implement or review integrations with external APIs, SDKs, webhooks, OAuth, and service providers. | Product behavior depends on a third-party API, SDK, webhook, OAuth provider, or service. | Specialized | prompt-only | none | unknown | api-design, testing-qa, security-best-practices |
 | `intent-layer` | Set up hierarchical AGENTS.md intent context for codebases. | Initialize or add AGENTS.md context infrastructure to a codebase. | Specialized | evaluated | prose/manual evals | unknown | context-doctor, generating-readmes |
 | `last30days` | Research current public sentiment and trend signals across social, community, and web sources. | Request current public sentiment, trend research, or a shareable briefing. | Specialized | script-backed | deterministic validation | unknown | product-discovery, read-the-damn-docs |
-| `maintaining-repository-hygiene` | Audit and professionalize GitHub repositories, governance, automation, documentation, settings, and tracked artifacts. | Request repository hygiene, cleanup, governance, or professionalization work. | Core | tested | automated behavioral tests | unknown | generate-codeowners, generating-readmes, improve |
+| `maintaining-repository-hygiene` | Audit and professionalize GitHub repositories: stack, topology, worktrees, labels, governance, documentation, settings, and tracked artifacts. | Request repository hygiene, cleanup, governance, or professionalization work. | Core | tested | automated behavioral tests | unknown | generate-codeowners, generating-readmes, improve |
 | `mvp-scope` | Turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions. | Reduce a product idea or capability list to MVP scope before specification or architecture. | Specialized | prompt-only | none | unknown | product-discovery, product-spec, grill-me; intentional overlap: product-discovery, product-spec |
 | `openai-docs` | Use authoritative OpenAI documentation for OpenAI products, APIs, Codex, models, and configuration. | Ask about OpenAI products, APIs, Codex, models, pricing, setup, or configuration. | Specialized | evaluated | prose/manual evals | unknown | context-doctor, context7-skill-wizard |
 | `plugin-creator` | Create and scaffold Codex plugins with valid manifests, optional structure, and marketplace metadata. | Create or update a Codex plugin or its marketplace metadata. | Specialized | evaluated | prose/manual evals | unknown | skill-creator, skill-installer |

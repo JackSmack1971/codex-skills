@@ -8,6 +8,10 @@ The machine-readable source of truth is [`skills/catalog.json`](skills/catalog.j
 python scripts/validate_catalog.py
 ```
 
+Consolidation and compatibility decisions are recorded in
+[`docs/skill-consolidation.md`](docs/skill-consolidation.md). The canonical
+precedence map is [`docs/skill-routing.md`](docs/skill-routing.md).
+
 Evaluation maturity uses one four-level rubric in
 [`docs/evaluation-rubric.md`](docs/evaluation-rubric.md); the canonical
 skill-by-skill evidence is [`docs/evaluation-inventory.json`](docs/evaluation-inventory.json).
