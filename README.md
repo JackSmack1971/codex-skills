@@ -14,6 +14,59 @@ Run the complete offline repository validation with one command:
 python scripts/validate_repository.py
 ```
 
+## How to read this repository
+
+Each skill is a `SKILL.md` contract: it tells Codex when to invoke the skill,
+what process to follow, and what to deliver. That guidance is separate from
+the evidence around it:
+
+- **Deterministic helpers** are scripts that can check structure, plans, or
+  other repeatable invariants.
+- **Validation** is repository-level checking such as catalog integrity,
+  trigger declarations, Markdown links, syntax, and whitespace.
+- **Behavioral evaluation** is the skill's `VERIFICATION.md`, evaluation cases,
+  or tests that assess whether the guidance produces the intended result.
+
+Not every skill has every layer. The canonical inventory records each skill's
+implementation depth and evaluation level; `prompt-only` is guidance without a
+bundled executable artifact, while `script-backed`, `evaluated`, and `tested`
+indicate progressively richer supporting evidence. These labels describe
+available validation, not a guarantee of output quality.
+
+## Recommended starting set
+
+Start with these general-purpose Core skills, then add a specialist when the
+task calls for one:
+
+`product-discovery` → `product-spec` → `writing-plans` →
+`feature-implementation` → `testing-qa` → `review-agent` → `git-workflow`
+
+Use `systematic-debugging` when something fails, `acceptance-criteria` when
+behavior needs an observable contract, and `read-the-damn-docs` when a
+third-party technology is involved. The full routing map below is the better
+choice once the task is no longer general-purpose.
+
+## Maturity and provenance
+
+Maturity is a routing classification, not a quality ranking. The lists below
+are maintained in [`docs/skill-inventory.md`](docs/skill-inventory.md), which
+is the canonical human-readable inventory; do not infer a different class
+from the table in this README.
+
+| Classification | Meaning | Count |
+|---|---|---:|
+| **Core** | Foundational lifecycle or repository workflow | 23 |
+| **Specialized** | Focused domain, artifact, or operating context | 26 |
+| **Experimental** | Explicitly experimental skills | 0 |
+| **Vendored/Adapted** | Compatibility or imported form; canonical label: `Vendored-or-Adapted` | 1 |
+
+The current adapted entry is `grill-me`, a compatibility alias for `grilling`.
+The inventory records provenance as `unknown` for every skill because this
+repository contains no evidence establishing original, adapted, or vendored
+origin beyond that classification. The repository is licensed under MIT;
+see [`LICENSE`](LICENSE). Per-skill provenance and status belong in the
+canonical inventory, not in duplicated README claims.
+
 ## Software-delivery lifecycle
 
 The main delivery path is:
@@ -34,9 +87,14 @@ discovery → scope/specification → architecture/design → implementation →
 
 Meta-skills improve the agent environment or the skill collection itself rather than implementing product behavior. They include context and intent management (`context-doctor`, `intent-layer`), skill authoring and distribution (`skill-creator`, `skill-auditor`, `context7-skill-wizard`, `skill-installer`, `plugin-creator`), orchestration and limits (`efficient-frontier`, `stay-within-limits`), and documentation/tooling boundaries (`read-the-damn-docs`, `openai-docs`).
 
-## Catalog
+## Capability map and catalog
 
-The table below is generated from the records in `skills/catalog.json` and is grouped by lifecycle stage for quick routing. Capability levels mean: `prompt-only` has no bundled executable artifact, `script-backed` has reusable scripts, `evaluated` has verification/evaluation artifacts, and `tested` has executable tests or self-tests.
+The table below is a concise capability map grouped by lifecycle stage. Names,
+descriptions, and capability levels are grounded in `skills/catalog.json` and
+cross-referenced with the canonical inventory. Capability levels mean:
+`prompt-only` has no bundled executable artifact, `script-backed` has reusable
+scripts, `evaluated` has verification/evaluation artifacts, and `tested` has
+executable tests or self-tests.
 
 | Skill | Category | Lifecycle | Level | Description |
 |---|---|---|---|---|
@@ -91,4 +149,16 @@ The table below is generated from the records in `skills/catalog.json` and is gr
 | visual-recap | quality | review | evaluated | Visual diff and PR recaps |
 | writing-plans | planning | specification | script-backed | TDD-first implementation plans |
 
-The validator intentionally checks only catalog integrity: exact skill coverage, frontmatter names, references, paths, artifacts, and allowed capability labels. It does not execute skill behavior.
+The validator intentionally checks only catalog integrity: exact skill coverage, frontmatter names, references, paths, artifacts, and allowed capability labels. It does not execute skill behavior. Some skills therefore have richer automated validation than others; a green catalog check is not a behavioral benchmark.
+
+## Provenance, licensing, and support boundaries
+
+`SKILL.md` files are the executable guidance surface for Codex. Scripts,
+fixtures, verification notes, and tests are supporting artifacts and may cover
+only some skills. The catalog and inventory describe those boundaries; they do
+not certify that every skill has equivalent evaluation depth.
+
+No per-skill provenance claims are made here: the canonical inventory marks
+provenance as `unknown` where repository evidence is absent. The root project
+license is MIT ([`LICENSE`](LICENSE)); review any third-party or adapted
+material's own notices before redistribution.
