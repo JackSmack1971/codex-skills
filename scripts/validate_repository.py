@@ -1,94 +1,213 @@
-"""Run the repository's deterministic, offline validation checks."""
+"""Run the repository's deterministic, offline skill-quality gate."""
 
 from __future__ import annotations
 
+import json
+import re
 import subprocess
 import sys
 from pathlib import Path
-
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
+SKILLS = "skills"
+SUPPORTED_FRONTMATTER = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
+KEBAB = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+LINK = re.compile(r"!?(?:\[[^\]]*\])\(([^)]+)\)")
+PORTABLE_PATH = re.compile(r"(?:[A-Za-z]:[\\/]Users[\\/][A-Za-z0-9._-]+|/(?:Users|home)/[A-Za-z0-9._-]+)")
+SECRET = re.compile(r"(?:AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)", re.I)
 
 
-def run(label: str, command: list[str]) -> bool:
-    print(f"== {label} ==")
-    result = subprocess.run(command, cwd=ROOT, text=True)
-    return result.returncode == 0
+def frontmatter(text: str) -> tuple[dict[str, str], str | None]:
+    if not text.startswith("---\n"):
+        return {}, "missing opening delimiter"
+    lines = text.splitlines()
+    try:
+        end = next(i for i, line in enumerate(lines[1:], 1) if line.strip() == "---")
+    except StopIteration:
+        return {}, "missing closing delimiter"
+    values: dict[str, str] = {}
+    block_key: str | None = None
+    block: list[str] = []
+    for line in lines[1:end]:
+        if block_key:
+            if line.startswith((" ", "\t")) or not line.strip():
+                block.append(line.strip())
+                continue
+            values[block_key] = " ".join(part for part in block if part)
+            block_key = None
+            block = []
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        if ":" not in line or line[:1].isspace():
+            return {}, f"invalid frontmatter line: {line}"
+        key, value = line.split(":", 1)
+        value = value.strip()
+        if value in {">", ">-", "|", "|-"}:
+            block_key = key.strip()
+            continue
+        values[key.strip()] = value.strip("'\"")
+    if block_key:
+        values[block_key] = " ".join(part for part in block if part)
+    return values, None
 
 
-def check_python_syntax() -> bool:
-    print("== Python syntax ==")
+def local_links(text: str) -> list[str]:
+    links = []
+    for raw in LINK.findall(text):
+        target = raw.strip().split("#", 1)[0].strip("<>")
+        if target and ("/" in target or "." in Path(target).name) and not re.match(r"(?:[a-z]+:)?//|mailto:", target, re.I) and not target.startswith("#"):
+            links.append(target)
+    return links
+
+
+def referenced_paths(text: str) -> list[str]:
+    paths: set[str] = set()
+    for code in re.findall(r"`([^`]+)`", text):
+        if "://" in code:
+            continue
+        command = code.strip()
+        if command.startswith(("scripts/", "references/", "resources/", "assets/", "tests/", "templates/")):
+            paths.update(re.findall(r"(?:scripts|references|resources|assets|tests|templates)/[A-Za-z0-9._/-]+", command))
+    return sorted(paths)
+
+
+def schema_errors(value: Any, schema: dict[str, Any], path: str = "$") -> list[str]:
     errors: list[str] = []
-    for path in sorted(ROOT.rglob("*.py")):
+    expected = schema.get("type")
+    checks = {
+        "object": isinstance(value, dict), "array": isinstance(value, list),
+        "string": isinstance(value, str), "number": isinstance(value, (int, float)) and not isinstance(value, bool),
+        "integer": isinstance(value, int) and not isinstance(value, bool), "boolean": isinstance(value, bool),
+    }
+    if expected and not checks.get(expected, True):
+        return [f"{path}: expected {expected}"]
+    if "enum" in schema and value not in schema["enum"]:
+        errors.append(f"{path}: value is not in enum")
+    if isinstance(value, str):
+        if len(value) < schema.get("minLength", 0): errors.append(f"{path}: too short")
+        if schema.get("pattern") and not re.search(schema["pattern"], value): errors.append(f"{path}: pattern mismatch")
+    if isinstance(value, list):
+        if len(value) < schema.get("minItems", 0): errors.append(f"{path}: too few items")
+        if isinstance(schema.get("items"), dict):
+            for i, item in enumerate(value): errors.extend(schema_errors(item, schema["items"], f"{path}[{i}]"))
+    if isinstance(value, dict):
+        for key in schema.get("required", []):
+            if key not in value: errors.append(f"{path}: missing {key}")
+        props = schema.get("properties", {})
+        if schema.get("additionalProperties") is False:
+            errors.extend(f"{path}.{key}: unknown property" for key in value if key not in props)
+        for key, child in props.items():
+            if key in value: errors.extend(schema_errors(value[key], child, f"{path}.{key}"))
+    return errors
+
+
+def validate(root: Path) -> list[str]:
+    errors: list[str] = []
+    skills_root = root / SKILLS
+    skill_dirs = sorted(p for p in skills_root.iterdir() if p.is_dir()) if skills_root.is_dir() else []
+    records: list[dict[str, Any]] = []
+    catalog = skills_root / "catalog.json"
+    if catalog.is_file():
         try:
-            compile(path.read_text(encoding="utf-8"), str(path), "exec")
-        except (OSError, SyntaxError) as exc:
-            errors.append(f"{path.relative_to(ROOT).as_posix()}: {exc}")
+            data = json.loads(catalog.read_text(encoding="utf-8"))
+            records = data.get("skills", []) if isinstance(data, dict) else []
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"skills/catalog.json: invalid JSON: {exc}")
+    else:
+        errors.append("skills/catalog.json: missing")
+    names: list[str] = []
+    for skill in skill_dirs:
+        path = skill / "SKILL.md"
+        if not path.is_file():
+            errors.append(f"{skill.relative_to(root).as_posix()}: SKILL.md missing")
+            continue
+        try: text = path.read_text(encoding="utf-8")
+        except OSError as exc:
+            errors.append(f"{path.relative_to(root).as_posix()}: unreadable: {exc}")
+            continue
+        meta, issue = frontmatter(text)
+        rel = path.relative_to(root).as_posix()
+        if issue: errors.append(f"{rel}: {issue}")
+        unknown = sorted(set(meta) - SUPPORTED_FRONTMATTER)
+        if unknown: errors.append(f"{rel}: unsupported frontmatter: {', '.join(unknown)}")
+        name = meta.get("name", "")
+        if not name or not KEBAB.fullmatch(name): errors.append(f"{rel}: name must be lowercase kebab-case")
+        if name != skill.name: errors.append(f"{rel}: name does not match directory {skill.name}")
+        if not meta.get("description"): errors.append(f"{rel}: description is required")
+        names.append(name)
+        for md in [path, *sorted(skill.rglob("*.md"))]:
+            try: md_text = md.read_text(encoding="utf-8")
+            except OSError as exc:
+                errors.append(f"{md.relative_to(root).as_posix()}: unreadable: {exc}")
+                continue
+            for link in local_links(md_text):
+                target = (md.parent / link).resolve()
+                try: target.relative_to(skill.resolve())
+                except ValueError: errors.append(f"{md.relative_to(root).as_posix()}: reference escapes skill: {link}"); continue
+                if not target.exists(): errors.append(f"{md.relative_to(root).as_posix()}: missing reference: {link}")
+            for reference in referenced_paths(md_text):
+                target = (skill / reference.rstrip(".,:;`\"'\""))
+                if not target.exists(): errors.append(f"{md.relative_to(root).as_posix()}: missing referenced file: {reference}")
+            if PORTABLE_PATH.search(md_text): errors.append(f"{md.relative_to(root).as_posix()}: machine-specific absolute path")
+            if SECRET.search(md_text): errors.append(f"{md.relative_to(root).as_posix()}: secret-like value")
+    if len(names) != len(set(names)): errors.append("skill frontmatter names are not unique")
+
+    actual = {skill.name for skill in skill_dirs}
+    catalog_names = [r.get("name") for r in records if isinstance(r, dict)]
+    if len(catalog_names) != len(set(catalog_names)): errors.append("catalog skill names are not unique")
+    if set(catalog_names) != actual: errors.append("canonical catalog does not exactly match skill directories")
+    for record in records:
+        if not isinstance(record, dict): errors.append("catalog record must be an object"); continue
+        name = record.get("name", "<unknown>")
+        expected = f"skills/{name}/SKILL.md"
+        if record.get("path") != expected: errors.append(f"{name}: catalog path must be {expected}")
+        for artifact in record.get("validation_artifacts", []):
+            candidate = root / artifact
+            if Path(artifact).is_absolute() or not candidate.is_file(): errors.append(f"{name}: missing validation artifact {artifact}")
+        level = record.get("capability_level")
+        if level not in {"prompt-only", "evaluated", "script-backed", "tested"}: errors.append(f"{name}: invalid capability level")
+        if level in {"evaluated", "tested"} and not ((root / f"skills/{name}/VERIFICATION.md").is_file() or (root / f"skills/{name}/tests").is_dir()):
+            errors.append(f"{name}: {level} skill lacks evaluation/test metadata")
+
+    for path in sorted(root.rglob("*.py")):
+        if "__pycache__" in path.parts: continue
+        try: compile(path.read_text(encoding="utf-8"), str(path), "exec")
+        except (OSError, SyntaxError) as exc: errors.append(f"{path.relative_to(root).as_posix()}: Python compile failure: {exc}")
+    for path in sorted(root.rglob("*.json")):
+        try: json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc: errors.append(f"{path.relative_to(root).as_posix()}: invalid JSON: {exc}")
+    for schema in sorted(skills_root.rglob("*.schema.json")):
+        try: schema_data = json.loads(schema.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError): continue
+        for fixture in sorted(schema.parent.glob("*example*.json")):
+            try: fixture_data = json.loads(fixture.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError): continue
+            values = fixture_data.get("findings", []) if schema_data.get("title") == "Repository Hygiene Finding" and isinstance(fixture_data, dict) else [fixture_data]
+            for value in values:
+                errors.extend(f"{fixture.relative_to(root).as_posix()}: {item}" for item in schema_errors(value, schema_data))
+
+    if (root / ".git").exists():
+        tracked = subprocess.run(["git", "ls-files", "-z"], cwd=root, capture_output=True, check=False).stdout.decode(errors="replace").split("\0")
+        sensitive = re.compile(r"(?:^|/)(?:\.env(?:\..*)?|.*\.(?:pem|key|p12|sqlite|db|log|pyc|pyo)|__pycache__)(?:/|$)", re.I)
+        errors.extend(f"tracked sensitive/runtime artifact: {name}" for name in tracked if name and sensitive.search(name))
+        if subprocess.run(["git", "grep", "-nI", "-E", r"[[:blank:]]+$", "HEAD", "--"], cwd=root, capture_output=True, check=False).returncode == 0:
+            errors.append("committed trailing whitespace")
+    return sorted(set(errors))
+
+
+def main(argv: list[str] | None = None) -> int:
+    root = Path(argv[0]).resolve() if argv else ROOT
+    errors = validate(root)
+    if root == ROOT:
+        for label, script in (("catalog", "validate_catalog.py"), ("inventory", "validate_skill_inventory.py")):
+            result = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], cwd=ROOT, capture_output=True, text=True, check=False)
+            if result.returncode: errors.append(f"{label} validator failed: {result.stdout.strip()} {result.stderr.strip()}".strip())
     if errors:
-        print("\n".join(errors))
-        return False
-    print("PYTHON_SYNTAX_OK")
-    return True
-
-
-def check_tracked_cache_artifacts() -> bool:
-    print("== Tracked Python cache artifacts ==")
-    result = subprocess.run(
-        ["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=False
-    )
-    if result.returncode:
-        print(result.stderr.decode(errors="replace").strip())
-        return False
-    bad = [
-        name.decode()
-        for name in result.stdout.split(b"\0")
-        if name and ("__pycache__" in name.decode() or name.decode().endswith((".pyc", ".pyo")))
-    ]
-    if bad:
-        print("\n".join(f"tracked cache artifact: {name}" for name in bad))
-        return False
-    print("PYTHON_CACHE_ARTIFACTS_OK")
-    return True
-
-
-def check_committed_whitespace() -> bool:
-    print("== Committed whitespace ==")
-    result = subprocess.run(
-        ["git", "grep", "-nI", "-E", r"[[:blank:]]+$", "HEAD", "--"],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-    )
-    if result.returncode == 0:
-        print(result.stdout.strip())
-        return False
-    if result.returncode != 1:
-        print(result.stderr.strip())
-        return False
-    print("COMMITTED_WHITESPACE_OK")
-    return True
-
-
-def main() -> int:
-    checks = [
-        ("catalog", [sys.executable, "scripts/validate_catalog.py"]),
-        ("trigger and alias declarations", [sys.executable, "scripts/check_trigger_overlap.py"]),
-        ("context budget and Markdown links", [sys.executable, "scripts/check_skill_budget.py"]),
-    ]
-    passed = True
-    for label, command in checks:
-        passed = run(label, command) and passed
-    passed = check_tracked_cache_artifacts() and passed
-    passed = check_python_syntax() and passed
-    passed = check_committed_whitespace() and passed
-    passed = run("Working-tree whitespace", ["git", "diff", "--check"]) and passed
-    print("OPTIONAL_SKILL_TESTS=not-run (repository validation is offline and dependency-free)")
-    if not passed:
-        print("REPOSITORY_VALIDATION_FAILED")
-        return 1
-    print("REPOSITORY_VALIDATION_OK")
-    return 0
+        print("\n".join(errors)); print("REPOSITORY_VALIDATION_FAILED"); return 1
+    print(f"SKILLS_VALIDATED={len(list((root / SKILLS).glob('*/SKILL.md')))}")
+    print("REPOSITORY_VALIDATION_OK"); return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))

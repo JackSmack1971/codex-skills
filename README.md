@@ -14,6 +14,13 @@ Run the complete offline repository validation with one command:
 python scripts/validate_repository.py
 ```
 
+The gate is offline and dependency-free. Its tests, including three negative
+fixtures, run with:
+
+```text
+python -m unittest discover -s tests -v
+```
+
 ## How to read this repository
 
 Each skill is a `SKILL.md` contract: it tells Codex when to invoke the skill,
