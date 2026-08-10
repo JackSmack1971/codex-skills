@@ -1,4 +1,4 @@
-# Evaluation cases
+# Manual evaluation cases (not automated tests)
 
 1. Explicitly invoke the skill for “build a skill for Prisma transactions”.
    It should request Context7 library resolution and not invent APIs.

@@ -1,4 +1,4 @@
-# Evaluation cases
+# Manual evaluation cases (not automated tests)
 
 1. Confirm the package is discovered by name and description under `.agents/skills`.
 2. Open `resources/implementation-playbook.md` only when detailed patterns are needed.
