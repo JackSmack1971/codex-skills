@@ -30,7 +30,7 @@
     "mvp-scope": {"level":"manual-prose","evidence":"skills/mvp-scope/tests/evaluation-cases.md","command":"manual review"},
     "openai-docs": {"level":"manual-prose","evidence":"skills/openai-docs/tests/evaluation-cases.md","command":"manual review"},
     "plugin-creator": {"level":"deterministic-validator","evidence":"skills/plugin-creator/scripts/validate_plugin.py","command":"python skills/plugin-creator/scripts/validate_plugin.py --help"},
-    "pr-review": {"level":"manual-prose","evidence":"skills/pr-review/tests/evaluation-cases.md","command":"manual review"},
+    "pr-review": {"level":"deterministic-validator","evidence":"skills/pr-review/scripts/validate_review.py","command":"python skills/pr-review/scripts/validate_review.py --help"},
     "product-discovery": {"level":"manual-prose","evidence":"skills/product-discovery/tests/evaluation-cases.md","command":"manual review"},
     "product-spec": {"level":"manual-prose","evidence":"skills/product-spec/tests/evaluation-cases.md","command":"manual review"},
     "read-the-damn-docs": {"level":"manual-prose","evidence":"skills/read-the-damn-docs/tests/evaluation-cases.md","command":"manual review"},
