@@ -1,4 +1,4 @@
-# Evaluation cases
+# Manual evaluation cases (not automated tests)
 
 1. Run without `--path`; it scans the current directory and emits valid JSON.
 2. Run with a missing path; it exits nonzero and emits only a bounded error.

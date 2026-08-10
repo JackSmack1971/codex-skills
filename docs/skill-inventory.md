@@ -3,6 +3,10 @@
 This inventory covers every top-level directory under `skills/` exactly once.
 The catalog is the evidence source for descriptions, capability level, and
 related skills; the validator checks the directory-to-table name invariant.
+Evaluation maturity and evidence are canonical in
+[`evaluation-inventory.json`](evaluation-inventory.json), using the shared
+[`evaluation-rubric.md`](evaluation-rubric.md). The table's older capability
+columns describe implementation depth, not evaluation maturity.
 
 Maturity rubric: `Core` is a foundational lifecycle or repository workflow;
 `Specialized` is focused on a narrower domain or artifact; and

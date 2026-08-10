@@ -1,4 +1,4 @@
-# Evaluation cases
+# Manual evaluation cases (not automated tests)
 
 1. Run `python scripts/image_gen.py generate --prompt test --dry-run`; assert exit 0, JSON output, and no API key requirement.
 2. Run `python scripts/image_gen.py --help`; assert the `generate`, `generate-batch`, and `edit` commands are listed.

@@ -8,6 +8,12 @@ The machine-readable source of truth is [`skills/catalog.json`](skills/catalog.j
 python scripts/validate_catalog.py
 ```
 
+Evaluation maturity uses one four-level rubric in
+[`docs/evaluation-rubric.md`](docs/evaluation-rubric.md); the canonical
+skill-by-skill evidence is [`docs/evaluation-inventory.json`](docs/evaluation-inventory.json).
+Manual prose scenarios are evidence for human review and are never described
+as automated tests.
+
 Run the complete offline repository validation with one command:
 
 ```text

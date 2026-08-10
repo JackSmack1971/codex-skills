@@ -11,6 +11,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = "skills"
+EVALUATION_INVENTORY = "docs/evaluation-inventory.json"
+EVALUATION_LEVELS = {"none", "manual-prose", "deterministic-validator", "automated-behavioral"}
 SUPPORTED_FRONTMATTER = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 KEBAB = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK = re.compile(r"!?(?:\[[^\]]*\])\(([^)]+)\)")
@@ -116,6 +118,22 @@ def validate(root: Path) -> list[str]:
             errors.append(f"skills/catalog.json: invalid JSON: {exc}")
     else:
         errors.append("skills/catalog.json: missing")
+
+    evaluation_path = root / EVALUATION_INVENTORY
+    evaluation: dict[str, Any] = {}
+    if not evaluation_path.is_file():
+        errors.append(f"{EVALUATION_INVENTORY}: missing")
+    else:
+        try:
+            evaluation_data = json.loads(evaluation_path.read_text(encoding="utf-8"))
+            if evaluation_data.get("version") != 1 or evaluation_data.get("levels") != ["none", "manual-prose", "deterministic-validator", "automated-behavioral"]:
+                errors.append(f"{EVALUATION_INVENTORY}: invalid rubric metadata")
+            evaluation = evaluation_data.get("skills", {})
+            if not isinstance(evaluation, dict):
+                errors.append(f"{EVALUATION_INVENTORY}: skills must be an object")
+                evaluation = {}
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"{EVALUATION_INVENTORY}: invalid JSON: {exc}")
     names: list[str] = []
     for skill in skill_dirs:
         path = skill / "SKILL.md"
@@ -154,6 +172,66 @@ def validate(root: Path) -> list[str]:
     if len(names) != len(set(names)): errors.append("skill frontmatter names are not unique")
 
     actual = {skill.name for skill in skill_dirs}
+    if set(evaluation) != actual:
+        errors.append(f"{EVALUATION_INVENTORY}: skill coverage does not match directories")
+    for name, metadata in evaluation.items():
+        if not isinstance(metadata, dict) or set(metadata) != {"level", "evidence", "command"}:
+            errors.append(f"{EVALUATION_INVENTORY}: {name}: metadata must contain level, evidence, command")
+            continue
+        level = metadata.get("level")
+        evidence = metadata.get("evidence")
+        command = metadata.get("command")
+        if level not in EVALUATION_LEVELS:
+            errors.append(f"{EVALUATION_INVENTORY}: {name}: invalid evaluation level")
+        if not isinstance(evidence, str) or not isinstance(command, str) or not evidence or not command:
+            errors.append(f"{EVALUATION_INVENTORY}: {name}: evidence and command are required strings")
+        if evidence != "none" and not (root / evidence).is_file():
+            errors.append(f"{EVALUATION_INVENTORY}: {name}: missing evidence {evidence}")
+        cases = root / f"skills/{name}/tests/evaluation-cases.md"
+        if cases.is_file():
+            case_text = cases.read_text(encoding="utf-8")
+            if "not automated tests" not in case_text.lower():
+                errors.append(f"{cases.relative_to(root).as_posix()}: must identify prose cases as non-automated")
+            if len(re.findall(r"^\s*\d+\.\s", case_text, re.M)) < 3:
+                errors.append(f"{cases.relative_to(root).as_posix()}: requires at least 3 scenarios")
+
+    inventory_text = (root / "docs/skill-inventory.md").read_text(encoding="utf-8") if (root / "docs/skill-inventory.md").is_file() else ""
+    core = set()
+    for line in inventory_text.splitlines():
+        fields = [field.strip() for field in line.strip().strip("|").split("|")]
+        if len(fields) >= 4 and fields[0].startswith("`") and fields[3] == "Core":
+            core.add(fields[0].strip("`"))
+    for name in sorted(core):
+        metadata = evaluation.get(name, {})
+        skill_text = (root / f"skills/{name}/SKILL.md").read_text(encoding="utf-8") if (root / f"skills/{name}/SKILL.md").is_file() else ""
+        if "## Minimum contract" not in skill_text:
+            errors.append(f"Core skill {name}: minimum contract is missing from SKILL.md")
+        if metadata.get("level") == "none":
+            errors.append(f"Core skill {name}: evaluation level cannot be none")
+        cases = root / f"skills/{name}/tests/evaluation-cases.md"
+        if not cases.is_file():
+            errors.append(f"Core skill {name}: evaluation cases missing")
+        else:
+            count = len(re.findall(r"^\s*\d+\.\s", cases.read_text(encoding="utf-8"), re.M))
+            if count < 3:
+                errors.append(f"Core skill {name}: fewer than 3 evaluation cases")
+
+    quality_path = root / "docs/core-quality.json"
+    if not quality_path.is_file():
+        errors.append("docs/core-quality.json: missing")
+    else:
+        try:
+            quality = json.loads(quality_path.read_text(encoding="utf-8"))
+            dimensions = ["trigger", "inputs", "workflow", "output", "failure-stop", "security", "evaluation", "runtime-claims", "references"]
+            if quality.get("version") != 1 or quality.get("dimensions") != dimensions:
+                errors.append("docs/core-quality.json: invalid dimensions")
+            if set(quality.get("skills", {})) != core:
+                errors.append("docs/core-quality.json: Core skill coverage does not match inventory")
+            for name, declared in quality.get("skills", {}).items():
+                if declared != dimensions:
+                    errors.append(f"docs/core-quality.json: {name}: incomplete quality declaration")
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"docs/core-quality.json: invalid JSON: {exc}")
     catalog_names = [r.get("name") for r in records if isinstance(r, dict)]
     if len(catalog_names) != len(set(catalog_names)): errors.append("catalog skill names are not unique")
     if set(catalog_names) != actual: errors.append("canonical catalog does not exactly match skill directories")
@@ -206,6 +284,18 @@ def main(argv: list[str] | None = None) -> int:
     if errors:
         print("\n".join(errors)); print("REPOSITORY_VALIDATION_FAILED"); return 1
     print(f"SKILLS_VALIDATED={len(list((root / SKILLS).glob('*/SKILL.md')))}")
+    if root == ROOT:
+        core = set()
+        for line in (root / "docs/skill-inventory.md").read_text(encoding="utf-8").splitlines():
+            fields = [field.strip() for field in line.strip().strip("|").split("|")]
+            if len(fields) >= 4 and fields[0].startswith("`") and fields[3] == "Core":
+                core.add(fields[0].strip("`"))
+        evaluation = json.loads((root / EVALUATION_INVENTORY).read_text(encoding="utf-8"))["skills"]
+        print("CORE EVALUATION MATRIX")
+        print("skill | level | evidence | command | quality")
+        for name in sorted(core):
+            metadata = evaluation[name]
+            print(f"{name} | {metadata['level']} | {metadata['evidence']} | {metadata['command']} | PASS")
     print("REPOSITORY_VALIDATION_OK"); return 0
 
 

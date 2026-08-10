@@ -1,4 +1,4 @@
-# Evaluation cases
+# Manual evaluation cases (not automated tests)
 
 1. Scaffold a temporary plugin with `scripts/create_basic_plugin.py`; assert `.codex-plugin/plugin.json` exists and has no TODO placeholders.
 2. Run `scripts/validate_plugin.py` against that temporary plugin; assert exit 0.

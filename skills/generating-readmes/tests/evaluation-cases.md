@@ -1,4 +1,5 @@
-# Evaluation cases
+# Manual evaluation cases (not automated tests)
 
-- Run repository scan and README quality checks without reading secrets.
-- Complete only after the documented quality check passes.
+1. **Normal:** Given build and test commands, write a README whose commands match repository files.
+2. **Negative:** Given an absent command, omit it or mark it unresolved instead of asserting it works.
+3. **Boundary:** Given local README edits, preserve unrelated content and report conflicts before overwrite.
