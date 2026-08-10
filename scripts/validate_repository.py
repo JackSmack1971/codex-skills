@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +27,7 @@ CONTROL_PLANE_DIRECTORIES = (
     "docs/control-plane",
 )
 EVALUATION_INVENTORY = "docs/evaluation-inventory.json"
+FRESHNESS_REGISTRY = "docs/skill-freshness.json"
 EVALUATION_LEVELS = {"none", "manual-prose", "deterministic-validator", "automated-behavioral"}
 QUALITY_DIMENSIONS = ["trigger", "inputs", "workflow", "output", "failure-stop", "security", "evaluation", "runtime-claims", "references"]
 PROVENANCE_STATUSES = {"original", "adapted", "vendored", "unknown"}
@@ -133,6 +135,88 @@ def schema_errors(value: Any, schema: dict[str, Any], path: str = "$") -> list[s
     return errors
 
 
+def validate_freshness(root: Path, actual: set[str]) -> list[str]:
+    errors: list[str] = []
+    path = root / FRESHNESS_REGISTRY
+    if not path.is_file():
+        return [f"{FRESHNESS_REGISTRY}: missing"]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"{FRESHNESS_REGISTRY}: invalid JSON: {exc}"]
+    if not isinstance(data, dict) or data.get("version") != 1:
+        return [f"{FRESHNESS_REGISTRY}: version 1 metadata required"]
+    errors.extend(_validate_freshness_date(FRESHNESS_REGISTRY, data.get("last_updated"), "last_updated"))
+    records = data.get("skills")
+    exemptions = data.get("exemptions")
+    if not isinstance(records, dict) or not isinstance(exemptions, dict):
+        return [f"{FRESHNESS_REGISTRY}: skills and exemptions must be objects"]
+    if set(records) & set(exemptions):
+        errors.append(f"{FRESHNESS_REGISTRY}: a skill cannot be both sensitive and exempt")
+    if set(records) | set(exemptions) != actual:
+        errors.append(f"{FRESHNESS_REGISTRY}: coverage does not match skill directories")
+    if (set(records) | set(exemptions)) - actual:
+        errors.append(f"{FRESHNESS_REGISTRY}: unknown skill record")
+    for name, metadata in records.items():
+        prefix = f"{FRESHNESS_REGISTRY}: {name}"
+        if not isinstance(metadata, dict):
+            errors.append(f"{prefix}: metadata must be an object")
+            continue
+        required = {"status", "technology", "checked_version", "last_verified", "runtime_detection_required", "verification", "references"}
+        if set(metadata) != required:
+            errors.append(f"{prefix}: sensitive metadata keys mismatch")
+            continue
+        if metadata.get("status") != "version-sensitive":
+            errors.append(f"{prefix}: status must be version-sensitive")
+        if not isinstance(metadata.get("technology"), list) or not metadata["technology"] or not all(isinstance(item, str) and item for item in metadata["technology"]):
+            errors.append(f"{prefix}: technology must be a non-empty string list")
+        if not isinstance(metadata.get("checked_version"), str) or not metadata["checked_version"]:
+            errors.append(f"{prefix}: checked_version is required")
+        if not isinstance(metadata.get("verification"), str) or not metadata["verification"]:
+            errors.append(f"{prefix}: verification is required")
+        if not isinstance(metadata.get("runtime_detection_required"), bool):
+            errors.append(f"{prefix}: runtime_detection_required must be boolean")
+        errors.extend(_validate_freshness_date(prefix, metadata.get("last_verified")))
+        errors.extend(_validate_freshness_references(root, prefix, metadata.get("references")))
+    for name, metadata in exemptions.items():
+        prefix = f"{FRESHNESS_REGISTRY}: {name}"
+        if not isinstance(metadata, dict) or set(metadata) != {"status", "exemption", "references"}:
+            errors.append(f"{prefix}: exemption metadata keys mismatch")
+            continue
+        if metadata.get("status") != "exempt":
+            errors.append(f"{prefix}: status must be exempt")
+        if not isinstance(metadata.get("exemption"), str) or not metadata["exemption"]:
+            errors.append(f"{prefix}: exemption is required")
+        errors.extend(_validate_freshness_references(root, prefix, metadata.get("references")))
+    return errors
+
+
+def _validate_freshness_date(prefix: str, value: Any, field: str = "last_verified") -> list[str]:
+    if not isinstance(value, str):
+        return [f"{prefix}: {field} must be ISO date"]
+    try:
+        checked = date.fromisoformat(value)
+    except ValueError:
+        return [f"{prefix}: {field} must be ISO date"]
+    return [f"{prefix}: {field} cannot be in the future"] if checked > date.today() else []
+
+
+def _validate_freshness_references(root: Path, prefix: str, value: Any) -> list[str]:
+    if not isinstance(value, list) or not value or not all(isinstance(item, str) and item for item in value):
+        return [f"{prefix}: references must be a non-empty string list"]
+    errors = []
+    for reference in value:
+        target = (root / reference).resolve()
+        try:
+            target.relative_to(root.resolve())
+        except ValueError:
+            errors.append(f"{prefix}: reference escapes repository: {reference}")
+        else:
+            if not target.is_file():
+                errors.append(f"{prefix}: missing reference: {reference}")
+    return errors
+
+
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
     if root == ROOT:
@@ -203,6 +287,7 @@ def validate(root: Path) -> list[str]:
     if len(names) != len(set(names)): errors.append("skill frontmatter names are not unique")
 
     actual = {skill.name for skill in skill_dirs}
+    errors.extend(validate_freshness(root, actual))
     if set(evaluation) != actual:
         errors.append(f"{EVALUATION_INVENTORY}: skill coverage does not match directories")
     for name, metadata in evaluation.items():
@@ -427,6 +512,14 @@ def main(argv: list[str] | None = None) -> int:
         print("REMAINING UNKNOWN")
         for name in sorted(name for name, status in statuses.items() if status == "unknown"):
             print(name)
+        freshness_path = root / FRESHNESS_REGISTRY
+        if freshness_path.is_file():
+            freshness = json.loads(freshness_path.read_text(encoding="utf-8"))
+            print("SKILL FRESHNESS")
+            actual = {path.parent.name for path in root.joinpath(SKILLS).glob("*/SKILL.md")}
+            for name in sorted(actual):
+                record = freshness.get("skills", {}).get(name) or freshness.get("exemptions", {}).get(name)
+                print(f"{name} | {record.get('status', 'UNKNOWN')} | {record.get('last_verified', 'n/a')}")
         print("CORE EVALUATION MATRIX")
         print("skill | trigger | inputs | workflow | output | failure-stop | security | evaluation | runtime-claims | references | evidence")
         for name in sorted(core):

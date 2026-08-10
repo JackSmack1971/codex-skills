@@ -6,6 +6,9 @@ compatibility: Requires Codex CLI and Python 3.11+ for optional local validators
 
 # Skill Creator
 
+Before relying on CLI or skill-contract behavior, detect the local runtime and
+consult the current authoritative skill documentation.
+
 Create or improve one reusable Codex skill while keeping its trigger, workflow,
 and validation behavior explicit.
 
