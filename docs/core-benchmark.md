@@ -53,3 +53,16 @@ and availability metadata. Response bodies and transcripts are never written.
 Explicit runs are labeled `explicit`; they are not implicit trigger-selection
 measurements. If Codex is unavailable, deterministic validation still exits 0
 and runtime entries report `unavailable`.
+
+## Delivery workflow validators
+
+The seven core delivery workflows have additional fixture-backed validators for
+objective artifact invariants. Run the complete set with:
+
+```text
+python scripts/run_delivery_evaluation.py
+```
+
+These checks cover structure and safety properties such as evidence/assumption
+separation, observable criteria, verification evidence, read-only review, and
+pre-mutation Git inspection. Subjective quality remains manual review.
