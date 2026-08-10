@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "entrypoint": "SKILL.md",
+  "warning_bytes": 12000,
+  "hard_bytes": 20000,
+  "exceptions": [
+    {
+      "skill": "imagegen",
+      "max_bytes": 25000,
+      "reason": "Retained as a single activation surface because its built-in and CLI safety boundary must be selected before any reference is loaded.",
+      "documented_in": "skills/imagegen/SKILL.md"
+    }
+  ]
+}
