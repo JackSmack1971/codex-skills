@@ -1,10 +1,16 @@
-"""Check the catalog's explicit routing boundaries using only the standard library."""
+"""Check deterministic routing-boundary evidence using discovery metadata.
+
+This is a lexical boundary contract, not an imitation of model routing: each
+case must have a unique highest overlap with the expected SKILL.md
+frontmatter description. It catches stale descriptions and mislabeled cases.
+"""
 
 from __future__ import annotations
 
 import json
 import re
 import sys
+from itertools import combinations
 from pathlib import Path
 
 
@@ -25,6 +31,33 @@ def words(text: str) -> set[str]:
     return {word for word in re.findall(r"[a-z0-9]+", text.lower()) if len(word) > 2 and word not in STOPWORDS}
 
 
+def frontmatter_description(path: Path) -> str | None:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    in_frontmatter = False
+    description: list[str] = []
+    collecting = False
+    for line in lines:
+        if line.strip() == "---":
+            if in_frontmatter:
+                break
+            in_frontmatter = True
+            continue
+        if not in_frontmatter:
+            continue
+        if collecting:
+            if line.startswith((" ", "\t")):
+                description.append(line.strip())
+                continue
+            break
+        if line.startswith("description:"):
+            value = line.split(":", 1)[1].strip()
+            if value in {">", ">-", ">+", "|", "|-", "|+"}:
+                collecting = True
+            else:
+                return value.strip("\"'")
+    return " ".join(description) if description else None
+
+
 def declared_pairs(records: list[dict]) -> set[frozenset[str]]:
     pairs: set[frozenset[str]] = set()
     names = {record["name"] for record in records}
@@ -36,17 +69,38 @@ def declared_pairs(records: list[dict]) -> set[frozenset[str]]:
     return pairs
 
 
+def declarations_by_skill(records: list[dict]) -> dict[str, set[str]]:
+    return {
+        record["name"]: set(record.get("intentional_overlaps", []))
+        for record in records
+    }
+
+
 def main() -> int:
     errors: list[str] = []
     try:
         catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
-        cases = json.loads(CASES.read_text(encoding="utf-8"))["cases"]
+        case_data = json.loads(CASES.read_text(encoding="utf-8"))
+        cases = case_data["cases"]
     except (OSError, json.JSONDecodeError, KeyError) as exc:
         print(f"input unreadable: {exc}")
         return 1
 
+    if case_data.get("contract") != "unique lexical evidence against SKILL.md frontmatter descriptions":
+        errors.append("routing cases must declare the deterministic lexical evidence contract")
     records = catalog.get("skills", [])
     names = {record.get("name") for record in records}
+    descriptions: dict[str, str] = {}
+    for record in records:
+        name = record.get("name")
+        path = ROOT / record.get("path", "")
+        if not isinstance(name, str) or not path.is_file():
+            continue
+        description = frontmatter_description(path)
+        if not description:
+            errors.append(f"{name}: missing SKILL.md frontmatter description")
+        else:
+            descriptions[name] = description
     alias_targets: dict[str, str] = {}
     for record in records:
         name = record["name"]
@@ -68,10 +122,31 @@ def main() -> int:
         skill = case.get("skill")
         kind = case.get("kind")
         text = case.get("input")
-        if skill not in names or kind not in {"positive", "exclusion"} or not isinstance(text, str) or not text.strip():
+        route_to = case.get("route_to", skill)
+        if (
+            skill not in names
+            or kind not in {"positive", "exclusion"}
+            or not isinstance(text, str)
+            or not text.strip()
+            or route_to not in names
+            or (kind == "exclusion" and route_to == skill)
+            or skill not in descriptions
+            or route_to not in descriptions
+        ):
             errors.append(f"invalid routing case: {case.get('id', '<unknown>')}")
             continue
-        expected = (skill,) if kind == "positive" else ()
+        expected_name = skill if kind == "positive" else route_to
+        scores = {
+            name: len(words(text) & words(description))
+            for name, description in descriptions.items()
+        }
+        best_score = max(scores.values(), default=0)
+        best = [name for name, score in scores.items() if score == best_score]
+        if best_score == 0 or best != [expected_name]:
+            errors.append(
+                f"{case.get('id', '<unknown>')}: expected unique lexical route {expected_name}, got {best or 'none'}"
+            )
+        expected = (expected_name,)
         normalized = " ".join(text.lower().split())
         if normalized in seen:
             if seen[normalized] != expected:
@@ -93,10 +168,20 @@ def main() -> int:
     except ValueError as exc:
         errors.append(str(exc))
         overlaps = set()
+    declared_by = declarations_by_skill(records)
+    for cluster in CLUSTERS:
+        for left_name, right_name in combinations(sorted(cluster), 2):
+            if (
+                frozenset((left_name, right_name)) not in overlaps
+                or right_name not in declared_by.get(left_name, set())
+                or left_name not in declared_by.get(right_name, set())
+            ):
+                errors.append(f"missing intentional overlap declaration: {left_name} / {right_name}")
     for index, left in enumerate(records):
         for right in records[index + 1 :]:
             pair = frozenset((left["name"], right["name"]))
-            left_words, right_words = words(left["description"]), words(right["description"])
+            left_words = words(descriptions.get(left["name"], ""))
+            right_words = words(descriptions.get(right["name"], ""))
             union = left_words | right_words
             similarity = len(left_words & right_words) / len(union) if union else 0
             if len(left_words & right_words) >= 4 and similarity >= 0.45 and pair not in overlaps:
