@@ -8,12 +8,6 @@ The machine-readable source of truth is [`skills/catalog.json`](skills/catalog.j
 python scripts/validate_catalog.py
 ```
 
-Run the complete offline repository validation with one command:
-
-```text
-python scripts/validate_repository.py
-```
-
 ## Software-delivery lifecycle
 
 The main delivery path is:
@@ -57,7 +51,7 @@ The table below is generated from the records in `skills/catalog.json` and is gr
 | git-commit | delivery | maintenance | prompt-only | Git commit and Conventional Commit workflow |
 | git-workflow | delivery | maintenance | prompt-only | Safe Git operations and recovery |
 | github-issue-to-pr | delivery | implementation | evaluated | Issue-to-PR delivery workflow |
-| grill-me | product | discovery | prompt-only | Relentless plan and design questioning |
+| grill-me | product | discovery | prompt-only | Compatibility alias for explicit `/grill-me` invocations |
 | grilling | product | discovery | evaluated | One-question-at-a-time design stress test |
 | imagegen | design | implementation | evaluated | Raster image generation and editing |
 | improve | governance | review | script-backed | Evidence-backed repository improvement audits |
