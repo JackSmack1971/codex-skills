@@ -20,8 +20,10 @@ CASES = ROOT / "tests" / "skill-routing-cases.json"
 CLUSTERS = [
     {"grill-me", "grilling"},
     {"pr-review", "review-agent"},
-    {"testing-qa", "test-driven-development"},
-    {"skill-creator", "context7-skill-wizard"},
+    {"feature-implementation", "vertical-slice", "test-driven-development", "testing-qa"},
+    {"improve", "skill-auditor", "context-doctor"},
+    {"git-commit", "git-workflow", "github-issue-to-pr", "using-git-worktrees"},
+    {"skill-creator", "context7-skill-wizard", "plugin-creator"},
     {"product-discovery", "product-spec", "mvp-scope"},
 ]
 STOPWORDS = set("a an and are as at by for from in into is it of on or the this to with use when".split())

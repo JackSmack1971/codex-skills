@@ -1,6 +1,6 @@
 ---
 name: github-issue-to-pr
-description: Systematically convert open GitHub issues into focused pull requests with worktree isolation, planned execution, and state tracking.
+description: Use to convert an open GitHub issue into a focused pull request with planning, state tracking, worktree isolation, implementation, commits, and review. Do not use for an isolated Git operation, commit-only request, or worktree-only request.
 ---
 
 # GitHub Issue-to-PR Processor

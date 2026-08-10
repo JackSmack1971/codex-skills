@@ -1,6 +1,6 @@
 ---
 name: improve
-description: Use when auditing a repository for evidence-backed improvements in security, performance, testing, architecture, dependencies, developer experience, documentation, or product direction, or when preparing plan-only handoffs.
+description: Use for broad, plan-only repository improvement audits covering security, performance, testing, architecture, dependencies, developer experience, documentation, or product direction. Use skill-auditor for skill packages and context-doctor for Codex control-plane configuration.
 compatibility: Requires filesystem-readable project files; Git history is used only when available.
 ---
 
@@ -25,6 +25,8 @@ repository but none of this conversation.
   require rotation when exposure is plausible.
 - If the user requests execution or external publication, stop and ask for a
   separate explicitly authorized implementation workflow.
+- Route skill-package and skill-routing audits to `skill-auditor`; route Codex
+  AGENTS.md, config, hooks, MCP, or model-loading audits to `context-doctor`.
 
 ## Invocation
 
