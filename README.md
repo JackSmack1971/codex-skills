@@ -8,6 +8,12 @@ The machine-readable source of truth is [`skills/catalog.json`](skills/catalog.j
 python scripts/validate_catalog.py
 ```
 
+Run the complete offline repository validation with one command:
+
+```text
+python scripts/validate_repository.py
+```
+
 ## Software-delivery lifecycle
 
 The main delivery path is:

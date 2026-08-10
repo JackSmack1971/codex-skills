@@ -51,6 +51,24 @@ def check_tracked_cache_artifacts() -> bool:
     return True
 
 
+def check_committed_whitespace() -> bool:
+    print("== Committed whitespace ==")
+    result = subprocess.run(
+        ["git", "grep", "-nI", "-E", r"[[:blank:]]+$", "HEAD", "--"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode == 0:
+        print(result.stdout.strip())
+        return False
+    if result.returncode != 1:
+        print(result.stderr.strip())
+        return False
+    print("COMMITTED_WHITESPACE_OK")
+    return True
+
+
 def main() -> int:
     checks = [
         ("catalog", [sys.executable, "scripts/validate_catalog.py"]),
@@ -62,7 +80,8 @@ def main() -> int:
         passed = run(label, command) and passed
     passed = check_tracked_cache_artifacts() and passed
     passed = check_python_syntax() and passed
-    passed = run("Whitespace", ["git", "diff", "--check"]) and passed
+    passed = check_committed_whitespace() and passed
+    passed = run("Working-tree whitespace", ["git", "diff", "--check"]) and passed
     print("OPTIONAL_SKILL_TESTS=not-run (repository validation is offline and dependency-free)")
     if not passed:
         print("REPOSITORY_VALIDATION_FAILED")
