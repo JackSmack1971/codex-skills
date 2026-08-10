@@ -17,12 +17,21 @@ Skip visual planning only for genuinely trivial, unambiguous work. For a
 non-trivial plan, surface it as the approval gate before implementation and
 name the files or areas it will touch. Planning itself is read-only.
 
+When anchored feedback or a scope change updates an existing plan, prefer
+targeted `contentPatches`. `update-visual-plan` treats top-level `content` as
+a full replacement, not a merge, so read and preserve the complete source
+before using replacement content.
+
 ## Workflow and review
 
 1. Inspect repository evidence and existing actions/components/helpers.
 2. Choose the visual surface: document-only for backend/architecture, UI-first
    for product screens, prototype-first for functional behavior, design-first
    for branded fidelity, or visual-intake for an explicit questionnaire.
+   Map UI-first to `create-ui-plan`, prototype-first to `create-prototype-plan`,
+   design-first to `create-plan-design`, and explicit visual-intake to
+   `create-visual-questions`; reserve `create-visual-plan` for document-first
+   work.
 3. Read the block catalog before writing structured content; tags and required
    fields are runtime data, not memorized vocabulary.
 4. Build the plan with real file paths and grounded data. Put unresolved,

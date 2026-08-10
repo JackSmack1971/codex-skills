@@ -28,8 +28,15 @@ def main() -> int:
     warning = config.get("warning_bytes")
     hard = config.get("hard_bytes")
     exceptions = config.get("exceptions")
-    if not isinstance(warning, int) or not isinstance(hard, int) or warning <= 0 or warning >= hard:
+    valid_thresholds = (
+        isinstance(warning, int)
+        and isinstance(hard, int)
+        and warning > 0
+        and warning < hard
+    )
+    if not valid_thresholds:
         errors.append("warning_bytes and hard_bytes must be positive integers with warning_bytes < hard_bytes")
+        return fail(errors)
     if not isinstance(exceptions, list):
         errors.append("exceptions must be a list")
         exceptions = []
@@ -43,18 +50,24 @@ def main() -> int:
         maximum = item.get("max_bytes")
         reason = item.get("reason")
         documented_in = item.get("documented_in")
+        valid_exception = True
         if not isinstance(skill, str) or not skill or skill in exception_map:
             errors.append(f"invalid or duplicate exception skill: {skill!r}")
             continue
         if not isinstance(maximum, int) or maximum < hard:
             errors.append(f"{skill}: max_bytes must be an integer >= hard_bytes")
+            valid_exception = False
         if not isinstance(reason, str) or not reason.strip():
             errors.append(f"{skill}: exception reason is required")
+            valid_exception = False
         if not isinstance(documented_in, str) or not documented_in.endswith(".md"):
             errors.append(f"{skill}: documented_in must name a Markdown file")
+            valid_exception = False
         elif not (ROOT / documented_in).is_file():
             errors.append(f"{skill}: missing exception documentation {documented_in}")
-        exception_map[skill] = item
+            valid_exception = False
+        if valid_exception:
+            exception_map[skill] = item
 
     actual_skills = {p.parent.name for p in (ROOT / "skills").glob("*/SKILL.md")}
     unknown = set(exception_map) - actual_skills
