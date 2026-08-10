@@ -30,6 +30,16 @@ Run the deterministic Core benchmark with:
 python scripts/run_core_benchmark.py --deterministic-only
 ```
 
+Validate and run the reusable behavioral fixtures with:
+
+```text
+python scripts/run_core_evaluation.py --deterministic-only
+```
+
+See [docs/core-benchmark.md](docs/core-benchmark.md) for one-case, one-skill,
+baseline, and full-harness commands. Explicit runtime results do not measure
+implicit trigger-selection accuracy.
+
 The gate is offline and dependency-free. Its tests, including three negative
 fixtures, run with:
 

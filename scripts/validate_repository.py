@@ -318,6 +318,44 @@ def validate(root: Path) -> list[str]:
                     errors.append(f"docs/core-quality.json: {name}: incomplete quality declaration")
         except (OSError, json.JSONDecodeError) as exc:
             errors.append(f"docs/core-quality.json: invalid JSON: {exc}")
+    behavioral_path = root / "benchmarks/core/behavioral-cases.json"
+    if not behavioral_path.is_file():
+        errors.append("benchmarks/core/behavioral-cases.json: missing")
+    else:
+        try:
+            behavioral = json.loads(behavioral_path.read_text(encoding="utf-8"))
+            by_skill: dict[str, list[dict[str, Any]]] = {}
+            overlap_groups = {
+                "review-agent-vs-pr-review": {"review-agent", "pr-review"},
+                "feature-implementation-vs-vertical-slice": {"feature-implementation", "vertical-slice"},
+                "feature-implementation-vs-test-driven-development": {"feature-implementation", "test-driven-development"},
+                "testing-qa-vs-test-driven-development": {"testing-qa", "test-driven-development"},
+                "skill-auditor-vs-context-doctor-vs-improve": {"skill-auditor", "context-doctor", "improve"},
+                "git-workflow-vs-git-commit-vs-using-git-worktrees": {"git-workflow", "git-commit", "using-git-worktrees"},
+                "skill-creator-vs-context7-skill-wizard-vs-plugin-creator": {"skill-creator", "context7-skill-wizard", "plugin-creator"},
+            }
+            for case in behavioral.get("cases", []):
+                if isinstance(case, dict):
+                    by_skill.setdefault(case.get("skill_name"), []).append(case)
+            if not core.issubset(by_skill):
+                errors.append(f"benchmarks/core/behavioral-cases.json: missing Core skills {sorted(core - set(by_skill))}")
+            for name in sorted(core):
+                cases_for_skill = by_skill.get(name, [])
+                if len(cases_for_skill) < 6:
+                    errors.append(f"Core skill {name}: behavioral corpus requires at least 6 cases")
+                for polarity in ("positive", "negative", "ambiguous"):
+                    if sum(case.get("polarity") == polarity for case in cases_for_skill) < 2:
+                        errors.append(f"Core skill {name}: behavioral corpus requires 2 {polarity} cases")
+                if any(not case.get("expected_required_behaviors") for case in cases_for_skill):
+                    errors.append(f"Core skill {name}: every behavioral case needs a required behavior")
+                if any(case.get("polarity") == "negative" and not case.get("forbidden_behaviors") for case in cases_for_skill):
+                    errors.append(f"Core skill {name}: negative behavioral cases need forbidden behavior")
+            for group, expected in overlap_groups.items():
+                overlap_actual = {case.get("skill_name") for case in behavioral.get("cases", []) if case.get("overlap_group") == group}
+                if overlap_actual != expected:
+                    errors.append(f"{group}: behavioral overlap coverage mismatch")
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"benchmarks/core/behavioral-cases.json: invalid JSON: {exc}")
     catalog_names = [r.get("name") for r in records if isinstance(r, dict)]
     if len(catalog_names) != len(set(catalog_names)): errors.append("catalog skill names are not unique")
     if set(catalog_names) != actual: errors.append("canonical catalog does not exactly match skill directories")

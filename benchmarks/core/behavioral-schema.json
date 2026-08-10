@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "core-skill-behavioral-evaluation",
+  "title": "Core skill behavioral evaluation suite",
+  "type": "object",
+  "required": ["schema_version", "artifact_policy", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_policy": {"type": "string"},
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["case_id", "skill_name", "prompt", "expected_required_behaviors", "forbidden_behaviors", "polarity"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "skill_name": {"type": "string", "minLength": 1},
+          "prompt": {"type": "string", "minLength": 1},
+          "expected_required_behaviors": {"type": "array", "items": {"$ref": "#/$defs/behavior"}},
+          "forbidden_behaviors": {"type": "array", "items": {"$ref": "#/$defs/behavior"}},
+          "polarity": {"enum": ["positive", "negative", "ambiguous"]},
+          "overlap_group": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "behavior": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {"enum": ["required_heading", "required_text", "forbidden_text", "required_file", "required_stop_behavior", "validator_exit_code"]},
+        "value": {"type": ["string", "integer"]},
+        "command": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
