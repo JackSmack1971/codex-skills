@@ -14,6 +14,7 @@ SKILLS = "skills"
 EVALUATION_INVENTORY = "docs/evaluation-inventory.json"
 EVALUATION_LEVELS = {"none", "manual-prose", "deterministic-validator", "automated-behavioral"}
 QUALITY_DIMENSIONS = ["trigger", "inputs", "workflow", "output", "failure-stop", "security", "evaluation", "runtime-claims", "references"]
+PROVENANCE_STATUSES = {"original", "adapted", "vendored", "unknown"}
 SUPPORTED_FRONTMATTER = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 KEBAB = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK = re.compile(r"!?(?:\[[^\]]*\])\(([^)]+)\)")
@@ -197,6 +198,26 @@ def validate(root: Path) -> list[str]:
                 errors.append(f"{cases.relative_to(root).as_posix()}: requires at least 3 scenarios")
 
     inventory_text = (root / "docs/skill-inventory.md").read_text(encoding="utf-8") if (root / "docs/skill-inventory.md").is_file() else ""
+    inventory_rows: dict[str, list[str]] = {}
+    for line in inventory_text.splitlines():
+        if line.startswith("| `"):
+            fields = [field.strip() for field in line.strip().strip("|").split("|")]
+            if len(fields) != 8:
+                errors.append("docs/skill-inventory.md: inventory rows must have 8 columns")
+                continue
+            name = fields[0].strip("`")
+            status = fields[6].split(";", 1)[0].strip()
+            inventory_rows[name] = fields
+            if status not in PROVENANCE_STATUSES:
+                errors.append(f"docs/skill-inventory.md: {name}: invalid provenance status {status}")
+            evidence_link = re.search(rf"\]\([^)]*skills/{re.escape(name)}/", inventory_text)
+            if status in {"adapted", "vendored"} and not evidence_link:
+                errors.append(f"docs/skill-inventory.md: {name}: provenance evidence link is required")
+    if set(inventory_rows) != actual:
+        errors.append("docs/skill-inventory.md: provenance inventory coverage does not match directories")
+    readme = root / "README.md"
+    if root == ROOT and (not readme.is_file() or "## Provenance, licensing, and support boundaries" not in readme.read_text(encoding="utf-8")):
+        errors.append("README.md: root provenance/licensing section is missing")
     core = set()
     for line in inventory_text.splitlines():
         fields = [field.strip() for field in line.strip().strip("|").split("|")]
@@ -311,6 +332,18 @@ def main(argv: list[str] | None = None) -> int:
             if len(fields) >= 4 and fields[0].startswith("`") and fields[3] == "Core":
                 core.add(fields[0].strip("`"))
         evaluation = json.loads((root / EVALUATION_INVENTORY).read_text(encoding="utf-8"))["skills"]
+        statuses = {}
+        for line in (root / "docs/skill-inventory.md").read_text(encoding="utf-8").splitlines():
+            if line.startswith("| `"):
+                fields = [field.strip() for field in line.strip().strip("|").split("|")]
+                if len(fields) == 8:
+                    statuses[fields[0].strip("`")] = fields[6].split(";", 1)[0].strip()
+        print("PROVENANCE COUNTS")
+        for status in ("original", "adapted", "vendored", "unknown"):
+            print(f"{status}={sum(value == status for value in statuses.values())}")
+        print("REMAINING UNKNOWN")
+        for name in sorted(name for name, status in statuses.items() if status == "unknown"):
+            print(name)
         print("CORE EVALUATION MATRIX")
         print("skill | trigger | inputs | workflow | output | failure-stop | security | evaluation | runtime-claims | references | evidence")
         for name in sorted(core):

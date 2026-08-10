@@ -77,12 +77,10 @@ from the table in this README.
 | **Experimental** | Explicitly experimental skills | 0 |
 | **Vendored/Adapted** | Compatibility or imported form; canonical label: `Vendored-or-Adapted` | 1 |
 
-The current adapted entry is `grill-me`, a compatibility alias for `grilling`.
-The inventory records provenance as `unknown` for every skill because this
-repository contains no evidence establishing original, adapted, or vendored
-origin beyond that classification. The repository is licensed under MIT;
-see [`LICENSE`](LICENSE). Per-skill provenance and status belong in the
-canonical inventory, not in duplicated README claims.
+The inventory records per-skill provenance as `original`, `adapted`,
+`vendored`, or `unknown`, with repository links where evidence exists. The
+repository is licensed under MIT; see [`LICENSE`](LICENSE). Per-skill status
+belongs in the canonical inventory, not in duplicated README claims.
 
 ## Software-delivery lifecycle
 
@@ -175,7 +173,14 @@ fixtures, verification notes, and tests are supporting artifacts and may cover
 only some skills. The catalog and inventory describe those boundaries; they do
 not certify that every skill has equivalent evaluation depth.
 
-No per-skill provenance claims are made here: the canonical inventory marks
-provenance as `unknown` where repository evidence is absent. The root project
-license is MIT ([`LICENSE`](LICENSE)); review any third-party or adapted
-material's own notices before redistribution.
+The policy is deliberately evidence-first:
+
+- `original` means repository evidence establishes first-party authorship.
+- `adapted` means repository evidence identifies a modified or compatibility form.
+- `vendored` means third-party code or assets are carried in the repository.
+- `unknown` means authorship or origin is not established; it is not a guess.
+
+The root project license is MIT ([`LICENSE`](LICENSE)). Vendored material is
+kept under explicitly named `vendor/` paths where practical and retains its
+own notices. Review those notices and any linked source before redistribution;
+no existing copyright or license notice is replaced by the root policy.

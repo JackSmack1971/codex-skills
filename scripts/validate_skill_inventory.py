@@ -7,6 +7,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 INVENTORY = ROOT / "docs" / "skill-inventory.md"
 HEADER = "| Name | Purpose | Primary trigger / use case | Maturity | Implementation depth | Evaluation level | Provenance | Overlapping / adjacent skills |"
+PROVENANCE_STATUSES = {"original", "adapted", "vendored", "unknown"}
 
 
 def main() -> int:
@@ -17,6 +18,10 @@ def main() -> int:
             fields = [field.strip() for field in line.strip().strip("|").split("|")]
             if len(fields) != 8 or not fields[0].endswith("`"):
                 print(f"invalid inventory row: {line}", file=sys.stderr)
+                return 1
+            status = fields[6].split(";", 1)[0].strip()
+            if status not in PROVENANCE_STATUSES:
+                print(f"invalid provenance status for {fields[0]}: {status}", file=sys.stderr)
                 return 1
             rows.append(fields[0][1:-1])
     names = set(rows)

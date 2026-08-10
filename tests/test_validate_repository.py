@@ -52,6 +52,18 @@ class RepositoryValidatorTests(unittest.TestCase):
         self.assertTrue(any("secret-like value" in error for error in errors))
         self.assert_cli_fails(self.make_repo({"one": "AKIA1234567890ABCDEF"}))
 
+    def test_missing_provenance_status_fails(self) -> None:
+        root = self.make_repo({"one": ""})
+        (root / "docs").mkdir()
+        (root / "docs" / "skill-inventory.md").write_text(
+            "| Name | Purpose | Primary trigger / use case | Maturity | Implementation depth | Evaluation level | Provenance | Overlapping / adjacent skills |\n"
+            "|---|---|---|---|---|---|---|---|\n"
+            "| `one` | x | x | Specialized | prompt-only | none | missing | — |\n",
+            encoding="utf-8",
+        )
+        errors = validate(root)
+        self.assertTrue(any("invalid provenance status" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
