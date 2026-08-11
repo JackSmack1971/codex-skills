@@ -11,7 +11,10 @@ model selection.
 | Surface | Responsibility |
 |---|---|
 | `AGENTS.md` | Normative project policy for work performed in this repository. |
-| `.agents/skills/` | Project-local procedural discovery. |
+| `.codex-plugin/plugin.json` | Root plugin identity and bundled-component manifest. |
+| `.agents/plugins/marketplace.json` | Repo marketplace entry for distributing the root Git-backed plugin. |
+| `skills/` | Canonical authoring and packaging source for all 50 skills. |
+| `.agents/skills/` | Inert compatibility/discovery layer; not a canonical or generated skill tree. |
 | `.codex/config.toml` | Project environment and capability defaults, if deliberately introduced in a future change. It is not created by the inert skeleton. |
 | `.codex/rules/` | Command authorization. It remains empty until rules are explicitly reviewed and activated. |
 | `.codex/hooks/` | Lifecycle and interception behavior. It remains empty until hooks are explicitly reviewed and activated. |
@@ -28,6 +31,12 @@ package is moved into or duplicated under the control plane.
 Its presence must not cause repository validation to count its contents as
 canonical skill packages; canonical inventory and quality checks continue to
 read only `skills/`.
+
+The root plugin packages those same directories directly through
+`.codex-plugin/plugin.json`; it does not copy them into `plugins/`,
+`.agents/`, or `.codex/`. The repo marketplace distributes that root plugin
+from GitHub. Personal standalone skill installation is a separate user-level
+workflow and does not change this repository's canonical source.
 
 ## Evaluation artifacts
 

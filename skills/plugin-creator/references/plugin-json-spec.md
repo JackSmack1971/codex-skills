@@ -172,6 +172,7 @@ personal marketplace unless the caller explicitly requests a repo-local destinat
   - The same relative path convention is used for both personal and repo/team marketplaces.
     - Example: with `~/.agents/plugins/marketplace.json`, `./plugins/<plugin-name>` resolves to
       `~/plugins/<plugin-name>`.
+  - For a Git-backed plugin at the repository root, use `{"source": "url", "url": "https://github.com/owner/repo.git"}` and omit `path`. Use `git-subdir` plus a `./` path only when the plugin is nested.
 - `policy` (`object`): Marketplace policy block. Always include it.
   - `installation` (`string`): Availability policy.
     - Allowed values: `NOT_AVAILABLE`, `AVAILABLE`, `INSTALLED_BY_DEFAULT`
@@ -212,7 +213,7 @@ personal marketplace unless the caller explicitly requests a repo-local destinat
 - `apps` should appear in `plugin.json` only when `.app.json` actually exists.
 - `mcpServers` may point to `.mcp.json` or contain the MCP server object directly in
   `plugin.json`.
-- Validation rejects unsupported manifest fields such as `hooks`, so the scaffold keeps them out of
-  generated manifests.
+- Current plugin manifests may declare optional `hooks`, `mcpServers`, or `apps`
+  paths when those files exist; omit them when the package has no such component.
 - Run `scripts/validate_plugin.py <plugin-path>` before handing back a generated plugin. It adds one
   intentional preflight check that rejects leftover `[TODO: ...]` placeholders.

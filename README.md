@@ -30,6 +30,20 @@ Run the deterministic Core benchmark with:
 python scripts/run_core_benchmark.py --deterministic-only
 ```
 
+This repository is also distributed as the root Codex plugin. The canonical
+skill source remains `skills/`; validate the root manifest and Git-backed repo
+marketplace with:
+
+```text
+python scripts/validate_plugin_package.py
+```
+
+The repo marketplace is for plugin distribution and points at the GitHub root
+plugin. It is separate from `.agents/skills/`, which remains an inert
+compatibility/discovery location, and from personal standalone skill
+installation under a user's Codex skills directory. Do not copy canonical
+skills into either location.
+
 Validate and run the reusable behavioral fixtures with:
 
 ```text
@@ -114,6 +128,7 @@ for explicit `/grill-me` compatibility; new stress-test requests use
 | Repository quality gate | `python scripts/validate_repository.py` |
 | Full automated tests | `python -m unittest discover -s tests -v` |
 | Deterministic Core benchmark | `python scripts/run_core_benchmark.py --deterministic-only` |
+| Root plugin package | `python scripts/validate_plugin_package.py` |
 | Skill inventory count and coverage | `python scripts/validate_skill_inventory.py` |
 
 The quality gate enforces catalog integrity, inventory coverage, Core contract

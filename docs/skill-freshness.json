@@ -95,8 +95,8 @@
     "plugin-creator": {
       "status": "version-sensitive",
       "technology": ["Codex plugins", "Python"],
-      "checked_version": "Codex plugin manifest unspecified; Python version unspecified",
-      "last_verified": "2026-08-10",
+      "checked_version": "Current official Codex plugin manifest and Git-backed marketplace contract; Python 3.11+",
+      "last_verified": "2026-08-11",
       "runtime_detection_required": true,
       "verification": "Validate the manifest against the installed Codex/plugin tooling before packaging or publishing.",
       "references": ["skills/plugin-creator/SKILL.md"]
