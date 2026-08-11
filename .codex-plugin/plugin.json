@@ -1,0 +1,8 @@
+{
+  "name": "codex-skills",
+  "version": "0.1.0",
+  "description": "Repository-aware skills for Codex.",
+  "repository": "https://github.com/JackSmack1971/codex-skills.git",
+  "license": "MIT",
+  "skills": "./skills/"
+}

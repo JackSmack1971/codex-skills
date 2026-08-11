@@ -10,6 +10,11 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+try:
+    from scripts.validate_plugin_package import validate as validate_plugin_package
+except ModuleNotFoundError:  # Direct execution puts this directory on sys.path.
+    from validate_plugin_package import validate as validate_plugin_package
+
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = "skills"
 CONTROL_PLANE_DIRECTORIES = (
@@ -220,6 +225,7 @@ def _validate_freshness_references(root: Path, prefix: str, value: Any) -> list[
 def validate(root: Path) -> list[str]:
     errors: list[str] = []
     if root == ROOT:
+        errors.extend(validate_plugin_package(root))
         errors.extend(control_plane_layout_errors(root))
     skills_root = root / SKILLS
     skill_dirs = sorted(p for p in skills_root.iterdir() if p.is_dir()) if skills_root.is_dir() else []
