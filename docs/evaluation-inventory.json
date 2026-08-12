@@ -193,9 +193,9 @@
       "command": "manual review"
     },
     "skill-installer": {
-      "level": "manual-prose",
+      "level": "automated-behavioral",
       "evidence": "skills/skill-installer/tests/evaluation-cases.md",
-      "command": "manual review"
+      "command": "python -m unittest discover -s tests -p test_skill_installer.py -v"
     },
     "stack-detection": {
       "level": "manual-prose",

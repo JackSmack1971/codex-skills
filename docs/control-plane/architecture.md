@@ -36,7 +36,8 @@ The root plugin packages those same directories directly through
 `.codex-plugin/plugin.json`; it does not copy them into `plugins/`,
 `.agents/`, or `.codex/`. The repo marketplace distributes that root plugin
 from GitHub. Personal standalone skill installation is a separate user-level
-workflow and does not change this repository's canonical source.
+workflow into `$HOME/.agents/skills` and does not change this repository's
+canonical source.
 
 ## Evaluation artifacts
 

@@ -132,7 +132,7 @@
       "status": "version-sensitive",
       "technology": ["Codex CLI", "GitHub"],
       "checked_version": "Codex CLI and GitHub behavior unspecified",
-      "last_verified": "2026-08-10",
+      "last_verified": "2026-08-11",
       "runtime_detection_required": true,
       "verification": "Verify the current install command and source repository contract before installing a skill.",
       "references": ["skills/skill-installer/SKILL.md"]
