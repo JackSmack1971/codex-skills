@@ -40,9 +40,9 @@ python scripts/validate_plugin_package.py
 
 The repo marketplace is for plugin distribution and points at the GitHub root
 plugin. It is separate from `.agents/skills/`, which remains an inert
-compatibility/discovery location, and from personal standalone skill
-installation under a user's Codex skills directory. Do not copy canonical
-skills into either location.
+compatibility/discovery location, and from personal standalone installation
+under `$HOME/.agents/skills` via `skill-installer`. Do not copy canonical
+skills into either repository-local location.
 
 Validate and run the reusable behavioral fixtures with:
 

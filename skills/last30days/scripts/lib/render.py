@@ -14,7 +14,7 @@ from . import dates, schema, skill_meta
 def _skill_version() -> str:
     """Read plugin version from .codex-plugin/plugin.json, falling back to SKILL.md frontmatter.
 
-    Per-harness skill install dirs (`~/.agents/skills`, `~/.codex/skills`) do not always carry
+    Per-harness skill install dirs (`~/.agents/skills`) do not always carry
     `.codex-plugin/plugin.json` — that file ships with
     plugin-cache installs but not with per-harness skill installs. SKILL.md frontmatter is
     the fallback that keeps the badge from emitting v? on those installs. Returns "?" only
