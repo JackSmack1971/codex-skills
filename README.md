@@ -30,6 +30,24 @@ Run the deterministic Core benchmark with:
 python scripts/run_core_benchmark.py --deterministic-only
 ```
 
+The validation layers are intentionally separate: repository validation,
+deterministic routing fixtures, plugin-package validation, and optional live
+Codex runtime evidence. Run the offline runtime harness with:
+
+```text
+python scripts/run_codex_evaluation.py --deterministic-only
+```
+
+The opt-in live probe uses a temporary `CODEX_HOME` and reports `PASS`, `FAIL`,
+or `UNAVAILABLE` without touching user-level Codex state:
+
+```text
+python scripts/run_codex_evaluation.py --live
+```
+
+See [docs/control-plane/evaluation.md](docs/control-plane/evaluation.md) for
+the evidence boundaries and generated-result policy.
+
 This repository is also distributed as the root Codex plugin. The canonical
 skill source remains `skills/`; validate the root manifest and Git-backed repo
 marketplace with:
