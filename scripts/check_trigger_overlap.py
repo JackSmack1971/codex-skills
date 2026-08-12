@@ -131,6 +131,41 @@ def build_profiles(records: list[dict], root: Path = ROOT) -> tuple[dict[str, Pr
     return profiles, errors
 
 
+def pair_distinctive_terms(left: Profile, right: Profile) -> tuple[set[str], set[str]]:
+    """Return terms that distinguish each member of this specific boundary."""
+    left_terms = {term for term in left.tokens if SEMANTIC_CANON.get(term, term) not in right.semantic_tokens}
+    right_terms = {term for term in right.tokens if SEMANTIC_CANON.get(term, term) not in left.semantic_tokens}
+    return left_terms, right_terms
+
+
+def reviewed_dispositions(case_data: dict, names: set[str]) -> tuple[dict[frozenset[str], dict], list[str]]:
+    """Validate explicit decisions for discovered pairs that are not boundaries."""
+    dispositions: dict[frozenset[str], dict] = {}
+    errors: list[str] = []
+    records = case_data.get("candidate_dispositions", [])
+    if not isinstance(records, list):
+        return {}, ["candidate_dispositions must be a list"]
+    for index, record in enumerate(records):
+        if not isinstance(record, dict):
+            errors.append(f"candidate disposition {index}: must be an object")
+            continue
+        pair = record.get("pair")
+        status = record.get("status")
+        reason = record.get("reason")
+        if (not isinstance(pair, list) or len(pair) != 2 or not all(isinstance(name, str) for name in pair)
+                or pair[0] == pair[1] or not set(pair) <= names):
+            errors.append(f"candidate disposition {index}: invalid pair")
+            continue
+        key = frozenset(pair)
+        if key in dispositions:
+            errors.append(f"duplicate candidate disposition: {' / '.join(sorted(key))}")
+        if status not in {"reviewed", "dismissed"}:
+            errors.append(f"candidate disposition {' / '.join(sorted(key))}: invalid status")
+        if not isinstance(reason, str) or not reason.strip():
+            errors.append(f"candidate disposition {' / '.join(sorted(key))}: reason is required")
+        dispositions[key] = record
+    return dispositions, errors
+
 def discover_candidates(
     profiles: dict[str, Profile], records: list[dict], cases: list[dict]
 ) -> tuple[list[Candidate], set[frozenset[str]], list[str]]:
@@ -199,7 +234,7 @@ def validate_cases(cases: list[dict], profiles: dict[str, Profile]) -> tuple[lis
             errors.append(f"{label}: {case_id}")
         seen[normalized] = expected
         counts[(skill, kind)] += 1
-        if kind == "exclusion":
+        if kind == "exclusion" and case.get("source") == "curated":
             coverage[frozenset((skill, route_to))].add((skill, route_to))
             boundary = case.get("boundary")
             if boundary is not None and (not isinstance(boundary, list) or len(boundary) != 2 or frozenset(boundary) != frozenset((skill, route_to))):
@@ -240,33 +275,46 @@ def audit(catalog: dict, case_data: dict, root: Path = ROOT) -> tuple[list[str],
             alias_targets[key] = name
     candidates, declared, declaration_errors = discover_candidates(profiles, records, cases)
     errors.extend(declaration_errors)
+    dispositions, disposition_errors = reviewed_dispositions(case_data, names)
+    errors.extend(disposition_errors)
+    candidate_pairs = {frozenset((candidate.left, candidate.right)) for candidate in candidates}
+    for pair in dispositions.keys() - candidate_pairs:
+        errors.append(f"candidate disposition does not match a discovered pair: {' / '.join(sorted(pair))}")
     case_errors, coverage = validate_cases(cases, profiles)
     errors.extend(case_errors)
     for candidate in candidates:
         pair = frozenset((candidate.left, candidate.right))
         directions = coverage.get(pair, set())
         alias = any(record.get("name") in pair and record.get("alias_of") in pair for record in records)
+        if pair not in declared and pair not in dispositions:
+            errors.append(f"undispositioned candidate overlap: {candidate.left} / {candidate.right}")
         if "declared" in candidate.reasons and not alias:
             required_directions = {(candidate.left, candidate.right), (candidate.right, candidate.left)}
             if not required_directions <= directions:
                 errors.append(f"incomplete pairwise boundary cases: {candidate.left} / {candidate.right}")
-        if pair not in declared and ({"lexical", "semantic"} & set(candidate.reasons)):
-            warnings.append(f"candidate overlap requires review: {candidate.left} / {candidate.right} ({', '.join(candidate.reasons)})")
-        if not profiles[candidate.left].distinctive or not profiles[candidate.right].distinctive:
+        left_terms, right_terms = pair_distinctive_terms(profiles[candidate.left], profiles[candidate.right])
+        if not left_terms or not right_terms:
             warnings.append(f"weak distinctive-term boundary: {candidate.left} / {candidate.right}")
     return errors, warnings, candidates, profiles
 
 
-def generated_cases(candidates: list[Candidate], profiles: dict[str, Profile], existing: list[dict]) -> list[dict]:
+def generated_cases(
+    candidates: list[Candidate], profiles: dict[str, Profile], existing: list[dict],
+    excluded_pairs: set[frozenset[str]] | None = None,
+) -> list[dict]:
     covered = {
-        (case.get("skill"), case.get("route_to")) for case in existing if case.get("kind") == "exclusion"
+        (case.get("skill"), case.get("route_to")) for case in existing
+        if case.get("kind") == "exclusion" and case.get("source") == "curated"
     }
     proposals: list[dict] = []
     for candidate in candidates:
+        if frozenset((candidate.left, candidate.right)) in (excluded_pairs or set()):
+            continue
         for source, destination in ((candidate.left, candidate.right), (candidate.right, candidate.left)):
             if (source, destination) in covered:
                 continue
-            terms = sorted(profiles[destination].distinctive)[:4]
+            _, destination_terms = pair_distinctive_terms(profiles[source], profiles[destination])
+            terms = sorted(destination_terms)[:4]
             if not terms:
                 continue
             text = f"Route this request using {' '.join(terms)}."
@@ -295,15 +343,18 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     errors, warnings, candidates, profiles = audit(catalog, case_data, args.catalog.resolve().parents[1])
     if args.generate_cases:
-        payload = {"version": 1, "source": "routing-boundary-auditor", "proposals": generated_cases(candidates, profiles, case_data.get("cases", []))}
+        dispositions, _ = reviewed_dispositions(case_data, set(profiles))
+        payload = {"version": 1, "source": "routing-boundary-auditor", "proposals": generated_cases(
+            candidates, profiles, case_data.get("cases", []), set(dispositions)
+        )}
         args.generate_cases.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     if args.report_json:
         print(json.dumps({
             "status": "fail" if errors else "pass", "errors": errors, "warnings": warnings,
-            "candidates": [{**candidate.__dict__, "distinctive": {
-                candidate.left: sorted(profiles[candidate.left].distinctive),
-                candidate.right: sorted(profiles[candidate.right].distinctive),
-            }} for candidate in candidates],
+            "candidates": [{**candidate.__dict__, "distinctive": dict(zip(
+                (candidate.left, candidate.right),
+                map(sorted, pair_distinctive_terms(profiles[candidate.left], profiles[candidate.right])),
+            ))} for candidate in candidates],
         }, indent=2))
     else:
         for warning in warnings:
