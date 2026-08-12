@@ -11,8 +11,13 @@ python scripts/validate_catalog.py
 python scripts/validate_skill_inventory.py
 ```
 
-The routing checker passed with unique lexical evidence for every case before
-and after this change. No skill directory is removed in this revision.
+The routing-boundary auditor combines lexical and explainable semantic
+candidate detection, reciprocal pair checks, distinctive-term analysis, and
+validated routing cases. It remains an offline metadata contract and does not
+claim to measure implicit model routing. No skill directory is removed in this
+revision. Use `--report-json` for inspectable candidate evidence or
+`--generate-cases PATH` to write deterministic, human-reviewable case proposals
+without modifying the canonical fixture.
 
 ## Decision summary
 
