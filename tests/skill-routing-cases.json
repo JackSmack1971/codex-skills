@@ -1,6 +1,10 @@
 {
-  "version": 1,
-  "contract": "unique lexical evidence against SKILL.md frontmatter descriptions",
+  "version": 2,
+  "contracts": [
+    "unique deterministic evidence",
+    "pairwise boundary evidence",
+    "distinctive-term evidence"
+  ],
   "cases": [
     {"id":"grill-me-1","skill":"grill-me","kind":"positive","input":"Invoke the compatibility alias /grill-me command explicitly."},
     {"id":"grill-me-2","skill":"grill-me","kind":"positive","input":"Use the legacy compatibility alias /grill-me invocation explicitly."},
@@ -106,6 +110,18 @@
     {"id":"plugin-creator-2","skill":"plugin-creator","kind":"positive","input":"Update marketplace metadata and optional plugin folders."},
     {"id":"plugin-creator-3","skill":"plugin-creator","kind":"positive","input":"Scaffold a Codex plugin and validate its manifest."},
     {"id":"plugin-creator-x1","skill":"plugin-creator","kind":"exclusion","route_to":"skill-creator","input":"Improve standalone skill metadata and description without plugin packaging."},
-    {"id":"plugin-creator-x2","skill":"plugin-creator","kind":"exclusion","route_to":"context7-skill-wizard","input":"Build a focused skill from current Context7 docs for the Django framework."}
+    {"id":"plugin-creator-x2","skill":"plugin-creator","kind":"exclusion","route_to":"context7-skill-wizard","input":"Build a focused skill from current Context7 docs for the Django framework."},
+    {"id":"boundary-context7-skill-wizard-to-plugin-creator","skill":"context7-skill-wizard","kind":"exclusion","route_to":"plugin-creator","boundary":["context7-skill-wizard","plugin-creator"],"source":"curated","input":"Create a Codex plugin with marketplace metadata and a plugin.json manifest."},
+    {"id":"boundary-test-driven-development-to-feature-implementation","skill":"test-driven-development","kind":"exclusion","route_to":"feature-implementation","boundary":["test-driven-development","feature-implementation"],"source":"curated","input":"Implement concrete specified product behavior as the smallest verified change without requiring TDD."},
+    {"id":"boundary-feature-implementation-to-testing-qa","skill":"feature-implementation","kind":"exclusion","route_to":"testing-qa","boundary":["feature-implementation","testing-qa"],"source":"curated","input":"Choose and run proportionate browser performance security and release QA checks for an existing change."},
+    {"id":"boundary-testing-qa-to-feature-implementation","skill":"testing-qa","kind":"exclusion","route_to":"feature-implementation","boundary":["testing-qa","feature-implementation"],"source":"curated","input":"Implement specified product behavior as the smallest verified change after concrete requirements."},
+    {"id":"boundary-git-commit-to-using-git-worktrees","skill":"git-commit","kind":"exclusion","route_to":"using-git-worktrees","boundary":["git-commit","using-git-worktrees"],"source":"curated","input":"Create and verify an isolated Git worktree for parallel branch work."},
+    {"id":"boundary-using-git-worktrees-to-git-commit","skill":"using-git-worktrees","kind":"exclusion","route_to":"git-commit","boundary":["using-git-worktrees","git-commit"],"source":"curated","input":"Create only a Conventional Commit message and Git commit."},
+    {"id":"boundary-git-workflow-to-github-issue-to-pr","skill":"git-workflow","kind":"exclusion","route_to":"github-issue-to-pr","boundary":["git-workflow","github-issue-to-pr"],"source":"curated","input":"Convert an open GitHub issue into a focused pull request with planning state tracking implementation commits and review."},
+    {"id":"boundary-github-issue-to-pr-to-git-workflow","skill":"github-issue-to-pr","kind":"exclusion","route_to":"git-workflow","boundary":["github-issue-to-pr","git-workflow"],"source":"curated","input":"Resolve a broad Git repository rebase conflict and recover refs."},
+    {"id":"boundary-skill-creator-to-plugin-creator","skill":"skill-creator","kind":"exclusion","route_to":"plugin-creator","boundary":["skill-creator","plugin-creator"],"source":"curated","input":"Update a Codex plugin manifest and marketplace metadata."},
+    {"id":"boundary-test-driven-development-to-vertical-slice","skill":"test-driven-development","kind":"exclusion","route_to":"vertical-slice","boundary":["test-driven-development","vertical-slice"],"source":"curated","input":"Trace one user action across interface service persistence and verification layers."},
+    {"id":"boundary-vertical-slice-to-test-driven-development","skill":"vertical-slice","kind":"exclusion","route_to":"test-driven-development","boundary":["vertical-slice","test-driven-development"],"source":"curated","input":"Use an explicit red-green-refactor TDD cycle gated by local test results."},
+    {"id":"boundary-testing-qa-to-vertical-slice","skill":"testing-qa","kind":"exclusion","route_to":"vertical-slice","boundary":["testing-qa","vertical-slice"],"source":"curated","input":"Plan one end-to-end user-visible slice across interface service persistence and verification."}
   ]
 }

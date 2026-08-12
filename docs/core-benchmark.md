@@ -10,6 +10,12 @@ python scripts/run_core_benchmark.py --output benchmarks/core/baseline.json
 
 Use `--deterministic-only` for an offline run, or `--runs 3` to repeat the model-backed sample. The report records the manifest, UTC timestamp, task identity, run count, exit code, response digest/size, pass criteria, and uncertainty. It deliberately omits response bodies, transcripts, and secrets.
 
+Audit adjacent-skill routing boundaries separately with
+`python scripts/check_trigger_overlap.py`. The auditor discovers lexical and
+explainable semantic candidates, validates reciprocal boundary cases, and
+reports distinctive terms. Its fixture-backed result is deterministic evidence,
+not an implicit-selection accuracy measurement.
+
 Measurement modes are separate. Explicit cases name `$skill` in the prompt. Implicit selection is currently **unavailable and unreported** because the local Codex CLI does not expose selected-skill telemetry; explicit results must not be read as implicit trigger accuracy. Model responses are human-review material, not fake objective scores.
 # Core benchmark
 
