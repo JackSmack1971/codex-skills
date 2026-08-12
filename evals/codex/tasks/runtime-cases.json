@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "cases": [
+    {"id": "plugin-discoverability", "kind": "distribution", "description": "The root plugin is discoverable from its marketplace."},
+    {"id": "bundled-skill-availability", "kind": "distribution", "description": "All canonical skills are present in the plugin package."},
+    {"id": "front-doors", "kind": "routing", "description": "Each catalog front door has a valid owner."},
+    {"id": "named-specialists", "kind": "routing", "description": "Representative named specialists remain directly addressable."},
+    {"id": "routing-fixtures", "kind": "routing", "description": "Existing positive, negative, and ambiguous Core benchmark prompts are reused; existing routing exclusions remain the specialist contract."},
+    {"id": "initial-skill-list-budget", "kind": "routing", "description": "The 50-skill metadata list fits the documented 8,000-character unknown-context cap."}
+  ]
+}

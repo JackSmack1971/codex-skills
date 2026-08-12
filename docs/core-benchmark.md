@@ -54,6 +54,10 @@ Explicit runs are labeled `explicit`; they are not implicit trigger-selection
 measurements. If Codex is unavailable, deterministic validation still exits 0
 and runtime entries report `unavailable`.
 
+The separate plugin/runtime distribution harness is documented in
+[docs/control-plane/evaluation.md](control-plane/evaluation.md). It preserves
+the distinction between fixture-backed routing and live Codex evidence.
+
 ## Delivery workflow validators
 
 The seven core delivery workflows have additional fixture-backed validators for

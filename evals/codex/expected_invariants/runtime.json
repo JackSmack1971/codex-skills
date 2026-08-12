@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "canonical_skill_count": 50,
+  "initial_skill_list_budget_chars": 8000,
+  "representative_specialists": ["plugin-creator", "skill-creator", "context-doctor", "testing-qa", "feature-implementation"],
+  "required_front_doors": ["discover", "specify", "design", "build", "verify", "review", "release", "maintain", "improve", "extend-skills", "configure-codex", "orchestrate"],
+  "runtime_selection_evidence_events": ["skill_selected", "skill_loaded"]
+}
