@@ -13,7 +13,7 @@ import json
 import re
 import sys
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import combinations
 from pathlib import Path
 
@@ -40,6 +40,7 @@ class Profile:
     description: str
     tokens: set[str]
     semantic_tokens: set[str]
+    distinctive: set[str] = field(default_factory=set)
 
 
 @dataclass(frozen=True)
@@ -124,6 +125,9 @@ def build_profiles(records: list[dict], root: Path = ROOT) -> tuple[dict[str, Pr
             errors.append(f"{name}: missing SKILL.md frontmatter description")
             continue
         profiles[name] = Profile(name, description, words(description), semantic_words(description))
+    frequency = Counter(token for profile in profiles.values() for token in profile.tokens)
+    for profile in profiles.values():
+        profile.distinctive = {token for token in profile.tokens if frequency[token] <= 2}
     return profiles, errors
 
 
@@ -161,7 +165,6 @@ def reviewed_dispositions(case_data: dict, names: set[str]) -> tuple[dict[frozen
             errors.append(f"candidate disposition {' / '.join(sorted(key))}: reason is required")
         dispositions[key] = record
     return dispositions, errors
-
 
 def discover_candidates(
     profiles: dict[str, Profile], records: list[dict], cases: list[dict]
