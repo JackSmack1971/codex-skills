@@ -86,3 +86,23 @@ python scripts/validate_routing_benchmark.py
 ```
 
 This contract records routing evidence; it does not claim that implicit routing is measurable.
+
+## Versioned routing baseline comparison
+
+Create a metadata-only baseline from one or more routing result artifacts:
+
+```text
+python scripts/compare_routing_baseline.py create evals/codex/results/latest.json --output benchmarks/routing/baseline.json
+```
+
+The version-1 format is defined by [benchmarks/routing/baseline-schema.json](../benchmarks/routing/baseline-schema.json). It stores case IDs, expected/actual route labels, verdict booleans, availability, counterfactual groups, and runtime versions; it never stores prompts, transcripts, or response bodies.
+
+Compare a candidate run with the accepted baseline; raw routing result artifacts are normalized automatically:
+
+```text
+python scripts/compare_routing_baseline.py compare benchmarks/routing/baseline.json evals/codex/results/latest.json --policy policy.json --output evals/codex/results/routing-comparison.json
+```
+
+The comparison reports per-skill accuracy deltas, new and resolved confusion edges, forbidden activation regressions, counterfactual regressions/improvements, UNKNOWN/UNAVAILABLE deltas, and overall metrics with counts. Policy checks are independent: for example, `{"zero_new_forbidden_activations": true, "protected_core_max_accuracy_regression": 0.0, "unknown_unavailable_tolerance": 0.05, "protected_core_skills": ["feature-implementation"]}`. There is no single global pass threshold. Runtime or Codex version changes are explicitly flagged as weaker causal evidence, while noisy live measurements can use a configured tolerance.
+
+Intended workflow: change skill metadata → compile registry → run routing benchmark → create/compare against the accepted baseline → inspect semantic regressions.
