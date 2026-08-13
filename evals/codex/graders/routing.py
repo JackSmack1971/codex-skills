@@ -99,6 +99,7 @@ def grade_routing(case: dict[str, Any], events: list[dict[str, Any]]) -> dict[st
         "case_id": case.get("case_id"),
         "expected_primary_skill": expected,
         "actual_selected_skills": actual,
+        "selection_telemetry": selection_telemetry,
         "runtime_health": classify_runtime(events),
         "primary_selection_verdict": primary_verdict,
         "forbidden_activation_verdict": forbidden_verdict,

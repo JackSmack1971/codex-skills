@@ -32,6 +32,23 @@ entrypoint. The precedence rules below remain canonical for explicit nouns.
 
 Front doors are navigation only. Named specialists remain directly invokable.
 
+## Empirical analysis
+
+Analyze one or more live result artifacts with:
+
+```text
+python scripts/analyze_routing_results.py evals/codex/results/live.json \
+  --json-out evals/codex/results/routing-report.json \
+  --markdown-out evals/codex/results/routing-report.md
+```
+
+The JSON report is the source of truth for counts, rates, runtime versions,
+per-skill accuracy, confusion edges, and counterfactual groups. The Markdown
+report is generated from it; neither report stores prompts or transcripts.
+UNKNOWN means runtime evidence exists but selection telemetry is absent;
+UNAVAILABLE means the run produced no usable runtime result. Both are excluded
+from accuracy denominators and every percentage includes its sample count.
+
 ## Review
 
 | Skill | Use when | Do not use when | Delegates/composes with | Precedence |
