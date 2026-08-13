@@ -1002,7 +1002,8 @@ Insecure patterns:
 
 Detection hints:
 
-* Search for `--inspect` in Dockerfiles, Procfiles, systemd units, PM2 configs, npm scripts.
+* Search for `--inspect` in Dockerfiles, Procfiles, systemd units, PM2 configs,
+  and package-manager scripts.
 * Check `NODE_OPTIONS`.
 
 Fix:
@@ -1115,10 +1116,10 @@ Session middleware documentation:
 
 * express-session docs (cookie flags, secret rotation, fixation mitigation, MemoryStore warning): `https://expressjs.com/en/resources/middleware/session.html` ([Express][1])
 
-Node.js and npm official references:
+Node.js and package-manager official references:
 
 * Node.js — Security Best Practices (DoS, proxy guidance, inspector risks, request smuggling notes): `https://nodejs.org/en/learn/getting-started/security-best-practices` ([Node.js][15])
-* npm Docs — `npm audit`: `https://docs.npmjs.com/cli/v9/commands/npm-audit/` ([npm Docs][16])
+* Package-manager audit documentation: `https://docs.npmjs.com/cli/v9/commands/npm-audit/` ([documentation][16])
 
 OWASP Cheat Sheet Series:
 
@@ -1153,6 +1154,6 @@ Versioning / advisories:
 [13]: https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html "File Upload - OWASP Cheat Sheet Series"
 [14]: https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html "OS Command Injection Defense - OWASP Cheat Sheet Series"
 [15]: https://nodejs.org/en/learn/getting-started/security-best-practices "Node.js — Security Best Practices"
-[16]: https://docs.npmjs.com/cli/v9/commands/npm-audit/ "npm-audit | npm Docs"
+[16]: https://docs.npmjs.com/cli/v9/commands/npm-audit/ "npm-audit documentation"
 [17]: https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html "Input Validation - OWASP Cheat Sheet Series"
 [18]: https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html "Unvalidated Redirects and Forwards - OWASP Cheat Sheet Series"
