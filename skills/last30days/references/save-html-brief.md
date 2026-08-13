@@ -25,16 +25,16 @@ SYNTHESIS_FILE="/tmp/last30days-synthesis-${CODEX_SESSION_ID:-local}.md"
 cat > "$SYNTHESIS_FILE" <<'SYNTHESIS_EOF'
 What I learned:
 
-**{First headline}** - {body with [name](url) inline citations}
+**{First headline}** - {body with [name](https://example.com) inline citations}
 
 **{Second headline}** - {body}
 
 **{Third headline}** - {body}
 
 KEY PATTERNS from the research:
-1. {pattern} - per [@handle](url)
-2. {pattern} - per [r/sub](url)
-3. {pattern} - per [@handle](url)
+1. {pattern} - per [@handle](https://example.com)
+2. {pattern} - per [r/sub](https://example.com)
+3. {pattern} - per [@handle](https://example.com)
 SYNTHESIS_EOF
 
 # 2. Convert the synthesis to a self-contained HTML file via the engine.
@@ -60,7 +60,7 @@ The engine's `--emit=html` renderer combines:
 - The badge (`🌐 last30days vX.Y.Z · synced YYYY-MM-DD`) at the top
 - A single inline metadata line (`{date range} · {active sources}`) below the badge
 - Your synthesis verbatim, with prose labels promoted to `<h2>` and bold lead-ins preserved
-- All `[name](url)` citations rendered as `<a>` tags
+- All `[name](https://example.com)` citations rendered as `<a>` tags
 - The engine footer (`✅ All agents reported back!` tree) preserved verbatim in monospace
 - A colophon with the topic and a re-run hint
 
