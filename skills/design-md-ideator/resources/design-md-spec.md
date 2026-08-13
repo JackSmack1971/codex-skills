@@ -1,5 +1,6 @@
 <!-- Generated from spec.mdx + spec-config.ts | version: alpha -->
-<!-- Do not edit directly. Run `bun run spec:gen` to regenerate. -->
+<!-- Do not edit directly. Regenerate from the upstream spec source using its
+     documented generator workflow. -->
 
 # DESIGN.md Format
 
