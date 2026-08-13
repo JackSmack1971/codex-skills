@@ -8,6 +8,21 @@ The machine-readable source of truth is [`skills/catalog.json`](skills/catalog.j
 python scripts/validate_catalog.py
 ```
 
+Generated inventory views are checked with:
+
+```text
+python scripts/compile_skill_registry.py --check
+```
+
+Regenerate them after changing canonical metadata with:
+
+```text
+python scripts/compile_skill_registry.py
+```
+
+The resolved registry is [`docs/skill-state.json`](docs/skill-state.json);
+[`docs/skill-inventory.md`](docs/skill-inventory.md) is its human-readable view.
+
 Consolidation and compatibility decisions are recorded in
 [`docs/skill-consolidation.md`](docs/skill-consolidation.md). The canonical
 precedence map is [`docs/skill-routing.md`](docs/skill-routing.md).
