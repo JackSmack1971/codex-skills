@@ -20,7 +20,7 @@ activates control-plane behavior.
    python -m unittest discover -s tests -v
    python scripts/run_core_benchmark.py --deterministic-only
    python scripts/validate_skill_inventory.py
-   git diff --check
+   git diff --check origin/main...HEAD
    ```
 
 5. Link the issue in the pull request and summarize behavior, risk, and
