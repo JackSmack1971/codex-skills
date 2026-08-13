@@ -277,6 +277,8 @@ The policy is deliberately evidence-first:
 - `vendored` means third-party code or assets are carried in the repository.
 - `unknown` means authorship or origin is not established; it is not a guess.
 
+Contribution workflow details are in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 The root project license is MIT ([`LICENSE`](LICENSE)). For vulnerability
 reporting, see [`SECURITY.md`](SECURITY.md). Vendored material is
 kept under explicitly named `vendor/` paths where practical and retains its
