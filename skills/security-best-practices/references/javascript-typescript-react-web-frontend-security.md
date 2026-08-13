@@ -862,8 +862,8 @@ Fix:
 
 Notes:
 
-* Package-manager security documentation describes dependency auditing and optional remediation, while noting some vulnerabilities require manual review. ([package-manager docs][20])
-* Package-manager CI documentation describes clean installs as requiring an existing lockfile and failing when the manifest and lockfile do not match. ([package-manager docs][21])
+* npm docs describe `npm audit` as submitting the project dependency tree to the registry to receive a report of known vulnerabilities and (optionally) applying remediations via `npm audit fix`, while noting some vulnerabilities require manual review. ([npm Docs][20])
+* npm docs describe `npm ci` as intended for automated/CI environments, requiring an existing lockfile and failing if `package.json` and lockfile do not match. ([npm Docs][21])
 * OWASP package-manager security guidance recommends enforcing the lockfile and aborting on inconsistencies, and highlights the risk of install-time scripts and the option to disable them to reduce attack surface. ([OWASP Cheat Sheet Series][22])
 
 ---
@@ -954,8 +954,8 @@ Auth/token storage guidance:
 
 Dependency tooling references:
 
-* Package-manager audit docs — `https://docs.npmjs.com/cli/v10/commands/npm-audit/` ([package-manager docs][20])
-* Package-manager clean-install docs — `https://docs.npmjs.com/cli/v10/commands/npm-ci/` ([package-manager docs][21])
+* npm audit docs — `https://docs.npmjs.com/cli/v10/commands/npm-audit/` ([npm Docs][20])
+* npm ci docs — `https://docs.npmjs.com/cli/v10/commands/npm-ci/` ([npm Docs][21])
 
 Sanitizer reference:
 
@@ -984,7 +984,7 @@ Sanitizer reference:
 [17]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel "HTML attribute: rel - HTML | MDN"
 [18]: https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts "Secure contexts - Security | MDN"
 [19]: https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html "File Upload - OWASP Cheat Sheet Series"
-[20]: https://docs.npmjs.com/cli/v10/commands/npm-audit "package-manager audit documentation"
-[21]: https://docs.npmjs.com/cli/v10/commands/npm-ci "package-manager clean-install documentation"
+[20]: https://docs.npmjs.com/cli/v10/commands/npm-audit "npm-audit | npm Docs"
+[21]: https://docs.npmjs.com/cli/v10/commands/npm-ci "npm-ci | npm Docs"
 [22]: https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html "NPM Security - OWASP Cheat Sheet Series"
 [23]: https://react.dev/blog/2024/12/05/react-19 "React v19 – React"
