@@ -1,0 +1,1072 @@
+{
+  "version": 1,
+  "source": {
+    "catalog": "skills/catalog.json",
+    "evaluation": "docs/evaluation-inventory.json"
+  },
+  "counts": {
+    "skills": 50,
+    "by_classification": {
+      "Core": 23,
+      "Specialized": 26,
+      "Vendored-or-Adapted": 1
+    },
+    "by_evaluation_level": {
+      "automated-behavioral": 17,
+      "deterministic-validator": 7,
+      "manual-prose": 24,
+      "none": 2
+    }
+  },
+  "skills": [
+    {
+      "name": "acceptance-criteria",
+      "path": "skills/acceptance-criteria/SKILL.md",
+      "description": "Turn ambiguous requirements into observable pass/fail acceptance criteria.",
+      "primary_trigger": "Turn ambiguous requirements into observable pass/fail acceptance criteria.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "deterministic-validator",
+        "evidence": "benchmarks/core/delivery-behavioral-cases.json",
+        "command": "python scripts/run_delivery_evaluation.py --case acceptance-criteria"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "product-spec",
+        "testing-qa"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "api-design",
+      "path": "skills/api-design/SKILL.md",
+      "description": "Design or review API contracts, schemas, errors, authorization, pagination, idempotency, and versioning.",
+      "primary_trigger": "Design or review API contracts, schemas, errors, authorization, pagination, idempotency, and versioning.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "product-spec",
+        "data-modeling",
+        "integration-engineering"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "architecture",
+      "path": "skills/architecture/SKILL.md",
+      "description": "Create or evaluate architecture decisions and system designs with constraints, alternatives, and trade-offs.",
+      "primary_trigger": "Create or evaluate architecture decisions and system designs with constraints, alternatives, and trade-offs.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "product-discovery",
+        "product-spec",
+        "writing-plans"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "brainstorming-ux-features",
+      "path": "skills/brainstorming-ux-features/SKILL.md",
+      "description": "Discover, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
+      "primary_trigger": "Discover, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/brainstorming-ux-features/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "product-discovery",
+        "product-spec",
+        "design-md-ideator"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "changelog-updater",
+      "path": "skills/changelog-updater/SKILL.md",
+      "description": "Reconstruct or update user-facing changelogs from Git history and diffs.",
+      "primary_trigger": "Reconstruct or update user-facing changelogs from Git history and diffs.",
+      "classification": "Core",
+      "implementation_depth": "tested",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "generating-readmes",
+        "testing-qa"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "context-doctor",
+      "path": "skills/context-doctor/SKILL.md",
+      "description": "Use only to audit Codex CLI context loading and control-plane configuration; use skill-auditor for skill packages and improve for broad repository audits.",
+      "primary_trigger": "Audit Codex context loading and control-plane configuration; propose, but do not apply, changes.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/context-doctor/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "skill-auditor",
+        "maintaining-repository-hygiene"
+      ],
+      "intentional_overlaps": [
+        "skill-auditor",
+        "improve"
+      ]
+    },
+    {
+      "name": "context7-skill-wizard",
+      "path": "skills/context7-skill-wizard/SKILL.md",
+      "description": "Use only to build a focused Open Agent skill from current Context7 documentation for a named library or framework. Use skill-creator for general skill work and plugin-creator for plugin packaging.",
+      "primary_trigger": "Use for “build a skill for” or “generate a skill from docs” requests naming a technology.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/context7-skill-wizard/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "read-the-damn-docs",
+        "skill-auditor",
+        "plugin-creator"
+      ],
+      "intentional_overlaps": [
+        "skill-creator",
+        "plugin-creator"
+      ]
+    },
+    {
+      "name": "data-modeling",
+      "path": "skills/data-modeling/SKILL.md",
+      "description": "Design or review durable data models, relationships, constraints, indexes, lifecycle, and concurrency assumptions.",
+      "primary_trigger": "Design or review durable data models, relationships, constraints, indexes, lifecycle, and concurrency assumptions.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "database-migrations",
+        "api-design",
+        "vertical-slice"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "database-migrations",
+      "path": "skills/database-migrations/SKILL.md",
+      "description": "Plan, implement, or review safe persistent schema changes, backfills, compatibility windows, verification, and rollback.",
+      "primary_trigger": "Plan, implement, or review safe persistent schema changes, backfills, compatibility windows, verification, and rollback.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "testing-qa",
+        "vertical-slice"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "design-md-ideator",
+      "path": "skills/design-md-ideator/SKILL.md",
+      "description": "Create, refine, reconstruct, or validate a standalone DESIGN.md design-system source of truth.",
+      "primary_trigger": "Create, refine, reconstruct, or validate a DESIGN.md design-system source of truth.",
+      "classification": "Specialized",
+      "implementation_depth": "tested",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/design-md-ideator/VERIFICATION.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "tailwind-design-system",
+        "taste-engine",
+        "brainstorming-ux-features"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "efficient-frontier",
+      "path": "skills/efficient-frontier/SKILL.md",
+      "description": "Orchestrate high-cost frontier-model work through cheaper delegated research, coding, and testing with final synthesis and review.",
+      "primary_trigger": "Use for high-cost frontier-model codebase work that can be delegated in waves.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/efficient-frontier/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "stay-within-limits",
+        "feature-implementation",
+        "testing-qa"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "feature-implementation",
+      "path": "skills/feature-implementation/SKILL.md",
+      "description": "Implement specified product behavior as the smallest verified change; use narrower cross-layer, TDD, or QA skills when those constraints are explicit.",
+      "primary_trigger": "Implement a specified feature from a concrete requirement or issue.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "deterministic-validator",
+        "evidence": "benchmarks/core/delivery-behavioral-cases.json",
+        "command": "python scripts/run_delivery_evaluation.py --case feature-implementation"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "vertical-slice",
+        "test-driven-development",
+        "testing-qa"
+      ],
+      "intentional_overlaps": [
+        "vertical-slice",
+        "test-driven-development",
+        "testing-qa"
+      ]
+    },
+    {
+      "name": "generate-codeowners",
+      "path": "skills/generate-codeowners/SKILL.md",
+      "description": "Analyze repository architecture, history, risk boundaries, and verified GitHub ownership to generate or audit CODEOWNERS.",
+      "primary_trigger": "Generate or audit CODEOWNERS using verified repository and GitHub ownership evidence.",
+      "classification": "Specialized",
+      "implementation_depth": "tested",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/generate-codeowners/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "git-workflow",
+        "pr-review"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "generating-readmes",
+      "path": "skills/generating-readmes/SKILL.md",
+      "description": "Create or upgrade grounded repository README operational manuals.",
+      "primary_trigger": "Generate, improve, audit, or verify a repository README or maintainer guide.",
+      "classification": "Core",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "changelog-updater",
+        "maintaining-repository-hygiene"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "git-commit",
+      "path": "skills/git-commit/SKILL.md",
+      "description": "Create commits or Conventional Commit messages when explicitly requested; use git-workflow for broader operations and github-issue-to-pr for the lifecycle.",
+      "primary_trigger": "Explicitly request a Git commit or Conventional Commit message.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "pr-review",
+        "github-issue-to-pr"
+      ],
+      "intentional_overlaps": [
+        "git-workflow",
+        "github-issue-to-pr",
+        "using-git-worktrees"
+      ]
+    },
+    {
+      "name": "git-workflow",
+      "path": "skills/git-workflow/SKILL.md",
+      "description": "Perform broad Git repository operations; use git-commit for commit-only, using-git-worktrees for isolation, and github-issue-to-pr for the complete lifecycle.",
+      "primary_trigger": "Any requested Git action, including status inspection or synchronization.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "deterministic-validator",
+        "evidence": "benchmarks/core/delivery-behavioral-cases.json",
+        "command": "python scripts/run_delivery_evaluation.py --case git-workflow"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "git-commit",
+        "using-git-worktrees",
+        "github-issue-to-pr"
+      ],
+      "intentional_overlaps": [
+        "git-commit",
+        "github-issue-to-pr",
+        "using-git-worktrees"
+      ]
+    },
+    {
+      "name": "github-issue-to-pr",
+      "path": "skills/github-issue-to-pr/SKILL.md",
+      "description": "Convert an open GitHub issue into a focused pull request with planning, state tracking, worktree isolation, implementation, commits, and review.",
+      "primary_trigger": "Convert an open GitHub issue into an isolated, planned pull request.",
+      "classification": "Core",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "feature-implementation",
+        "pr-review"
+      ],
+      "intentional_overlaps": [
+        "git-commit",
+        "git-workflow",
+        "using-git-worktrees"
+      ]
+    },
+    {
+      "name": "grill-me",
+      "path": "skills/grill-me/SKILL.md",
+      "description": "Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling.",
+      "primary_trigger": "Explicitly invoke the legacy `/grill-me` compatibility command.",
+      "classification": "Vendored-or-Adapted",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "none",
+        "evidence": "none",
+        "command": "none"
+      },
+      "provenance": "adapted; [SKILL.md](../skills/grill-me/SKILL.md) explicitly identifies the compatibility alias",
+      "related_skills": [
+        "grilling"
+      ],
+      "intentional_overlaps": [
+        "grilling"
+      ]
+    },
+    {
+      "name": "grilling",
+      "path": "skills/grilling/SKILL.md",
+      "description": "Use for a new interactive plan or design stress-test, asking one recommended question at a time until shared understanding. Do not use for explicit /grill-me compatibility invocations; route those to grill-me.",
+      "primary_trigger": "Request a new interactive plan or design stress-test.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/grilling/VERIFICATION.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "grill-me",
+        "product-spec"
+      ],
+      "intentional_overlaps": [
+        "grill-me"
+      ]
+    },
+    {
+      "name": "imagegen",
+      "path": "skills/imagegen/SKILL.md",
+      "description": "Generate or edit raster images when bitmap visuals are the right deliverable.",
+      "primary_trigger": "Request a new bitmap image or edit to an attached/generated image.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/imagegen/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "design-md-ideator",
+        "taste-engine"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "improve",
+      "path": "skills/improve/SKILL.md",
+      "description": "Run broad, plan-only repository improvement audits; use skill-auditor for skill packages and context-doctor for Codex control-plane configuration.",
+      "primary_trigger": "Audit a repository for improvement opportunities or prepare an evidence-backed handoff.",
+      "classification": "Specialized",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "none",
+        "evidence": "none",
+        "command": "none"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "maintaining-repository-hygiene",
+        "skill-auditor",
+        "context-doctor",
+        "simplification-cascades"
+      ],
+      "intentional_overlaps": [
+        "skill-auditor",
+        "context-doctor"
+      ]
+    },
+    {
+      "name": "integration-engineering",
+      "path": "skills/integration-engineering/SKILL.md",
+      "description": "Safely implement or review integrations with external APIs, SDKs, webhooks, OAuth, and service providers.",
+      "primary_trigger": "Product behavior depends on a third-party API, SDK, webhook, OAuth provider, or service.",
+      "classification": "Specialized",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/integration-engineering/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "api-design",
+        "testing-qa",
+        "security-best-practices"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "intent-layer",
+      "path": "skills/intent-layer/SKILL.md",
+      "description": "Set up hierarchical AGENTS.md intent context for codebases.",
+      "primary_trigger": "Initialize or add AGENTS.md context infrastructure to a codebase.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/intent-layer/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "context-doctor",
+        "generating-readmes"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "last30days",
+      "path": "skills/last30days/SKILL.md",
+      "description": "Research current public sentiment and trend signals across social, community, and web sources.",
+      "primary_trigger": "Request current public sentiment, trend research, or a shareable briefing.",
+      "classification": "Specialized",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/last30days/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "vendored; [bird-search package](../skills/last30days/scripts/lib/vendor/bird-search/package.json) and [MIT notice](../skills/last30days/scripts/lib/vendor/bird-search/LICENSE)",
+      "related_skills": [
+        "product-discovery",
+        "read-the-damn-docs"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "maintaining-repository-hygiene",
+      "path": "skills/maintaining-repository-hygiene/SKILL.md",
+      "description": "Audit and professionalize GitHub repositories: stack and topology, stale worktrees, labels, .github governance and actions, documentation, settings, and tracked artifacts; create one idempotent issue per atomic step.",
+      "primary_trigger": "Request repository hygiene, cleanup, governance, or professionalization work.",
+      "classification": "Core",
+      "implementation_depth": "tested",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "generate-codeowners",
+        "generating-readmes",
+        "improve"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "mvp-scope",
+      "path": "skills/mvp-scope/SKILL.md",
+      "description": "Use to turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions before specification or architecture. Do not use to discover the problem or write detailed feature behavior; use product-discovery or product-spec.",
+      "primary_trigger": "Reduce a product idea or capability list to MVP scope before specification or architecture.",
+      "classification": "Specialized",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/mvp-scope/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "product-discovery",
+        "product-spec",
+        "grill-me"
+      ],
+      "intentional_overlaps": [
+        "product-discovery",
+        "product-spec"
+      ]
+    },
+    {
+      "name": "openai-docs",
+      "path": "skills/openai-docs/SKILL.md",
+      "description": "Use authoritative OpenAI documentation for OpenAI products, APIs, Codex, models, and configuration.",
+      "primary_trigger": "Ask about OpenAI products, APIs, Codex, models, pricing, setup, or configuration.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/openai-docs/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "context-doctor",
+        "context7-skill-wizard"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "plugin-creator",
+      "path": "skills/plugin-creator/SKILL.md",
+      "description": "Create or update Codex plugin manifests, optional plugin structure, and marketplace metadata; use skill-creator or context7-skill-wizard for standalone skills.",
+      "primary_trigger": "Create or update a Codex plugin or its marketplace metadata.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/plugin-creator/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "skill-creator",
+        "context7-skill-wizard",
+        "skill-installer"
+      ],
+      "intentional_overlaps": [
+        "skill-creator",
+        "context7-skill-wizard"
+      ]
+    },
+    {
+      "name": "pr-review",
+      "path": "skills/pr-review/SKILL.md",
+      "description": "Use for pull-request, branch-diff, or proposed-merge review, including merge-risk scoring and structured GitHub review output. Do not use for a generic delegated or read-only code-change review; use review-agent instead.",
+      "primary_trigger": "Request review of a pull request, branch diff, or proposed merge.",
+      "classification": "Core",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "review-agent",
+        "testing-qa",
+        "github-issue-to-pr"
+      ],
+      "intentional_overlaps": [
+        "review-agent"
+      ]
+    },
+    {
+      "name": "product-discovery",
+      "path": "skills/product-discovery/SKILL.md",
+      "description": "Use first when the product problem, target user, or desired outcome is still vague; produce an evidence-backed problem statement, assumptions, and validation plan. Do not use for fixed scope decisions or an implementable feature specification; use mvp-scope or product-spec.",
+      "primary_trigger": "Use first when the product problem, user, or outcome is still unclear.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "deterministic-validator",
+        "evidence": "benchmarks/core/delivery-behavioral-cases.json",
+        "command": "python scripts/run_delivery_evaluation.py --case product-discovery"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "mvp-scope",
+        "product-spec",
+        "brainstorming-ux-features"
+      ],
+      "intentional_overlaps": [
+        "mvp-scope",
+        "product-spec"
+      ]
+    },
+    {
+      "name": "product-spec",
+      "path": "skills/product-spec/SKILL.md",
+      "description": "Use after product intent is sufficiently understood to write an implementable feature specification covering behavior, requirements, edge cases, permissions, analytics, and acceptance criteria. Do not use to clarify a vague problem or reduce scope; use product-discovery or mvp-scope.",
+      "primary_trigger": "Write a detailed feature specification after product intent is understood.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "deterministic-validator",
+        "evidence": "benchmarks/core/delivery-behavioral-cases.json",
+        "command": "python scripts/run_delivery_evaluation.py --case product-spec"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "acceptance-criteria",
+        "writing-plans",
+        "api-design"
+      ],
+      "intentional_overlaps": [
+        "product-discovery",
+        "mvp-scope"
+      ]
+    },
+    {
+      "name": "read-the-damn-docs",
+      "path": "skills/read-the-damn-docs/SKILL.md",
+      "description": "Require current authoritative documentation before using third-party APIs, libraries, frameworks, CLIs, or services.",
+      "primary_trigger": "Implement, integrate, upgrade, debug, or answer a question involving a third-party technology.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/read-the-damn-docs/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "openai-docs",
+        "integration-engineering",
+        "context7-skill-wizard"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "review-agent",
+      "path": "skills/review-agent/SKILL.md",
+      "description": "Use for a delegated, read-only, defect-first review of specified code changes such as uncommitted changes, a base-branch diff, a commit, or custom instructions. Do not use for pull-request or proposed-merge review; use pr-review instead.",
+      "primary_trigger": "Request review of uncommitted changes, a base diff, a commit, or custom review instructions.",
+      "classification": "Core",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "deterministic-validator",
+        "evidence": "benchmarks/core/delivery-behavioral-cases.json",
+        "command": "python scripts/run_delivery_evaluation.py --case review-agent"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "pr-review",
+        "systematic-debugging",
+        "testing-qa"
+      ],
+      "intentional_overlaps": [
+        "pr-review"
+      ]
+    },
+    {
+      "name": "security-best-practices",
+      "path": "skills/security-best-practices/SKILL.md",
+      "description": "Provide secure-by-default guidance and security reviews for Python, JavaScript/TypeScript, and Go web stacks.",
+      "primary_trigger": "Explicitly request security guidance, a security review, or secure-by-default coding help.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "testing-qa",
+        "integration-engineering",
+        "pr-review"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "simplification-cascades",
+      "path": "skills/simplification-cascades/SKILL.md",
+      "description": "Find one unifying insight that removes duplicated logic, special cases, or redundant components.",
+      "primary_trigger": "Simplify a codebase, refactor duplication, or address accumulating special cases.",
+      "classification": "Specialized",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/simplification-cascades/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "improve",
+        "feature-implementation",
+        "systematic-debugging"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "skill-auditor",
+      "path": "skills/skill-auditor/SKILL.md",
+      "description": "Audit Open Agent skill packages, metadata, and multi-skill handoffs; use improve for broad repositories and context-doctor for Codex control-plane loading.",
+      "primary_trigger": "Audit a skill, SKILL.md, skill handoff, or multi-skill workflow.",
+      "classification": "Specialized",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/skill-auditor/VERIFICATION.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "skill-creator",
+        "context-doctor",
+        "improve"
+      ],
+      "intentional_overlaps": [
+        "context-doctor",
+        "improve"
+      ]
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator/SKILL.md",
+      "description": "Use for general Open Agent skill authoring, migration, improvement, evaluation, metadata, or description work; use context7-skill-wizard for named-library Context7 generation and plugin-creator for plugin packaging.",
+      "primary_trigger": "Request general skill authoring, migration, improvement, evaluation, or metadata work.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/skill-creator/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "skill-auditor",
+        "plugin-creator",
+        "context7-skill-wizard"
+      ],
+      "intentional_overlaps": [
+        "context7-skill-wizard",
+        "plugin-creator"
+      ]
+    },
+    {
+      "name": "skill-installer",
+      "path": "skills/skill-installer/SKILL.md",
+      "description": "Install Codex skills from curated sources or GitHub repositories.",
+      "primary_trigger": "Ask to list or install a curated skill or a skill from a GitHub repository.",
+      "classification": "Specialized",
+      "implementation_depth": "tested",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "skills/skill-installer/tests/evaluation-cases.md",
+        "command": "python -m unittest discover -s tests -p test_skill_installer.py -v"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "skill-creator",
+        "plugin-creator"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "stack-detection",
+      "path": "skills/stack-detection/SKILL.md",
+      "description": "Classify a desktop client stack before architectural or client-layer changes.",
+      "primary_trigger": "Plan architectural or client-layer changes in a desktop application.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/stack-detection/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "architecture",
+        "feature-implementation"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "stay-within-limits",
+      "path": "skills/stay-within-limits/SKILL.md",
+      "description": "Keep long-running or parallel work within usage limits by checking between waves and pausing safely.",
+      "primary_trigger": "Long-running or parallel agent work must respect usage windows.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/stay-within-limits/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "efficient-frontier"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "skills/systematic-debugging/SKILL.md",
+      "description": "Trace bugs, test failures, and unexpected behavior to root cause before proposing fixes.",
+      "primary_trigger": "Encounter a bug, test failure, or unexpected behavior.",
+      "classification": "Core",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "test-driven-development",
+        "testing-qa",
+        "simplification-cascades"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "tailwind-design-system",
+      "path": "skills/tailwind-design-system/SKILL.md",
+      "description": "Build production-ready Tailwind design systems with tokens, variants, responsive patterns, and accessibility.",
+      "primary_trigger": "Build or extend a Tailwind CSS design system.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/tailwind-design-system/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "design-md-ideator",
+        "taste-engine"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "taste-engine",
+      "path": "skills/taste-engine/SKILL.md",
+      "description": "Apply an explicitly enabled user-maintained design preference profile to UI/UX briefs.",
+      "primary_trigger": "A user explicitly enables a design preference profile for a UI/UX brief.",
+      "classification": "Specialized",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/taste-engine/VERIFICATION.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "design-md-ideator",
+        "tailwind-design-system"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "test-driven-development",
+      "path": "skills/test-driven-development/SKILL.md",
+      "description": "Use only for a requested feature, bug fix, refactor, or test change that explicitly needs a red-green-refactor TDD cycle gated by local results. For broader QA planning or execution without TDD, use testing-qa.",
+      "primary_trigger": "Explicitly request a TDD cycle gated by local test results.",
+      "classification": "Core",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "feature-implementation",
+        "vertical-slice",
+        "testing-qa",
+        "systematic-debugging"
+      ],
+      "intentional_overlaps": [
+        "feature-implementation",
+        "vertical-slice",
+        "testing-qa"
+      ]
+    },
+    {
+      "name": "testing-qa",
+      "path": "skills/testing-qa/SKILL.md",
+      "description": "Use to choose or run proportionate QA checks across unit, integration, browser, performance, security, or release quality for an existing change. Do not use when the requested workflow is specifically red-green-refactor TDD; use test-driven-development.",
+      "primary_trigger": "Verify an existing change with proportionate QA beyond a specifically requested TDD workflow.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "deterministic-validator",
+        "evidence": "benchmarks/core/delivery-behavioral-cases.json",
+        "command": "python scripts/run_delivery_evaluation.py --case testing-qa"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "test-driven-development",
+        "vertical-slice",
+        "feature-implementation",
+        "pr-review",
+        "security-best-practices"
+      ],
+      "intentional_overlaps": [
+        "feature-implementation",
+        "vertical-slice",
+        "test-driven-development"
+      ]
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": "skills/using-git-worktrees/SKILL.md",
+      "description": "Create or verify an isolated Git worktree for parallel or branch-isolated work; github-issue-to-pr composes it for the complete lifecycle.",
+      "primary_trigger": "Parallel or branch-isolated implementation requires an isolated worktree.",
+      "classification": "Core",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "github-issue-to-pr",
+        "feature-implementation"
+      ],
+      "intentional_overlaps": [
+        "git-commit",
+        "git-workflow",
+        "github-issue-to-pr"
+      ]
+    },
+    {
+      "name": "vertical-slice",
+      "path": "skills/vertical-slice/SKILL.md",
+      "description": "Plan or implement one end-to-end user-visible slice across interface, service logic, persistence, and verification; use feature-implementation for ordinary feature delivery.",
+      "primary_trigger": "Work is splitting into disconnected frontend, backend, or schema layers.",
+      "classification": "Core",
+      "implementation_depth": "prompt-only",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "feature-implementation",
+        "data-modeling",
+        "testing-qa"
+      ],
+      "intentional_overlaps": [
+        "feature-implementation",
+        "test-driven-development",
+        "testing-qa"
+      ]
+    },
+    {
+      "name": "visual-plan",
+      "path": "skills/visual-plan/SKILL.md",
+      "description": "Turn text plans into interactive visual plans with diagrams, file maps, annotated code, and review artifacts.",
+      "primary_trigger": "Request a visual or interactive representation of an implementation plan.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/visual-plan/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "visual-recap",
+        "architecture",
+        "design-md-ideator"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "visual-recap",
+      "path": "skills/visual-recap/SKILL.md",
+      "description": "Turn PRs, branches, commits, or diffs into interactive visual recaps with diagrams and focused review notes.",
+      "primary_trigger": "Request a visual recap of a PR, branch, commit, or Git diff.",
+      "classification": "Specialized",
+      "implementation_depth": "evaluated",
+      "evaluation": {
+        "level": "manual-prose",
+        "evidence": "skills/visual-recap/tests/evaluation-cases.md",
+        "command": "manual review"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "visual-plan",
+        "review-agent",
+        "git-workflow"
+      ],
+      "intentional_overlaps": []
+    },
+    {
+      "name": "writing-plans",
+      "path": "skills/writing-plans/SKILL.md",
+      "description": "Create concrete TDD-first implementation plans with file maps and validation.",
+      "primary_trigger": "Produce an implementation plan from a specification or feature request.",
+      "classification": "Core",
+      "implementation_depth": "script-backed",
+      "evaluation": {
+        "level": "automated-behavioral",
+        "evidence": "benchmarks/core/behavioral-cases.json",
+        "command": "python scripts/run_core_evaluation.py --deterministic-only"
+      },
+      "provenance": "unknown",
+      "related_skills": [
+        "product-spec",
+        "feature-implementation",
+        "testing-qa"
+      ],
+      "intentional_overlaps": []
+    }
+  ]
+}
