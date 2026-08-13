@@ -8,7 +8,9 @@ from pathlib import Path
 from evals.codex.graders.runtime import classify_runtime, selected_skill
 from scripts.run_codex_evaluation import (
     deterministic_checks,
+    calibration_status,
     live_probe,
+    marker_command,
     parse_runtime_events,
     routing_command,
     serialize_routing_result,
@@ -20,6 +22,7 @@ from scripts.run_codex_evaluation import (
     plugin_is_exposed,
     plugin_list_command,
     stage_local_marketplace,
+    stage_skill_text,
 )
 
 
@@ -66,6 +69,30 @@ class CodexEvaluationTests(unittest.TestCase):
             self.assertTrue((root / source["path"][2:] / ".codex-plugin/plugin.json").is_file())
             self.assertTrue((root / source["path"][2:] / "skills").is_dir())
 
+    def test_stage_instruments_body_without_changing_frontmatter(self):
+        original = "---\nname: testing-qa\ndescription: Test skill\n---\n\nDo the thing.\n"
+        staged = stage_skill_text(original, "testing-qa", "abcdef0123456789")
+        self.assertEqual(staged.split("---", 2)[:2], original.split("---", 2)[:2])
+        self.assertIn(marker_command("testing-qa", "abcdef0123456789"), staged)
+
+    def test_marker_command_requires_exact_nonce_and_skill(self):
+        command = marker_command("testing-qa", "abcdef0123456789")
+        self.assertIn("abcdef0123456789", command)
+        self.assertIn("testing-qa", command)
+        self.assertNotEqual(command, marker_command("testing-qa", "abcdef0123456788"))
+
+    def test_parser_accepts_only_command_execution_marker(self):
+        command = marker_command("testing-qa", "abcdef0123456789")
+        output = json.dumps({"type": "item.completed", "item": {"type": "command_execution", "command": command}})
+        self.assertEqual(parse_runtime_events(output, command), [{"type": "skill_selected", "name": "testing-qa", "source": "injected-skill-marker-v1"}])
+        prose = json.dumps({"type": "item.completed", "item": {"type": "agent_message", "text": command}})
+        self.assertEqual(parse_runtime_events(prose, command), [])
+
+    def test_calibration_distinguishes_success_and_missing_marker(self):
+        self.assertEqual(calibration_status([{"type": "turn.completed"}], []), "INSTRUMENTATION_UNAVAILABLE")
+        self.assertEqual(calibration_status([{"type": "turn.completed"}], [{"type": "skill_selected", "name": "testing-qa"}]), "ROUTING_AVAILABLE")
+        self.assertEqual(calibration_status([{"type": "error"}], []), "RUNTIME_FAILURE")
+
     def test_dedicated_eval_home_is_required_before_provisioning(self):
         with patch("scripts.run_codex_evaluation.codex_version", return_value="codex 1"), patch.dict("os.environ", {}, clear=True):
             result = live_probe("codex")
@@ -99,22 +126,22 @@ class CodexEvaluationTests(unittest.TestCase):
             self.assertIn(detail, result["reason"])
 
     def test_event_parser_keeps_only_structured_grading_telemetry(self):
+        command = marker_command("test-driven-development", "abcdef0123456789")
         events = parse_runtime_events('\n'.join([
             '{"type":"skill_loaded","name":"testing-qa","text":"private response"}',
-            '{"type":"item.completed","item":{"type":"agent_message","text":"CODEX_ROUTING_SELECTED: test-driven-development"}}',
+            json.dumps({"type":"item.completed","item":{"type":"command_execution","command":command}}),
             '{"type":"turn.completed","text":"response body"}',
             'not json',
-        ]))
-        self.assertEqual(events, [{"type": "skill_loaded", "name": "testing-qa"}, {"type": "skill_selected", "name": "test-driven-development", "source": "evaluation_marker"}, {"type": "turn.completed"}])
+        ]), command)
+        self.assertEqual(events, [{"type": "skill_loaded", "name": "testing-qa"}, {"type": "skill_selected", "name": "test-driven-development", "source": "injected-skill-marker-v1"}, {"type": "turn.completed"}])
 
-    def test_instrumented_prompt_keeps_original_prompt_and_adds_marker_instruction(self):
+    def test_instrumented_prompt_keeps_original_prompt(self):
         prompt = "Choose a skill."
         instrumented = instrumented_prompt(prompt)
-        self.assertTrue(instrumented.startswith(prompt))
-        self.assertIn("CODEX_ROUTING_SELECTED", instrumented)
+        self.assertEqual(instrumented, prompt)
 
     def test_unavailable_without_installed_runtime(self):
-        self.assertEqual(live_probe("codex-executable-that-does-not-exist")["status"], "UNAVAILABLE")
+        self.assertEqual(live_probe("codex-executable-that-does-not-exist")["status"], "RUNTIME_FAILURE")
 
     def test_result_serialization_is_metadata_only(self):
         case = {"case_id": "case-1", "prompt": "private prompt"}

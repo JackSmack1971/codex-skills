@@ -55,12 +55,16 @@ use `--ignore-user-config`, because the dedicated home’s config is part of the
 isolated evaluation. Setup failures report one of `authentication`,
 `marketplace_registration`, `plugin_installation`, or `plugin_exposure` and
 retain the CLI diagnostic. Missing runtime or selection telemetry is
-`UNAVAILABLE`, never a routing pass. Runtime selection is `UNKNOWN` unless
-JSONL or the evaluation-only `CODEX_ROUTING_SELECTED: <skill-name>` marker is
-present in an `item.completed` agent message after skill loading. Ordinary
-response wording is not parsed as evidence. The marker exists because the
-documented `codex exec --json` event contract has no native skill-selection
-event.
+`RUNTIME_FAILURE`, `PLUGIN_UNAVAILABLE`, or `INSTRUMENTATION_UNAVAILABLE`, never
+a routing pass. Before implicit cases, calibration explicitly invokes
+`$testing-qa` and requires its injected marker. Only a successful calibration
+enables routing measurement. The stage-only marker is a deterministic,
+nonce-bound read-only command injected into each staged SKILL.md body; parsing
+accepts it only from structured `item.*` command-execution events. Native
+`skill_selected`/`skill_loaded` events remain supported if they appear, but are
+not required. Every artifact and baseline records
+`measurement_method: "injected-skill-marker-v1"`; baselines with another
+method are incompatible.
 
 ## Burn-in workflow
 

@@ -13,6 +13,7 @@ from scripts.analyze_routing_results import _available, _cases, _unknown, _unava
 
 
 SCHEMA_VERSION = 1
+MEASUREMENT_METHOD = "injected-skill-marker-v1"
 
 
 def _actual(case: dict[str, Any]) -> str:
@@ -60,6 +61,7 @@ def create_baseline(artifacts: list[dict[str, Any]]) -> dict[str, Any]:
     cases: dict[str, dict[str, Any]] = defaultdict(lambda: {"trial_count": 0, "trials": []})
     runtime_versions: set[str] = set()
     codex_versions: set[str] = set()
+    measurement_methods: set[str] = set()
     for artifact_index, artifact in enumerate(artifacts):
         result = artifact.get("result", artifact)
         run_id = result.get("run_id") or artifact.get("run_id") or f"artifact-{artifact_index + 1}"
@@ -67,6 +69,9 @@ def create_baseline(artifacts: list[dict[str, Any]]) -> dict[str, Any]:
         git_commit = result.get("git_commit") or artifact.get("git_commit")
         runtime_version = result.get("version")
         codex_version = result.get("codex_version")
+        measurement_methods.add(result.get("measurement_method", MEASUREMENT_METHOD))
+        if len(measurement_methods) > 1:
+            raise ValueError("artifacts use incompatible measurement methods")
         if result.get("version"):
             runtime_versions.add(result["version"])
         if result.get("codex_version"):
@@ -103,6 +108,7 @@ def create_baseline(artifacts: list[dict[str, Any]]) -> dict[str, Any]:
             "codex_versions": sorted(codex_versions),
             "case_count": len(normalized_cases),
             "trial_count": sum(case["trial_count"] for case in normalized_cases.values()),
+            "measurement_method": next(iter(measurement_methods), MEASUREMENT_METHOD),
         },
         "cases": normalized_cases,
     }
@@ -160,6 +166,10 @@ def _delta(candidate: dict[str, Any], baseline: dict[str, Any]) -> dict[str, Any
 def compare(baseline: dict[str, Any], candidate: dict[str, Any], policy: dict[str, Any] | None = None) -> dict[str, Any]:
     if baseline.get("schema_version") != SCHEMA_VERSION or candidate.get("schema_version") != SCHEMA_VERSION:
         raise ValueError(f"baseline and candidate must use schema_version {SCHEMA_VERSION}")
+    baseline_method = baseline.get("metadata", {}).get("measurement_method", MEASUREMENT_METHOD)
+    candidate_method = candidate.get("metadata", {}).get("measurement_method", MEASUREMENT_METHOD)
+    if baseline_method != candidate_method:
+        raise ValueError("baseline and candidate use incompatible measurement methods")
     policy = {"zero_new_forbidden_activations": True, "protected_core_max_accuracy_regression": 0.0, "unknown_unavailable_tolerance": 0.0, **(policy or {})}
     base_cases, cand_cases = baseline.get("cases", {}), candidate.get("cases", {})
     common = sorted(set(base_cases) & set(cand_cases))
