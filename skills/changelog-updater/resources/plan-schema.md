@@ -5,7 +5,7 @@
 
 - [Top-level object](#top-level-object)
 - [Actions](#actions)
-  - [`update_unreleased`](#update-unreleased)
+  - [`update_unreleased`](#update_unreleased)
   - [`release`](#release)
   - [`reconstruct`](#reconstruct)
 - [Release object](#release-object)
