@@ -72,6 +72,13 @@ class RoutingBaselineTests(unittest.TestCase):
         self.assertEqual(report["unknown_delta"]["candidate"], {"count": 1, "total": 2, "rate": 0.5})
         self.assertEqual(report["unavailable_delta"]["candidate"], {"count": 1, "total": 2, "rate": 0.5})
 
+    def test_measurement_methods_must_match(self):
+        baseline = create_baseline([artifact("runtime-1", [row("a", "alpha", "alpha")])])
+        candidate = create_baseline([artifact("runtime-1", [row("a", "alpha", "alpha")])])
+        candidate["metadata"]["measurement_method"] = "other-method"
+        with self.assertRaises(ValueError):
+            compare(baseline, candidate)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,7 +8,7 @@
     "schema_version": {"const": 1},
     "kind": {"const": "routing-baseline"},
     "artifact_policy": {"type": "string", "pattern": "metadata-only"},
-    "metadata": {"type": "object", "required": ["runtime_versions", "codex_versions", "case_count", "trial_count"]},
+    "metadata": {"type": "object", "required": ["runtime_versions", "codex_versions", "case_count", "trial_count", "measurement_method"], "properties": {"measurement_method": {"const": "injected-skill-marker-v1"}}},
     "cases": {
       "type": "object",
       "additionalProperties": {

@@ -53,7 +53,7 @@ jobs:
 
           result = json.loads(Path("evals/codex/results/latest.json").read_text())
           status = result.get("result", {}).get("status", "UNAVAILABLE")
-          if status == "FAIL":
+          if status in {"ROUTING_FAIL", "RUNTIME_FAILURE"}:
               print(f"::error title=Routing regression::Live routing evaluation returned {status}")
               sys.exit(1)
           print(f"Live routing evaluation: {status}; experimental measurement, not deterministic validation.")
