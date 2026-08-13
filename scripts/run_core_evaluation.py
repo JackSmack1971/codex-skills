@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CASES = ROOT / "benchmarks" / "core" / "behavioral-cases.json"
 SCHEMA = ROOT / "benchmarks" / "core" / "behavioral-schema.json"
+STATE = Path("docs/skill-state.json")
 ALLOWED_TYPES = {"required_heading", "required_text", "forbidden_text", "required_file", "required_stop_behavior", "validator_exit_code"}
 OVERLAP_GROUPS = {
     "review-agent-vs-pr-review": {"review-agent", "pr-review"},
@@ -28,14 +29,11 @@ OVERLAP_GROUPS = {
 }
 
 
-def core_skill_names() -> set[str]:
-    rows = (ROOT / "docs" / "skill-inventory.md").read_text(encoding="utf-8").splitlines()
+def core_skill_names(root: Path = ROOT) -> set[str]:
     return {
-        fields[0].strip("`")
-        for line in rows
-        if line.startswith("| `")
-        for fields in [[field.strip() for field in line.strip("|").split("|")]]
-        if len(fields) >= 4 and fields[3] == "Core"
+        skill["name"]
+        for skill in json.loads((root / STATE).read_text(encoding="utf-8"))["skills"]
+        if skill.get("classification") == "Core"
     }
 
 

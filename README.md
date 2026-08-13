@@ -22,6 +22,8 @@ python scripts/compile_skill_registry.py
 
 The resolved registry is [`docs/skill-state.json`](docs/skill-state.json);
 [`docs/skill-inventory.md`](docs/skill-inventory.md) is its human-readable view.
+The architecture is canonical inputs → compiled skill-state → machine consumers
+and generated human views.
 
 Consolidation and compatibility decisions are recorded in
 [`docs/skill-consolidation.md`](docs/skill-consolidation.md). The canonical
