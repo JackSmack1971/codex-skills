@@ -62,9 +62,9 @@ Use the most authoritative source available:
 - Official product docs, API references, migration guides, changelogs, release
   notes, and SDK source/types for third-party behavior. Find these with web
   search when you do not already have the exact URL.
-- Package registry metadata for versions. Before adding a dependency, run
-  `npm view <pkg> version`, `pnpm view <pkg> version`, or the ecosystem
-  equivalent, then read the docs for that major version.
+- Package registry metadata for versions. Before adding a dependency, query
+  the package registry with the ecosystem's supported metadata command, then
+  read the docs for that major version.
 - Source code or type definitions when official docs are incomplete. Treat this
   as evidence, not folklore.
 
