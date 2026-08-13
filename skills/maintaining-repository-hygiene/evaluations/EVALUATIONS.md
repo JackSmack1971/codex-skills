@@ -23,7 +23,8 @@ Expected:
 
 ## Evaluation 3: Documentation rot
 
-Fixture contains broken relative links, a missing heading anchor, `npm run test` without a test script, and a README naming a removed directory.
+Fixture contains broken relative links, a missing heading anchor, a test command
+without a matching package script, and a README naming a removed directory.
 
 Expected:
 

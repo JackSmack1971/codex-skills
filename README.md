@@ -292,7 +292,14 @@ The policy is deliberately evidence-first:
 - `vendored` means third-party code or assets are carried in the repository.
 - `unknown` means authorship or origin is not established; it is not a guess.
 
-The root project license is MIT ([`LICENSE`](LICENSE)). Vendored material is
+Contribution workflow details are in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+The root project license is MIT ([`LICENSE`](LICENSE)). For vulnerability
+reporting, see [`SECURITY.md`](SECURITY.md). Vendored material is
+The intentional
+`last30days` vendored runtime is documented in
+[`skills/last30days/scripts/lib/vendor/README.md`](skills/last30days/scripts/lib/vendor/README.md).
+Vendored material is
 kept under explicitly named `vendor/` paths where practical and retains its
 own notices. Review those notices and any linked source before redistribution;
 no existing copyright or license notice is replaced by the root policy.

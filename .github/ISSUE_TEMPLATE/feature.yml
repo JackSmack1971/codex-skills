@@ -1,0 +1,32 @@
+name: Feature request
+description: Propose a focused improvement to the skill repository.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or maintainer problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the smallest useful behavior and its boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: What existing workflow or simpler option was considered?
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification
+      description: How should acceptance be checked?
+    validations:
+      required: true

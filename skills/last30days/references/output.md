@@ -8,7 +8,7 @@ Load this for the report format and citation rules.
 - Use `What I learned:` as the first prose line.
 - Use bold lead-ins for the main points.
 - Follow with `KEY PATTERNS from the research:` and a numbered list.
-- Keep citations inline as `[name](url)`.
+- Keep citations inline as `[name](https://example.com)`.
 - Do not add a trailing `Sources:` block.
 
 ## Comparison runs

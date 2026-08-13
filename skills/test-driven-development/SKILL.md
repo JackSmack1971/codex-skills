@@ -21,5 +21,8 @@ Run the portable verifier from this directory:
 python scripts/run_tdd_cycle.py --test-path <path> --stage red|green|refactor
 ```
 
-The helper detects pytest, npm test, Vitest, or Jest from the current project. It emits one JSON result and never invokes a shell command through `eval`. Do not invent a test path or claim completion without all three stage results.
+The helper detects the project's supported test runner (including pytest,
+Vitest, and Jest) from the current project. It emits one JSON result and never
+invokes a shell command through `eval`. Do not invent a test path or claim
+completion without all three stage results.
 

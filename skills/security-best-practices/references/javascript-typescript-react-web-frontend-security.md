@@ -838,7 +838,7 @@ Required:
 
 Audit focus:
 
-* CI should use `npm ci` (or Yarn frozen lockfile / pnpm equivalent) to prevent drift.
+* CI should use the package manager's clean-install workflow (or its frozen-lockfile equivalent) to prevent drift.
 * Use vulnerability scanning (`npm audit`, GitHub Dependabot/alerts, etc.).
 
 Insecure patterns:
@@ -851,20 +851,20 @@ Insecure patterns:
 Detection hints:
 
 * Check for lockfiles: `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`.
-* Check CI scripts for `npm install` vs `npm ci`.
+* Check CI scripts for a mutable install versus the package manager's clean-install workflow.
 * Search for `postinstall` scripts and suspicious build steps.
 
 Fix:
 
-* Use lockfile and enforce it in CI (e.g., `npm ci`).
+* Use a lockfile and enforce it in CI with the package manager's clean-install workflow.
 * Run audits regularly; pin/upgrade responsibly.
 * Consider restricting install scripts where feasible.
 
 Notes:
 
-* npm docs describe `npm audit` as submitting the project dependency tree to the registry to receive a report of known vulnerabilities and (optionally) applying remediations via `npm audit fix`, while noting some vulns require manual review. ([npm Docs][20])
+* npm docs describe `npm audit` as submitting the project dependency tree to the registry to receive a report of known vulnerabilities and (optionally) applying remediations via `npm audit fix`, while noting some vulnerabilities require manual review. ([npm Docs][20])
 * npm docs describe `npm ci` as intended for automated/CI environments, requiring an existing lockfile and failing if `package.json` and lockfile do not match. ([npm Docs][21])
-* OWASP NPM security guidance recommends enforcing the lockfile and explicitly calls out `npm ci` / `yarn install --frozen-lockfile` to abort on inconsistencies, and highlights the risk of install-time scripts and the option to use `--ignore-scripts` to reduce attack surface. ([OWASP Cheat Sheet Series][22])
+* OWASP package-manager security guidance recommends enforcing the lockfile and aborting on inconsistencies, and highlights the risk of install-time scripts and the option to disable them to reduce attack surface. ([OWASP Cheat Sheet Series][22])
 
 ---
 
