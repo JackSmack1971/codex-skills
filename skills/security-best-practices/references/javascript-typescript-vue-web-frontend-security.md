@@ -130,8 +130,9 @@ Insecure patterns:
 
 Detection hints:
 
-* Search: `vite`, the package manager's development-script command,
-  `vite preview`, or `vue-cli-service serve`.
+* Search: `vite`, `npm run dev`, `pnpm dev`, `yarn dev`, `vite preview`, or
+  `vue-cli-service serve`; inspect each matched script in `package.json` to
+  confirm whether it starts the development server.
 * Check Docker `CMD`, `ENTRYPOINT`, CI deploy scripts, platform config.
 
 Fix:
