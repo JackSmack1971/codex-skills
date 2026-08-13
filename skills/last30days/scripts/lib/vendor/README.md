@@ -7,5 +7,6 @@ tree rather than generated output.
 
 Keep the files synchronized with the upstream package metadata in
 `bird-search/package.json`. Preserve the included `LICENSE` and review its
-terms before redistribution. The repository verifier excludes this directory
-from generated-artifact findings because it is an explicit vendor boundary.
+terms before redistribution. This documentation records the intentional vendor
+boundary; it does not suppress generated-artifact findings from the repository
+verifier.
