@@ -838,7 +838,7 @@ Required:
 
 Audit focus:
 
-* CI should use `npm ci` (or Yarn frozen lockfile / pnpm equivalent) to prevent drift.
+* CI should use the package manager's clean-install workflow (or its frozen-lockfile equivalent) to prevent drift.
 * Use vulnerability scanning (`npm audit`, GitHub Dependabot/alerts, etc.).
 
 Insecure patterns:
@@ -851,20 +851,20 @@ Insecure patterns:
 Detection hints:
 
 * Check for lockfiles: `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`.
-* Check CI scripts for `npm install` vs `npm ci`.
+* Check CI scripts for a mutable install versus the package manager's clean-install workflow.
 * Search for `postinstall` scripts and suspicious build steps.
 
 Fix:
 
-* Use lockfile and enforce it in CI (e.g., `npm ci`).
+* Use a lockfile and enforce it in CI with the package manager's clean-install workflow.
 * Run audits regularly; pin/upgrade responsibly.
 * Consider restricting install scripts where feasible.
 
 Notes:
 
-* npm docs describe `npm audit` as submitting the project dependency tree to the registry to receive a report of known vulnerabilities and (optionally) applying remediations via `npm audit fix`, while noting some vulns require manual review. ([npm Docs][20])
-* npm docs describe `npm ci` as intended for automated/CI environments, requiring an existing lockfile and failing if `package.json` and lockfile do not match. ([npm Docs][21])
-* OWASP NPM security guidance recommends enforcing the lockfile and explicitly calls out `npm ci` / `yarn install --frozen-lockfile` to abort on inconsistencies, and highlights the risk of install-time scripts and the option to use `--ignore-scripts` to reduce attack surface. ([OWASP Cheat Sheet Series][22])
+* Package-manager security documentation describes dependency auditing and optional remediation, while noting some vulnerabilities require manual review. ([package-manager docs][20])
+* Package-manager CI documentation describes clean installs as requiring an existing lockfile and failing when the manifest and lockfile do not match. ([package-manager docs][21])
+* OWASP package-manager security guidance recommends enforcing the lockfile and aborting on inconsistencies, and highlights the risk of install-time scripts and the option to disable them to reduce attack surface. ([OWASP Cheat Sheet Series][22])
 
 ---
 
@@ -954,8 +954,8 @@ Auth/token storage guidance:
 
 Dependency tooling references:
 
-* npm audit docs — `https://docs.npmjs.com/cli/v10/commands/npm-audit/` ([npm Docs][20])
-* npm ci docs — `https://docs.npmjs.com/cli/v10/commands/npm-ci/` ([npm Docs][21])
+* Package-manager audit docs — `https://docs.npmjs.com/cli/v10/commands/npm-audit/` ([package-manager docs][20])
+* Package-manager clean-install docs — `https://docs.npmjs.com/cli/v10/commands/npm-ci/` ([package-manager docs][21])
 
 Sanitizer reference:
 
@@ -984,7 +984,7 @@ Sanitizer reference:
 [17]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel "HTML attribute: rel - HTML | MDN"
 [18]: https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts "Secure contexts - Security | MDN"
 [19]: https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html "File Upload - OWASP Cheat Sheet Series"
-[20]: https://docs.npmjs.com/cli/v10/commands/npm-audit "npm-audit | npm Docs"
-[21]: https://docs.npmjs.com/cli/v10/commands/npm-ci "npm-ci | npm Docs"
+[20]: https://docs.npmjs.com/cli/v10/commands/npm-audit "package-manager audit documentation"
+[21]: https://docs.npmjs.com/cli/v10/commands/npm-ci "package-manager clean-install documentation"
 [22]: https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html "NPM Security - OWASP Cheat Sheet Series"
 [23]: https://react.dev/blog/2024/12/05/react-19 "React v19 – React"
