@@ -19,9 +19,10 @@ def _actual(case: dict[str, Any]) -> str:
     return (case.get("actual_selected_skills") or ["UNKNOWN"])[0]
 
 
-def _snapshot(case: dict[str, Any]) -> dict[str, Any]:
+def _snapshot(case: dict[str, Any], *, case_id: str, run_id: str, trial_id: str, captured_at_utc: str, runtime_version: str | None, codex_version: str | None, git_commit: str | None) -> dict[str, Any]:
     available = _available(case)
     return {
+        "case_id": case_id,
         "expected_primary_skill": case.get("expected_primary_skill"),
         "actual_primary_skill": _actual(case) if available else None,
         "available": available,
@@ -33,24 +34,66 @@ def _snapshot(case: dict[str, Any]) -> dict[str, Any]:
         "group_id": case.get("group_id") or case.get("counterfactual_group_id"),
         "case_kind": case.get("case_kind"),
         "core_boundary": case.get("core_boundary", str(case.get("source", "")).startswith("benchmarks/core/")),
+        "run_id": run_id,
+        "trial_id": trial_id,
+        "captured_at_utc": captured_at_utc,
+        "runtime_version": runtime_version,
+        "codex_version": codex_version,
+        "git_commit": git_commit,
     }
 
 
+def _trial_rows(cases: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = []
+    for case_id, value in cases.items():
+        trials = value.get("trials") if isinstance(value, dict) else None
+        if trials is None:
+            trial = dict(value)
+            trial.setdefault("case_id", case_id)
+            rows.append(trial)
+        else:
+            rows.extend(dict(trial, case_id=case_id) for trial in trials)
+    return rows
+
+
 def create_baseline(artifacts: list[dict[str, Any]]) -> dict[str, Any]:
-    cases: dict[str, dict[str, Any]] = {}
+    cases: dict[str, dict[str, Any]] = defaultdict(lambda: {"trial_count": 0, "trials": []})
     runtime_versions: set[str] = set()
     codex_versions: set[str] = set()
-    for artifact in artifacts:
+    for artifact_index, artifact in enumerate(artifacts):
         result = artifact.get("result", artifact)
+        run_id = result.get("run_id") or artifact.get("run_id") or f"artifact-{artifact_index + 1}"
+        captured_at = result.get("captured_at_utc") or artifact.get("captured_at_utc") or datetime.now(timezone.utc).isoformat()
+        git_commit = result.get("git_commit") or artifact.get("git_commit")
+        runtime_version = result.get("version")
+        codex_version = result.get("codex_version")
         if result.get("version"):
             runtime_versions.add(result["version"])
         if result.get("codex_version"):
             codex_versions.add(result["codex_version"])
-        for case in _cases(artifact):
+        for case_index, case in enumerate(_cases(artifact)):
             case_id = case.get("case_id")
             if case_id:
-                cases[case_id] = _snapshot(case)
-    return {
+                case_runtime = case.get("runtime_version") or runtime_version
+                case_codex = case.get("codex_version") or codex_version
+                if case_runtime:
+                    runtime_versions.add(case_runtime)
+                if case_codex:
+                    codex_versions.add(case_codex)
+                trial_id = case.get("trial_id") or f"{run_id}:{case_id}:{case_index + 1}"
+                cases[case_id]["trials"].append(_snapshot(
+                    case,
+                    case_id=case_id,
+                    run_id=run_id,
+                    trial_id=trial_id,
+                    captured_at_utc=case.get("captured_at_utc") or captured_at,
+                    runtime_version=case_runtime,
+                    codex_version=case_codex,
+                    git_commit=case.get("git_commit") or git_commit,
+                ))
+                cases[case_id]["trial_count"] += 1
+    normalized_cases = dict(sorted(cases.items()))
+    result = {
         "schema_version": SCHEMA_VERSION,
         "kind": "routing-baseline",
         "artifact_policy": "metadata-only: no prompts, response bodies, transcripts, or secrets",
@@ -58,10 +101,17 @@ def create_baseline(artifacts: list[dict[str, Any]]) -> dict[str, Any]:
             "generated_at_utc": datetime.now(timezone.utc).isoformat(),
             "runtime_versions": sorted(runtime_versions),
             "codex_versions": sorted(codex_versions),
-            "case_count": len(cases),
+            "case_count": len(normalized_cases),
+            "trial_count": sum(case["trial_count"] for case in normalized_cases.values()),
         },
-        "cases": dict(sorted(cases.items())),
+        "cases": normalized_cases,
     }
+    result["metrics"] = _metrics({trial["trial_id"]: dict(trial, case_id=case_id) for case_id, group in normalized_cases.items() for trial in group["trials"]})
+    result["metrics_by_runtime"] = {
+        runtime: _metrics({trial["trial_id"]: dict(trial, case_id=case_id) for case_id, group in normalized_cases.items() for trial in group["trials"] if (trial.get("runtime_version") or "UNKNOWN") == runtime})
+        for runtime in sorted({trial.get("runtime_version") or "UNKNOWN" for group in normalized_cases.values() for trial in group["trials"]})
+    }
+    return result
 
 
 def _ratio(count: int, total: int) -> dict[str, Any]:
@@ -69,7 +119,8 @@ def _ratio(count: int, total: int) -> dict[str, Any]:
 
 
 def _metrics(cases: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    eligible = [case for case in cases.values() if case.get("expected_primary_skill") is not None]
+    rows = _trial_rows(cases)
+    eligible = [case for case in rows if case.get("expected_primary_skill") is not None]
     observed = [case for case in eligible if case.get("available")]
     per_skill: dict[str, dict[str, Any]] = {}
     core_per_skill: dict[str, dict[str, Any]] = {}
@@ -85,7 +136,7 @@ def _metrics(cases: dict[str, dict[str, Any]]) -> dict[str, Any]:
         if case.get("actual_primary_skill")
     )
     groups: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
-    for case in cases.values():
+    for case in rows:
         if case.get("group_id") and case.get("case_kind") == "counterfactual":
             groups[case["group_id"]].append(case)
     group_pass = {group: all(row["available"] and row["routing_pass"] for row in rows) for group, rows in groups.items()}
@@ -121,7 +172,7 @@ def compare(baseline: dict[str, Any], candidate: dict[str, Any], policy: dict[st
         before, after = bm["per_skill_accuracy"].get(skill, _ratio(0, 0)), cm["per_skill_accuracy"].get(skill, _ratio(0, 0))
         per_skill[skill] = _delta(after, before)
     base_edges, cand_edges = set(bm["confusions"]), set(cm["confusions"])
-    new_forbidden = sorted(case_id for case_id in common if not base[case_id]["forbidden_activation"] and cand[case_id]["forbidden_activation"])
+    new_forbidden = sorted(case_id for case_id in common if not any(row["forbidden_activation"] for row in _trial_rows({case_id: base[case_id]})) and any(row["forbidden_activation"] for row in _trial_rows({case_id: cand[case_id]})))
     groups = sorted(set(bm["counterfactual_groups"]["results"]) | set(cm["counterfactual_groups"]["results"]))
     group_changes = {group: {"baseline": bm["counterfactual_groups"]["results"].get(group), "candidate": cm["counterfactual_groups"]["results"].get(group), "delta": int(cm["counterfactual_groups"]["results"].get(group, False)) - int(bm["counterfactual_groups"]["results"].get(group, False))} for group in groups}
     runtime_changed = set(baseline.get("metadata", {}).get("runtime_versions", [])) != set(candidate.get("metadata", {}).get("runtime_versions", [])) or set(baseline.get("metadata", {}).get("codex_versions", [])) != set(candidate.get("metadata", {}).get("codex_versions", []))

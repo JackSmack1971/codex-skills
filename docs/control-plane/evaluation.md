@@ -37,3 +37,15 @@ user's configured marketplace, cache, home, or credentials. If the isolated
 probe cannot run, it reports `UNAVAILABLE`. Runtime selection is `UNKNOWN`
 unless JSONL or another runtime surface explicitly names a selected or loaded
 skill; response wording is not evidence.
+
+## Burn-in workflow
+
+Run a small trial set into unique artifacts, then build one metadata-only baseline:
+
+```text
+python scripts/run_codex_evaluation.py --live --group front-door --limit 5 --output evals/codex/results/burn-in-01.json
+python scripts/run_codex_evaluation.py --live --group front-door --limit 5 --output evals/codex/results/burn-in-02.json
+python scripts/compare_routing_baseline.py create evals/codex/results/burn-in-01.json evals/codex/results/burn-in-02.json --output evals/codex/results/burn-in-baseline.json
+```
+
+Each case retains every trial and reports counts/rates. Trial metadata includes the run ID, timestamp, commit, runtime version, and Codex version; prompts, response bodies, transcripts, reasoning, secrets, and private runtime data remain excluded. Use `--case` for one case; omitting `--output` keeps the default `evals/codex/results/latest.json` behavior.

@@ -68,6 +68,16 @@ class CodexEvaluationTests(unittest.TestCase):
         self.assertEqual(result["implicit_routing_status"], "UNAVAILABLE")
         self.assertEqual(result["codex_version"], "codex 1")
 
+    def test_case_filtering_is_deterministic_and_bounded(self):
+        from scripts.run_codex_evaluation import select_routing_cases
+
+        cases = [
+            {"case_id": "a", "group_id": "g1"},
+            {"case_id": "b", "group_id": "g2"},
+            {"case_id": "c", "group_id": "g1"},
+        ]
+        self.assertEqual([c["case_id"] for c in select_routing_cases(cases, group="g1", limit=1)], ["a"])
+
 
 if __name__ == "__main__":
     unittest.main()

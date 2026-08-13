@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -10,6 +11,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -102,7 +104,7 @@ def parse_runtime_events(stdout: str) -> list[dict[str, Any]]:
     return events
 
 
-def serialize_routing_result(case: dict[str, Any], grading: dict[str, Any], version: str) -> dict[str, Any]:
+def serialize_routing_result(case: dict[str, Any], grading: dict[str, Any], version: str, *, run_id: str | None = None, trial_id: str | None = None, captured_at_utc: str | None = None, git_commit: str | None = None) -> dict[str, Any]:
     prompt = case["prompt"].encode("utf-8")
     return {
         "case_id": case["case_id"],
@@ -125,13 +127,34 @@ def serialize_routing_result(case: dict[str, Any], grading: dict[str, Any], vers
         "runtime_health": grading["runtime_health"],
         "reason_codes": grading["reason_codes"],
         "codex_version": version,
+        "runtime_version": version,
+        "run_id": run_id,
+        "trial_id": trial_id,
+        "captured_at_utc": captured_at_utc,
+        "git_commit": git_commit,
     }
 
 
-def live_probe(executable: str) -> dict[str, Any]:
+def select_routing_cases(cases: list[dict[str, Any]], *, case: str | None = None, group: str | None = None, limit: int | None = None) -> list[dict[str, Any]]:
+    selected = [item for item in cases if (case is None or item.get("case_id") == case) and (group is None or item.get("group_id") == group)]
+    return selected[:limit] if limit is not None else selected
+
+
+def git_commit() -> str | None:
+    try:
+        result = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True, check=False, timeout=10)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def live_probe(executable: str, *, case: str | None = None, group: str | None = None, limit: int | None = None) -> dict[str, Any]:
+    run_id = uuid.uuid4().hex
+    captured_at = datetime.now(timezone.utc).isoformat()
+    commit = git_commit()
     version = codex_version(executable)
     if not version:
-        return {"status": "UNAVAILABLE", "reason": "Codex CLI is not installed or cannot report its version."}
+        return {"status": "UNAVAILABLE", "run_id": run_id, "captured_at_utc": captured_at, "git_commit": commit, "reason": "Codex CLI is not installed or cannot report its version."}
     with tempfile.TemporaryDirectory(prefix="codex-eval-") as isolated_home:
         executable = resolve_executable(executable)
         env = os.environ.copy()
@@ -139,10 +162,10 @@ def live_probe(executable: str) -> dict[str, Any]:
         command = [executable, "plugin", "marketplace", "add", str(ROOT / ".agents/plugins")]
         add = subprocess.run(command, env=env, capture_output=True, text=True, check=False, timeout=30)
         if add.returncode:
-            return {"status": "UNAVAILABLE", "version": version, "reason": "isolated local marketplace registration failed"}
+            return {"status": "UNAVAILABLE", "version": version, "runtime_version": version, "codex_version": version, "run_id": run_id, "captured_at_utc": captured_at, "git_commit": commit, "reason": "isolated local marketplace registration failed"}
 
         results: list[dict[str, Any]] = []
-        for case in read_json(ROUTING_CASES)["cases"]:
+        for case in select_routing_cases(read_json(ROUTING_CASES)["cases"], case=case, group=group, limit=limit):
             try:
                 run = subprocess.run(
                     routing_command(executable),
@@ -154,15 +177,15 @@ def live_probe(executable: str) -> dict[str, Any]:
                     timeout=120,
                 )
             except (OSError, subprocess.TimeoutExpired):
-                results.append({"case_id": case["case_id"], "implicit_routing_status": "UNAVAILABLE", "codex_version": version})
+                results.append({"case_id": case["case_id"], "implicit_routing_status": "UNAVAILABLE", "codex_version": version, "runtime_version": version, "run_id": run_id, "trial_id": f"{run_id}:{case['case_id']}", "captured_at_utc": captured_at, "git_commit": commit})
                 continue
             events = parse_runtime_events(run.stdout)
             if run.returncode and not events:
                 events = [{"type": "error"}]
-            results.append(serialize_routing_result(case, grade_routing(case, events), version))
+            results.append(serialize_routing_result(case, grade_routing(case, events), version, run_id=run_id, trial_id=f"{run_id}:{case['case_id']}", captured_at_utc=captured_at, git_commit=commit))
         verdicts = {item.get("routing_verdict") for item in results}
         status = "PASS" if results and verdicts == {"PASS"} else "FAIL" if "FAIL" in verdicts else "UNAVAILABLE"
-        return {"status": status, "version": version, "cases": results}
+        return {"status": status, "version": version, "runtime_version": version, "codex_version": version, "run_id": run_id, "captured_at_utc": captured_at, "git_commit": commit, "filters": {"case": case, "group": group, "limit": limit}, "cases": results}
 
 
 def main() -> int:
@@ -171,13 +194,20 @@ def main() -> int:
     mode.add_argument("--deterministic-only", action="store_true")
     mode.add_argument("--live", action="store_true")
     parser.add_argument("--codex", default="codex")
+    parser.add_argument("--output", type=Path, default=RESULTS / "latest.json")
+    parser.add_argument("--case")
+    parser.add_argument("--group")
+    parser.add_argument("--limit", type=int)
     args = parser.parse_args()
+    if args.limit is not None and args.limit < 1:
+        parser.error("--limit must be at least 1")
     if args.live:
-        report = {"mode": "live", "result": live_probe(args.codex)}
+        report = {"mode": "live", "result": live_probe(args.codex, case=args.case, group=args.group, limit=args.limit)}
     else:
         report = {"mode": "deterministic", "cases": deterministic_checks()}
     RESULTS.mkdir(parents=True, exist_ok=True)
-    (RESULTS / "latest.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
     if args.live:
         return 0 if report["result"]["status"] in {"PASS", "UNAVAILABLE"} else 1

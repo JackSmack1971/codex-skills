@@ -24,6 +24,26 @@ def row(case_id, expected, actual, *, forbidden=False, group=None, core=False):
 
 
 class RoutingBaselineTests(unittest.TestCase):
+    def test_repeated_trials_survive_and_change_rates(self):
+        baseline = create_baseline([artifact("runtime-1", [
+            row("a", "alpha", "alpha"),
+            row("a", "alpha", "beta"),
+        ])])
+        candidate = create_baseline([artifact("runtime-1", [
+            row("a", "alpha", "alpha"),
+            row("a", "alpha", "alpha"),
+        ])])
+
+        self.assertEqual(baseline["metadata"]["trial_count"], 2)
+        self.assertEqual(baseline["cases"]["a"]["trial_count"], 2)
+        self.assertEqual(len(baseline["cases"]["a"]["trials"]), 2)
+        self.assertEqual(
+            baseline["metrics"]["per_skill_accuracy"]["alpha"],
+            {"count": 1, "total": 2, "rate": 0.5},
+        )
+        report = compare(baseline, candidate)
+        self.assertEqual(report["per_skill_accuracy_delta"]["alpha"]["delta"], 0.5)
+
     def test_compare_reports_deltas_edges_groups_versions_and_policy(self):
         baseline = create_baseline([artifact("runtime-1", [
             row("a", "alpha", "alpha", core=True),
