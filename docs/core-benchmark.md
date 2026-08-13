@@ -76,3 +76,13 @@ python scripts/run_delivery_evaluation.py
 These checks cover structure and safety properties such as evidence/assumption
 separation, observable criteria, verification evidence, read-only review, and
 pre-mutation Git inspection. Subjective quality remains manual review.
+
+## Deterministic routing contract
+
+The normalized routing corpus is [benchmarks/routing/cases.json](../benchmarks/routing/cases.json), governed by [benchmarks/routing/schema.json](../benchmarks/routing/schema.json). It combines the existing routing fixtures and Core behavioral cases, including explicit exclusion, ambiguity, and counterfactual boundary groups. Validate it offline with:
+
+```text
+python scripts/validate_routing_benchmark.py
+```
+
+This contract records routing evidence; it does not claim that implicit routing is measurable.

@@ -493,7 +493,7 @@ def main(argv: list[str] | None = None) -> int:
     root = Path(argv[0]).resolve() if argv else ROOT
     errors = validate(root)
     if root == ROOT:
-        for label, script in (("catalog", "validate_catalog.py"), ("inventory", "validate_skill_inventory.py")):
+        for label, script in (("catalog", "validate_catalog.py"), ("inventory", "validate_skill_inventory.py"), ("routing benchmark", "validate_routing_benchmark.py")):
             result = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], cwd=ROOT, capture_output=True, text=True, check=False)
             if result.returncode: errors.append(f"{label} validator failed: {result.stdout.strip()} {result.stderr.strip()}".strip())
     if errors:

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "routing-benchmark-case",
+  "title": "Deterministic implicit-routing benchmark contract",
+  "type": "object",
+  "required": ["schema_version", "artifact_policy", "sources", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_policy": {"type": "string", "minLength": 1},
+    "sources": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id", "prompt", "expected_primary_skill", "acceptable_alternative_skills",
+          "forbidden_skills", "case_kind", "source", "source_case_id"
+        ],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "prompt": {"type": "string", "minLength": 1},
+          "expected_primary_skill": {"type": ["string", "null"]},
+          "acceptable_alternative_skills": {"type": "array", "items": {"type": "string"}},
+          "forbidden_skills": {"type": "array", "items": {"type": "string"}},
+          "expected_skill_sequence": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "case_kind": {"enum": ["positive", "exclusion", "ambiguous", "counterfactual"]},
+          "group_id": {"type": "string", "minLength": 1},
+          "source": {"type": "string", "minLength": 1},
+          "source_case_id": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

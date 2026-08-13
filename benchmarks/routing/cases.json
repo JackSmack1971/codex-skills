@@ -1,0 +1,3246 @@
+{
+  "schema_version": 1,
+  "artifact_policy": "metadata-only: prompts and routing expectations only; no response bodies, transcripts, secrets, or rollout data",
+  "sources": [
+    "tests/skill-routing-cases.json",
+    "benchmarks/core/behavioral-cases.json"
+  ],
+  "cases": [
+    {
+      "case_id": "routing-grill-me-1",
+      "prompt": "Invoke the compatibility alias /grill-me command explicitly.",
+      "expected_primary_skill": "grill-me",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grill-me-1"
+    },
+    {
+      "case_id": "routing-grill-me-2",
+      "prompt": "Use the legacy compatibility alias /grill-me invocation explicitly.",
+      "expected_primary_skill": "grill-me",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grill-me-2"
+    },
+    {
+      "case_id": "routing-grill-me-3",
+      "prompt": "Explicitly invoke grill-me to challenge this plan.",
+      "expected_primary_skill": "grill-me",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grill-me-3"
+    },
+    {
+      "case_id": "routing-grill-me-x1",
+      "prompt": "Start a new interactive grilling session asking one recommended question at a time until shared understanding.",
+      "expected_primary_skill": "grilling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "grill-me"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grill-me-x1",
+      "group_id": "grill-me-vs-grilling"
+    },
+    {
+      "case_id": "routing-grill-me-x2",
+      "prompt": "Ask one question at a time until we understand the design.",
+      "expected_primary_skill": "grilling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "grill-me"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grill-me-x2",
+      "group_id": "grill-me-vs-grilling"
+    },
+    {
+      "case_id": "routing-grilling-1",
+      "prompt": "Stress-test this new plan interactively one question at a time.",
+      "expected_primary_skill": "grilling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grilling-1"
+    },
+    {
+      "case_id": "routing-grilling-2",
+      "prompt": "Help me challenge this design until we share an understanding.",
+      "expected_primary_skill": "grilling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grilling-2"
+    },
+    {
+      "case_id": "routing-grilling-3",
+      "prompt": "Begin a fresh interactive questioning session, asking one recommended question at a time until shared understanding.",
+      "expected_primary_skill": "grilling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grilling-3"
+    },
+    {
+      "case_id": "routing-grilling-x1",
+      "prompt": "The user explicitly typed /grill-me.",
+      "expected_primary_skill": "grill-me",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "grilling"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grilling-x1",
+      "group_id": "grill-me-vs-grilling"
+    },
+    {
+      "case_id": "routing-grilling-x2",
+      "prompt": "Use the legacy compatibility alias /grill-me command explicitly.",
+      "expected_primary_skill": "grill-me",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "grilling"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "grilling-x2",
+      "group_id": "grill-me-vs-grilling"
+    },
+    {
+      "case_id": "routing-pr-review-1",
+      "prompt": "Review pull request 42 and prepare merge-risk findings.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "pr-review-1"
+    },
+    {
+      "case_id": "routing-pr-review-2",
+      "prompt": "Inspect this proposed merge and draft structured GitHub review comments.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "pr-review-2"
+    },
+    {
+      "case_id": "routing-pr-review-3",
+      "prompt": "Review the pull request branch diff and prepare merge-risk findings before merging.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "pr-review-3"
+    },
+    {
+      "case_id": "routing-pr-review-x1",
+      "prompt": "Another agent delegated a read-only review of uncommitted changes.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "pr-review"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "pr-review-x1",
+      "group_id": "pr-review-vs-review-agent"
+    },
+    {
+      "case_id": "routing-pr-review-x2",
+      "prompt": "Return defect findings for a commit without posting a PR review.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "pr-review"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "pr-review-x2",
+      "group_id": "pr-review-vs-review-agent"
+    },
+    {
+      "case_id": "routing-review-agent-1",
+      "prompt": "Perform a delegated read-only review of these uncommitted changes.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "review-agent-1"
+    },
+    {
+      "case_id": "routing-review-agent-2",
+      "prompt": "Review this commit for every actionable defect.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "review-agent-2"
+    },
+    {
+      "case_id": "routing-review-agent-3",
+      "prompt": "Inspect the base-branch diff under custom review instructions.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "review-agent-3"
+    },
+    {
+      "case_id": "routing-review-agent-x1",
+      "prompt": "Review pull request 7 and prepare GitHub merge comments.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "review-agent"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "review-agent-x1",
+      "group_id": "pr-review-vs-review-agent"
+    },
+    {
+      "case_id": "routing-review-agent-x2",
+      "prompt": "Evaluate the proposed merge with merge-risk scoring.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "review-agent"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "review-agent-x2",
+      "group_id": "pr-review-vs-review-agent"
+    },
+    {
+      "case_id": "routing-testing-qa-1",
+      "prompt": "Choose proportionate unit and integration QA checks for this change.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "testing-qa-1"
+    },
+    {
+      "case_id": "routing-testing-qa-2",
+      "prompt": "Run browser, performance, and release-quality checks using existing tools.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "testing-qa-2"
+    },
+    {
+      "case_id": "routing-testing-qa-3",
+      "prompt": "Run browser, performance, security, and release QA for an existing change.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "testing-qa-3"
+    },
+    {
+      "case_id": "routing-testing-qa-x1",
+      "prompt": "Require a red-green-refactor cycle gated by local test results.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "testing-qa-x1",
+      "group_id": "test-driven-development-vs-testing-qa"
+    },
+    {
+      "case_id": "routing-testing-qa-x2",
+      "prompt": "Gate each TDD stage on a local test result.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "testing-qa-x2",
+      "group_id": "test-driven-development-vs-testing-qa"
+    },
+    {
+      "case_id": "routing-test-driven-development-1",
+      "prompt": "Use red-green-refactor TDD for this requested bug fix.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "test-driven-development-1"
+    },
+    {
+      "case_id": "routing-test-driven-development-2",
+      "prompt": "Build the feature through a TDD cycle gated by local tests.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "test-driven-development-2"
+    },
+    {
+      "case_id": "routing-test-driven-development-3",
+      "prompt": "Run a red-green-refactor test-first cycle gated by local results.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "test-driven-development-3"
+    },
+    {
+      "case_id": "routing-test-driven-development-x1",
+      "prompt": "Run proportionate QA checks without requiring TDD.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "test-driven-development-x1",
+      "group_id": "test-driven-development-vs-testing-qa"
+    },
+    {
+      "case_id": "routing-test-driven-development-x2",
+      "prompt": "Plan browser and release testing for an existing change.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "test-driven-development-x2",
+      "group_id": "test-driven-development-vs-testing-qa"
+    },
+    {
+      "case_id": "routing-skill-creator-1",
+      "prompt": "Perform skill package migration and metadata improvement evaluation.",
+      "expected_primary_skill": "skill-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-creator-1"
+    },
+    {
+      "case_id": "routing-skill-creator-2",
+      "prompt": "Improve general skill description metadata during authoring.",
+      "expected_primary_skill": "skill-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-creator-2"
+    },
+    {
+      "case_id": "routing-skill-creator-3",
+      "prompt": "Improve the description and tests for a general Codex skill.",
+      "expected_primary_skill": "skill-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-creator-3"
+    },
+    {
+      "case_id": "routing-skill-creator-x1",
+      "prompt": "Build a skill from current Context7 docs for the Django framework.",
+      "expected_primary_skill": "context7-skill-wizard",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-creator"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-creator-x1",
+      "group_id": "context7-skill-wizard-vs-skill-creator"
+    },
+    {
+      "case_id": "routing-skill-creator-x2",
+      "prompt": "Generate an expert skill for a named library using Context7.",
+      "expected_primary_skill": "context7-skill-wizard",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-creator"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-creator-x2",
+      "group_id": "context7-skill-wizard-vs-skill-creator"
+    },
+    {
+      "case_id": "routing-context7-skill-wizard-1",
+      "prompt": "Build a skill for the React library using current Context7 docs.",
+      "expected_primary_skill": "context7-skill-wizard",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context7-skill-wizard-1"
+    },
+    {
+      "case_id": "routing-context7-skill-wizard-2",
+      "prompt": "Generate a skill from docs for the FastAPI framework.",
+      "expected_primary_skill": "context7-skill-wizard",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context7-skill-wizard-2"
+    },
+    {
+      "case_id": "routing-context7-skill-wizard-3",
+      "prompt": "Build a focused Open Agent skill from current Context7 documentation for a named library.",
+      "expected_primary_skill": "context7-skill-wizard",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context7-skill-wizard-3"
+    },
+    {
+      "case_id": "routing-context7-skill-wizard-x1",
+      "prompt": "Evaluate skill metadata and description work during migration.",
+      "expected_primary_skill": "skill-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context7-skill-wizard"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context7-skill-wizard-x1",
+      "group_id": "context7-skill-wizard-vs-skill-creator"
+    },
+    {
+      "case_id": "routing-context7-skill-wizard-x2",
+      "prompt": "Perform metadata or description work for a general Open Agent skill.",
+      "expected_primary_skill": "skill-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context7-skill-wizard"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context7-skill-wizard-x2",
+      "group_id": "context7-skill-wizard-vs-skill-creator"
+    },
+    {
+      "case_id": "routing-product-discovery-1",
+      "prompt": "The product problem and target user are still vague; form a validation plan.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-discovery-1"
+    },
+    {
+      "case_id": "routing-product-discovery-2",
+      "prompt": "Discover the evidence-backed user need before choosing a solution.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-discovery-2"
+    },
+    {
+      "case_id": "routing-product-discovery-3",
+      "prompt": "Clarify the desired outcome, assumptions, and problem statement.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-discovery-3"
+    },
+    {
+      "case_id": "routing-product-discovery-x1",
+      "prompt": "Choose must-have, later, and won't-build scope decisions.",
+      "expected_primary_skill": "mvp-scope",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-discovery"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-discovery-x1",
+      "group_id": "mvp-scope-vs-product-discovery"
+    },
+    {
+      "case_id": "routing-product-discovery-x2",
+      "prompt": "Write detailed acceptance criteria and permissions for the feature.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-discovery"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-discovery-x2",
+      "group_id": "product-discovery-vs-product-spec"
+    },
+    {
+      "case_id": "routing-product-spec-1",
+      "prompt": "Write the implementable feature specification after product intent is clear.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-spec-1"
+    },
+    {
+      "case_id": "routing-product-spec-2",
+      "prompt": "Define behavior, edge cases, permissions, analytics, and acceptance criteria.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-spec-2"
+    },
+    {
+      "case_id": "routing-product-spec-3",
+      "prompt": "Write an implementable feature specification covering behavior requirements edge cases permissions analytics and acceptance criteria.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-spec-3"
+    },
+    {
+      "case_id": "routing-product-spec-x1",
+      "prompt": "The target user and product problem are not yet understood.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-spec"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-spec-x1",
+      "group_id": "product-discovery-vs-product-spec"
+    },
+    {
+      "case_id": "routing-product-spec-x2",
+      "prompt": "Reduce the capability list to an MVP before writing behavior.",
+      "expected_primary_skill": "mvp-scope",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-spec"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "product-spec-x2",
+      "group_id": "mvp-scope-vs-product-spec"
+    },
+    {
+      "case_id": "routing-mvp-scope-1",
+      "prompt": "Turn this capability list into must-have, later, and won't-build decisions.",
+      "expected_primary_skill": "mvp-scope",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "mvp-scope-1"
+    },
+    {
+      "case_id": "routing-mvp-scope-2",
+      "prompt": "Reduce the product idea to a coherent MVP before architecture.",
+      "expected_primary_skill": "mvp-scope",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "mvp-scope-2"
+    },
+    {
+      "case_id": "routing-mvp-scope-3",
+      "prompt": "Decide must-have, later, and won't-build scope before specification or architecture.",
+      "expected_primary_skill": "mvp-scope",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "mvp-scope-3"
+    },
+    {
+      "case_id": "routing-mvp-scope-x1",
+      "prompt": "Discover the vague customer problem and target user.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "mvp-scope"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "mvp-scope-x1",
+      "group_id": "mvp-scope-vs-product-discovery"
+    },
+    {
+      "case_id": "routing-mvp-scope-x2",
+      "prompt": "Specify detailed feature behavior, analytics, and acceptance criteria.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "mvp-scope"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "mvp-scope-x2",
+      "group_id": "mvp-scope-vs-product-spec"
+    },
+    {
+      "case_id": "routing-feature-implementation-1",
+      "prompt": "Implement specified product behavior from concrete requirements as the smallest verified change.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "feature-implementation-1"
+    },
+    {
+      "case_id": "routing-feature-implementation-2",
+      "prompt": "Build the requested product behavior using the fewest files and existing repository conventions.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "feature-implementation-2"
+    },
+    {
+      "case_id": "routing-feature-implementation-3",
+      "prompt": "Ship a concrete feature with focused verification after requirements are settled.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "feature-implementation-3"
+    },
+    {
+      "case_id": "routing-feature-implementation-x1",
+      "prompt": "Trace one user action end to end across UI, service, persistence, and verification.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "feature-implementation-x1",
+      "group_id": "feature-implementation-vs-vertical-slice"
+    },
+    {
+      "case_id": "routing-feature-implementation-x2",
+      "prompt": "Require a red-green-refactor TDD cycle gated by local test results.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "feature-implementation-x2",
+      "group_id": "feature-implementation-vs-test-driven-development"
+    },
+    {
+      "case_id": "routing-vertical-slice-1",
+      "prompt": "Trace one user action across interface, API, persistence, and returned result.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "vertical-slice-1"
+    },
+    {
+      "case_id": "routing-vertical-slice-2",
+      "prompt": "Plan an end-to-end cross-layer slice instead of completing frontend and backend layers separately.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "vertical-slice-2"
+    },
+    {
+      "case_id": "routing-vertical-slice-3",
+      "prompt": "Map the user-visible success path through service logic, storage, and verification.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "vertical-slice-3"
+    },
+    {
+      "case_id": "routing-vertical-slice-x1",
+      "prompt": "Implement ordinary specified product behavior as the smallest verified change.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "vertical-slice-x1",
+      "group_id": "feature-implementation-vs-vertical-slice"
+    },
+    {
+      "case_id": "routing-vertical-slice-x2",
+      "prompt": "Run proportionate browser and release QA for an existing change without TDD.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "vertical-slice-x2",
+      "group_id": "testing-qa-vs-vertical-slice"
+    },
+    {
+      "case_id": "routing-improve-1",
+      "prompt": "Prepare a plan-only repository improvement handoff.",
+      "expected_primary_skill": "improve",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "improve-1"
+    },
+    {
+      "case_id": "routing-improve-2",
+      "prompt": "Prepare a plan-only repository improvement handoff covering developer experience and documentation.",
+      "expected_primary_skill": "improve",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "improve-2"
+    },
+    {
+      "case_id": "routing-improve-3",
+      "prompt": "Prepare a plan-only handoff for developer experience and product direction.",
+      "expected_primary_skill": "improve",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "improve-3"
+    },
+    {
+      "case_id": "routing-improve-x1",
+      "prompt": "Audit SKILL.md metadata and multi-skill routing handoffs for discovery drift.",
+      "expected_primary_skill": "skill-auditor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "improve"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "improve-x1",
+      "group_id": "improve-vs-skill-auditor"
+    },
+    {
+      "case_id": "routing-improve-x2",
+      "prompt": "Audit Codex AGENTS.md loading, hooks, MCP, and control-plane configuration.",
+      "expected_primary_skill": "context-doctor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "improve"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "improve-x2",
+      "group_id": "context-doctor-vs-improve"
+    },
+    {
+      "case_id": "routing-skill-auditor-1",
+      "prompt": "Audit Open Agent skill packages for trigger boundaries and metadata drift.",
+      "expected_primary_skill": "skill-auditor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-auditor-1"
+    },
+    {
+      "case_id": "routing-skill-auditor-2",
+      "prompt": "Inspect a multi-skill handoff for unsafe behavior, integration friction, and missing validation.",
+      "expected_primary_skill": "skill-auditor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-auditor-2"
+    },
+    {
+      "case_id": "routing-skill-auditor-3",
+      "prompt": "Review skill-package discovery rules and multi-skill handoffs for routing.",
+      "expected_primary_skill": "skill-auditor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-auditor-3"
+    },
+    {
+      "case_id": "routing-skill-auditor-x1",
+      "prompt": "Audit a broad repository for architecture, security, and performance improvements.",
+      "expected_primary_skill": "improve",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-auditor"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-auditor-x1",
+      "group_id": "improve-vs-skill-auditor"
+    },
+    {
+      "case_id": "routing-skill-auditor-x2",
+      "prompt": "Inspect Codex context loading, config.toml, hooks, and model settings.",
+      "expected_primary_skill": "context-doctor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-auditor"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "skill-auditor-x2",
+      "group_id": "context-doctor-vs-skill-auditor"
+    },
+    {
+      "case_id": "routing-context-doctor-1",
+      "prompt": "Audit Codex AGENTS.md loading and .codex context configuration.",
+      "expected_primary_skill": "context-doctor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context-doctor-1"
+    },
+    {
+      "case_id": "routing-context-doctor-2",
+      "prompt": "Inspect Codex hooks, MCP, subagents, compaction, and model settings.",
+      "expected_primary_skill": "context-doctor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context-doctor-2"
+    },
+    {
+      "case_id": "routing-context-doctor-3",
+      "prompt": "Diagnose Codex skills discovery and control-plane context overhead read-only.",
+      "expected_primary_skill": "context-doctor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context-doctor-3"
+    },
+    {
+      "case_id": "routing-context-doctor-x1",
+      "prompt": "Audit Open Agent skill packages and SKILL.md routing metadata.",
+      "expected_primary_skill": "skill-auditor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context-doctor"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context-doctor-x1",
+      "group_id": "context-doctor-vs-skill-auditor"
+    },
+    {
+      "case_id": "routing-context-doctor-x2",
+      "prompt": "Prepare a plan-only repository improvement handoff for product direction.",
+      "expected_primary_skill": "improve",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context-doctor"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "context-doctor-x2",
+      "group_id": "context-doctor-vs-improve"
+    },
+    {
+      "case_id": "routing-git-commit-1",
+      "prompt": "Create a Git commit for these staged changes.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-commit-1"
+    },
+    {
+      "case_id": "routing-git-commit-2",
+      "prompt": "Generate a Conventional Commit message and commit the requested patch.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-commit-2"
+    },
+    {
+      "case_id": "routing-git-commit-3",
+      "prompt": "Generate a Conventional Commit message only.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-commit-3"
+    },
+    {
+      "case_id": "routing-git-commit-x1",
+      "prompt": "Resolve a Git rebase conflict and recover the repository state.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-commit-x1",
+      "group_id": "git-commit-vs-git-workflow"
+    },
+    {
+      "case_id": "routing-git-commit-x2",
+      "prompt": "Convert open issue 42 into a focused pull request with tracking and review.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-commit-x2",
+      "group_id": "git-commit-vs-github-issue-to-pr"
+    },
+    {
+      "case_id": "routing-git-workflow-1",
+      "prompt": "Perform broad Git synchronization and branch operations.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-workflow-1"
+    },
+    {
+      "case_id": "routing-git-workflow-2",
+      "prompt": "Resolve a Git conflict, rebase, and recover the local repository.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-workflow-2"
+    },
+    {
+      "case_id": "routing-git-workflow-3",
+      "prompt": "Resolve Git conflicts and perform ref recovery.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-workflow-3"
+    },
+    {
+      "case_id": "routing-git-workflow-x1",
+      "prompt": "Create only a Conventional Commit message for this patch.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-workflow-x1",
+      "group_id": "git-commit-vs-git-workflow"
+    },
+    {
+      "case_id": "routing-git-workflow-x2",
+      "prompt": "Create and verify an isolated worktree for parallel implementation.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "git-workflow-x2",
+      "group_id": "git-workflow-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "routing-github-issue-to-pr-1",
+      "prompt": "Convert an open GitHub issue into a focused pull request.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "github-issue-to-pr-1"
+    },
+    {
+      "case_id": "routing-github-issue-to-pr-2",
+      "prompt": "Plan and track issue-to-PR delivery with worktree isolation, commits, and review.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "github-issue-to-pr-2"
+    },
+    {
+      "case_id": "routing-github-issue-to-pr-3",
+      "prompt": "Implement issue 42 through a branch, isolated worktree, pull request, and state updates.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "github-issue-to-pr-3"
+    },
+    {
+      "case_id": "routing-github-issue-to-pr-x1",
+      "prompt": "Create a single Git commit and Conventional Commit message.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "github-issue-to-pr"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "github-issue-to-pr-x1",
+      "group_id": "git-commit-vs-github-issue-to-pr"
+    },
+    {
+      "case_id": "routing-github-issue-to-pr-x2",
+      "prompt": "Run worktree setup for parallel branch coding only.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "github-issue-to-pr"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "github-issue-to-pr-x2",
+      "group_id": "github-issue-to-pr-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "routing-using-git-worktrees-1",
+      "prompt": "Create an isolated Git worktree for parallel implementation.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "using-git-worktrees-1"
+    },
+    {
+      "case_id": "routing-using-git-worktrees-2",
+      "prompt": "Verify the ignore status and path of a branch-isolated worktree.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "using-git-worktrees-2"
+    },
+    {
+      "case_id": "routing-using-git-worktrees-3",
+      "prompt": "Run worktree setup and verify isolation before branch coding.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "using-git-worktrees-3"
+    },
+    {
+      "case_id": "routing-using-git-worktrees-x1",
+      "prompt": "Convert an open issue into a pull request with planning and state tracking.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "using-git-worktrees"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "using-git-worktrees-x1",
+      "group_id": "github-issue-to-pr-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "routing-using-git-worktrees-x2",
+      "prompt": "Perform Git ref recovery after a failed synchronization.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "using-git-worktrees"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "using-git-worktrees-x2",
+      "group_id": "git-workflow-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "routing-plugin-creator-1",
+      "prompt": "Create a Codex plugin with a .codex-plugin/plugin.json manifest.",
+      "expected_primary_skill": "plugin-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "plugin-creator-1"
+    },
+    {
+      "case_id": "routing-plugin-creator-2",
+      "prompt": "Update marketplace metadata and optional plugin folders.",
+      "expected_primary_skill": "plugin-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "plugin-creator-2"
+    },
+    {
+      "case_id": "routing-plugin-creator-3",
+      "prompt": "Scaffold a Codex plugin and validate its manifest.",
+      "expected_primary_skill": "plugin-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "plugin-creator-3"
+    },
+    {
+      "case_id": "routing-plugin-creator-x1",
+      "prompt": "Improve standalone skill metadata and description without plugin packaging.",
+      "expected_primary_skill": "skill-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "plugin-creator"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "plugin-creator-x1",
+      "group_id": "plugin-creator-vs-skill-creator"
+    },
+    {
+      "case_id": "routing-plugin-creator-x2",
+      "prompt": "Build a focused skill from current Context7 docs for the Django framework.",
+      "expected_primary_skill": "context7-skill-wizard",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "plugin-creator"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "plugin-creator-x2",
+      "group_id": "context7-skill-wizard-vs-plugin-creator"
+    },
+    {
+      "case_id": "routing-boundary-context7-skill-wizard-to-plugin-creator",
+      "prompt": "Create a Codex plugin with marketplace metadata and a plugin.json manifest.",
+      "expected_primary_skill": "plugin-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context7-skill-wizard"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-context7-skill-wizard-to-plugin-creator",
+      "group_id": "context7-skill-wizard-vs-plugin-creator"
+    },
+    {
+      "case_id": "routing-boundary-test-driven-development-to-feature-implementation",
+      "prompt": "Implement concrete specified product behavior as the smallest verified change without requiring TDD.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-test-driven-development-to-feature-implementation",
+      "group_id": "feature-implementation-vs-test-driven-development"
+    },
+    {
+      "case_id": "routing-boundary-feature-implementation-to-testing-qa",
+      "prompt": "Choose and run proportionate browser performance security and release QA checks for an existing change.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-feature-implementation-to-testing-qa",
+      "group_id": "feature-implementation-vs-testing-qa"
+    },
+    {
+      "case_id": "routing-boundary-testing-qa-to-feature-implementation",
+      "prompt": "Implement specified product behavior as the smallest verified change after concrete requirements.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-testing-qa-to-feature-implementation",
+      "group_id": "feature-implementation-vs-testing-qa"
+    },
+    {
+      "case_id": "routing-boundary-git-commit-to-using-git-worktrees",
+      "prompt": "Create and verify an isolated Git worktree for parallel branch work.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-git-commit-to-using-git-worktrees",
+      "group_id": "git-commit-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "routing-boundary-using-git-worktrees-to-git-commit",
+      "prompt": "Create only a Conventional Commit message and Git commit.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "using-git-worktrees"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-using-git-worktrees-to-git-commit",
+      "group_id": "git-commit-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "routing-boundary-git-workflow-to-github-issue-to-pr",
+      "prompt": "Convert an open GitHub issue into a focused pull request with planning state tracking implementation commits and review.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-git-workflow-to-github-issue-to-pr",
+      "group_id": "git-workflow-vs-github-issue-to-pr"
+    },
+    {
+      "case_id": "routing-boundary-github-issue-to-pr-to-git-workflow",
+      "prompt": "Resolve a broad Git repository rebase conflict and recover refs.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "github-issue-to-pr"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-github-issue-to-pr-to-git-workflow",
+      "group_id": "git-workflow-vs-github-issue-to-pr"
+    },
+    {
+      "case_id": "routing-boundary-skill-creator-to-plugin-creator",
+      "prompt": "Update a Codex plugin manifest and marketplace metadata.",
+      "expected_primary_skill": "plugin-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-creator"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-skill-creator-to-plugin-creator",
+      "group_id": "plugin-creator-vs-skill-creator"
+    },
+    {
+      "case_id": "routing-boundary-test-driven-development-to-vertical-slice",
+      "prompt": "Trace one user action across interface service persistence and verification layers.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-test-driven-development-to-vertical-slice",
+      "group_id": "test-driven-development-vs-vertical-slice"
+    },
+    {
+      "case_id": "routing-boundary-vertical-slice-to-test-driven-development",
+      "prompt": "Use an explicit red-green-refactor TDD cycle gated by local test results.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-vertical-slice-to-test-driven-development",
+      "group_id": "test-driven-development-vs-vertical-slice"
+    },
+    {
+      "case_id": "routing-boundary-testing-qa-to-vertical-slice",
+      "prompt": "Plan one end-to-end user-visible slice across interface service persistence and verification.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "exclusion",
+      "source": "tests/skill-routing-cases.json",
+      "source_case_id": "boundary-testing-qa-to-vertical-slice",
+      "group_id": "testing-qa-vs-vertical-slice"
+    },
+    {
+      "case_id": "core-acceptance-criteria-positive-1",
+      "prompt": "A product team needs checkout reminder for a real release. Use the acceptance-criteria workflow and produce the Acceptance criteria deliverable, with Given/When/Then scenarios.",
+      "expected_primary_skill": "acceptance-criteria",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "acceptance-criteria-positive-1"
+    },
+    {
+      "case_id": "core-acceptance-criteria-positive-2",
+      "prompt": "In an existing repository, the owner asks for checkout reminder. Apply acceptance-criteria to the concrete request and include Given/When/Then scenarios; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "acceptance-criteria",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "acceptance-criteria-positive-2"
+    },
+    {
+      "case_id": "core-acceptance-criteria-negative-1",
+      "prompt": "The owner instead asks for implementation design. Do not perform that adjacent task; route it to product-spec and explain why acceptance-criteria is excluded.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "acceptance-criteria"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "acceptance-criteria-negative-1"
+    },
+    {
+      "case_id": "core-acceptance-criteria-negative-2",
+      "prompt": "A request for checkout reminder provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing Given/When/Then scenarios.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "acceptance-criteria"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "acceptance-criteria-negative-2"
+    },
+    {
+      "case_id": "core-acceptance-criteria-ambiguous-1",
+      "prompt": "The request combines checkout reminder with implementation design, but does not say which outcome is wanted. Ask one clarifying question before choosing acceptance-criteria.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "acceptance-criteria"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "acceptance-criteria-ambiguous-1"
+    },
+    {
+      "case_id": "core-acceptance-criteria-ambiguous-2",
+      "prompt": "The requester says only “help with checkout reminder” and omits the required inputs. Identify the missing inputs and request them before proceeding with acceptance-criteria.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "acceptance-criteria"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "acceptance-criteria-ambiguous-2"
+    },
+    {
+      "case_id": "core-api-design-positive-1",
+      "prompt": "A product team needs invite-member endpoint for a real release. Use the api-design workflow and produce the API contract deliverable, with request/response schema and stable errors.",
+      "expected_primary_skill": "api-design",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "api-design-positive-1"
+    },
+    {
+      "case_id": "core-api-design-positive-2",
+      "prompt": "In an existing repository, the owner asks for invite-member endpoint. Apply api-design to the concrete request and include request/response schema and stable errors; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "api-design",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "api-design-positive-2"
+    },
+    {
+      "case_id": "core-api-design-negative-1",
+      "prompt": "The owner instead asks for durable database schema. Do not perform that adjacent task; route it to data-modeling and explain why api-design is excluded.",
+      "expected_primary_skill": "data-modeling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "api-design"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "api-design-negative-1"
+    },
+    {
+      "case_id": "core-api-design-negative-2",
+      "prompt": "A request for invite-member endpoint provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing request/response schema and stable errors.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "api-design"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "api-design-negative-2"
+    },
+    {
+      "case_id": "core-api-design-ambiguous-1",
+      "prompt": "The request combines invite-member endpoint with durable database schema, but does not say which outcome is wanted. Ask one clarifying question before choosing api-design.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "api-design"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "api-design-ambiguous-1"
+    },
+    {
+      "case_id": "core-api-design-ambiguous-2",
+      "prompt": "The requester says only “help with invite-member endpoint” and omits the required inputs. Identify the missing inputs and request them before proceeding with api-design.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "api-design"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "api-design-ambiguous-2"
+    },
+    {
+      "case_id": "core-architecture-positive-1",
+      "prompt": "A product team needs multi-region file upload for a real release. Use the architecture workflow and produce the Architecture decision deliverable, with constraints, alternatives, and trade-offs.",
+      "expected_primary_skill": "architecture",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "architecture-positive-1"
+    },
+    {
+      "case_id": "core-architecture-positive-2",
+      "prompt": "In an existing repository, the owner asks for multi-region file upload. Apply architecture to the concrete request and include constraints, alternatives, and trade-offs; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "architecture",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "architecture-positive-2"
+    },
+    {
+      "case_id": "core-architecture-negative-1",
+      "prompt": "The owner instead asks for implementation task list. Do not perform that adjacent task; route it to writing-plans and explain why architecture is excluded.",
+      "expected_primary_skill": "writing-plans",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "architecture"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "architecture-negative-1"
+    },
+    {
+      "case_id": "core-architecture-negative-2",
+      "prompt": "A request for multi-region file upload provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing constraints, alternatives, and trade-offs.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "architecture"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "architecture-negative-2"
+    },
+    {
+      "case_id": "core-architecture-ambiguous-1",
+      "prompt": "The request combines multi-region file upload with implementation task list, but does not say which outcome is wanted. Ask one clarifying question before choosing architecture.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "architecture"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "architecture-ambiguous-1"
+    },
+    {
+      "case_id": "core-architecture-ambiguous-2",
+      "prompt": "The requester says only “help with multi-region file upload” and omits the required inputs. Identify the missing inputs and request them before proceeding with architecture.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "architecture"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "architecture-ambiguous-2"
+    },
+    {
+      "case_id": "core-changelog-updater-positive-1",
+      "prompt": "A product team needs v2.4 release for a real release. Use the changelog-updater workflow and produce the Changelog update deliverable, with user-facing Added, Changed, Fixed, and Security entries.",
+      "expected_primary_skill": "changelog-updater",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "changelog-updater-positive-1"
+    },
+    {
+      "case_id": "core-changelog-updater-positive-2",
+      "prompt": "In an existing repository, the owner asks for v2.4 release. Apply changelog-updater to the concrete request and include user-facing Added, Changed, Fixed, and Security entries; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "changelog-updater",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "changelog-updater-positive-2"
+    },
+    {
+      "case_id": "core-changelog-updater-negative-1",
+      "prompt": "The owner instead asks for generic README rewrite. Do not perform that adjacent task; route it to generating-readmes and explain why changelog-updater is excluded.",
+      "expected_primary_skill": "generating-readmes",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "changelog-updater"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "changelog-updater-negative-1"
+    },
+    {
+      "case_id": "core-changelog-updater-negative-2",
+      "prompt": "A request for v2.4 release provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing user-facing Added, Changed, Fixed, and Security entries.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "changelog-updater"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "changelog-updater-negative-2"
+    },
+    {
+      "case_id": "core-changelog-updater-ambiguous-1",
+      "prompt": "The request combines v2.4 release with generic README rewrite, but does not say which outcome is wanted. Ask one clarifying question before choosing changelog-updater.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "changelog-updater"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "changelog-updater-ambiguous-1"
+    },
+    {
+      "case_id": "core-changelog-updater-ambiguous-2",
+      "prompt": "The requester says only “help with v2.4 release” and omits the required inputs. Identify the missing inputs and request them before proceeding with changelog-updater.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "changelog-updater"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "changelog-updater-ambiguous-2"
+    },
+    {
+      "case_id": "core-data-modeling-positive-1",
+      "prompt": "A product team needs team expense sharing for a real release. Use the data-modeling workflow and produce the Data model deliverable, with entities, ownership, constraints, and indexes.",
+      "expected_primary_skill": "data-modeling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "data-modeling-positive-1"
+    },
+    {
+      "case_id": "core-data-modeling-positive-2",
+      "prompt": "In an existing repository, the owner asks for team expense sharing. Apply data-modeling to the concrete request and include entities, ownership, constraints, and indexes; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "data-modeling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "data-modeling-positive-2"
+    },
+    {
+      "case_id": "core-data-modeling-negative-1",
+      "prompt": "The owner instead asks for HTTP endpoint contract. Do not perform that adjacent task; route it to api-design and explain why data-modeling is excluded.",
+      "expected_primary_skill": "api-design",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "data-modeling"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "data-modeling-negative-1"
+    },
+    {
+      "case_id": "core-data-modeling-negative-2",
+      "prompt": "A request for team expense sharing provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing entities, ownership, constraints, and indexes.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "data-modeling"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "data-modeling-negative-2"
+    },
+    {
+      "case_id": "core-data-modeling-ambiguous-1",
+      "prompt": "The request combines team expense sharing with HTTP endpoint contract, but does not say which outcome is wanted. Ask one clarifying question before choosing data-modeling.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "data-modeling"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "data-modeling-ambiguous-1"
+    },
+    {
+      "case_id": "core-data-modeling-ambiguous-2",
+      "prompt": "The requester says only “help with team expense sharing” and omits the required inputs. Identify the missing inputs and request them before proceeding with data-modeling.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "data-modeling"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "data-modeling-ambiguous-2"
+    },
+    {
+      "case_id": "core-database-migrations-positive-1",
+      "prompt": "A product team needs add invoice status for a real release. Use the database-migrations workflow and produce the Database migration deliverable, with forward migration, backfill, compatibility, and rollback.",
+      "expected_primary_skill": "database-migrations",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "database-migrations-positive-1"
+    },
+    {
+      "case_id": "core-database-migrations-positive-2",
+      "prompt": "In an existing repository, the owner asks for add invoice status. Apply database-migrations to the concrete request and include forward migration, backfill, compatibility, and rollback; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "database-migrations",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "database-migrations-positive-2"
+    },
+    {
+      "case_id": "core-database-migrations-negative-1",
+      "prompt": "The owner instead asks for new product data model. Do not perform that adjacent task; route it to data-modeling and explain why database-migrations is excluded.",
+      "expected_primary_skill": "data-modeling",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "database-migrations"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "database-migrations-negative-1"
+    },
+    {
+      "case_id": "core-database-migrations-negative-2",
+      "prompt": "A request for add invoice status provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing forward migration, backfill, compatibility, and rollback.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "database-migrations"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "database-migrations-negative-2"
+    },
+    {
+      "case_id": "core-database-migrations-ambiguous-1",
+      "prompt": "The request combines add invoice status with new product data model, but does not say which outcome is wanted. Ask one clarifying question before choosing database-migrations.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "database-migrations"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "database-migrations-ambiguous-1"
+    },
+    {
+      "case_id": "core-database-migrations-ambiguous-2",
+      "prompt": "The requester says only “help with add invoice status” and omits the required inputs. Identify the missing inputs and request them before proceeding with database-migrations.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "database-migrations"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "database-migrations-ambiguous-2"
+    },
+    {
+      "case_id": "core-feature-implementation-positive-1",
+      "prompt": "A product team needs saved search alerts for a real release. Use the feature-implementation workflow and produce the Feature implementation deliverable, with smallest verified repository change.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "feature-implementation-positive-1",
+      "group_id": "feature-implementation-vs-vertical-slice"
+    },
+    {
+      "case_id": "core-feature-implementation-positive-2",
+      "prompt": "In an existing repository, the owner asks for saved search alerts. Apply feature-implementation to the concrete request and include smallest verified repository change; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "feature-implementation-positive-2"
+    },
+    {
+      "case_id": "core-feature-implementation-negative-1",
+      "prompt": "The owner instead asks for cross-layer slice plan or TDD cycle. Do not perform that adjacent task; route it to vertical-slice and explain why feature-implementation is excluded.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "feature-implementation-negative-1"
+    },
+    {
+      "case_id": "core-feature-implementation-negative-2",
+      "prompt": "A request for saved search alerts provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing smallest verified repository change.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "feature-implementation-negative-2"
+    },
+    {
+      "case_id": "core-feature-implementation-ambiguous-1",
+      "prompt": "The request combines saved search alerts with cross-layer slice plan or TDD cycle, but does not say which outcome is wanted. Ask one clarifying question before choosing feature-implementation.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "feature-implementation-ambiguous-1"
+    },
+    {
+      "case_id": "core-feature-implementation-ambiguous-2",
+      "prompt": "The requester says only “help with saved search alerts” and omits the required inputs. Identify the missing inputs and request them before proceeding with feature-implementation.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "feature-implementation-ambiguous-2"
+    },
+    {
+      "case_id": "core-generating-readmes-positive-1",
+      "prompt": "A product team needs CLI backup tool for a real release. Use the generating-readmes workflow and produce the README deliverable, with operational setup, usage, and troubleshooting.",
+      "expected_primary_skill": "generating-readmes",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "generating-readmes-positive-1"
+    },
+    {
+      "case_id": "core-generating-readmes-positive-2",
+      "prompt": "In an existing repository, the owner asks for CLI backup tool. Apply generating-readmes to the concrete request and include operational setup, usage, and troubleshooting; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "generating-readmes",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "generating-readmes-positive-2"
+    },
+    {
+      "case_id": "core-generating-readmes-negative-1",
+      "prompt": "The owner instead asks for changelog reconstruction. Do not perform that adjacent task; route it to changelog-updater and explain why generating-readmes is excluded.",
+      "expected_primary_skill": "changelog-updater",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "generating-readmes"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "generating-readmes-negative-1"
+    },
+    {
+      "case_id": "core-generating-readmes-negative-2",
+      "prompt": "A request for CLI backup tool provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing operational setup, usage, and troubleshooting.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "generating-readmes"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "generating-readmes-negative-2"
+    },
+    {
+      "case_id": "core-generating-readmes-ambiguous-1",
+      "prompt": "The request combines CLI backup tool with changelog reconstruction, but does not say which outcome is wanted. Ask one clarifying question before choosing generating-readmes.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "generating-readmes"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "generating-readmes-ambiguous-1"
+    },
+    {
+      "case_id": "core-generating-readmes-ambiguous-2",
+      "prompt": "The requester says only “help with CLI backup tool” and omits the required inputs. Identify the missing inputs and request them before proceeding with generating-readmes.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "generating-readmes"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "generating-readmes-ambiguous-2"
+    },
+    {
+      "case_id": "core-git-commit-positive-1",
+      "prompt": "A product team needs the staged parser fix for a real release. Use the git-commit workflow and produce the Commit deliverable, with inspect staged diff and write one intentional commit.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-commit-positive-1",
+      "group_id": "git-workflow-vs-git-commit-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "core-git-commit-positive-2",
+      "prompt": "In an existing repository, the owner asks for the staged parser fix. Apply git-commit to the concrete request and include inspect staged diff and write one intentional commit; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-commit-positive-2"
+    },
+    {
+      "case_id": "core-git-commit-negative-1",
+      "prompt": "The owner instead asks for branch synchronization or worktree setup. Do not perform that adjacent task; route it to git-workflow and explain why git-commit is excluded.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-commit-negative-1"
+    },
+    {
+      "case_id": "core-git-commit-negative-2",
+      "prompt": "A request for the staged parser fix provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing inspect staged diff and write one intentional commit.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-commit-negative-2"
+    },
+    {
+      "case_id": "core-git-commit-ambiguous-1",
+      "prompt": "The request combines the staged parser fix with branch synchronization or worktree setup, but does not say which outcome is wanted. Ask one clarifying question before choosing git-commit.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-commit-ambiguous-1"
+    },
+    {
+      "case_id": "core-git-commit-ambiguous-2",
+      "prompt": "The requester says only “help with the staged parser fix” and omits the required inputs. Identify the missing inputs and request them before proceeding with git-commit.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-commit-ambiguous-2"
+    },
+    {
+      "case_id": "core-git-workflow-positive-1",
+      "prompt": "A product team needs synchronize a diverged branch for a real release. Use the git-workflow workflow and produce the Git workflow deliverable, with status, refs, and safe reversible operation.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-workflow-positive-1",
+      "group_id": "git-workflow-vs-git-commit-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "core-git-workflow-positive-2",
+      "prompt": "In an existing repository, the owner asks for synchronize a diverged branch. Apply git-workflow to the concrete request and include status, refs, and safe reversible operation; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-workflow-positive-2"
+    },
+    {
+      "case_id": "core-git-workflow-negative-1",
+      "prompt": "The owner instead asks for commit-only authoring. Do not perform that adjacent task; route it to git-commit and explain why git-workflow is excluded.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-workflow-negative-1"
+    },
+    {
+      "case_id": "core-git-workflow-negative-2",
+      "prompt": "A request for synchronize a diverged branch provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing status, refs, and safe reversible operation.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-workflow-negative-2"
+    },
+    {
+      "case_id": "core-git-workflow-ambiguous-1",
+      "prompt": "The request combines synchronize a diverged branch with commit-only authoring, but does not say which outcome is wanted. Ask one clarifying question before choosing git-workflow.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-workflow-ambiguous-1"
+    },
+    {
+      "case_id": "core-git-workflow-ambiguous-2",
+      "prompt": "The requester says only “help with synchronize a diverged branch” and omits the required inputs. Identify the missing inputs and request them before proceeding with git-workflow.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "git-workflow-ambiguous-2"
+    },
+    {
+      "case_id": "core-github-issue-to-pr-positive-1",
+      "prompt": "A product team needs issue #42 for CSV export for a real release. Use the github-issue-to-pr workflow and produce the Issue-to-PR plan deliverable, with issue state, isolated worktree, implementation, commit, and PR.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "github-issue-to-pr-positive-1"
+    },
+    {
+      "case_id": "core-github-issue-to-pr-positive-2",
+      "prompt": "In an existing repository, the owner asks for issue #42 for CSV export. Apply github-issue-to-pr to the concrete request and include issue state, isolated worktree, implementation, commit, and PR; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "github-issue-to-pr-positive-2"
+    },
+    {
+      "case_id": "core-github-issue-to-pr-negative-1",
+      "prompt": "The owner instead asks for generic local diff review. Do not perform that adjacent task; route it to pr-review and explain why github-issue-to-pr is excluded.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "github-issue-to-pr"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "github-issue-to-pr-negative-1"
+    },
+    {
+      "case_id": "core-github-issue-to-pr-negative-2",
+      "prompt": "A request for issue #42 for CSV export provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing issue state, isolated worktree, implementation, commit, and PR.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "github-issue-to-pr"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "github-issue-to-pr-negative-2"
+    },
+    {
+      "case_id": "core-github-issue-to-pr-ambiguous-1",
+      "prompt": "The request combines issue #42 for CSV export with generic local diff review, but does not say which outcome is wanted. Ask one clarifying question before choosing github-issue-to-pr.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "github-issue-to-pr"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "github-issue-to-pr-ambiguous-1"
+    },
+    {
+      "case_id": "core-github-issue-to-pr-ambiguous-2",
+      "prompt": "The requester says only “help with issue #42 for CSV export” and omits the required inputs. Identify the missing inputs and request them before proceeding with github-issue-to-pr.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "github-issue-to-pr"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "github-issue-to-pr-ambiguous-2"
+    },
+    {
+      "case_id": "core-maintaining-repository-hygiene-positive-1",
+      "prompt": "A product team needs a public Python repository for a real release. Use the maintaining-repository-hygiene workflow and produce the Repository hygiene audit deliverable, with findings, governance checks, and idempotent issue plan.",
+      "expected_primary_skill": "maintaining-repository-hygiene",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "maintaining-repository-hygiene-positive-1"
+    },
+    {
+      "case_id": "core-maintaining-repository-hygiene-positive-2",
+      "prompt": "In an existing repository, the owner asks for a public Python repository. Apply maintaining-repository-hygiene to the concrete request and include findings, governance checks, and idempotent issue plan; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "maintaining-repository-hygiene",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "maintaining-repository-hygiene-positive-2"
+    },
+    {
+      "case_id": "core-maintaining-repository-hygiene-negative-1",
+      "prompt": "The owner instead asks for skill-package audit. Do not perform that adjacent task; route it to skill-auditor and explain why maintaining-repository-hygiene is excluded.",
+      "expected_primary_skill": "skill-auditor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "maintaining-repository-hygiene"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "maintaining-repository-hygiene-negative-1"
+    },
+    {
+      "case_id": "core-maintaining-repository-hygiene-negative-2",
+      "prompt": "A request for a public Python repository provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing findings, governance checks, and idempotent issue plan.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "maintaining-repository-hygiene"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "maintaining-repository-hygiene-negative-2"
+    },
+    {
+      "case_id": "core-maintaining-repository-hygiene-ambiguous-1",
+      "prompt": "The request combines a public Python repository with skill-package audit, but does not say which outcome is wanted. Ask one clarifying question before choosing maintaining-repository-hygiene.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "maintaining-repository-hygiene"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "maintaining-repository-hygiene-ambiguous-1"
+    },
+    {
+      "case_id": "core-maintaining-repository-hygiene-ambiguous-2",
+      "prompt": "The requester says only “help with a public Python repository” and omits the required inputs. Identify the missing inputs and request them before proceeding with maintaining-repository-hygiene.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "maintaining-repository-hygiene"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "maintaining-repository-hygiene-ambiguous-2"
+    },
+    {
+      "case_id": "core-pr-review-positive-1",
+      "prompt": "A product team needs pull request #184 for a real release. Use the pr-review workflow and produce the PR review deliverable, with merge-risk findings with file/line evidence and review output.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "pr-review-positive-1",
+      "group_id": "review-agent-vs-pr-review"
+    },
+    {
+      "case_id": "core-pr-review-positive-2",
+      "prompt": "In an existing repository, the owner asks for pull request #184. Apply pr-review to the concrete request and include merge-risk findings with file/line evidence and review output; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "pr-review-positive-2"
+    },
+    {
+      "case_id": "core-pr-review-negative-1",
+      "prompt": "The owner instead asks for local uncommitted diff review. Do not perform that adjacent task; route it to review-agent and explain why pr-review is excluded.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "pr-review"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "pr-review-negative-1"
+    },
+    {
+      "case_id": "core-pr-review-negative-2",
+      "prompt": "A request for pull request #184 provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing merge-risk findings with file/line evidence and review output.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "pr-review"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "pr-review-negative-2"
+    },
+    {
+      "case_id": "core-pr-review-ambiguous-1",
+      "prompt": "The request combines pull request #184 with local uncommitted diff review, but does not say which outcome is wanted. Ask one clarifying question before choosing pr-review.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "pr-review"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "pr-review-ambiguous-1"
+    },
+    {
+      "case_id": "core-pr-review-ambiguous-2",
+      "prompt": "The requester says only “help with pull request #184” and omits the required inputs. Identify the missing inputs and request them before proceeding with pr-review.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "pr-review"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "pr-review-ambiguous-2"
+    },
+    {
+      "case_id": "core-product-discovery-positive-1",
+      "prompt": "A product team needs a vague request for a family dashboard for a real release. Use the product-discovery workflow and produce the Product discovery deliverable, with target user, evidence, assumptions, and validation experiment.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-discovery-positive-1"
+    },
+    {
+      "case_id": "core-product-discovery-positive-2",
+      "prompt": "In an existing repository, the owner asks for a vague request for a family dashboard. Apply product-discovery to the concrete request and include target user, evidence, assumptions, and validation experiment; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-discovery-positive-2"
+    },
+    {
+      "case_id": "core-product-discovery-negative-1",
+      "prompt": "The owner instead asks for fixed feature specification. Do not perform that adjacent task; route it to product-spec and explain why product-discovery is excluded.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-discovery"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-discovery-negative-1"
+    },
+    {
+      "case_id": "core-product-discovery-negative-2",
+      "prompt": "A request for a vague request for a family dashboard provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing target user, evidence, assumptions, and validation experiment.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-discovery"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-discovery-negative-2"
+    },
+    {
+      "case_id": "core-product-discovery-ambiguous-1",
+      "prompt": "The request combines a vague request for a family dashboard with fixed feature specification, but does not say which outcome is wanted. Ask one clarifying question before choosing product-discovery.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-discovery"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-discovery-ambiguous-1"
+    },
+    {
+      "case_id": "core-product-discovery-ambiguous-2",
+      "prompt": "The requester says only “help with a vague request for a family dashboard” and omits the required inputs. Identify the missing inputs and request them before proceeding with product-discovery.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-discovery"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-discovery-ambiguous-2"
+    },
+    {
+      "case_id": "core-product-spec-positive-1",
+      "prompt": "A product team needs approved team expense sharing for a real release. Use the product-spec workflow and produce the Feature specification deliverable, with behavior, edge cases, permissions, analytics, and acceptance criteria.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-spec-positive-1"
+    },
+    {
+      "case_id": "core-product-spec-positive-2",
+      "prompt": "In an existing repository, the owner asks for approved team expense sharing. Apply product-spec to the concrete request and include behavior, edge cases, permissions, analytics, and acceptance criteria; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-spec-positive-2"
+    },
+    {
+      "case_id": "core-product-spec-negative-1",
+      "prompt": "The owner instead asks for vague problem discovery. Do not perform that adjacent task; route it to product-discovery and explain why product-spec is excluded.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-spec"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-spec-negative-1"
+    },
+    {
+      "case_id": "core-product-spec-negative-2",
+      "prompt": "A request for approved team expense sharing provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing behavior, edge cases, permissions, analytics, and acceptance criteria.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-spec"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-spec-negative-2"
+    },
+    {
+      "case_id": "core-product-spec-ambiguous-1",
+      "prompt": "The request combines approved team expense sharing with vague problem discovery, but does not say which outcome is wanted. Ask one clarifying question before choosing product-spec.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-spec"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-spec-ambiguous-1"
+    },
+    {
+      "case_id": "core-product-spec-ambiguous-2",
+      "prompt": "The requester says only “help with approved team expense sharing” and omits the required inputs. Identify the missing inputs and request them before proceeding with product-spec.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-spec"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "product-spec-ambiguous-2"
+    },
+    {
+      "case_id": "core-review-agent-positive-1",
+      "prompt": "A product team needs uncommitted changes in src/cache.py for a real release. Use the review-agent workflow and produce the Code review deliverable, with read-only defect-first findings with file/line evidence.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "review-agent-positive-1",
+      "group_id": "review-agent-vs-pr-review"
+    },
+    {
+      "case_id": "core-review-agent-positive-2",
+      "prompt": "In an existing repository, the owner asks for uncommitted changes in src/cache.py. Apply review-agent to the concrete request and include read-only defect-first findings with file/line evidence; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "review-agent-positive-2"
+    },
+    {
+      "case_id": "core-review-agent-negative-1",
+      "prompt": "The owner instead asks for pull-request merge review. Do not perform that adjacent task; route it to pr-review and explain why review-agent is excluded.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "review-agent"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "review-agent-negative-1"
+    },
+    {
+      "case_id": "core-review-agent-negative-2",
+      "prompt": "A request for uncommitted changes in src/cache.py provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing read-only defect-first findings with file/line evidence.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "review-agent"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "review-agent-negative-2"
+    },
+    {
+      "case_id": "core-review-agent-ambiguous-1",
+      "prompt": "The request combines uncommitted changes in src/cache.py with pull-request merge review, but does not say which outcome is wanted. Ask one clarifying question before choosing review-agent.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "review-agent"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "review-agent-ambiguous-1"
+    },
+    {
+      "case_id": "core-review-agent-ambiguous-2",
+      "prompt": "The requester says only “help with uncommitted changes in src/cache.py” and omits the required inputs. Identify the missing inputs and request them before proceeding with review-agent.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "review-agent"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "review-agent-ambiguous-2"
+    },
+    {
+      "case_id": "core-security-best-practices-positive-1",
+      "prompt": "A product team needs a Flask password-reset flow for a real release. Use the security-best-practices workflow and produce the Security review deliverable, with secure defaults, threat findings, and remediation.",
+      "expected_primary_skill": "security-best-practices",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "security-best-practices-positive-1"
+    },
+    {
+      "case_id": "core-security-best-practices-positive-2",
+      "prompt": "In an existing repository, the owner asks for a Flask password-reset flow. Apply security-best-practices to the concrete request and include secure defaults, threat findings, and remediation; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "security-best-practices",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "security-best-practices-positive-2"
+    },
+    {
+      "case_id": "core-security-best-practices-negative-1",
+      "prompt": "The owner instead asks for product prioritization. Do not perform that adjacent task; route it to testing-qa and explain why security-best-practices is excluded.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "security-best-practices"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "security-best-practices-negative-1"
+    },
+    {
+      "case_id": "core-security-best-practices-negative-2",
+      "prompt": "A request for a Flask password-reset flow provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing secure defaults, threat findings, and remediation.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "security-best-practices"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "security-best-practices-negative-2"
+    },
+    {
+      "case_id": "core-security-best-practices-ambiguous-1",
+      "prompt": "The request combines a Flask password-reset flow with product prioritization, but does not say which outcome is wanted. Ask one clarifying question before choosing security-best-practices.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "security-best-practices"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "security-best-practices-ambiguous-1"
+    },
+    {
+      "case_id": "core-security-best-practices-ambiguous-2",
+      "prompt": "The requester says only “help with a Flask password-reset flow” and omits the required inputs. Identify the missing inputs and request them before proceeding with security-best-practices.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "security-best-practices"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "security-best-practices-ambiguous-2"
+    },
+    {
+      "case_id": "core-systematic-debugging-positive-1",
+      "prompt": "A product team needs intermittent duplicate webhook deliveries for a real release. Use the systematic-debugging workflow and produce the Root-cause analysis deliverable, with reproduction, evidence chain, and root cause before fix.",
+      "expected_primary_skill": "systematic-debugging",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "systematic-debugging-positive-1"
+    },
+    {
+      "case_id": "core-systematic-debugging-positive-2",
+      "prompt": "In an existing repository, the owner asks for intermittent duplicate webhook deliveries. Apply systematic-debugging to the concrete request and include reproduction, evidence chain, and root cause before fix; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "systematic-debugging",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "systematic-debugging-positive-2"
+    },
+    {
+      "case_id": "core-systematic-debugging-negative-1",
+      "prompt": "The owner instead asks for immediate speculative patch. Do not perform that adjacent task; route it to testing-qa and explain why systematic-debugging is excluded.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "systematic-debugging"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "systematic-debugging-negative-1"
+    },
+    {
+      "case_id": "core-systematic-debugging-negative-2",
+      "prompt": "A request for intermittent duplicate webhook deliveries provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing reproduction, evidence chain, and root cause before fix.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "systematic-debugging"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "systematic-debugging-negative-2"
+    },
+    {
+      "case_id": "core-systematic-debugging-ambiguous-1",
+      "prompt": "The request combines intermittent duplicate webhook deliveries with immediate speculative patch, but does not say which outcome is wanted. Ask one clarifying question before choosing systematic-debugging.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "systematic-debugging"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "systematic-debugging-ambiguous-1"
+    },
+    {
+      "case_id": "core-systematic-debugging-ambiguous-2",
+      "prompt": "The requester says only “help with intermittent duplicate webhook deliveries” and omits the required inputs. Identify the missing inputs and request them before proceeding with systematic-debugging.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "systematic-debugging"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "systematic-debugging-ambiguous-2"
+    },
+    {
+      "case_id": "core-test-driven-development-positive-1",
+      "prompt": "A product team needs fix malformed email acceptance for a real release. Use the test-driven-development workflow and produce the TDD cycle deliverable, with red-green-refactor stages and local gates.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "test-driven-development-positive-1",
+      "group_id": "feature-implementation-vs-test-driven-development"
+    },
+    {
+      "case_id": "core-test-driven-development-positive-2",
+      "prompt": "In an existing repository, the owner asks for fix malformed email acceptance. Apply test-driven-development to the concrete request and include red-green-refactor stages and local gates; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "test-driven-development-positive-2"
+    },
+    {
+      "case_id": "core-test-driven-development-negative-1",
+      "prompt": "The owner instead asks for broad QA plan without TDD. Do not perform that adjacent task; route it to testing-qa and explain why test-driven-development is excluded.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "test-driven-development-negative-1"
+    },
+    {
+      "case_id": "core-test-driven-development-negative-2",
+      "prompt": "A request for fix malformed email acceptance provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing red-green-refactor stages and local gates.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "test-driven-development-negative-2"
+    },
+    {
+      "case_id": "core-test-driven-development-ambiguous-1",
+      "prompt": "The request combines fix malformed email acceptance with broad QA plan without TDD, but does not say which outcome is wanted. Ask one clarifying question before choosing test-driven-development.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "test-driven-development-ambiguous-1"
+    },
+    {
+      "case_id": "core-test-driven-development-ambiguous-2",
+      "prompt": "The requester says only “help with fix malformed email acceptance” and omits the required inputs. Identify the missing inputs and request them before proceeding with test-driven-development.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "test-driven-development-ambiguous-2"
+    },
+    {
+      "case_id": "core-testing-qa-positive-1",
+      "prompt": "A product team needs a completed image-upload feature for a real release. Use the testing-qa workflow and produce the QA plan deliverable, with proportionate unit, integration, security, and release checks.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "testing-qa-positive-1",
+      "group_id": "testing-qa-vs-test-driven-development"
+    },
+    {
+      "case_id": "core-testing-qa-positive-2",
+      "prompt": "In an existing repository, the owner asks for a completed image-upload feature. Apply testing-qa to the concrete request and include proportionate unit, integration, security, and release checks; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "testing-qa-positive-2"
+    },
+    {
+      "case_id": "core-testing-qa-negative-1",
+      "prompt": "The owner instead asks for red-green-refactor cycle. Do not perform that adjacent task; route it to test-driven-development and explain why testing-qa is excluded.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "testing-qa-negative-1"
+    },
+    {
+      "case_id": "core-testing-qa-negative-2",
+      "prompt": "A request for a completed image-upload feature provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing proportionate unit, integration, security, and release checks.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "testing-qa-negative-2"
+    },
+    {
+      "case_id": "core-testing-qa-ambiguous-1",
+      "prompt": "The request combines a completed image-upload feature with red-green-refactor cycle, but does not say which outcome is wanted. Ask one clarifying question before choosing testing-qa.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "testing-qa-ambiguous-1"
+    },
+    {
+      "case_id": "core-testing-qa-ambiguous-2",
+      "prompt": "The requester says only “help with a completed image-upload feature” and omits the required inputs. Identify the missing inputs and request them before proceeding with testing-qa.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "testing-qa-ambiguous-2"
+    },
+    {
+      "case_id": "core-using-git-worktrees-positive-1",
+      "prompt": "A product team needs parallelize issue #77 safely for a real release. Use the using-git-worktrees workflow and produce the Git worktree deliverable, with isolated worktree creation and verification.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "using-git-worktrees-positive-1",
+      "group_id": "git-workflow-vs-git-commit-vs-using-git-worktrees"
+    },
+    {
+      "case_id": "core-using-git-worktrees-positive-2",
+      "prompt": "In an existing repository, the owner asks for parallelize issue #77 safely. Apply using-git-worktrees to the concrete request and include isolated worktree creation and verification; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "using-git-worktrees",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "using-git-worktrees-positive-2"
+    },
+    {
+      "case_id": "core-using-git-worktrees-negative-1",
+      "prompt": "The owner instead asks for commit-only operation. Do not perform that adjacent task; route it to git-commit and explain why using-git-worktrees is excluded.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "using-git-worktrees"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "using-git-worktrees-negative-1"
+    },
+    {
+      "case_id": "core-using-git-worktrees-negative-2",
+      "prompt": "A request for parallelize issue #77 safely provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing isolated worktree creation and verification.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "using-git-worktrees"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "using-git-worktrees-negative-2"
+    },
+    {
+      "case_id": "core-using-git-worktrees-ambiguous-1",
+      "prompt": "The request combines parallelize issue #77 safely with commit-only operation, but does not say which outcome is wanted. Ask one clarifying question before choosing using-git-worktrees.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "using-git-worktrees"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "using-git-worktrees-ambiguous-1"
+    },
+    {
+      "case_id": "core-using-git-worktrees-ambiguous-2",
+      "prompt": "The requester says only “help with parallelize issue #77 safely” and omits the required inputs. Identify the missing inputs and request them before proceeding with using-git-worktrees.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "using-git-worktrees"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "using-git-worktrees-ambiguous-2"
+    },
+    {
+      "case_id": "core-vertical-slice-positive-1",
+      "prompt": "A product team needs user submits a support ticket for a real release. Use the vertical-slice workflow and produce the Vertical slice deliverable, with UI, service, persistence, and end-to-end verification path.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "vertical-slice-positive-1",
+      "group_id": "feature-implementation-vs-vertical-slice"
+    },
+    {
+      "case_id": "core-vertical-slice-positive-2",
+      "prompt": "In an existing repository, the owner asks for user submits a support ticket. Apply vertical-slice to the concrete request and include UI, service, persistence, and end-to-end verification path; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "vertical-slice-positive-2"
+    },
+    {
+      "case_id": "core-vertical-slice-negative-1",
+      "prompt": "The owner instead asks for ordinary single-layer feature. Do not perform that adjacent task; route it to feature-implementation and explain why vertical-slice is excluded.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "vertical-slice-negative-1"
+    },
+    {
+      "case_id": "core-vertical-slice-negative-2",
+      "prompt": "A request for user submits a support ticket provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing UI, service, persistence, and end-to-end verification path.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "vertical-slice-negative-2"
+    },
+    {
+      "case_id": "core-vertical-slice-ambiguous-1",
+      "prompt": "The request combines user submits a support ticket with ordinary single-layer feature, but does not say which outcome is wanted. Ask one clarifying question before choosing vertical-slice.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "vertical-slice-ambiguous-1"
+    },
+    {
+      "case_id": "core-vertical-slice-ambiguous-2",
+      "prompt": "The requester says only “help with user submits a support ticket” and omits the required inputs. Identify the missing inputs and request them before proceeding with vertical-slice.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "vertical-slice-ambiguous-2"
+    },
+    {
+      "case_id": "core-writing-plans-positive-1",
+      "prompt": "A product team needs add CSV export to the admin portal for a real release. Use the writing-plans workflow and produce the Implementation plan deliverable, with TDD-first file map, commands, dependencies, and validation.",
+      "expected_primary_skill": "writing-plans",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "writing-plans-positive-1"
+    },
+    {
+      "case_id": "core-writing-plans-positive-2",
+      "prompt": "In an existing repository, the owner asks for add CSV export to the admin portal. Apply writing-plans to the concrete request and include TDD-first file map, commands, dependencies, and validation; report evidence and unresolved assumptions.",
+      "expected_primary_skill": "writing-plans",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [],
+      "case_kind": "positive",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "writing-plans-positive-2"
+    },
+    {
+      "case_id": "core-writing-plans-negative-1",
+      "prompt": "The owner instead asks for direct implementation. Do not perform that adjacent task; route it to feature-implementation and explain why writing-plans is excluded.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "writing-plans"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "writing-plans-negative-1"
+    },
+    {
+      "case_id": "core-writing-plans-negative-2",
+      "prompt": "A request for add CSV export to the admin portal provides no repository or domain evidence and asks you to guess. State the missing evidence and stop instead of inventing TDD-first file map, commands, dependencies, and validation.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "writing-plans"
+      ],
+      "case_kind": "exclusion",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "writing-plans-negative-2"
+    },
+    {
+      "case_id": "core-writing-plans-ambiguous-1",
+      "prompt": "The request combines add CSV export to the admin portal with direct implementation, but does not say which outcome is wanted. Ask one clarifying question before choosing writing-plans.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "writing-plans"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "writing-plans-ambiguous-1"
+    },
+    {
+      "case_id": "core-writing-plans-ambiguous-2",
+      "prompt": "The requester says only “help with add CSV export to the admin portal” and omits the required inputs. Identify the missing inputs and request them before proceeding with writing-plans.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "writing-plans"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "writing-plans-ambiguous-2"
+    },
+    {
+      "case_id": "core-skill-auditor-overlap-discriminator",
+      "prompt": "The request is specifically to audit skills/payments. Choose skill-auditor, produce a Skill audit, and explain why broad repository improvement audit is the wrong route.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-auditor"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "skill-auditor-overlap-discriminator",
+      "group_id": "skill-auditor-vs-context-doctor-vs-improve"
+    },
+    {
+      "case_id": "core-context-doctor-overlap-discriminator",
+      "prompt": "The request is specifically to inspect AGENTS.md, hooks, and Codex config. Choose context-doctor, produce a Context audit, and explain why skill-package audit is the wrong route.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context-doctor"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "context-doctor-overlap-discriminator",
+      "group_id": "skill-auditor-vs-context-doctor-vs-improve"
+    },
+    {
+      "case_id": "core-improve-overlap-discriminator",
+      "prompt": "The request is specifically to find security and testing improvements in a monorepo. Choose improve, produce a Repository improvement audit, and explain why Codex control-plane audit is the wrong route.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "improve"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "improve-overlap-discriminator",
+      "group_id": "skill-auditor-vs-context-doctor-vs-improve"
+    },
+    {
+      "case_id": "core-skill-creator-overlap-discriminator",
+      "prompt": "The request is specifically to create a reusable skill for database review. Choose skill-creator, produce a Skill authoring, and explain why named-library Context7 generation is the wrong route.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-creator"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "skill-creator-overlap-discriminator",
+      "group_id": "skill-creator-vs-context7-skill-wizard-vs-plugin-creator"
+    },
+    {
+      "case_id": "core-context7-skill-wizard-overlap-discriminator",
+      "prompt": "The request is specifically to build a skill from the current Prisma docs. Choose context7-skill-wizard, produce a Context7 skill generation, and explain why general skill authoring without a named library is the wrong route.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context7-skill-wizard"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "context7-skill-wizard-overlap-discriminator",
+      "group_id": "skill-creator-vs-context7-skill-wizard-vs-plugin-creator"
+    },
+    {
+      "case_id": "core-plugin-creator-overlap-discriminator",
+      "prompt": "The request is specifically to package two skills as a Codex plugin. Choose plugin-creator, produce a Plugin packaging, and explain why standalone skill authoring is the wrong route.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "plugin-creator"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "plugin-creator-overlap-discriminator",
+      "group_id": "skill-creator-vs-context7-skill-wizard-vs-plugin-creator"
+    },
+    {
+      "case_id": "core-feature-implementation-vs-tdd-discriminator",
+      "prompt": "The request is an ordinary saved-search alert feature and does not ask for red-green-refactor. Choose feature-implementation, ship the smallest verified change, and route explicit TDD to test-driven-development.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "feature-implementation-vs-tdd-discriminator",
+      "group_id": "feature-implementation-vs-test-driven-development"
+    },
+    {
+      "case_id": "core-testing-qa-vs-tdd-discriminator",
+      "prompt": "The user explicitly requires a red-green-refactor cycle for the malformed-email fix. Choose test-driven-development, require a genuine failing red stage, and route broad QA planning to testing-qa.",
+      "expected_primary_skill": null,
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "ambiguous",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "testing-qa-vs-tdd-discriminator",
+      "group_id": "testing-qa-vs-test-driven-development"
+    },
+    {
+      "case_id": "counterfactual-cf-qa",
+      "prompt": "The feature is complete; run proportionate integration and release QA checks.",
+      "expected_primary_skill": "testing-qa",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "test-driven-development"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-qa",
+      "group_id": "testing-qa-vs-test-driven-development"
+    },
+    {
+      "case_id": "counterfactual-cf-tdd",
+      "prompt": "Implement the fix with an explicit red-green-refactor cycle and local gates.",
+      "expected_primary_skill": "test-driven-development",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "testing-qa"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-tdd",
+      "group_id": "testing-qa-vs-test-driven-development"
+    },
+    {
+      "case_id": "counterfactual-cf-local-review",
+      "prompt": "Review the uncommitted local diff for actionable defects, read-only.",
+      "expected_primary_skill": "review-agent",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "pr-review"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-local-review",
+      "group_id": "review-agent-vs-pr-review"
+    },
+    {
+      "case_id": "counterfactual-cf-pr-review",
+      "prompt": "Review pull request 42 for merge risk and prepare GitHub review comments.",
+      "expected_primary_skill": "pr-review",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "review-agent"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-pr-review",
+      "group_id": "review-agent-vs-pr-review"
+    },
+    {
+      "case_id": "counterfactual-cf-discovery",
+      "prompt": "The target user and desired outcome are unclear; investigate the problem and validation assumptions.",
+      "expected_primary_skill": "product-discovery",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "mvp-scope"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-discovery",
+      "group_id": "product-discovery-vs-mvp-scope-vs-product-spec"
+    },
+    {
+      "case_id": "counterfactual-cf-mvp",
+      "prompt": "The problem is understood; reduce the fixed capability list to a coherent minimum viable product.",
+      "expected_primary_skill": "mvp-scope",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "product-discovery"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-mvp",
+      "group_id": "product-discovery-vs-mvp-scope-vs-product-spec"
+    },
+    {
+      "case_id": "counterfactual-cf-spec",
+      "prompt": "Product intent is approved; write the implementable feature specification with edge cases and acceptance criteria.",
+      "expected_primary_skill": "product-spec",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "mvp-scope"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-spec",
+      "group_id": "product-discovery-vs-mvp-scope-vs-product-spec"
+    },
+    {
+      "case_id": "counterfactual-cf-feature",
+      "prompt": "Implement this ordinary repository feature as the smallest verified change.",
+      "expected_primary_skill": "feature-implementation",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "vertical-slice"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-feature",
+      "group_id": "feature-implementation-vs-vertical-slice"
+    },
+    {
+      "case_id": "counterfactual-cf-slice",
+      "prompt": "Implement one user-visible slice across UI, service logic, persistence, and end-to-end verification.",
+      "expected_primary_skill": "vertical-slice",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "feature-implementation"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-slice",
+      "group_id": "feature-implementation-vs-vertical-slice"
+    },
+    {
+      "case_id": "counterfactual-cf-skill",
+      "prompt": "Create a general Codex skill and improve its SKILL.md and evaluation cases.",
+      "expected_primary_skill": "skill-creator",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context7-skill-wizard"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-skill",
+      "group_id": "skill-creator-vs-context7-skill-wizard"
+    },
+    {
+      "case_id": "counterfactual-cf-context7",
+      "prompt": "Build a skill for the named React library using current Context7 documentation.",
+      "expected_primary_skill": "context7-skill-wizard",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-creator"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-context7",
+      "group_id": "skill-creator-vs-context7-skill-wizard"
+    },
+    {
+      "case_id": "counterfactual-cf-doctor",
+      "prompt": "Audit Codex control-plane loading, hooks, context, and MCP configuration.",
+      "expected_primary_skill": "context-doctor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-auditor"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-doctor",
+      "group_id": "context-doctor-vs-skill-auditor-vs-improve"
+    },
+    {
+      "case_id": "counterfactual-cf-auditor",
+      "prompt": "Audit SKILL.md packages and multi-skill routing handoffs for drift and unsafe behavior.",
+      "expected_primary_skill": "skill-auditor",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "context-doctor"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-auditor",
+      "group_id": "context-doctor-vs-skill-auditor-vs-improve"
+    },
+    {
+      "case_id": "counterfactual-cf-improve",
+      "prompt": "Find evidence-backed security, performance, testing, and documentation improvements across the repository.",
+      "expected_primary_skill": "improve",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "skill-auditor"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-improve",
+      "group_id": "context-doctor-vs-skill-auditor-vs-improve"
+    },
+    {
+      "case_id": "counterfactual-cf-commit",
+      "prompt": "Create one intentional commit from the already-reviewed staged changes.",
+      "expected_primary_skill": "git-commit",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-commit",
+      "group_id": "git-commit-vs-git-workflow-vs-github-issue-to-pr"
+    },
+    {
+      "case_id": "counterfactual-cf-workflow",
+      "prompt": "Synchronize the diverged branch safely after inspecting refs and working-tree state.",
+      "expected_primary_skill": "git-workflow",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-commit"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-workflow",
+      "group_id": "git-commit-vs-git-workflow-vs-github-issue-to-pr"
+    },
+    {
+      "case_id": "counterfactual-cf-issue-pr",
+      "prompt": "Take issue #42 through an isolated worktree, implementation, commit, and draft pull request.",
+      "expected_primary_skill": "github-issue-to-pr",
+      "acceptable_alternative_skills": [],
+      "forbidden_skills": [
+        "git-workflow"
+      ],
+      "case_kind": "counterfactual",
+      "source": "benchmarks/core/behavioral-cases.json",
+      "source_case_id": "curated-cf-issue-pr",
+      "group_id": "git-commit-vs-git-workflow-vs-github-issue-to-pr",
+      "expected_skill_sequence": [
+        "using-git-worktrees",
+        "feature-implementation",
+        "git-commit",
+        "github-issue-to-pr"
+      ]
+    }
+  ]
+}
