@@ -117,18 +117,21 @@ Severity: High
 
 Required:
 
-* MUST NOT deploy the Vite/Vue dev server (`vite`, `npm run dev`, HMR) as the production server.
+* MUST NOT deploy the Vite/Vue development server (`vite`, the package
+  manager's development-script command, HMR) as the production server.
 * MUST NOT use `vite preview` as a production server. ([vitejs][5])
 * MUST build (`vite build`) and serve the built assets using a production-grade static server/CDN, or a production SSR server if you are doing SSR. ([vitejs][6])
 
 Insecure patterns:
 
-* Docker/Procfile/systemd running `vite`, `npm run dev`, or `vite preview` as the production entrypoint.
+* Docker/Procfile/systemd running `vite`, a development-script command, or
+  `vite preview` as the production entrypoint.
 * Publicly exposed HMR endpoints.
 
 Detection hints:
 
-* Search: `vite`, `npm run dev`, `pnpm dev`, `yarn dev`, `vite preview`, `vue-cli-service serve`.
+* Search: `vite`, the package manager's development-script command,
+  `vite preview`, or `vue-cli-service serve`.
 * Check Docker `CMD`, `ENTRYPOINT`, CI deploy scripts, platform config.
 
 Fix:
