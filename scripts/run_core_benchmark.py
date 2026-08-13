@@ -15,17 +15,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "benchmarks" / "core" / "manifest.json"
+STATE = Path("docs/skill-state.json")
 
 
 def codex_bin() -> str | None:
     return os.environ.get("CODEX_BIN") or shutil.which("codex") or shutil.which("codex.cmd") or shutil.which("codex.exe")
 
 
-def core_skills() -> set[str]:
+def core_skills(root: Path = ROOT) -> set[str]:
     return {
-        line.split("`", 2)[1]
-        for line in (ROOT / "docs" / "skill-inventory.md").read_text(encoding="utf-8").splitlines()
-        if line.startswith("| `") and "| Core |" in line
+        skill["name"]
+        for skill in json.loads((root / STATE).read_text(encoding="utf-8"))["skills"]
+        if skill.get("classification") == "Core"
     }
 
 
