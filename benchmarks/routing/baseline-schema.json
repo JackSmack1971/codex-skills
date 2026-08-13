@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "routing-baseline",
+  "title": "Metadata-only routing baseline",
+  "type": "object",
+  "required": ["schema_version", "kind", "artifact_policy", "metadata", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "kind": {"const": "routing-baseline"},
+    "artifact_policy": {"type": "string", "pattern": "metadata-only"},
+    "metadata": {"type": "object", "required": ["runtime_versions", "codex_versions", "case_count"]},
+    "cases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["expected_primary_skill", "actual_primary_skill", "available", "unknown", "unavailable", "primary_pass", "forbidden_activation", "routing_pass"],
+        "properties": {
+          "expected_primary_skill": {"type": ["string", "null"]},
+          "actual_primary_skill": {"type": ["string", "null"]},
+          "available": {"type": "boolean"},
+          "unknown": {"type": "boolean"},
+          "unavailable": {"type": "boolean"},
+          "primary_pass": {"type": "boolean"},
+          "forbidden_activation": {"type": "boolean"},
+          "routing_pass": {"type": "boolean"},
+          "group_id": {"type": ["string", "null"]},
+          "case_kind": {"type": ["string", "null"]},
+          "core_boundary": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}
