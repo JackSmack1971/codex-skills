@@ -31,12 +31,36 @@ Authored runtime cases live in `evals/codex/tasks/`, their objective contract
 is in `evals/codex/expected_invariants/`, and generated reports are written to
 the ignored `evals/codex/results/` directory.
 
-The live command detects the installed CLI version and registers the repository
-marketplace only inside a temporary `CODEX_HOME`. It does not install into the
-user's configured marketplace, cache, home, or credentials. If the isolated
-probe cannot run, it reports `UNAVAILABLE`. Runtime selection is `UNKNOWN`
-unless JSONL or another runtime surface explicitly names a selected or loaded
-skill; response wording is not evidence.
+The live command requires a dedicated persistent evaluation home. Set it once,
+authenticate it, and reuse it for burn-in; do not copy `auth.json` from the
+normal Codex home:
+
+```text
+CODEX_EVAL_HOME=$HOME/.codex-eval codex login
+# PowerShell: $env:CODEX_EVAL_HOME="$HOME\.codex-eval"; codex login
+```
+
+Pass the same home explicitly or through the environment:
+
+```text
+python scripts/run_codex_evaluation.py --live --codex-home "$CODEX_EVAL_HOME" --case routing-grill-me-1
+# equivalent: CODEX_EVAL_HOME=$HOME/.codex-eval python scripts/run_codex_evaluation.py --live
+```
+
+The runner stages the exact current checkout (including its `git_commit`) in
+a temporary local marketplace, registers the marketplace root containing
+`.agents/plugins/marketplace.json`, explicitly installs `codex-skills`, and
+verifies that the installed plugin is exposed before `codex exec`. It does not
+use `--ignore-user-config`, because the dedicated home’s config is part of the
+isolated evaluation. Setup failures report one of `authentication`,
+`marketplace_registration`, `plugin_installation`, or `plugin_exposure` and
+retain the CLI diagnostic. Missing runtime or selection telemetry is
+`UNAVAILABLE`, never a routing pass. Runtime selection is `UNKNOWN` unless
+JSONL or the evaluation-only `CODEX_ROUTING_SELECTED: <skill-name>` marker is
+present in an `item.completed` agent message after skill loading. Ordinary
+response wording is not parsed as evidence. The marker exists because the
+documented `codex exec --json` event contract has no native skill-selection
+event.
 
 ## Burn-in workflow
 
