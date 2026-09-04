@@ -15,7 +15,6 @@ VALID_LEVELS = {"prompt-only", "evaluated", "script-backed", "tested"}
 REQUIRED = {
     "name",
     "path",
-    "description",
     "category",
     "lifecycle_stage",
     "dependencies",
@@ -27,7 +26,6 @@ REQUIRED = {
 STRING_FIELDS = {
     "name",
     "path",
-    "description",
     "category",
     "lifecycle_stage",
     "capability_level",
@@ -40,18 +38,27 @@ LIST_FIELDS = {
 }
 
 
-def frontmatter_name(path: Path) -> str | None:
-    text = path.read_text(encoding="utf-8")
-    lines = text.splitlines()
+def frontmatter_value(path: Path, key: str) -> str | None:
+    lines = path.read_text(encoding="utf-8").splitlines()
     if not lines or lines[0].strip() != "---":
         return None
+    collecting = False
+    block: list[str] = []
     for line in lines[1:]:
         if line.strip() == "---":
             break
-        match = re.match(r"^name:\s*[\"']?([^\"']+?)[\"']?\s*$", line)
-        if match:
-            return match.group(1).strip()
-    return None
+        if collecting:
+            if line.startswith((" ", "\t")):
+                block.append(line.strip())
+                continue
+            break
+        if re.match(rf"^{re.escape(key)}:\s*", line):
+            value = line.split(":", 1)[1].strip()
+            if value in {">", ">-", ">+", "|", "|-", "|+"}:
+                collecting = True
+            else:
+                return value.strip("\"'")
+    return " ".join(part for part in block if part) or None
 
 
 def main() -> int:
@@ -137,8 +144,10 @@ def main() -> int:
         skill_path = ROOT / path
         if not skill_path.is_file():
             errors.append(f"{name}: nonexistent catalog path")
-        elif frontmatter_name(skill_path) != name:
+        elif frontmatter_value(skill_path, "name") != name:
             errors.append(f"{name}: frontmatter-name mismatch")
+        elif not frontmatter_value(skill_path, "description"):
+            errors.append(f"{name}: frontmatter-description missing")
         if record["capability_level"] not in VALID_LEVELS:
             errors.append(f"{name}: invalid capability label")
         for field in ("dependencies", "related_skills"):

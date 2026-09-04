@@ -1,6 +1,7 @@
 ---
 name: stay-within-limits
-description: Use when long-running or parallel agent work must respect 5-hour and weekly usage limits by checking usage between waves, pausing near the cap, and resuming only when the window is clear.
+description: "Keep long-running or parallel work within usage limits by checking between waves and pausing safely."
+
 ---
 
 # Stay Within Limits

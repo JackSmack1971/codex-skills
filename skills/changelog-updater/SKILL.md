@@ -1,6 +1,7 @@
 ---
 name: changelog-updater
-description: Analyzes Git commit history for full CHANGELOG.md reconstruction, incremental updates since a tag, date or revision ranges, and release-note preparation. Semantically infers user-facing Added, Changed, Deprecated, Removed, Fixed, and Security entries from clean or messy commit messages; inspects diffs when intent is ambiguous; filters merges, tests, refactors, dependency churn, CI, and other internal noise unless impact is user-visible; follows Keep a Changelog conventions; and safely plans, validates, previews, writes, or updates CHANGELOG.md.
+description: "Reconstruct or update user-facing changelogs from Git history and diffs."
+
 ---
 
 # Changelog Updater

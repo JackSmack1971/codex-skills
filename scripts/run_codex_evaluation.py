@@ -20,10 +20,12 @@ ROOT = Path(__file__).resolve().parents[1]
 try:
     from evals.codex.graders.runtime import classify_runtime, selected_skill
     from evals.codex.graders.routing import grade_routing
+    from scripts.compile_skill_registry import frontmatter_description
 except ModuleNotFoundError:
     sys.path.insert(0, str(ROOT))
     from evals.codex.graders.runtime import classify_runtime, selected_skill
     from evals.codex.graders.routing import grade_routing
+    from scripts.compile_skill_registry import frontmatter_description
 TASKS = ROOT / "evals/codex/tasks/runtime-cases.json"
 INVARIANTS = ROOT / "evals/codex/expected_invariants/runtime.json"
 ROUTING_CASES = ROOT / "benchmarks/routing/cases.json"
@@ -45,7 +47,10 @@ def deterministic_checks() -> list[dict[str, str]]:
     catalog = read_json(ROOT / "skills/catalog.json")
     skills = catalog["skills"]
     names = {record["name"] for record in skills}
-    metadata = "".join(f"{record['name']} {record['description']}\n" for record in skills)
+    metadata = "".join(
+        f"{record['name']} {frontmatter_description(ROOT / record['path']) or ''}\n"
+        for record in skills
+    )
     fixture_cases = read_json(ROOT / "tests/skill-routing-cases.json")["cases"]
     benchmark_cases = [case for skill in read_json(ROOT / "benchmarks/core/manifest.json")["skills"] for case in skill["cases"]]
     checks: list[tuple[str, bool, str]] = [

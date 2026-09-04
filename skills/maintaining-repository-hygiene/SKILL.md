@@ -1,6 +1,7 @@
 ---
 name: maintaining-repository-hygiene
-description: Audits and professionalizes GitHub repositories: stack and topology, stale worktrees, labels, .github governance and actions, documentation, settings, and tracked artifacts; creates one idempotent issue per atomic step. Use for repository hygiene, repo cleanup, community health files, CODEOWNERS, Dependabot, branch protection, documentation drift, or professionalization audits.
+description: "Audit and professionalize GitHub repositories: stack and topology, stale worktrees, labels, .github governance and actions, documentation, settings, and tracked artifacts; create one idempotent issue per atomic step."
+
 ---
 
 # Maintaining Repository Hygiene

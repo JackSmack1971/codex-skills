@@ -1,6 +1,6 @@
 ---
 name: vertical-slice
-description: Plan or implement one end-to-end user-visible slice across interface, API or service logic, persistence, and verification. Use when a user action must be traced across layers or work is splitting into disconnected frontend, backend, or schema layers; use feature-implementation for ordinary feature delivery.
+description: "Plan or implement one end-to-end user-visible slice across interface, service logic, persistence, and verification; use feature-implementation for ordinary feature delivery."
 compatibility: Requires a repository or system boundary map and a concrete user action.
 ---
 

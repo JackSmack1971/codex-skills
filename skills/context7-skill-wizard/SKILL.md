@@ -1,6 +1,6 @@
 ---
 name: context7-skill-wizard
-description: Use only to build a focused Open Agent skill from current Context7 documentation for a named library or framework, including “build a skill for” or “generate a skill from docs”. Do not use for general skill authoring, migration, evaluation, or Codex plugin packaging; use skill-creator or plugin-creator respectively.
+description: "Use only to build a focused Open Agent skill from current Context7 documentation for a named library or framework. Use skill-creator for general skill work and plugin-creator for plugin packaging."
 compatibility: Requires Codex CLI, Context7 MCP tools, and Python 3.11+ for local validation.
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: simplification-cascades
-description: Identify one unifying insight that eliminates multiple components, special cases, or redundant implementations. Use when simplifying, reducing complexity, refactoring duplicated logic, or when special cases are accumulating.
+description: "Find one unifying insight that removes duplicated logic, special cases, or redundant components."
 compatibility: Requires Python 3.11+; the bundled scanner is read-only.
 ---
 

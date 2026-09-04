@@ -1,6 +1,6 @@
 ---
 name: security-best-practices
-description: Use when the user explicitly requests security best-practices guidance, a security review/report, or secure-by-default coding help for Python, JavaScript/TypeScript, or Go.
+description: "Provide secure-by-default guidance and security reviews for Python, JavaScript/TypeScript, and Go web stacks."
 compatibility: Reference guidance covers Python, JavaScript/TypeScript, and Go web stacks.
 ---
 

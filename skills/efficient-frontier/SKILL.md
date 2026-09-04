@@ -1,6 +1,7 @@
 ---
 name: efficient-frontier
-description: "Use when high-cost frontier-model work can be split into bounded research, coding, or testing tasks while planning, synthesis, and final review remain centralized."
+description: "Orchestrate high-cost frontier-model work through cheaper delegated research, coding, and testing with final synthesis and review."
+
 ---
 
 # Efficient Frontier

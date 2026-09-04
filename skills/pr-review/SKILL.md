@@ -1,6 +1,7 @@
 ---
 name: pr-review
-description: Use for pull-request, branch-diff, or proposed-merge review, including merge-risk scoring and structured GitHub review output. Do not use for a generic delegated or read-only code-change review; use review-agent instead.
+description: "Use for pull-request, branch-diff, or proposed-merge review, including merge-risk scoring and structured GitHub review output. Do not use for a generic delegated or read-only code-change review; use review-agent instead."
+
 ---
 
 ## Contents

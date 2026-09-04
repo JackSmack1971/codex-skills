@@ -1,6 +1,6 @@
 ---
 name: data-modeling
-description: Design or review a durable data model from product requirements, including entities, relationships, ownership, lifecycle, constraints, indexes, migrations, and concurrency assumptions. Use when a feature stores or changes persistent data.
+description: "Design or review durable data models, relationships, constraints, indexes, lifecycle, and concurrency assumptions."
 compatibility: Requires domain requirements and repository/database context when available.
 ---
 

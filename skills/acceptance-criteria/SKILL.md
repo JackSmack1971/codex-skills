@@ -1,6 +1,6 @@
 ---
 name: acceptance-criteria
-description: Turn ambiguous requirements into observable pass/fail acceptance criteria for features, issues, and user journeys. Use when implementation or testing needs a precise behavioral contract.
+description: "Turn ambiguous requirements into observable pass/fail acceptance criteria."
 compatibility: Requires a requirement, issue, product specification, or user journey.
 ---
 

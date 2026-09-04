@@ -1,6 +1,7 @@
 ---
 name: skill-installer
-description: Install standalone Codex skills into $HOME/.agents/skills from a curated list or a GitHub repo path. Use for local setup and experimentation, not reusable plugin distribution.
+description: "Install Codex skills from curated sources or GitHub repositories."
+
 ---
 
 # Skill Installer

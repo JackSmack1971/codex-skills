@@ -1,6 +1,7 @@
 ---
 name: generating-readmes
-description: Creates or upgrades repository README.md files as grounded operational manuals. Use when asked to generate, improve, rewrite, audit, or verify a README, quickstart, project overview, command center, repo documentation, or maintainer guide.
+description: "Create or upgrade grounded repository README operational manuals."
+
 ---
 
 # README Architect Workflow

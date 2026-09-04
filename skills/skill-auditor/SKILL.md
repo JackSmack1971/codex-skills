@@ -1,6 +1,7 @@
 ---
 name: skill-auditor
-description: Use to audit Open Agent skill packages, SKILL.md metadata, or multi-skill handoffs for discovery failures, routing drift, unsupported claims, integration friction, unsafe behavior, token waste, and missing validation. Do not use for broad repository improvement audits or Codex control-plane loading; use improve or context-doctor respectively.
+description: "Audit skill packages, routing boundaries, metadata, and multi-skill handoffs; exclude broad repository audits and Codex configuration."
+
 ---
 
 # Skill Auditor

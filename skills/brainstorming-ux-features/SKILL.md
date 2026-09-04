@@ -1,6 +1,7 @@
 ---
 name: brainstorming-ux-features
-description: Discovers, evaluates, and prioritizes meaningful UX-focused product features from repository evidence, user goals, workflows, friction signals, and existing capabilities. Supports ideas-only shortlists and validated implementation-ready .feature.json contracts for downstream planning and coding agents. Use when asked to brainstorm features, improve product UX, find high-impact enhancements, define a user-facing feature, create a feature proposal, or prepare an agent-parsable implementation specification.
+description: "Brainstorm, evaluate, prioritize, and specify UX-focused product features from repository and user evidence."
+
 ---
 
 # Brainstorming UX Features

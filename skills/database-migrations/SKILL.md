@@ -1,6 +1,6 @@
 ---
 name: database-migrations
-description: Plan, implement, or review safe changes to persistent database schemas and data, including forward migrations, backfills, compatibility windows, verification, and rollback. Use when adding, changing, renaming, or removing stored data.
+description: "Plan, implement, or review safe persistent schema changes, backfills, compatibility windows, verification, and rollback."
 compatibility: Requires the repository's migration tooling and a documented current schema when available.
 ---
 

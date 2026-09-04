@@ -1,10 +1,7 @@
 ---
 name: intent-layer
-description: >
-  Set up hierarchical Intent Layer (AGENTS.md files) for codebases.
-  Use when initializing a new project, adding context infrastructure to an existing repo,
-  user asks to set up AGENTS.md, add intent layer, make agents understand the codebase,
-  or scaffolding AI-friendly project documentation.
+description: "Set up hierarchical AGENTS.md intent context for codebases."
+
 ---
 
 # Intent Layer

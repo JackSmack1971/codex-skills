@@ -1,13 +1,7 @@
 ---
 name: read-the-damn-docs
-description: >-
-  Use when implementing, integrating, upgrading, debugging, or answering
-  anything involving third-party APIs, libraries, frameworks, CLIs, cloud
-  services, model/provider SDKs, fast-moving product behavior, user requests for
-  latest/current/official behavior, unfamiliar repo docs/specs, errors that may
-  indicate API drift, or high-stakes auth, security, billing, data, migration,
-  deployment, compliance, or privacy behavior. Forces Codex to web-search for
-  current official docs and read primary docs before assuming from memory.
+description: "Require current authoritative documentation before using third-party APIs, libraries, frameworks, CLIs, or services."
+
 ---
 
 ## Contents

@@ -1,6 +1,7 @@
 ---
 name: plugin-creator
-description: Use to create or update a Codex plugin, its `.codex-plugin/plugin.json`, optional plugin structure, or marketplace metadata. Do not use for standalone skill authoring or named-library skill generation; use skill-creator or context7-skill-wizard respectively.
+description: "Create or update Codex plugin manifests, optional plugin structure, and marketplace metadata; use skill-creator or context7-skill-wizard for standalone skills."
+
 ---
 
 # Plugin Creator

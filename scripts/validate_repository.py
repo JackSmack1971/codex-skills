@@ -456,6 +456,8 @@ def validate(root: Path) -> list[str]:
     for record in records:
         if not isinstance(record, dict): errors.append("catalog record must be an object"); continue
         name = record.get("name", "<unknown>")
+        if "description" in record:
+            errors.append(f"{name}: catalog must not duplicate the runtime frontmatter description")
         expected = f"skills/{name}/SKILL.md"
         if record.get("path") != expected: errors.append(f"{name}: catalog path must be {expected}")
         for artifact in record.get("validation_artifacts", []):

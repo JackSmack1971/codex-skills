@@ -1,6 +1,6 @@
 ---
 name: using-git-worktrees
-description: Use to create or verify isolated Git worktree setup when parallel or branch-isolated work is requested. Do not use for the complete GitHub issue-to-PR lifecycle; github-issue-to-pr composes this skill for that case.
+description: "Create or verify an isolated Git worktree for parallel or branch-isolated work; github-issue-to-pr composes it for the complete lifecycle."
 compatibility: Requires Git and Python 3.11+; setup commands are detected but never evaluated through a shell string.
 ---
 

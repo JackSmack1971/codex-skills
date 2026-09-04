@@ -1,6 +1,7 @@
 {
   "version": 1,
   "source": {
+    "routing_descriptions": "skills/*/SKILL.md frontmatter",
     "catalog": "skills/catalog.json",
     "evaluation": "docs/evaluation-inventory.json"
   },
@@ -81,7 +82,7 @@
     {
       "name": "brainstorming-ux-features",
       "path": "skills/brainstorming-ux-features/SKILL.md",
-      "description": "Discover, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
+      "description": "Brainstorm, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
       "primary_trigger": "Discover, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
       "classification": "Specialized",
       "implementation_depth": "evaluated",
@@ -120,7 +121,7 @@
     {
       "name": "context-doctor",
       "path": "skills/context-doctor/SKILL.md",
-      "description": "Use only to audit Codex CLI context loading and control-plane configuration; use skill-auditor for skill packages and improve for broad repository audits.",
+      "description": "Audit Codex context loading, skills discovery, config, hooks, MCP, subagents, compaction, and model settings read-only; use skill-auditor for skill packages.",
       "primary_trigger": "Audit Codex context loading and control-plane configuration; propose, but do not apply, changes.",
       "classification": "Specialized",
       "implementation_depth": "evaluated",
@@ -244,7 +245,7 @@
     {
       "name": "feature-implementation",
       "path": "skills/feature-implementation/SKILL.md",
-      "description": "Implement specified product behavior as the smallest verified change; use narrower cross-layer, TDD, or QA skills when those constraints are explicit.",
+      "description": "Implement a requested concrete feature in an existing repository as the smallest verified change with focused verification; use narrower cross-layer, TDD, or QA skills when explicit.",
       "primary_trigger": "Implement a specified feature from a concrete requirement or issue.",
       "classification": "Core",
       "implementation_depth": "prompt-only",
@@ -436,7 +437,7 @@
     {
       "name": "improve",
       "path": "skills/improve/SKILL.md",
-      "description": "Run broad, plan-only repository improvement audits; use skill-auditor for skill packages and context-doctor for Codex control-plane configuration.",
+      "description": "Audit a broad repository and prepare plan-only architecture, security, performance, developer-experience, or product-direction improvements; use skill-auditor for skills.",
       "primary_trigger": "Audit a repository for improvement opportunities or prepare an evidence-backed handoff.",
       "classification": "Specialized",
       "implementation_depth": "script-backed",
@@ -753,7 +754,7 @@
     {
       "name": "skill-auditor",
       "path": "skills/skill-auditor/SKILL.md",
-      "description": "Audit Open Agent skill packages, metadata, and multi-skill handoffs; use improve for broad repositories and context-doctor for Codex control-plane loading.",
+      "description": "Audit skill packages, routing boundaries, metadata, and multi-skill handoffs; exclude broad repository audits and Codex configuration.",
       "primary_trigger": "Audit a skill, SKILL.md, skill handoff, or multi-skill workflow.",
       "classification": "Specialized",
       "implementation_depth": "script-backed",
@@ -776,7 +777,7 @@
     {
       "name": "skill-creator",
       "path": "skills/skill-creator/SKILL.md",
-      "description": "Use for general Open Agent skill authoring, migration, improvement, evaluation, metadata, or description work; use context7-skill-wizard for named-library Context7 generation and plugin-creator for plugin packaging.",
+      "description": "Create or improve general standalone Open Agent skill work, including metadata, descriptions, tests, and migration; exclude named-library docs and plugin packaging.",
       "primary_trigger": "Request general skill authoring, migration, improvement, evaluation, or metadata work.",
       "classification": "Specialized",
       "implementation_depth": "evaluated",
@@ -855,7 +856,7 @@
     {
       "name": "systematic-debugging",
       "path": "skills/systematic-debugging/SKILL.md",
-      "description": "Trace bugs, test failures, and unexpected behavior to root cause before proposing fixes.",
+      "description": "Diagnose bugs, test or build failures, regressions, and unexpected behavior before a permanent fix; exclude planned features without a failure signal.",
       "primary_trigger": "Encounter a bug, test failure, or unexpected behavior.",
       "classification": "Core",
       "implementation_depth": "script-backed",

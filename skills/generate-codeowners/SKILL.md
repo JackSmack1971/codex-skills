@@ -1,6 +1,6 @@
 ---
 name: generate-codeowners
-description: Analyzes a Git repository's architecture, history, risk boundaries, existing governance, and verified GitHub ownership data to generate or audit an optimal GitHub CODEOWNERS file. Use manually when establishing or revising repository code ownership; it never invents GitHub handles or writes unresolved owners.
+description: "Analyze repository architecture, history, risk boundaries, and verified GitHub ownership to generate or audit CODEOWNERS."
 compatibility: Requires Git and Python 3.10 or later. GitHub CLI is optional and used only for read-only owner verification.
 ---
 

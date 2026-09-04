@@ -1,6 +1,6 @@
 ---
 name: testing-qa
-description: Use to choose or run proportionate QA checks across unit, integration, end-to-end, browser, performance, security, or release quality for an existing change. Do not use when the requested workflow is specifically red-green-refactor TDD; use test-driven-development.
+description: "Use to choose or run proportionate QA checks across unit, integration, browser, performance, security, or release quality for an existing change. Do not use when the requested workflow is specifically red-green-refactor TDD; use test-driven-development."
 compatibility: Requires the project's existing test and QA tools; no runner or dependency is assumed.
 ---
 

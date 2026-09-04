@@ -1,6 +1,7 @@
 ---
 name: systematic-debugging
-description: Use when a bug, test failure, performance regression, build failure, or unexpected behavior requires diagnosis before a permanent fix; exclude planned feature work without a failure signal.
+description: "Diagnose bugs, test or build failures, regressions, and unexpected behavior before a permanent fix; exclude planned features without a failure signal."
+
 ---
 
 # Systematic Debugging

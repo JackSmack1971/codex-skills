@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Use for general Open Agent skill authoring, migration, improvement, evaluation, metadata, or description work. Do not use for named-library/framework skill generation from Context7 or Codex plugin packaging; use context7-skill-wizard or plugin-creator respectively.
+description: "Create or improve general standalone Open Agent skill work, including metadata, descriptions, tests, and migration; exclude named-library docs and plugin packaging."
 compatibility: Requires Codex CLI and Python 3.11+ for optional local validators and evaluation scripts.
 ---
 

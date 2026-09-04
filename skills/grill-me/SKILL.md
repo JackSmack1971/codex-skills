@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling.
+description: "Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling."
 compatibility: Requires the `grilling` skill to be available.
 ---
 
