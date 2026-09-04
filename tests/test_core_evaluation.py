@@ -46,7 +46,7 @@ class CoreEvaluationTests(unittest.TestCase):
         data = {"schema_version": 1, "artifact_policy": "metadata-only", "cases": [{"case_id": "x"}]}
         self.assertTrue(validate_suite(data))
 
-    def test_paired_summary_requires_adequate_material_uplift(self):
+    def test_paired_summary_reports_material_uplift_as_exploratory(self):
         runtime = []
         for index in range(10):
             checks = [{"category": "forbidden", "passed": True}]
@@ -56,18 +56,20 @@ class CoreEvaluationTests(unittest.TestCase):
                 "baseline": {"status": "fail" if index < 3 else "pass", "response_chars": 100, "assertions": {"checks": checks}},
             })
         summary = summarize_paired(runtime)
-        self.assertTrue(summary["adequate_evidence"])
-        self.assertEqual(summary["decision"], "RETAIN")
+        self.assertFalse(summary["adequate_evidence"])
+        self.assertTrue(summary["adequate_exploratory_evidence"])
+        self.assertEqual(summary["g5_status"], "UNVALIDATED")
+        self.assertEqual(summary["decision"], "EXPLORATORY_RETAIN_SIGNAL")
         self.assertAlmostEqual(summary["task_success_uplift_pp"], 30.0)
 
-    def test_paired_summary_marks_no_uplift_for_compression_or_deletion(self):
+    def test_paired_summary_marks_no_uplift_as_exploratory_only(self):
         checks = [{"category": "forbidden", "passed": True}]
         runtime = [{
             "case_id": f"case-{index % 3}",
             "explicit_invocation": {"status": "pass", "response_chars": 100, "assertions": {"checks": checks}},
             "baseline": {"status": "pass", "response_chars": 100, "assertions": {"checks": checks}},
         } for index in range(10)]
-        self.assertEqual(summarize_paired(runtime)["decision"], "COMPRESS_OR_DELETE")
+        self.assertEqual(summarize_paired(runtime)["decision"], "EXPLORATORY_COMPRESS_SIGNAL")
 
     def test_paired_summary_is_inconclusive_when_runtime_is_unavailable(self):
         runtime = [{

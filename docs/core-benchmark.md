@@ -66,11 +66,14 @@ instructions' task-level effect independently from implicit routing; routing is
 evaluated by the separate routing harness.
 
 The paired mode requires at least ten available pairs across at least three
-distinct cases before issuing a retention decision. It reports `RETAIN` only
-for material uplift under the project thresholds with zero forbidden-behavior
-violations, `COMPRESS_OR_DELETE` for an adequately sampled result without
-material uplift, and `INCONCLUSIVE` otherwise. Do not delete or compress a skill
-from unavailable or under-sampled runtime evidence.
+distinct cases before issuing an **exploratory** signal. It reports
+`EXPLORATORY_RETAIN_SIGNAL` for material uplift under the project thresholds
+with zero forbidden-behavior violations, `EXPLORATORY_COMPRESS_SIGNAL` when the
+smoke sample has no material uplift, and `INCONCLUSIVE` otherwise. These signals
+never satisfy G5 and never authorize retention, compression, or deletion. Use
+the corpus and repetition requirements in
+[the high-leverage contract](high-leverage-skill-evaluation.md) for those
+decisions.
 
 Runtime reports contain only exit codes, response size/hash, assertion results,
 and availability metadata. Response bodies and transcripts are never written.

@@ -89,6 +89,9 @@ Validate and run the reusable behavioral fixtures with:
 python scripts/run_core_evaluation.py --deterministic-only
 ```
 
+The [empirical campaign](docs/empirical-campaign.md) defines the evidence order
+and the boundary between exploratory smoke results and G5 validation.
+
 See [docs/core-benchmark.md](docs/core-benchmark.md) for one-case, one-skill,
 baseline, and full-harness commands. Explicit runtime results do not measure
 implicit trigger-selection accuracy.
