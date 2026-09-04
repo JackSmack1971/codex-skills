@@ -91,6 +91,8 @@ python scripts/run_core_evaluation.py --deterministic-only
 
 The [empirical campaign](docs/empirical-campaign.md) defines the evidence order
 and the boundary between exploratory smoke results and G5 validation.
+The latest [post-revision quality audit](docs/quality-audit-2026-09-04.md)
+reports Design Readiness separately from unvalidated runtime performance.
 
 See [docs/core-benchmark.md](docs/core-benchmark.md) for one-case, one-skill,
 baseline, and full-harness commands. Explicit runtime results do not measure
