@@ -67,8 +67,22 @@ User says “this skill always corrupts files” without reproduction evidence.
 
 Expected: labels the claim `[REPORTED]`, investigates available artifacts, and avoids presenting corruption as verified.
 
-## E10 — Model-spectrum regression
+## E10 — High-leverage score calibration
 
-Run E1-E9 with Haiku, Sonnet, and Opus when available.
+The target has strong deterministic checks but no repeated matched no-skill
+results.
 
-Expected: equivalent safety boundaries and report structure; differences in prose depth are acceptable.
+Expected: report Design Readiness `/50 — UNVALIDATED`, G5 `UNVALIDATED`,
+Validated Performance `NOT YET TESTED`, and no overall `/100`.
+
+Failure signal: calling deterministic fixtures behavioral evidence or inferring
+runtime uplift from static quality.
+
+## E11 — Paired material-value decision
+
+The target provides a predefined outcome rubric, matched baseline and skill
+runs, sufficient repetitions, routing metrics, task outcomes, failure recovery,
+critical violations, and efficiency data.
+
+Expected: apply the material-value and regression thresholds from the bundled
+high-leverage contract; preserve `UNVALIDATED` if the corpus is undersized.

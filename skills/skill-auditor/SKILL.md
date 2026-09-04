@@ -123,6 +123,11 @@ For absence claims, name the searched scope. Example: “No validation loop foun
 ### 5. Analyze applicable audit lenses
 
 Use the lean checks in this file first. Load [the full audit rubric](resources/audit-rubric.md) for `standard-audit`, `workflow-audit`, `self-audit`, or when severity is uncertain.
+When judging skill quality, retention, compression, or comparative value, also
+load [the high-leverage evaluation contract](resources/high-leverage-skill-evaluation.md)
+and apply its G1–G5 evidence boundaries. Static inspection may produce Design
+Readiness `/50 — UNVALIDATED`; it cannot produce G5, Validated Performance, or
+an overall `/100`.
 
 Evaluate only applicable lenses:
 
@@ -165,6 +170,8 @@ Use these sections in this order:
 6. Improvement Opportunities — ranked by impact and effort.
 7. Recommended Next Actions.
 8. Audit Confidence and Validation.
+9. High-Leverage Scorecard — G1–G5, Design Readiness `/50`, runtime metrics or
+   `NOT YET TESTED`, material regressions, and next revision hypothesis.
 
 Every drift or integration finding must include:
 
@@ -192,6 +199,9 @@ Before claiming completion, verify:
 - [ ] Integration claims identify both sides of the handoff.
 - [ ] Recommendations do not introduce undeclared product requirements.
 - [ ] Confidence deductions and unknowns are explicit.
+- [ ] Behavioral labels match what the canonical command actually executed;
+      deterministic-only runs are not behavioral evidence.
+- [ ] G5 and `/100` claims have sufficient repeated matched baseline evidence.
 - [ ] The output follows the required section order.
 
 If any item fails, revise the report and repeat the checklist. Do not claim “audited,” “verified,” or “complete” until the validation pass succeeds.
@@ -250,6 +260,7 @@ Inspect all bundled files before trusting the package. Flag unexpected network a
 Load only when applicable:
 
 - [Audit rubric and scoring](resources/audit-rubric.md) — full lenses, severity, confidence, and prioritization.
+- [High-leverage evaluation contract](resources/high-leverage-skill-evaluation.md) — G1–G5, Design Readiness, paired baseline thresholds, and retention evidence.
 - [Report template](resources/report-template.md) — final report schema and finding format.
 - [Evaluation cases](resources/evaluations.md) — regression tests for this auditor.
 - [Portability and security](resources/portability-security.md) — surface constraints and trust review.

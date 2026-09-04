@@ -2,6 +2,7 @@
 
 ## Contents
 
+- High-leverage existence test
 - Discovery and metadata
 - Progressive disclosure
 - Instruction fidelity
@@ -14,6 +15,19 @@
 - Severity calibration
 - Confidence score
 - Opportunity prioritization
+
+## High-leverage existence test
+
+Read `high-leverage-skill-evaluation.md` before scoring design quality or
+runtime value. The decisive question is whether the skill materially
+outperforms the same no-skill baseline. Use its weighted Design Readiness
+`/50`, G1–G5 gates, default corpus, material-value thresholds, regression
+rules, and scorecard without relabeling deterministic validation as behavior.
+
+If repeated paired evidence is absent or insufficient, report G5 as
+`UNVALIDATED`, Validated Performance as `NOT YET TESTED`, and the overall
+`/100` as not reportable. Do not convert this rubric's confidence score into a
+quality or performance score.
 
 ## Discovery and metadata
 

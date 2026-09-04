@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.validate_repository import CONTROL_PLANE_DIRECTORIES, control_plane_layout_errors, validate, validate_freshness
+from scripts.validate_repository import CONTROL_PLANE_DIRECTORIES, control_plane_layout_errors, high_leverage_contract_errors, validate, validate_freshness
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_repository.py"
 
@@ -32,6 +32,23 @@ class RepositoryValidatorTests(unittest.TestCase):
     def assert_cli_fails(self, root: Path) -> None:
         result = subprocess.run([sys.executable, str(SCRIPT), str(root)], capture_output=True, text=True, check=False)
         self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_high_leverage_contract_mirrors_must_match(self) -> None:
+        root = Path(tempfile.mkdtemp())
+        self.addCleanup(lambda: __import__("shutil").rmtree(root, ignore_errors=True))
+        source = root / "docs" / "high-leverage-skill-evaluation.md"
+        source.parent.mkdir(parents=True)
+        source.write_text("canonical\n", encoding="utf-8")
+        for relative in (
+            "skills/skill-creator/references/high-leverage-skill-evaluation.md",
+            "skills/skill-auditor/resources/high-leverage-skill-evaluation.md",
+        ):
+            mirror = root / relative
+            mirror.parent.mkdir(parents=True)
+            mirror.write_text("canonical\n", encoding="utf-8")
+        self.assertEqual(high_leverage_contract_errors(root), [])
+        (root / "skills/skill-auditor/resources/high-leverage-skill-evaluation.md").write_text("drift\n", encoding="utf-8")
+        self.assertTrue(any("differs" in error for error in high_leverage_contract_errors(root)))
 
     def test_valid_freshness_registry_passes(self) -> None:
         root = Path(tempfile.mkdtemp())
