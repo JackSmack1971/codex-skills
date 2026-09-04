@@ -1,6 +1,7 @@
 ---
 name: "openai-docs"
-description: "Use for Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, customization, automations, and self-knowledge—including 'you,' 'your,' 'this app,' or 'this coding agent' when they refer to Codex—and for OpenAI APIs/products and ChatGPT Work. Also use for model choice/migration, prompting, SDKs, Responses, Realtime, agents, evals, and Chat/Work/Codex comparisons. Do not use for generic app/software tasks that merely mention Codex."
+description: "Use authoritative OpenAI documentation for OpenAI products, APIs, Codex, models, and configuration."
+
 ---
 
 # OpenAI Docs
@@ -13,7 +14,7 @@ Provide current, cited OpenAI product, API, model, and Codex guidance. Read zero
 
 For generic software tasks, answer the software task directly. OpenAI implementation, debugging, SDK, API, prompting, agent, and eval requests are not generic.
 
-For a straightforward factual or citation-only request, follow the source order and do not read a route reference. This includes straightforward API facts, ChatGPT Work or mixed Chat/Work/Codex comparisons, model tiers, aliases, Pro mode, reasoning settings, factual migration baselines, and narrow Codex facts. Prioritize `learn.chatgpt.com` for ChatGPT Work.
+For a straightforward factual or citation-only request, follow the source order and do not read a route reference. This includes straightforward API facts, ChatGPT Work or mixed Chat/Work/Codex comparisons, model tiers, aliases, Pro mode, reasoning settings, factual migration baselines, and narrow Codex facts. Prefer the current product-specific first-party documentation; redirects between official OpenAI documentation surfaces are acceptable.
 
 ## Choose one primary route
 
@@ -29,7 +30,7 @@ Read at most one primary reference. Do not open every route, bundled model guide
 
 ## Source and execution boundaries
 
-- Search, open, fetch, and cite only `developers.openai.com`, `platform.openai.com`, and `learn.chatgpt.com`. Cite the page that supports the claim. State uncertainty when official sources do not establish pricing, availability, account access, limits, or behavior.
+- Search, open, fetch, and cite only current first-party OpenAI documentation appropriate to the product surface. Supported official surfaces include `developers.openai.com`, `platform.openai.com`, `help.openai.com`, `learn.chatgpt.com`, and product documentation on `openai.com`. Prefer product/API references for implementation contracts, Help Center articles for account and plan behavior, and ChatGPT Learn for ChatGPT Work and Codex product workflows. Follow official redirects and cite the final page that supports the claim. State uncertainty when first-party sources do not establish pricing, availability, account access, limits, or behavior.
 - Preserve an explicitly requested model for selection, migration, and prompting. Resolve an unspecified latest or current migration target only after searching and fetching current official guidance.
 - Use `references/latest-model.md` only as a disclosed fallback after current official model guidance does not answer the question. Read `references/upgrading-to-gpt-5p6-sol.md` only for an actual, requested GPT-5.6-family migration; read `references/prompting-guide.md` only for requested prompting work.
 - Before building, running, editing, debugging, or testing an API-backed app or tool, use `openai-platform-api-key` first when available. Documentation, conceptual examples, model selection, and read-only guidance do not require an API key.

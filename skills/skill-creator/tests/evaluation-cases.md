@@ -1,4 +1,8 @@
-# Manual evaluation cases (not automated tests)
+# Manual smoke cases (not automated tests; not sufficient for G5)
+
+These cases catch obvious regressions during authoring. They do not replace the
+corpus, repetitions, matched baseline, or scorecard required by the bundled
+high-leverage evaluation contract.
 
 1. **Normal:** Given a focused skill request, produce valid frontmatter, a
    bounded workflow, and a clear output contract.

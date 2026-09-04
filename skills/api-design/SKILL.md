@@ -1,6 +1,6 @@
 ---
 name: api-design
-description: Design or review an API contract for domain operations, including request and response schemas, errors, authentication, authorization, pagination, idempotency, and versioning. Use for HTTP, RPC, GraphQL, or internal service boundaries.
+description: "Design or review API contracts, schemas, errors, authorization, pagination, idempotency, and versioning."
 compatibility: Requires a product or domain operation and relevant repository or protocol constraints.
 ---
 

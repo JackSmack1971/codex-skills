@@ -1,6 +1,6 @@
 ---
 name: improve
-description: Use for broad, plan-only repository improvement audits covering security, performance, testing, architecture, dependencies, developer experience, documentation, or product direction. Use skill-auditor for skill packages and context-doctor for Codex control-plane configuration.
+description: "Audit a broad repository and prepare plan-only architecture, security, performance, developer-experience, or product-direction improvements; use skill-auditor for skills."
 compatibility: Requires filesystem-readable project files; Git history is used only when available.
 ---
 

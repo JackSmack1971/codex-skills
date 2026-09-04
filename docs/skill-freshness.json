@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_updated": "2026-08-10",
+  "last_updated": "2026-09-04",
   "skills": {
     "changelog-updater": {
       "status": "version-sensitive",
@@ -137,6 +137,15 @@
       "verification": "Verify the current install command and source repository contract before installing a skill.",
       "references": ["skills/skill-installer/SKILL.md"]
     },
+    "stay-within-limits": {
+      "status": "version-sensitive",
+      "technology": ["Codex CLI", "ChatGPT plans", "Codex usage dashboard"],
+      "checked_version": "Current official Codex pricing and usage documentation",
+      "last_verified": "2026-09-04",
+      "runtime_detection_required": true,
+      "verification": "Use a current first-party structured meter, Codex CLI /status, or the official usage dashboard; report UNKNOWN when the reading is not observable.",
+      "references": ["skills/stay-within-limits/SKILL.md"]
+    },
     "tailwind-design-system": {
       "status": "version-sensitive",
       "technology": ["Tailwind CSS"],
@@ -172,7 +181,6 @@
       "simplification-cascades": {"status": "exempt", "exemption": "Repository-local refactoring method.", "references": ["skills/simplification-cascades/SKILL.md"]},
       "skill-auditor": {"status": "exempt", "exemption": "Skill audit method; it evaluates supplied artifacts rather than claiming current external behavior.", "references": ["skills/skill-auditor/SKILL.md"]},
       "stack-detection": {"status": "exempt", "exemption": "Local stack inspection method; detected versions are evidence at use time.", "references": ["skills/stack-detection/SKILL.md"]},
-      "stay-within-limits": {"status": "exempt", "exemption": "Usage-limit monitoring method; provider-specific tooling is explicitly detected at use time.", "references": ["skills/stay-within-limits/SKILL.md"]},
       "systematic-debugging": {"status": "exempt", "exemption": "Technology-neutral debugging method.", "references": ["skills/systematic-debugging/SKILL.md"]},
       "taste-engine": {"status": "exempt", "exemption": "Opt-in preference application method with user-supplied data.", "references": ["skills/taste-engine/SKILL.md"]},
       "test-driven-development": {"status": "exempt", "exemption": "Testing method; the project runner is detected at use time.", "references": ["skills/test-driven-development/SKILL.md"]},

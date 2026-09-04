@@ -1,6 +1,6 @@
 ---
 name: feature-implementation
-description: Implement specified product behavior as the smallest verified change in an existing codebase. Use after requirements are concrete when the request is not primarily a cross-layer slice plan, an explicit red-green-refactor TDD cycle, or QA-only verification; compose those narrower skills when requested.
+description: "Implement a requested concrete feature in an existing repository as the smallest verified change with focused verification; use narrower cross-layer, TDD, or QA skills when explicit."
 compatibility: Requires a readable repository and its available local toolchain.
 ---
 

@@ -212,6 +212,7 @@ def run_case(case: dict, mode: str, timeout: int = 180) -> dict:
 
 
 def summarize_paired(runtime: list[dict], minimum_pairs: int = 10) -> dict:
+    """Summarize a smoke-scale paired run without claiming G5 sufficiency."""
     pairs = [entry for entry in runtime if entry.get("explicit_invocation") and entry.get("baseline")]
     available = [entry for entry in pairs if entry["explicit_invocation"].get("status") in {"pass", "fail"} and entry["baseline"].get("status") in {"pass", "fail"}]
     total = len(available)
@@ -257,11 +258,25 @@ def summarize_paired(runtime: list[dict], minimum_pairs: int = 10) -> dict:
         or (violation_reduction is not None and violation_reduction >= 0.50)
         or (efficiency_gain is not None and efficiency_gain >= 0.20 and uplift_pp is not None and uplift_pp >= -2)
     )
-    adequate = total >= minimum_pairs and len({entry["case_id"] for entry in available}) >= 3 and len(pairs) == total
-    decision = "RETAIN" if adequate and material and skill_violations == 0 else "COMPRESS_OR_DELETE" if adequate else "INCONCLUSIVE"
+    exploratory = total >= minimum_pairs and len({entry["case_id"] for entry in available}) >= 3 and len(pairs) == total
+    decision = (
+        "EXPLORATORY_RETAIN_SIGNAL"
+        if exploratory and material and skill_violations == 0
+        else "EXPLORATORY_COMPRESS_SIGNAL"
+        if exploratory
+        else "INCONCLUSIVE"
+    )
     return {
         "decision": decision,
-        "adequate_evidence": adequate,
+        "decision_scope": "exploratory",
+        "adequate_evidence": False,
+        "adequate_exploratory_evidence": exploratory,
+        "g5_status": "UNVALIDATED",
+        "g5_requirements_missing": [
+            "20 positive, 20 negative, and 10 neighboring routing prompts with routing repetitions",
+            "10 representative task scenarios with five matched trials per condition",
+            "5 realistic failure scenarios with five matched trials per condition",
+        ],
         "minimum_paired_trials": minimum_pairs,
         "paired_trials": total,
         "distinct_cases": len({entry["case_id"] for entry in available}),
@@ -290,7 +305,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--skill")
     parser.add_argument("--baseline", action="store_true", help="run without deliberately invoking the target skill")
     parser.add_argument("--paired", action="store_true", help="run matched no-skill and explicit-skill trials")
-    parser.add_argument("--runs", type=int, default=1, help="repeat each selected case; paired decisions require at least 10 total pairs")
+    parser.add_argument("--runs", type=int, default=1, help="repeat each selected case; 10 total pairs across 3 cases permits an exploratory summary, not G5")
     parser.add_argument("--deterministic-only", action="store_true")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)

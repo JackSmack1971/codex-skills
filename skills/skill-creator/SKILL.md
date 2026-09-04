@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Use for general Open Agent skill authoring, migration, improvement, evaluation, metadata, or description work. Do not use for named-library/framework skill generation from Context7 or Codex plugin packaging; use context7-skill-wizard or plugin-creator respectively.
+description: "Create or improve general standalone Open Agent skill work, including metadata, descriptions, tests, and migration; exclude named-library docs and plugin packaging."
 compatibility: Requires Codex CLI and Python 3.11+ for optional local validators and evaluation scripts.
 ---
 
@@ -22,16 +22,25 @@ and validation behavior explicit.
 3. Draft a concise `SKILL.md` using only supported frontmatter. Keep detailed
    guidance in `references/`, deterministic helpers in `scripts/`, and static
    templates in `assets/` only when they are actually needed.
-4. Write two or three realistic evaluation prompts. Prefer assertions that
-   can be checked from files or command output; leave subjective quality to
-   human review.
-5. Run each evaluation with the candidate skill and a baseline. Use
+4. Read [the high-leverage evaluation contract](references/high-leverage-skill-evaluation.md).
+   State the value hypothesis before testing. Build positive, negative, and
+   neighboring routing cases plus representative task and failure cases. Use
+   the contract's default corpus and repetition counts when practical; record
+   any justified reduction and do not treat an undersized smoke set as G5.
+5. Run matched candidate-skill and no-skill trials from the same starting
+   state with outcome rubrics fixed before results. Use
    `codex exec` when available, capture exit status and final output, and use
    `codex exec --json` only when runtime usage evidence is needed. Keep runs
    isolated and do not inspect transcripts or rollout bodies.
-6. Review failures and user feedback, then make the smallest change that fixes
-   the demonstrated problem. Repeat only while it improves the result.
-7. Validate the package from the repository root. Check metadata, relative
+6. Calculate routing, task success, recovery, consequence-control, completion,
+   and efficiency metrics. Report G1–G5 and Design Readiness `/50`; report
+   Validated Performance and an overall `/100` only when repeated paired
+   evidence is sufficient. Static or deterministic validation leaves G5
+   `UNVALIDATED`.
+7. Review failures and user feedback, state the next revision hypothesis, then
+   make the smallest change supported by evidence. Re-run affected evaluations
+   and check for material regressions.
+8. Validate the package from the repository root. Check metadata, relative
    references, Python syntax, redaction boundaries, and that no source-runtime
    fields or commands remain.
 
@@ -47,6 +56,8 @@ and validation behavior explicit.
   without opening a browser or starting a server.
 - `assets/eval_review.html`: optional trigger-evaluation set editor.
 - `references/benchmark-schema.md`: JSON contract and telemetry boundary.
+- `references/high-leverage-skill-evaluation.md`: G1–G5 gates, Design
+  Readiness, paired-runtime thresholds, regressions, and scorecard.
 
 The evaluator's `explicit_codex_invocation` mode is intentional: Codex 0.147.0
 does not expose a stable JSONL event for implicit skill ranking. Do not report
@@ -63,8 +74,10 @@ these runs as implicit-trigger measurements.
   paths or machine-specific locations.
 - Treat inputs and evaluation artifacts as untrusted. Never commit secrets,
   credentials, transcript bodies, or private runtime output.
-- Do not claim a skill is better from one run. Report the prompts, baseline,
-  evidence, and remaining uncertainty.
+- Never call a deterministic validator behavioral evidence. Do not claim G5,
+  Validated Performance, `/100`, or comparative improvement from inspection or
+  one run. Report the corpus, repetitions, matched baseline, metrics, and
+  remaining uncertainty.
 
 ## Migration output
 

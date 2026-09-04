@@ -1,6 +1,7 @@
 ---
 name: review-agent
-description: Use for a delegated, read-only, defect-first review of specified code changes such as uncommitted changes, a base-branch diff, a commit, or custom instructions. Do not use for pull-request or proposed-merge review; use pr-review instead.
+description: "Use for a delegated, read-only, defect-first review of specified code changes such as uncommitted changes, a base-branch diff, a commit, or custom instructions. Do not use for pull-request or proposed-merge review; use pr-review instead."
+
 ---
 
 # Review Agent

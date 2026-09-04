@@ -1,6 +1,6 @@
 ---
 name: context-doctor
-description: Use only to audit Codex CLI context loading and control-plane configuration: AGENTS.md, skills discovery, config, hooks, rules, MCP, subagents, compaction, history, or model settings. Do not use for skill-package audits or broad repository improvement; use skill-auditor or improve respectively. Read-only; proposes changes but does not apply them.
+description: "Audit Codex context loading, skills discovery, config, hooks, MCP, subagents, compaction, and model settings read-only; use skill-auditor for skill packages."
 compatibility: Requires Codex CLI, Python 3.11+, and a filesystem-readable repository and CODEX_HOME.
 ---
 

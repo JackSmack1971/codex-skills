@@ -2,7 +2,10 @@
 
 This repository is a collection of repository-aware skills for Codex. Each skill is a focused `skills/<name>/SKILL.md` contract; some also include references, scripts, fixtures, or evaluation material. Execution behavior lives in the skill packs. The catalog and validator describe and check the collection without changing how skills run.
 
-The machine-readable source of truth is [`skills/catalog.json`](skills/catalog.json). Validate it with:
+Runtime routing descriptions are canonical in each `skills/<name>/SKILL.md`
+frontmatter. [`skills/catalog.json`](skills/catalog.json) is the machine-readable
+source for supplemental ownership, relationship, maturity, and provenance
+metadata. Validate the combined contract with:
 
 ```text
 python scripts/validate_catalog.py
@@ -14,7 +17,7 @@ Generated inventory views are checked with:
 python scripts/compile_skill_registry.py --check
 ```
 
-Regenerate them after changing canonical metadata with:
+Regenerate them after changing frontmatter, catalog, or evaluation metadata with:
 
 ```text
 python scripts/compile_skill_registry.py
@@ -22,8 +25,9 @@ python scripts/compile_skill_registry.py
 
 The resolved registry is [`docs/skill-state.json`](docs/skill-state.json);
 [`docs/skill-inventory.md`](docs/skill-inventory.md) is its human-readable view.
-The architecture is canonical inputs → compiled skill-state → machine consumers
-and generated human views.
+The architecture is canonical runtime frontmatter plus supplemental catalog and
+evaluation inputs → compiled skill-state → machine consumers and generated
+human views.
 
 Consolidation and compatibility decisions are recorded in
 [`docs/skill-consolidation.md`](docs/skill-consolidation.md). The canonical
@@ -84,6 +88,11 @@ Validate and run the reusable behavioral fixtures with:
 ```text
 python scripts/run_core_evaluation.py --deterministic-only
 ```
+
+The [empirical campaign](docs/empirical-campaign.md) defines the evidence order
+and the boundary between exploratory smoke results and G5 validation.
+The latest [post-revision quality audit](docs/quality-audit-2026-09-04.md)
+reports Design Readiness separately from unvalidated runtime performance.
 
 See [docs/core-benchmark.md](docs/core-benchmark.md) for one-case, one-skill,
 baseline, and full-harness commands. Explicit runtime results do not measure
@@ -218,8 +227,9 @@ Meta-skills improve the agent environment or the skill collection itself rather 
 
 ## Capability map and catalog
 
-The table below is a concise capability map grouped by lifecycle stage. Names,
-descriptions, and capability levels are grounded in `skills/catalog.json` and
+The table below is a concise capability map grouped by lifecycle stage. Names
+and routing descriptions are grounded in `SKILL.md` frontmatter; capability
+levels and relationships come from `skills/catalog.json` and are
 cross-referenced with the canonical inventory. Capability levels mean:
 `prompt-only` has no bundled executable artifact, `script-backed` has reusable
 scripts, `evaluated` has verification/evaluation artifacts, and `tested` has

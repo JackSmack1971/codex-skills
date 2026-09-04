@@ -77,3 +77,18 @@ Keep architecture compliance separate from optional product enhancement.
 - Validation checklist result: `PASS | FAIL`
 - Files modified: `None`
 - Target scripts executed: `None`
+
+## High-Leverage Scorecard
+
+- Claimed workflow and value hypothesis:
+- G1 routing boundary: `PASS | FAIL`
+- G2 material decision value: `PASS | FAIL`
+- G3 observable completion: `PASS | FAIL`
+- G4 failure and autonomy controls: `PASS | FAIL`
+- G5 empirical value: `PASS | FAIL | UNVALIDATED`
+- Design Readiness: `/50 — UNVALIDATED`
+- Runtime corpus and repetitions: `NOT YET TESTED`
+- Validated Performance: `NOT YET TESTED`
+- Overall: `NOT REPORTABLE`
+- Material regression:
+- Next revision hypothesis:

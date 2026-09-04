@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: Use when the user explicitly asks to create a Git commit, generate a Conventional Commit message, or invoke `/commit`. Use git-workflow for broader Git operations and github-issue-to-pr for an issue-to-PR lifecycle.
+description: "Create commits or Conventional Commit messages when explicitly requested; use git-workflow for broader operations and github-issue-to-pr for the lifecycle."
 compatibility: Requires Git and a filesystem-readable repository.
 ---
 

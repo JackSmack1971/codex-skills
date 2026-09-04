@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: Create a concrete, TDD-first implementation plan from a specification or feature request, with an explicit file map and validation.
+description: "Create concrete TDD-first implementation plans with file maps and validation."
 compatibility: Requires Python 3.11+; works from Codex runners on Windows or POSIX hosts.
 ---
 

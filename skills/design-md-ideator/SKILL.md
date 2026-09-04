@@ -1,6 +1,7 @@
 ---
 name: design-md-ideator
-description: Collaboratively ideates, specifies, writes, and validates a standalone DESIGN.md design-system source of truth. Use when a user asks to create, define, refine, reconstruct, or audit DESIGN.md; establish colors, typography, spacing, radii, component tokens, visual rationale, or design guardrails; or produce a machine-readable design system for AI agents, Figma, Tailwind, or downstream tooling.
+description: "Create, refine, reconstruct, or validate a standalone DESIGN.md design-system source of truth."
+
 ---
 
 # Ideating DESIGN.md

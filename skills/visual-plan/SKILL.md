@@ -1,9 +1,7 @@
 ---
 name: visual-plan
-description: >-
-  Turn ordinary text plans into rich interactive visual plans with diagrams,
-  file maps, annotated code, open questions, and UI/prototype review when
-  useful.
+description: "Turn text plans into interactive visual plans with diagrams, file maps, annotated code, and review artifacts."
+
 ---
 
 # Agent-Native Plans

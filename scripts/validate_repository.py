@@ -33,6 +33,11 @@ CONTROL_PLANE_DIRECTORIES = (
 )
 EVALUATION_INVENTORY = "docs/evaluation-inventory.json"
 FRESHNESS_REGISTRY = "docs/skill-freshness.json"
+HIGH_LEVERAGE_CONTRACT = "docs/high-leverage-skill-evaluation.md"
+HIGH_LEVERAGE_MIRRORS = (
+    "skills/skill-creator/references/high-leverage-skill-evaluation.md",
+    "skills/skill-auditor/resources/high-leverage-skill-evaluation.md",
+)
 EVALUATION_LEVELS = {"none", "manual-prose", "deterministic-validator", "automated-behavioral"}
 QUALITY_DIMENSIONS = ["trigger", "inputs", "workflow", "output", "failure-stop", "security", "evaluation", "runtime-claims", "references"]
 PROVENANCE_STATUSES = {"original", "adapted", "vendored", "unknown"}
@@ -41,6 +46,22 @@ KEBAB = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK = re.compile(r"!?(?:\[[^\]]*\])\(([^)]+)\)")
 PORTABLE_PATH = re.compile(r"(?:[A-Za-z]:[\\/]Users[\\/][A-Za-z0-9._-]+|/(?:Users|home)/[A-Za-z0-9._-]+)")
 SECRET = re.compile(r"(?:AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)", re.I)
+
+
+def high_leverage_contract_errors(root: Path) -> list[str]:
+    """Keep the canonical evaluation contract and packaged copies identical."""
+    source = root / HIGH_LEVERAGE_CONTRACT
+    if not source.is_file():
+        return [f"{HIGH_LEVERAGE_CONTRACT}: missing canonical evaluation contract"]
+    expected = source.read_bytes()
+    errors = []
+    for relative in HIGH_LEVERAGE_MIRRORS:
+        mirror = root / relative
+        if not mirror.is_file():
+            errors.append(f"{relative}: missing high-leverage evaluation contract mirror")
+        elif mirror.read_bytes() != expected:
+            errors.append(f"{relative}: differs from {HIGH_LEVERAGE_CONTRACT}")
+    return errors
 
 
 def control_plane_layout_errors(root: Path) -> list[str]:
@@ -307,6 +328,10 @@ def validate(root: Path) -> list[str]:
             errors.append(f"{EVALUATION_INVENTORY}: {name}: invalid evaluation level")
         if not isinstance(evidence, str) or not isinstance(command, str) or not evidence or not command:
             errors.append(f"{EVALUATION_INVENTORY}: {name}: evidence and command are required strings")
+        if level == "automated-behavioral" and isinstance(command, str) and "--deterministic-only" in command:
+            errors.append(
+                f"{EVALUATION_INVENTORY}: {name}: deterministic-only execution cannot be labeled automated-behavioral"
+            )
         if evidence != "none" and not (root / evidence).is_file():
             errors.append(f"{EVALUATION_INVENTORY}: {name}: missing evidence {evidence}")
         cases = root / f"skills/{name}/tests/evaluation-cases.md"
@@ -452,6 +477,8 @@ def validate(root: Path) -> list[str]:
     for record in records:
         if not isinstance(record, dict): errors.append("catalog record must be an object"); continue
         name = record.get("name", "<unknown>")
+        if "description" in record:
+            errors.append(f"{name}: catalog must not duplicate the runtime frontmatter description")
         expected = f"skills/{name}/SKILL.md"
         if record.get("path") != expected: errors.append(f"{name}: catalog path must be {expected}")
         for artifact in record.get("validation_artifacts", []):
@@ -492,6 +519,7 @@ def main(argv: list[str] | None = None) -> int:
     root = Path(argv[0]).resolve() if argv else ROOT
     errors = validate(root)
     if root == ROOT:
+        errors.extend(high_leverage_contract_errors(root))
         for label, script in (("catalog", "validate_catalog.py"), ("inventory", "validate_skill_inventory.py"), ("routing benchmark", "validate_routing_benchmark.py")):
             result = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], cwd=ROOT, capture_output=True, text=True, check=False)
             if result.returncode: errors.append(f"{label} validator failed: {result.stdout.strip()} {result.stderr.strip()}".strip())

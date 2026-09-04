@@ -1,6 +1,6 @@
 ---
 name: last30days
-description: "Research what people actually say about any topic in the last 30 days across Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Use when you need current public sentiment, trend signals, or a shareable HTML briefing."
+description: "Research current public sentiment and trend signals across social, community, and web sources."
 license: MIT
 ---
 

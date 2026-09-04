@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Use for broad Git repository operations such as status, branching, synchronization, staging, merging, rebasing, pushing, ref deletion, conflict resolution, or recovery. Use git-commit for an explicit commit-only request, using-git-worktrees for isolated worktree setup, and github-issue-to-pr for the complete issue-to-PR lifecycle.
+description: "Perform broad Git repository operations; use git-commit for commit-only, using-git-worktrees for isolation, and github-issue-to-pr for the complete lifecycle."
 compatibility: Requires Git and a filesystem-readable repository when Git actions are requested.
 ---
 

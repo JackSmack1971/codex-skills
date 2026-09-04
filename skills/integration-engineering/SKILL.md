@@ -1,6 +1,6 @@
 ---
 name: integration-engineering
-description: Safely implement or review an integration with an external API, SDK, webhook, OAuth provider, cloud service, or payment/communication platform. Use whenever product behavior depends on a third-party system.
+description: "Safely implement or review integrations with external APIs, SDKs, webhooks, OAuth, and service providers."
 compatibility: Requires access to authoritative provider documentation and the repository's supported runtime/tooling; credentials must be supplied through the existing secret mechanism.
 ---
 

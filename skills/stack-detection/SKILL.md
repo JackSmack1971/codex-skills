@@ -1,6 +1,7 @@
 ---
 name: stack-detection
-description: Classify the desktop client stack before architectural or client-layer changes.
+description: "Classify a desktop client stack before architectural or client-layer changes."
+
 ---
 
 # Stack Detection

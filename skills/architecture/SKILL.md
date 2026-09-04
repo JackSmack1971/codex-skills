@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Create or evaluate an architecture decision record or system design with explicit constraints, alternatives, trade-offs, and consequences.
+description: "Create or evaluate architecture decisions and system designs with constraints, alternatives, and trade-offs."
 compatibility: Requires a filesystem-readable project when reviewing existing design material.
 ---
 

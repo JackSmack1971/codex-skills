@@ -1,6 +1,6 @@
 ---
 name: taste-engine
-description: Apply an explicitly enabled, user-maintained design preference profile to UI/UX briefs without overriding current instructions.
+description: "Apply an explicitly enabled user-maintained design preference profile to UI/UX briefs."
 compatibility: Requires a user-provided profile path and explicit opt-in; no profile or persistence location is assumed.
 ---
 
