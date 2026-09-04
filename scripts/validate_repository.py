@@ -307,6 +307,10 @@ def validate(root: Path) -> list[str]:
             errors.append(f"{EVALUATION_INVENTORY}: {name}: invalid evaluation level")
         if not isinstance(evidence, str) or not isinstance(command, str) or not evidence or not command:
             errors.append(f"{EVALUATION_INVENTORY}: {name}: evidence and command are required strings")
+        if level == "automated-behavioral" and isinstance(command, str) and "--deterministic-only" in command:
+            errors.append(
+                f"{EVALUATION_INVENTORY}: {name}: deterministic-only execution cannot be labeled automated-behavioral"
+            )
         if evidence != "none" and not (root / evidence).is_file():
             errors.append(f"{EVALUATION_INVENTORY}: {name}: missing evidence {evidence}")
         cases = root / f"skills/{name}/tests/evaluation-cases.md"

@@ -12,8 +12,8 @@
       "Vendored-or-Adapted": 1
     },
     "by_evaluation_level": {
-      "automated-behavioral": 17,
-      "deterministic-validator": 7,
+      "automated-behavioral": 1,
+      "deterministic-validator": 23,
       "manual-prose": 24,
       "none": 2
     }
@@ -46,7 +46,7 @@
       "classification": "Core",
       "implementation_depth": "prompt-only",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -66,7 +66,7 @@
       "classification": "Core",
       "implementation_depth": "prompt-only",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -106,7 +106,7 @@
       "classification": "Core",
       "implementation_depth": "tested",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -170,7 +170,7 @@
       "classification": "Core",
       "implementation_depth": "prompt-only",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -190,7 +190,7 @@
       "classification": "Core",
       "implementation_depth": "prompt-only",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -292,7 +292,7 @@
       "classification": "Core",
       "implementation_depth": "evaluated",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -311,7 +311,7 @@
       "classification": "Core",
       "implementation_depth": "prompt-only",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -358,7 +358,7 @@
       "classification": "Core",
       "implementation_depth": "evaluated",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -523,7 +523,7 @@
       "classification": "Core",
       "implementation_depth": "tested",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -608,7 +608,7 @@
       "classification": "Core",
       "implementation_depth": "evaluated",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -718,7 +718,7 @@
       "classification": "Core",
       "implementation_depth": "prompt-only",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -860,7 +860,7 @@
       "classification": "Core",
       "implementation_depth": "script-backed",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -918,7 +918,7 @@
       "classification": "Core",
       "implementation_depth": "script-backed",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -969,7 +969,7 @@
       "classification": "Core",
       "implementation_depth": "script-backed",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -992,7 +992,7 @@
       "classification": "Core",
       "implementation_depth": "prompt-only",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
@@ -1056,7 +1056,7 @@
       "classification": "Core",
       "implementation_depth": "script-backed",
       "evaluation": {
-        "level": "automated-behavioral",
+        "level": "deterministic-validator",
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },

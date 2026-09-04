@@ -25,6 +25,28 @@ class SkillRegistryCompilerTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "coverage differ"):
                 compile_registry(root)
 
+    def test_deterministic_only_command_cannot_claim_behavioral_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "skills").mkdir()
+            (root / "docs").mkdir()
+            record = {
+                "name": "one",
+                "path": "skills/one/SKILL.md",
+                "description": "One.",
+                "classification": "Specialized",
+                "primary_trigger": "Test one.",
+                "provenance": "unknown",
+            }
+            (root / "skills/catalog.json").write_text(json.dumps({"skills": [record]}), encoding="utf-8")
+            (root / "docs/evaluation-inventory.json").write_text(json.dumps({"skills": {"one": {
+                "level": "automated-behavioral",
+                "evidence": "none",
+                "command": "python scripts/run_core_evaluation.py --deterministic-only",
+            }}}), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "deterministic-only execution"):
+                compile_registry(root)
+
 
 if __name__ == "__main__":
     unittest.main()

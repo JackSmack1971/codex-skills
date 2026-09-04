@@ -13,12 +13,12 @@
       "command": "python scripts/run_delivery_evaluation.py --case acceptance-criteria"
     },
     "api-design": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
     "architecture": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -28,7 +28,7 @@
       "command": "manual review"
     },
     "changelog-updater": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -43,12 +43,12 @@
       "command": "manual review"
     },
     "data-modeling": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
     "database-migrations": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -73,12 +73,12 @@
       "command": "manual review"
     },
     "generating-readmes": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
     "git-commit": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -88,7 +88,7 @@
       "command": "python scripts/run_delivery_evaluation.py --case git-workflow"
     },
     "github-issue-to-pr": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -128,7 +128,7 @@
       "command": "manual review"
     },
     "maintaining-repository-hygiene": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -148,7 +148,7 @@
       "command": "manual review"
     },
     "pr-review": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -173,7 +173,7 @@
       "command": "python scripts/run_delivery_evaluation.py --case review-agent"
     },
     "security-best-practices": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -208,7 +208,7 @@
       "command": "manual review"
     },
     "systematic-debugging": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -223,7 +223,7 @@
       "command": "manual review"
     },
     "test-driven-development": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -233,12 +233,12 @@
       "command": "python scripts/run_delivery_evaluation.py --case testing-qa"
     },
     "using-git-worktrees": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
     "vertical-slice": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     },
@@ -253,7 +253,7 @@
       "command": "manual review"
     },
     "writing-plans": {
-      "level": "automated-behavioral",
+      "level": "deterministic-validator",
       "evidence": "benchmarks/core/behavioral-cases.json",
       "command": "python scripts/run_core_evaluation.py --deterministic-only"
     }

@@ -152,6 +152,21 @@ class RepositoryValidatorTests(unittest.TestCase):
         self.assertTrue(any("missing quality dimension inputs" in error for error in errors))
         self.assertTrue(any("Shared baseline cannot replace" in error for error in errors))
 
+    def test_deterministic_only_command_cannot_claim_behavioral_evidence(self) -> None:
+        root = self.make_repo({"one": ""})
+        (root / "docs").mkdir()
+        (root / "docs" / "evaluation-inventory.json").write_text(json.dumps({
+            "version": 1,
+            "levels": ["none", "manual-prose", "deterministic-validator", "automated-behavioral"],
+            "skills": {"one": {
+                "level": "automated-behavioral",
+                "evidence": "none",
+                "command": "python scripts/run_core_evaluation.py --deterministic-only",
+            }},
+        }), encoding="utf-8")
+        errors = validate(root)
+        self.assertTrue(any("deterministic-only execution" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

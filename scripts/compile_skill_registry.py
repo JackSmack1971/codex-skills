@@ -58,6 +58,10 @@ def compile_registry(root: Path = ROOT) -> dict:
         if evidence_path != "none" and not (root / evidence_path).is_file():
             raise ValueError(f"{name}: missing evaluation evidence {evidence_path}")
         command = evaluation_record["command"]
+        if evaluation_record["level"] == "automated-behavioral" and "--deterministic-only" in command:
+            raise ValueError(
+                f"{name}: deterministic-only execution cannot be labeled automated-behavioral"
+            )
         if command.startswith("python scripts/"):
             command_path = shlex.split(command)[1]
             if not (root / command_path).is_file():
