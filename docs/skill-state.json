@@ -864,7 +864,7 @@
         "evidence": "benchmarks/core/behavioral-cases.json",
         "command": "python scripts/run_core_evaluation.py --deterministic-only"
       },
-      "provenance": "unknown",
+      "provenance": "adapted; [SKILL.md](../skills/systematic-debugging/SKILL.md) identifies obra/superpowers and [preserves its MIT notice](../skills/systematic-debugging/LICENSE.txt)",
       "related_skills": [
         "test-driven-development",
         "testing-qa",

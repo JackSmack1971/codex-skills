@@ -52,6 +52,6 @@ All of these scripts use network, so when running in the sandbox, request escala
 - Curated listing is fetched from `https://github.com/openai/skills/tree/main/skills/.curated` via the GitHub API. If it is unavailable, explain the error and exit.
 - Private GitHub repos can be accessed via existing git credentials or optional `GITHUB_TOKEN`/`GH_TOKEN` for download.
 - Git fallback tries HTTPS first, then SSH.
-- The skills at https://github.com/openai/skills/tree/main/skills/.system are preinstalled, so no need to help users install those. If they ask, just explain this. If they insist, you can download and overwrite.
+- The skills at https://github.com/openai/skills/tree/main/skills/.system are preinstalled. Explain that they do not need installation. The bundled installer always refuses an existing destination and does not support overwrite or replacement. If the user explicitly requests replacement, preserve the existing directory and use a separately reviewed backup-and-replace workflow; do not imply that this installer can overwrite it.
 - Installed annotations come from `$HOME/.agents/skills`.
 - Plugins are preferred for reusable or bundled distribution; this skill remains for individual standalone skills and local experimentation.
