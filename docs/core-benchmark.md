@@ -54,6 +54,24 @@ Run a baseline without deliberately invoking the target skill:
 python scripts/run_core_evaluation.py --case-id acceptance-criteria-positive --baseline
 ```
 
+Run matched no-skill and explicit-skill trials in alternating order:
+
+```text
+python scripts/run_core_evaluation.py --skill acceptance-criteria --paired --runs 2 --output evals/codex/results/acceptance-criteria-uplift.json
+```
+
+The skill condition injects the exact current `SKILL.md`, records its SHA-256,
+and resolves bundled resources against the package directory. This measures the
+instructions' task-level effect independently from implicit routing; routing is
+evaluated by the separate routing harness.
+
+The paired mode requires at least ten available pairs across at least three
+distinct cases before issuing a retention decision. It reports `RETAIN` only
+for material uplift under the project thresholds with zero forbidden-behavior
+violations, `COMPRESS_OR_DELETE` for an adequately sampled result without
+material uplift, and `INCONCLUSIVE` otherwise. Do not delete or compress a skill
+from unavailable or under-sampled runtime evidence.
+
 Runtime reports contain only exit codes, response size/hash, assertion results,
 and availability metadata. Response bodies and transcripts are never written.
 Explicit runs are labeled `explicit`; they are not implicit trigger-selection
@@ -63,6 +81,14 @@ and runtime entries report `unavailable`.
 The separate plugin/runtime distribution harness is documented in
 [docs/control-plane/evaluation.md](control-plane/evaluation.md). It preserves
 the distinction between fixture-backed routing and live Codex evidence.
+
+## Standalone package contract
+
+Each canonical skill must retain its behavioral dependencies when copied out of
+the repository. Run `python scripts/validate_skill_packages.py` to copy every
+package into an isolated temporary root and verify that local links, referenced
+scripts/resources, and installation-root assumptions remain package-local. This
+is a portability gate, not evidence of behavioral uplift.
 
 ## Delivery workflow validators
 

@@ -33,13 +33,13 @@ make their own boundary pass.
 | Git helpers | Retain separate | `git-workflow` owns broad Git operations; `git-commit` owns commit-only requests; `using-git-worktrees` owns isolation; `github-issue-to-pr` owns the issue lifecycle. | No migration. Existing paths remain; the lifecycle skill composes the narrower helpers. | Frontmatter precedence rules, routing cases for all four skills, and Git evaluation case files. |
 | `grill-me` / `grilling` | Retain compatibility alias | `grilling` is canonical; `grill-me` preserves explicit legacy `/grill-me` invocations. | Backward compatible. New invocations use `grilling`; old `/grill-me` calls continue to resolve. | `skills/catalog.json` `alias_of`, both frontmatter descriptions, routing cases, and inventory classification. |
 
-## Generic contract consolidation
+## Package-local contract
 
-Core skills share one safety and evidence baseline in
-[`core-quality-contract.md`](core-quality-contract.md). The skill-specific
-trigger, exclusion, workflow, and deliverable remain in each `SKILL.md`; the
-shared baseline is not a second routing surface. This preserves behavior while
-avoiding future drift in repeated generic instructions.
+[`core-quality-contract.md`](core-quality-contract.md) is the repository's
+development/evaluation specification, not a runtime dependency. Every Core
+package directly carries all nine required behavioral dimensions in its own
+`SKILL.md`, and the standalone-package gate verifies bundled links, scripts,
+references, and command paths after copying the package out of the repository.
 
 ## Inventory impact
 

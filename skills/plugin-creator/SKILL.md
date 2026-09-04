@@ -233,14 +233,11 @@ For the exact canonical sample JSON for both plugin manifests and marketplace en
 
 ## Validation
 
-After editing `SKILL.md`, run:
+Resolve `<skill-dir>` as the directory containing this loaded `SKILL.md`.
+Before handing back a generated plugin, run the bundled validator; it validates
+the plugin manifest and every packaged skill manifest without depending on a
+neighboring skill package:
 
 ```bash
-python3 ../skill-creator/scripts/quick_validate.py .
-```
-
-Before handing back a generated plugin, run:
-
-```bash
-python3 scripts/validate_plugin.py <plugin-path>
+python3 "<skill-dir>/scripts/validate_plugin.py" <plugin-path>
 ```

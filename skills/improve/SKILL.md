@@ -50,10 +50,12 @@ arguments were resolved.
 4. Independently reopen every cited location. Reject stale, duplicate,
    generic, unreachable, or intentionally documented candidates.
 5. Serialize vetted findings using `references/finding-contract.md`, then rank
-   them with:
+   them with the bundled helper. Resolve `<skill-dir>` as the directory that
+   contains this loaded `SKILL.md`; never assume a repository-local or user-home
+   installation root:
 
    ```text
-   python .agents/skills/improve/scripts/rank_findings.py <findings.json> --format both
+   python "<skill-dir>/scripts/rank_findings.py" <findings.json> --format both
    ```
 
 6. Present audit scope, vetted findings, dependency order, direction options,
@@ -65,8 +67,8 @@ arguments were resolved.
 8. Validate persisted plans and scan them for sensitive output:
 
    ```text
-   python .agents/skills/improve/scripts/validate_plan.py <plan-file-or-directory> --json
-   python .agents/skills/improve/scripts/scan_sensitive_output.py <plan-file-or-directory> --json
+   python "<skill-dir>/scripts/validate_plan.py" <plan-file-or-directory> --json
+   python "<skill-dir>/scripts/scan_sensitive_output.py" <plan-file-or-directory> --json
    ```
 
 ## Stop conditions

@@ -372,12 +372,11 @@ def validate(root: Path) -> list[str]:
             "references": r"\*\*References:\*\*",
         }
         for dimension, pattern in labels.items():
-            if dimension in {"inputs", "failure-stop", "security", "evaluation", "runtime-claims", "references"}:
-                present = re.search(pattern, contract) or re.search(r"^[- ]+\*\*Shared baseline:\*\*", contract, re.M)
-            else:
-                present = re.search(pattern, contract)
+            present = re.search(pattern, contract)
             if not present:
                 errors.append(f"Core skill {name}: missing quality dimension {dimension}")
+        if re.search(r"^[- ]+\*\*Shared baseline:\*\*", contract, re.M):
+            errors.append(f"Core skill {name}: Shared baseline cannot replace package-local quality dimensions")
         if metadata.get("level") == "none":
             errors.append(f"Core skill {name}: evaluation level cannot be none")
         cases = root / f"skills/{name}/tests/evaluation-cases.md"

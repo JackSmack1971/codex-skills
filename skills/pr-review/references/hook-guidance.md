@@ -14,7 +14,7 @@ Recommended behavior:
 Purpose: validate generated review drafts immediately after the skill writes them.
 
 Recommended behavior:
-- When `codex-pr-reviews/**/review.md` changes, run `python3 .agents/skills/pr-review/scripts/validate_review.py <path>`.
+- When `codex-pr-reviews/**/review.md` changes, run `python3 "<skill-dir>/scripts/validate_review.py" <path>`, replacing `<skill-dir>` with the resolved installed `pr-review` package directory when the hook is configured.
 - If validation fails, return the validator errors to the agent and require repair before submission.
 
 ## Stop / TaskCompleted check
