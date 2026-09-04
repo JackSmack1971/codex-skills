@@ -1,7 +1,8 @@
 # Core skill contract
 
-Every Core `SKILL.md` keeps this shared safety baseline and adds
-skill-specific rules for each dimension:
+This file is a repository-development and evaluation specification. It is not
+shipped as a behavioral dependency of an individually installed skill. Every
+Core `SKILL.md` must directly encode package-local rules for each dimension:
 
 - Trigger and exclusion: name the observable request that invokes the skill
   and the nearest requests that must route elsewhere.
@@ -18,5 +19,6 @@ skill-specific rules for each dimension:
   never claim implicit routing accuracy or unavailable integrations.
 - References: keep every local link and referenced path valid.
 
-This document is the shared baseline, not a substitute for the skill-specific
-contract in each Core skill.
+The validator requires every labeled dimension in each package and rejects a
+`Shared baseline` pointer as a substitute. This document may guide maintenance,
+but agents executing a standalone skill never need it.

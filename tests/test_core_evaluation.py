@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from scripts.run_core_evaluation import CASES, evaluate_assertions, load_cases, run_case, validate_suite
+from scripts.run_core_evaluation import CASES, evaluate_assertions, load_cases, run_case, skill_condition_prompt, summarize_paired, validate_suite
 
 
 class CoreEvaluationTests(unittest.TestCase):
@@ -19,6 +19,7 @@ class CoreEvaluationTests(unittest.TestCase):
         result = evaluate_assertions(case, "# Acceptance criteria\n- one\n", 0)
         self.assertEqual(result["status"], "pass")
         self.assertNotIn("output", result)
+        self.assertEqual([check["category"] for check in result["checks"]], ["required", "forbidden"])
 
     def test_missing_codex_is_unavailable_not_failure(self):
         case = load_cases()["cases"][0]
@@ -26,6 +27,13 @@ class CoreEvaluationTests(unittest.TestCase):
             result = run_case(case, "explicit")
         self.assertEqual(result["status"], "unavailable")
         self.assertEqual(result["mode"], "explicit")
+
+    def test_skill_condition_injects_exact_package_with_digest(self):
+        case = load_cases()["cases"][0]
+        prompt, digest = skill_condition_prompt(case)
+        self.assertIn("<skill-instructions>", prompt)
+        self.assertIn(case["prompt"], prompt)
+        self.assertEqual(len(digest), 64)
 
     def test_validator_exit_code_assertion_runs_declared_command(self):
         case = {
@@ -37,6 +45,37 @@ class CoreEvaluationTests(unittest.TestCase):
     def test_invalid_case_is_rejected(self):
         data = {"schema_version": 1, "artifact_policy": "metadata-only", "cases": [{"case_id": "x"}]}
         self.assertTrue(validate_suite(data))
+
+    def test_paired_summary_requires_adequate_material_uplift(self):
+        runtime = []
+        for index in range(10):
+            checks = [{"category": "forbidden", "passed": True}]
+            runtime.append({
+                "case_id": f"case-{index % 3}",
+                "explicit_invocation": {"status": "pass", "response_chars": 80, "assertions": {"checks": checks}},
+                "baseline": {"status": "fail" if index < 3 else "pass", "response_chars": 100, "assertions": {"checks": checks}},
+            })
+        summary = summarize_paired(runtime)
+        self.assertTrue(summary["adequate_evidence"])
+        self.assertEqual(summary["decision"], "RETAIN")
+        self.assertAlmostEqual(summary["task_success_uplift_pp"], 30.0)
+
+    def test_paired_summary_marks_no_uplift_for_compression_or_deletion(self):
+        checks = [{"category": "forbidden", "passed": True}]
+        runtime = [{
+            "case_id": f"case-{index % 3}",
+            "explicit_invocation": {"status": "pass", "response_chars": 100, "assertions": {"checks": checks}},
+            "baseline": {"status": "pass", "response_chars": 100, "assertions": {"checks": checks}},
+        } for index in range(10)]
+        self.assertEqual(summarize_paired(runtime)["decision"], "COMPRESS_OR_DELETE")
+
+    def test_paired_summary_is_inconclusive_when_runtime_is_unavailable(self):
+        runtime = [{
+            "case_id": "case-1",
+            "explicit_invocation": {"status": "unavailable"},
+            "baseline": {"status": "unavailable"},
+        }]
+        self.assertEqual(summarize_paired(runtime)["decision"], "INCONCLUSIVE")
 
 
 if __name__ == "__main__":

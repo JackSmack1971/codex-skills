@@ -10,6 +10,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -138,7 +139,7 @@ def evaluate_assertions(case: dict, output: str, exit_code: int, root: Path = RO
                 passed = exit_code == int(value)
         else:
             passed = True
-        checks.append({"type": kind, "passed": passed})
+        checks.append({"category": "required", "type": kind, "passed": passed})
     for behavior in case["forbidden_behaviors"]:
         kind, value = behavior["type"], behavior["value"]
         if kind in {"forbidden_text", "required_stop_behavior"}:
@@ -153,7 +154,7 @@ def evaluate_assertions(case: dict, output: str, exit_code: int, root: Path = RO
                 passed = exit_code != int(value)
         else:
             passed = True
-        checks.append({"type": kind, "passed": passed})
+        checks.append({"category": "forbidden", "type": kind, "passed": passed})
     return {"status": "pass" if all(item["passed"] for item in checks) else "fail", "checks": checks}
 
 
@@ -161,19 +162,48 @@ def codex_bin() -> str | None:
     return os.environ.get("CODEX_BIN") or shutil.which("codex") or shutil.which("codex.cmd") or shutil.which("codex.exe")
 
 
+def skill_condition_prompt(case: dict) -> tuple[str, str]:
+    skill_file = ROOT / "skills" / case["skill_name"] / "SKILL.md"
+    instructions = skill_file.read_text(encoding="utf-8")
+    digest = hashlib.sha256(instructions.encode()).hexdigest()
+    prompt = (
+        "Apply the following local Codex skill package instructions to the task. "
+        f"Resolve bundled resources relative to {skill_file.parent}.\n\n"
+        "<skill-instructions>\n"
+        f"{instructions}\n"
+        "</skill-instructions>\n\n"
+        f"<task>\n{case['prompt']}\n</task>"
+    )
+    return prompt, digest
+
+
 def run_case(case: dict, mode: str, timeout: int = 180) -> dict:
     binary = codex_bin()
     if not binary:
         return {"status": "unavailable", "mode": mode, "reason": "codex executable not found"}
-    prompt = case["prompt"] if mode == "baseline" else f"Use ${case['skill_name']} explicitly. {case['prompt']}"
+    instruction_sha256 = None
+    if mode == "baseline":
+        prompt = case["prompt"]
+    else:
+        prompt, instruction_sha256 = skill_condition_prompt(case)
     output_path: Path | None = None
     try:
         with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as output:
             output_path = Path(output.name)
+        started = time.monotonic()
         result = subprocess.run([binary, "exec", "--ephemeral", "--ignore-user-config", "--json", "-s", "read-only", "-C", str(ROOT), "-o", str(output_path), prompt], capture_output=True, text=True, encoding="utf-8", errors="replace", check=False, timeout=timeout)
+        duration_ms = round((time.monotonic() - started) * 1000)
         body = output_path.read_text(encoding="utf-8", errors="replace") if output_path.exists() else ""
         assertions = evaluate_assertions(case, body, result.returncode)
-        return {"status": "pass" if result.returncode == 0 and assertions["status"] == "pass" else "fail", "mode": mode, "exit_code": result.returncode, "response_sha256": hashlib.sha256(body.encode()).hexdigest(), "response_chars": len(body), "assertions": assertions}
+        command_events = 0
+        for line in result.stdout.splitlines():
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(event, dict) and isinstance(event.get("type"), str) and event["type"].startswith("item.") and isinstance(event.get("item"), dict) and event["item"].get("type") == "command_execution":
+                command_events += 1
+        return {"status": "pass" if result.returncode == 0 and assertions["status"] == "pass" else "fail", "mode": mode, "exit_code": result.returncode, "skill_instruction_sha256": instruction_sha256, "response_sha256": hashlib.sha256(body.encode()).hexdigest(), "response_chars": len(body), "duration_ms": duration_ms, "command_events": command_events, "assertions": assertions}
     except (OSError, subprocess.TimeoutExpired) as exc:
         return {"status": "unavailable", "mode": mode, "reason": type(exc).__name__}
     finally:
@@ -181,14 +211,93 @@ def run_case(case: dict, mode: str, timeout: int = 180) -> dict:
             output_path.unlink(missing_ok=True)
 
 
+def summarize_paired(runtime: list[dict], minimum_pairs: int = 10) -> dict:
+    pairs = [entry for entry in runtime if entry.get("explicit_invocation") and entry.get("baseline")]
+    available = [entry for entry in pairs if entry["explicit_invocation"].get("status") in {"pass", "fail"} and entry["baseline"].get("status") in {"pass", "fail"}]
+    total = len(available)
+
+    def count(mode: str, status: str) -> int:
+        return sum(entry[mode].get("status") == status for entry in available)
+
+    explicit_pass = count("explicit_invocation", "pass")
+    baseline_pass = count("baseline", "pass")
+    explicit_rate = explicit_pass / total if total else None
+    baseline_rate = baseline_pass / total if total else None
+    uplift_pp = (explicit_rate - baseline_rate) * 100 if total else None
+    base_errors = total - baseline_pass
+    skill_errors = total - explicit_pass
+    relative_error_reduction = (base_errors - skill_errors) / base_errors if base_errors else None
+
+    def violations(mode: str) -> int:
+        return sum(
+            not check.get("passed", False)
+            for entry in available
+            for check in entry[mode].get("assertions", {}).get("checks", [])
+            if check.get("category") == "forbidden"
+        )
+
+    base_violations = violations("baseline")
+    skill_violations = violations("explicit_invocation")
+    violation_reduction = (base_violations - skill_violations) / base_violations if base_violations else None
+
+    def average(mode: str, field: str) -> float | None:
+        values = [entry[mode][field] for entry in available if isinstance(entry[mode].get(field), (int, float))]
+        return sum(values) / len(values) if values else None
+
+    baseline_chars = average("baseline", "response_chars")
+    explicit_chars = average("explicit_invocation", "response_chars")
+    efficiency_gain = (baseline_chars - explicit_chars) / baseline_chars if baseline_chars else None
+    baseline_duration = average("baseline", "duration_ms")
+    explicit_duration = average("explicit_invocation", "duration_ms")
+    baseline_commands = average("baseline", "command_events")
+    explicit_commands = average("explicit_invocation", "command_events")
+    material = bool(
+        (uplift_pp is not None and uplift_pp >= 10)
+        or (relative_error_reduction is not None and relative_error_reduction >= 0.25)
+        or (violation_reduction is not None and violation_reduction >= 0.50)
+        or (efficiency_gain is not None and efficiency_gain >= 0.20 and uplift_pp is not None and uplift_pp >= -2)
+    )
+    adequate = total >= minimum_pairs and len({entry["case_id"] for entry in available}) >= 3 and len(pairs) == total
+    decision = "RETAIN" if adequate and material and skill_violations == 0 else "COMPRESS_OR_DELETE" if adequate else "INCONCLUSIVE"
+    return {
+        "decision": decision,
+        "adequate_evidence": adequate,
+        "minimum_paired_trials": minimum_pairs,
+        "paired_trials": total,
+        "distinct_cases": len({entry["case_id"] for entry in available}),
+        "explicit_success_rate": explicit_rate,
+        "baseline_success_rate": baseline_rate,
+        "task_success_uplift_pp": uplift_pp,
+        "relative_error_reduction": relative_error_reduction,
+        "forbidden_behavior_violations": {"explicit": skill_violations, "baseline": base_violations, "relative_reduction": violation_reduction},
+        "efficiency": {
+            "primary_metric": "response_chars",
+            "mean_response_chars_explicit": explicit_chars,
+            "mean_response_chars_baseline": baseline_chars,
+            "relative_gain": efficiency_gain,
+            "mean_duration_ms_explicit": explicit_duration,
+            "mean_duration_ms_baseline": baseline_duration,
+            "mean_command_events_explicit": explicit_commands,
+            "mean_command_events_baseline": baseline_commands,
+        },
+        "thresholds": {"task_success_uplift_pp": 10, "relative_error_reduction": 0.25, "forbidden_behavior_reduction": 0.50, "efficiency_gain": 0.20, "max_success_regression_pp_for_efficiency": 2, "critical_violations": 0},
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case-id")
     parser.add_argument("--skill")
     parser.add_argument("--baseline", action="store_true", help="run without deliberately invoking the target skill")
+    parser.add_argument("--paired", action="store_true", help="run matched no-skill and explicit-skill trials")
+    parser.add_argument("--runs", type=int, default=1, help="repeat each selected case; paired decisions require at least 10 total pairs")
     parser.add_argument("--deterministic-only", action="store_true")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
+    if args.runs < 1:
+        parser.error("--runs must be positive")
+    if args.baseline and args.paired:
+        parser.error("--baseline and --paired are mutually exclusive")
     data = load_cases()
     errors = validate_suite(data)
     selected = [case for case in data.get("cases", []) if (not args.case_id or case.get("case_id") == args.case_id) and (not args.skill or case.get("skill_name") == args.skill)]
@@ -197,7 +306,19 @@ def main(argv: list[str] | None = None) -> int:
     report = {"schema_version": 1, "generated_at_utc": datetime.now(timezone.utc).isoformat(), "artifact_policy": data["artifact_policy"], "deterministic": {"status": "pass" if not errors else "fail", "core_skill_count": len(core_skill_names()), "case_count": len(data.get("cases", [])), "errors": errors}, "runtime": []}
     if not errors and not args.deterministic_only:
         for case in selected or data["cases"]:
-            report["runtime"].append({"case_id": case["case_id"], "skill_name": case["skill_name"], "polarity": case["polarity"], "explicit_invocation": None if args.baseline else run_case(case, "explicit"), "baseline": run_case(case, "baseline") if args.baseline else None})
+            for trial in range(1, args.runs + 1):
+                if args.paired and trial % 2 == 0:
+                    baseline = run_case(case, "baseline")
+                    explicit = run_case(case, "explicit")
+                else:
+                    explicit = None if args.baseline else run_case(case, "explicit")
+                    baseline = run_case(case, "baseline") if args.baseline or args.paired else None
+                report["runtime"].append({"case_id": case["case_id"], "skill_name": case["skill_name"], "polarity": case["polarity"], "trial": trial, "explicit_invocation": explicit, "baseline": baseline})
+    if args.paired:
+        report["paired_evidence"] = {
+            skill: summarize_paired([entry for entry in report["runtime"] if entry["skill_name"] == skill])
+            for skill in sorted({entry["skill_name"] for entry in report["runtime"]})
+        }
     rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -140,6 +140,18 @@ class RepositoryValidatorTests(unittest.TestCase):
         errors = validate(root)
         self.assertTrue(any("malformed leading whitespace" in error for error in errors))
 
+    def test_shared_baseline_cannot_satisfy_core_dimensions(self) -> None:
+        root = self.make_repo({"one": "## Minimum contract\n\n- **Trigger and exclusion:** one\n- **Bounded workflow:** bounded\n- **Output:** output\n- **Shared baseline:** external contract\n"})
+        (root / "docs").mkdir()
+        (root / "docs" / "skill-inventory.md").write_text(
+            "| Name | Purpose | Primary trigger / use case | Maturity | Implementation depth | Evaluation level | Provenance | Overlapping / adjacent skills |\n"
+            "|---|---|---|---|---|---|---|---|\n| `one` | x | x | Core | prompt-only | none | unknown | — |\n",
+            encoding="utf-8",
+        )
+        errors = validate(root)
+        self.assertTrue(any("missing quality dimension inputs" in error for error in errors))
+        self.assertTrue(any("Shared baseline cannot replace" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
