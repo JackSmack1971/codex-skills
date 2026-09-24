@@ -41,3 +41,51 @@ authorization rules, examples, and compatibility/versioning notes.
 Do not add versioning, pagination, or abstraction without a client or scale
 need. Never expose internal errors, secrets, or data a caller is not authorized
 to see.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<http|rpc|graphql|internal>" --invocation explicit)
+   ```
+2. After step 2 (specify transport shape, errors, and empty states), record
+   the contract-shape decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase contract \
+     --evidence-json '{"transport":"<http|rpc|graphql|internal>","error_codes_count":<N>,"empty_states_covered":<true|false>}'
+   ```
+3. After step 3 (define auth, rate limits, pagination, idempotency,
+   consistency, and timeouts), record which cross-cutting concerns were
+   addressed:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase concerns \
+     --evidence-json '{"concerns_addressed":["<subset of auth,authz,rate_limits,pagination,idempotency,consistency,timeouts>"]}'
+   ```
+4. After step 4 (check naming, compatibility, sensitive-data exposure, and
+   observability), record verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase check --outcome success \
+     --evidence-json '{"naming_consistent":<true|false>,"compatibility_risk_found":<true|false>,"sensitive_data_exposure_found":<true|false>,"observability_defined":<true|false>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"transport":"<http|rpc|graphql|internal>","error_codes_count":<N>,"concerns_addressed_count":<N>,"boundary_additions_avoided":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Failure/stop instead of producing output.
+
+If a later reviewer or implementer changes a contract decision this run
+made (adds a concern the run judged unnecessary, or finds a missing error
+code), record it so contract-design calibration drift is visible without
+re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_decision":"<...>","correction":"<concern_added|error_code_added|contract_reworked|scope_expanded>","concern_category":"<auth,authz,rate_limits,pagination,idempotency,consistency,timeouts,error_codes,naming,other>"}'
+```

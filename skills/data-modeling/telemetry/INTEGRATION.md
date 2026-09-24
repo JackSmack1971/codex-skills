@@ -14,25 +14,40 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual numbered Workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (`design`\|`review`) |
+| After step 2 (identifiers, constraints, deletion behavior) | `decision` (`phase=constrain`) | `entities_count`, `uniqueness_constraints_count`, `foreign_keys_count`, `soft_delete_used` |
+| After step 3 (read/write patterns and indexes) | `decision` (`phase=index`) | `indexes_added_count`, `justified_by_access_pattern` |
+| After step 4 (normalization/concurrency trade-offs) | `verification` (`phase=tradeoffs`) | `normalization_choice`, `concurrency_assumptions_stated`, `transaction_boundaries_defined` |
+| Before returning output | `run.finished` | `entities_count`, `indexes_added_count`, `unresolved_domain_questions` |
+| When a reviewer later changes a modeling decision | `user.correction` | `original_decision`, `correction`, `entity` |
 
-- `SKILL.md:4` — compatibility: Requires domain requirements and repository/database context when available.
-- `SKILL.md:11` — - **Trigger and exclusion:** Use when product behavior stores durable data and entities, constraints, or access paths must be designed; exclude migration execution, routing to database-migrations.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:28` — validation constraints, timestamps, and deletion behavior.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:3` — the frontmatter description "Design or review durable data models" — became the `task_category` enum.
+- `SKILL.md:27-28` — "Define identifiers, required/optional fields, uniqueness, foreign keys, validation constraints, timestamps, and deletion behavior" — became the `constrain`-phase `decision` fields.
+- `SKILL.md:29` — "Identify read/write patterns and add only necessary indexes" — became `indexes_added_count`/`justified_by_access_pattern`.
+- `SKILL.md:31-32` — "State normalization or denormalization trade-offs, transaction boundaries, and concurrency assumptions" — became the `tradeoffs`-phase `verification` fields.
+- `SKILL.md:37-38` — the Output section's "Mark unknown domain rules as questions" — became `unresolved_domain_questions`.
+- `SKILL.md:42-43` — the Boundary section (no vendor choice or hypothetical fields; never weaken integrity to simplify code) — became `justified_by_access_pattern` and the `user.correction` block.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

@@ -14,27 +14,38 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (new feature vs. existing-system extension) |
+| After step 2 (functional requirements/observable states) | `decision` (`phase=define_states`) | `functional_requirements_count`, `states_covered` |
+| After step 3 (non-functional/permissions/analytics/operational) | `decision` (`phase=non_functional`) | `permissions_defined`, `analytics_events_count`, `operational_constraints_flagged` |
+| After step 4 (edge cases and acceptance criteria) | `verification` (`phase=edge_cases`) | `edge_cases_count`, `acceptance_criteria_count`, `criteria_have_concrete_inputs` |
+| Before returning output | `run.finished` | `open_questions_count`, `out_of_scope_count`, `unresolved_policy_flagged` |
 
-- `SKILL.md:3` — description: "Use after product intent is sufficiently understood to write an implementable feature specification covering behavior, requirements, edge cases, permissions, analytics, and acceptance criteria. Do not use to clarify a vague problem or reduce scope; use product-discovery or mvp-scope."
-- `SKILL.md:4` — compatibility: Requires product intent and available repository or domain context when the feature belongs to an existing system.
-- `SKILL.md:11` — - **Trigger and exclusion:** Use when product intent is understood enough to define implementable behavior; exclude vague problem discovery and scope reduction, routing to product-discovery or mvp-scope.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:22` — keep implementation choices out unless they are a stated constraint.
-- `SKILL.md:42` — Keep requirements testable and technology-neutral. If a requirement cannot be
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:4` — compatibility line on repository/domain context "when the feature belongs to an existing system" — became the `task_category` enum.
+- `SKILL.md:27-28` — step 2's required observable states (loading, empty, success, failure, retry, recovery) — became the `states_covered` enum.
+- `SKILL.md:29-30` — step 3's non-functional requirements, permissions, data handling, analytics events, operational constraints — became the `non_functional`-phase fields.
+- `SKILL.md:31` — step 4's "edge cases and acceptance criteria with concrete inputs and outcomes" — became `edge_cases_count`/`acceptance_criteria_count`/`criteria_have_concrete_inputs`.
+- `SKILL.md:32` — step 5's "Record out of scope and open questions; do not guess missing policy" — became `open_questions_count`, `out_of_scope_count`, `unresolved_policy_flagged`.
+- `SKILL.md:36-38` — required Output sections (Functional/Non-Functional Requirements, States and Errors, Permissions, Acceptance Criteria, Analytics, Out of Scope, Open Questions) — corroborate the field set above.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

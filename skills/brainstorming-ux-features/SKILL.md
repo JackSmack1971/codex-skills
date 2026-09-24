@@ -249,3 +249,50 @@ Read only the files needed for the current step; all are linked directly here.
 - `resources/evaluations.md` — trigger, quality, and failure-mode tests
 - `scripts/score_candidates.py` — deterministic candidate ranking
 - `scripts/validate_feature_brief.py` — schema, semantic, path, and graph validation
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1 (repository discovery), start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<ideas_only|specification_only|full_workflow>" --invocation explicit)
+   ```
+2. After step 2 (candidate generation), record the generation decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase generate \
+     --evidence-json '{"candidate_count":<N>,"opportunity_classes_covered":["<subset of friction_removal,discoverability_onboarding,feedback_visibility,user_control_recovery,accessibility,personalization,collaboration_continuity,trust_privacy>"],"candidates_rejected_count":<N>}'
+   ```
+3. After step 3 (scoring and selection), record the scoring decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase score \
+     --evidence-json '{"min_gates_failed_count":<N>,"top_score":<N>,"tie_break_applied":<true|false>}'
+   ```
+4. After step 6 (validation loop), record verification; if
+   `validate_feature_brief.py` failed and was repaired, emit a `retry` event
+   first with `--failure-class` describing the defect:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"validation_status":"<valid|invalid>","retry_count":<N>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"mode":"<ideas_only|specification_only|full_workflow>","selected_feature_score":<N>,"validation_status":"<valid|invalid>","blocking_questions_count":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Stop conditions (validation never reaches `valid`, or a blocking
+   unknown cannot be resolved) instead of producing a validated artifact.
+
+If a stakeholder later selects a different candidate than this run picked,
+disputes the score, or resolves an `open_questions` entry differently than
+its `default_if_unanswered`, record it so selection calibration drift is
+visible without re-running the skill:
+```bash
+python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_selection":"<feature-slug>","correction":"<different_feature_selected|score_disputed|open_question_resolved_differently>","work_item_id":"<...>"}'
+```

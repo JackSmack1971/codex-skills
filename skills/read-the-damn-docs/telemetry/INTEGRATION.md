@@ -14,40 +14,40 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Required Workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (Docs-First Trigger category) |
+| After step 2 (search the web for official docs) | `verification` (`phase=search`) | `docs_already_local`, `web_search_performed`, `source_domain` |
+| After step 4 (extract the facts needed) | `decision` (`phase=extract`) | `facts_extracted_count`, `breaking_changes_found`, `version_verified` |
+| After step 6 (verify with the smallest useful check) | `verification` (`phase=verify_check`) | `check_type`, `check_passed` |
+| Before the final answer | `run.finished` | `docs_named_in_answer`, `docs_unavailable_disclosed` |
 
-- `README.md:3` — Make agents web-search for the docs before they guess.
-- `README.md:7` — It tells the agent when docs are mandatory, why web search is usually the right
-- `README.md:15` — - Directs the agent to web-search for current official docs unless the relevant
-- `README.md:17` — - Requires current version checks before adding packages or writing install,
-- `README.md:23` — - Makes the agent name the docs or files it relied on when that evidence affects
-- `README.md:26` — ## When To Use It
-- `README.md:28` — Use it when an agent might otherwise rely on stale model memory. Most of the
-- `README.md:39` — These should trigger docs before code:
-- `SKILL.md:3` — description: "Require current authoritative documentation before using third-party APIs, libraries, frameworks, CLIs, or services."
-- `SKILL.md:13` — - [When A Quick Local Read Is Enough](#when-a-quick-local-read-is-enough)
-- `SKILL.md:14` — - [If Docs Are Unavailable](#if-docs-are-unavailable)
-- `SKILL.md:19` — pages, and read them before coding. For APIs, versions, provider behavior,
-- `SKILL.md:25` — Read docs before proceeding when any of these are true:
-- `SKILL.md:58` — search when you do not already have the exact URL.
-- `SKILL.md:59` — - Package registry metadata for versions. Before adding a dependency, query
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:79` — internal code, then official upstream docs. For new packages, verify the
-- `SKILL.md:86` — 6. Verify with the smallest useful check: typecheck, tests, build, CLI dry run,
-- `SKILL.md:87` — API schema validation, or a local reproduction.
-- `SKILL.md:93` — - "Add Tailwind to this app." Check the current Tailwind major and its install
-- `SKILL.md:95` — - "Use the AI SDK to stream responses." Verify the current AI SDK major,
-- `VERIFICATION.md:9` — External documentation lookup is host- and network-dependent and is not run as part of validation.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:25-48` — Docs-First Triggers list (latest/official request, package add/upgrade, fast-moving API, auth/secrets/compliance, deprecation errors, local contract docs, irreversible choices) — became the `task_category` enum.
+- `SKILL.md:52-67` — "What Counts As Docs" source hierarchy (official docs, local repo docs, package registry metadata, source/types) — became the `source_domain` enum.
+- `SKILL.md:79-80` — "verify the latest version before writing imports, config, or install commands" — became `version_verified`.
+- `SKILL.md:84` — step 4's "breaking changes" extraction — became `breaking_changes_found`.
+- `SKILL.md:86-87` — step 6's smallest-useful-check list (typecheck, tests, build, CLI dry run, API schema validation, local reproduction) — became the `check_type` enum.
+- `SKILL.md:88-89` — step 7's "name the docs or local files consulted" — became `docs_named_in_answer`.
+- `SKILL.md:124-128` — "If Docs Are Unavailable" disclosure requirement — became `docs_unavailable_disclosed`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

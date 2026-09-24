@@ -68,3 +68,48 @@ Use these priorities:
 If there are no qualifying findings, say `No findings.` Do not invent a finding to fill the result.
 After the findings, add a brief overall assessment and mention any material test gaps or residual
 risks.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill's
+defect-finding calibration from real usage. Resolve `<skill-dir>` as the
+directory containing this loaded `SKILL.md`. Telemetry is observability
+only: if a `recorder.py` call errors, proceed with the review uninterrupted
+and never let it block, delay, or change the output.
+
+1. Before "Review the change" step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<uncommitted_changes|base_branch_diff|commit|custom_instructions>" --invocation explicit)
+   ```
+2. After step 2 (inspect the complete diff), record how the comparison
+   boundary was resolved:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase inspect --outcome <success|failure> \
+     --evidence-json '{"comparison_boundary_resolved":"<local_branch|upstream_branch|merge_base|not_resolved>","files_reviewed_count":<N>}'
+   ```
+3. After step 4 (check tests and call sites to confirm each finding), record
+   confirmation health:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase confirm --outcome success \
+     --evidence-json '{"findings_confirmed_count":<N>,"findings_discarded_count":<N>}'
+   ```
+4. After "Write the result" is produced, record the finding decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase report \
+     --evidence-json '{"finding_count":<N>,"priorities_used":["<subset of P0,P1,P2,P3>"],"finding_categories":["<subset of correctness,security,performance,maintainability>"],"no_findings":<true|false>}'
+   ```
+5. Before returning the result, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"finding_count":<N>,"priorities_used":["<subset of P0,P1,P2,P3>"],"read_only_confirmed":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the target or
+   comparison boundary could not be resolved instead of producing a review.
+
+If the author or another reviewer later dismisses a reported finding or
+disagrees with its priority, record it as its own event so calibration drift
+is visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_priority":"<P0|P1|P2|P3>","correction":"<finding_dismissed|priority_changed|finding_confirmed>","finding_category":"<correctness|security|performance|maintainability>"}'
+```

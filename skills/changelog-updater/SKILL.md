@@ -232,3 +232,46 @@ Read only what the task needs; all references are one level from this file.
 - [resources/evaluations.md](resources/evaluations.md) — representative acceptance tests and failure cases
 - [templates/plan.example.json](templates/plan.example.json) — editable plan example
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1 (establish context), start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<reconstruct|update_unreleased|release|render_only>" --invocation explicit)
+   ```
+2. After step 2 (collect history), record collection health:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event operation --phase collect --outcome success \
+     --evidence-json '{"commits_collected":<N>,"collector_mode":"<full|since-tag|range|dates>","merges_included":<true|false>}'
+   ```
+3. After step 3 (build the semantic plan), record the plan decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase plan \
+     --evidence-json '{"sections_used":["<subset of Added,Changed,Deprecated,Removed,Fixed,Security>"],"entries_count":<N>,"omitted_commits_count":<N>,"breaking_changes_flagged":<N>}'
+   ```
+4. After step 4 (validate, preview, and apply); if `validate_plan.py` failed
+   and was repaired, emit a `retry` event first with `--failure-class`
+   describing the defect:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"plan_valid":<true|false>,"dry_run_reviewed":<true|false>,"applied":<true|false>,"allow_replace_used":<true|false>}'
+   ```
+5. After step 5 (verify), record verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome <success|failure> \
+     --evidence-json '{"verify_exit_code":<N>,"git_diff_check_passed":<true|false>}'
+   ```
+6. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"mode":"<reconstruct|update_unreleased|release|render_only>","entries_count":<N>,"omitted_count":<N>,"backup_created":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under the Completion gate (repeated validation or verification failure)
+   instead of producing a completed changelog.
+

@@ -14,40 +14,41 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual numbered Workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (`static_only`\|`with_runtime_telemetry`) |
+| After step 2 (run the bundled collector) | `verification` (`phase=collect`) | `collector_completed`, `agents_md_files_found`, `config_layers_detected` |
+| After step 5 (label claims) | `decision` (`phase=label`) | `claim_labels_used`, `unknown_claim_count` |
+| After step 7 (rank actionable findings) | `decision` (`phase=rank`) | `findings_count`, `risk_categories` |
+| Before returning the report (after step 8) | `run.finished` | `findings_count`, `unknown_claim_count`, `approval_sentence_included` |
+| When a maintainer later disputes a finding | `user.correction` | `finding_category`, `correction` |
 
-- `SKILL.md:28` — - Stop after the report. Remediation is a separate, explicitly approved task.
-- `references/audit-playbook.md:12` — Record the repository root, current working directory, `CODEX_HOME`, active profile if supplied, project trust state if supplied, and collector truncation. Distinguish user `CODEX_HOME` files from project `.codex` files. Do not assume a project layer is active merely because it exists.
-- `references/audit-playbook.md:16` — Audit `AGENTS.override.md` and `AGENTS.md` files in the Codex home and from the project root to the current directory. Report measured bytes/lines, empty files, duplicate guidance, nested overrides, fallback filenames configured by `project_doc_fallback_filenames`, and the combined `project_doc_max_bytes` limit. Do not call a file “loaded” unless runtime evidence or the documented path chain supports it.
-- `references/audit-playbook.md:20` — Audit `.agents/skills` directories discovered from the current directory toward the repository root and the user skill directory `$HOME/.agents/skills`. For each shown skill, collect only name, description characteristics, path, file sizes, and optional directory presence. Codex starts discovery with name, description, and path, caps the initial list at 2% of context or 8,000 characters when unknown, and loads the full `SKILL.md` only after selection. Do not estimate token cost from bytes.
-- `references/audit-playbook.md:22` — Inspect `[[skills.config]]` entries in active config layers. If a path is disabled, report the explicit path and status; do not infer the state of unlisted skills. Duplicate names are separate skills, not a merged skill.
-- `references/audit-playbook.md:34` — Inventory `hooks.json` and inline `[hooks]` tables in active config layers. Report event names, handler counts/types, `additionalContextLimit` presence, and trust/review status when supplied. Codex documents `SessionStart`, `SubagentStart`, `PreToolUse`, `PostToolUse`, `UserPromptSubmit`, `PreCompact`, `PostCompact`, `Stop`, and related lifecycle events; configured is not the same as injected. Never emit matcher strings, commands, inputs, outputs, or hook payloads.
-- `references/audit-playbook.md:54` — Follow `report-contract.md` exactly. Stop after reporting. No remediation is performed by this skill.
-- `references/portability-security.md:7` — Project `.codex` configuration and hooks are trusted only when Codex trusts the project layer. The skill reports trust-sensitive configuration as observed or UNKNOWN; it does not change trust, approvals, sandbox mode, rules, or hooks.
-- `references/portability-security.md:9` — No MCP connector, plugin manifest, UI file, or external service is required by this skill. If a future change adds one, its exact Codex schema must be documented first and the collector must preserve the same redaction boundary.
-- `references/report-contract.md:3` — Produce this structure unless the user explicitly requests another format.
-- `references/report-contract.md:9` — State repository root, current directory, `CODEX_HOME`, active profile if known, project trust state if known, Codex config layers inspected, runtime telemetry availability, and collector truncation.
-- `references/report-contract.md:40` — 4. expected context effect, qualitative unless runtime telemetry measures it;
-- `references/report-contract.md:46` — Report supplied Codex runtime telemetry only. If absent, say UNKNOWN. Never infer current context utilization or cache behavior from file size.
-- `scripts/context_inventory.py:52` — if not lines or lines[0].strip() != "---":
-- `scripts/context_inventory.py:56` — if line.strip() == "---":
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the false-positive-rate analysis an improvement agent should run over
+these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `VERIFICATION.md:3` — Target package validation:
-- `VERIFICATION.md:12` — Validation on 2026-08-09:
-- `VERIFICATION.md:15` — - Missing-path collector smoke check → bounded JSON; no file bodies, raw environment values, MCP endpoints/headers, hook payloads, transcripts, or token estimates.
-- `VERIFICATION.md:16` — - Real-repository collector smoke check with `--codex-home .codex --repo . --cwd .` → completed successfully; `.codex` was absent/empty and the collector reported that state without reading unrelated files.
-- `VERIFICATION.md:18` — - In this no-Git workspace, a live `codex exec` smoke test reported the newly migrated `$review-agent` skill as not discoverable even though the collector inventories `.agents/skills`; repository-skill discovery is not proven in this environment.
-- `scripts/validate_skill.py:2` — """Validate the portable Context Doctor package."""
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:9` — "inspect only documented Codex control-plane files and runtime evidence" plus the Scope section's "User-supplied Codex runtime evidence ... optional" — became the `task_category` enum.
+- `SKILL.md:36` — the `context_inventory.py` collector invocation — became `collector_completed`.
+- `SKILL.md:41` — "Label claims DIRECT, MEASURED, INFERRED, or UNKNOWN" — became `claim_labels_used`/`unknown_claim_count`.
+- `SKILL.md:43` — "State risk, rollback, and the approval boundary for each proposal" and the finding-ranking step — became `findings_count`/`risk_categories`.
+- `SKILL.md:11-18` — the Scope section's four audit areas (AGENTS.md, skills, config/hooks, runtime evidence) — became the `risk_categories` enum.
+- `SKILL.md:63` — "End with the report contract's required approval sentence" — became `approval_sentence_included`.
 
 ### Execution candidates
 
-- None detected statically.
+- `scripts/context_inventory.py` and `scripts/validate_skill.py` remain uninstrumented directly; their outcomes are captured through the `collect`-phase `verification` event above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

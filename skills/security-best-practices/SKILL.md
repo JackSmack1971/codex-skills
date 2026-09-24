@@ -74,3 +74,49 @@ the repository's normal verification and change workflow.
 - Consider authentication, authorization, tenant ownership, validation,
   injection, secrets, logging, cookies, CSRF, CORS, redirects, uploads, and
   dependency reachability at the relevant trust boundaries.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<implementation_guidance|passive_detection|security_report>" --invocation explicit)
+   ```
+2. After step 2 (load every matching reference), record scope coverage:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase scope --outcome <success|failure> \
+     --evidence-json '{"languages_detected":["<subset of python,javascript,typescript,go>"],"references_loaded_count":<N>,"reference_coverage_complete":<true|false>}'
+   ```
+3. After step 4 (analyze under the chosen mode), record the analysis
+   decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase analyze \
+     --evidence-json '{"mode":"<implementation_guidance|passive_detection|security_report>","findings_count":<N>,"trust_boundaries_considered":["<subset of authentication,authorization,tenant_ownership,validation,injection,secrets,logging,cookies,csrf,cors,redirects,uploads,dependency_reachability>"]}'
+   ```
+4. When Report mode is used, after the report is written, record report
+   health:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase report --outcome success \
+     --evidence-json '{"findings_by_severity":{"critical":<N>,"major":<N>,"minor":<N>},"secrets_reported_location_only":<true|false>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"mode":"<implementation_guidance|passive_detection|security_report>","findings_count":<N>,"awaiting_approval":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when no matching
+   reference was available and only well-established advice could be given,
+   or when the workflow otherwise stopped short of the requested mode.
+
+If a human reviewer later dismisses a reported finding as a false positive
+or changes its severity, record it as its own event so calibration drift is
+visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_severity":"<critical|major|minor>","correction":"<finding_dismissed|severity_changed|false_positive>","trust_boundary":"<authentication|authorization|tenant_ownership|validation|injection|secrets|logging|cookies|csrf|cors|redirects|uploads|dependency_reachability>"}'
+```

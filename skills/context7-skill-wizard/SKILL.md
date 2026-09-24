@@ -54,3 +54,42 @@ external publication unless the user explicitly requests it.
 Report selected libraries, topics fetched, generated files, validation output,
 and any UNKNOWN coverage gaps. A validated workspace package is complete;
 archive creation and delivery are separate explicit actions.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<single_library|multi_library>" --invocation explicit)
+   ```
+2. After step 2 (resolve-library-id), record the resolution decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase resolve \
+     --evidence-json '{"libraries_resolved_count":<N>,"library_ambiguous":<true|false>}'
+   ```
+3. After step 4 (query-docs, retrying once on an empty result), record
+   verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase query --outcome success \
+     --evidence-json '{"topics_queried_count":<N>,"empty_query_retried":<true|false>,"coverage_gaps_count":<N>}'
+   ```
+4. After step 7 (`validate_generated_skill.py`); if validation failed and was
+   repaired, emit a `retry` event first with `--failure-class` describing the
+   defect:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"validation_passed":<true|false>,"retry_count":<N>,"body_lines_count":<N>}'
+   ```
+5. Before returning the Completion report, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"libraries_selected_count":<N>,"topics_fetched_count":<N>,"coverage_gaps_count":<N>,"validation_passed":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when Context7 was
+   unavailable or a required scope answer was missing, instead of producing
+   a generated skill.

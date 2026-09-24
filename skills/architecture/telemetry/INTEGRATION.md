@@ -14,28 +14,39 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Modes/Output/Quality bar sections (superseding the
+generic candidate scan below, which is kept only as provenance for why these
+points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before starting (Mode selected) | `run.started` | `task_category` (`adr`\|`evaluation`\|`component_design`) |
+| After Output (ADR/evaluation drafted) | `decision` (`phase=decide`) | `status`, `options_considered_count`, `do_nothing_considered` |
+| After Quality bar checks 1, 3, 4 | `verification` (`phase=quality_bar`) | `constraints_stated`, `invalidation_conditions_stated`, `facts_assumptions_separated` |
+| Before returning output | `run.finished` | `task_category`, `status`, `options_considered_count`, `action_items_count` |
+| When a decider later changes the ADR's `Status` | `user.correction` | `original_status`, `new_status`, `reason` |
 
-- `SKILL.md:4` — compatibility: Requires a filesystem-readable project when reviewing existing design material.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:26` — known requirements and constraints before recommending an option. If project
-- `SKILL.md:38` — Use this ADR structure unless the user requests another format:
-- `SKILL.md:83` — consequences, and action-item sections when they apply. Identify missing
-- `SKILL.md:89` — scale, team familiarity, and maintenance burden when relevant.
-- `SKILL.md:93` — 5. Do not create tickets, links, or external records unless the user explicitly
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the status-survival analysis an improvement agent should run over these
+fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:30-34` — the three Modes (create an ADR, evaluate a system, design a component) — became the `task_category` enum.
+- `SKILL.md:43` — `**Status:** Proposed | Accepted | Deprecated | Superseded` in the ADR template — became the `status` field and the `user.correction` status-transition event.
+- `SKILL.md:53-67` — Options Considered / Trade-off Analysis structure — became `options_considered_count`.
+- `SKILL.md:77-79` — Action Items section — became `action_items_count`.
+- `SKILL.md:88-92` — Quality bar items 1-4 (state constraints, name alternatives including doing nothing, explain fit and invalidation, separate facts/assumptions/recommendations) — became the `quality_bar`-phase `verification` fields and `do_nothing_considered`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

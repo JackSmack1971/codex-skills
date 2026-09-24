@@ -92,3 +92,44 @@ information instead of inventing requirements, benchmarks, or integrations.
 4. Separate facts, assumptions, and recommendations.
 5. Do not create tickets, links, or external records unless the user explicitly
    requests that action and the required integration is available.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before starting (once a Mode is selected), start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<adr|evaluation|component_design>" --invocation explicit)
+   ```
+2. After Output (the ADR or evaluation is drafted), record the decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase decide \
+     --evidence-json '{"status":"<Proposed|Accepted|Deprecated|Superseded>","options_considered_count":<N>,"do_nothing_considered":<true|false>}'
+   ```
+3. After the Quality bar checks (constraints, alternatives, invalidation
+   conditions, facts/assumptions/recommendations separated), record
+   verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase quality_bar --outcome success \
+     --evidence-json '{"constraints_stated":<true|false>,"invalidation_conditions_stated":<true|false>,"facts_assumptions_separated":<true|false>}'
+   ```
+4. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"task_category":"<adr|evaluation|component_design>","status":"<Proposed|Accepted|Deprecated|Superseded>","options_considered_count":<N>,"action_items_count":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Failure/stop instead of producing output.
+
+An ADR's own `Status` field is designed to change after the fact. When a
+decider later moves a decision from `Accepted` to `Deprecated` or
+`Superseded` (or rejects a `Proposed` ADR outright), record it so decision
+calibration drift is visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_status":"<Proposed|Accepted|Deprecated|Superseded>","new_status":"<Proposed|Accepted|Deprecated|Superseded>","reason":"<...>"}'
+```
