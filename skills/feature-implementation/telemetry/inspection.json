@@ -1,0 +1,228 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use after requirements are concrete for an ordinary product change; exclude cross-layer slice planning, explicit TDD, and QA-only requests, routing to vertical-slice, test-driven-development, or testing-qa.",
+        "kind": "boundary",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "boundary",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Inputs:** Require the requested target and the repository, user, authority, and assumption evidence named by this package; identify material gaps instead of guessing.",
+        "kind": "boundary",
+        "line": 14,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Failure/stop:** Stop on conflicting scope, missing authority, unsafe state, or unverifiable completion, plus any stricter stop condition in this package.",
+        "kind": "boundary",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Runtime claims:** Claim only behavior supported by observed files, tools, commands, or tests; do not claim implicit routing accuracy or unavailable integrations.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "or security requirements required by the contract.",
+        "kind": "boundary",
+        "line": 30,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not invent product scope, broad refactors, abstractions for one use, or new",
+        "kind": "boundary",
+        "line": 37,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "dependencies without need. Stop and ask when requirements conflict or a safe",
+        "kind": "boundary",
+        "line": 38,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "data migration is required but not specified.",
+        "kind": "boundary",
+        "line": 39,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. **Negative:** Given conflicting requirements, stop and identify the missing decision instead of guessing.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Implement a requested concrete feature in an existing repository as the smallest verified change with focused verification; use narrower cross-layer, TDD, or QA skills when explicit.\"",
+        "kind": "decision",
+        "line": 3,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use after requirements are concrete for an ordinary product change; exclude cross-layer slice planning, explicit TDD, and QA-only requests, routing to vertical-slice, test-driven-development, or testing-qa.",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "decision",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "decision",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "lint/type checks, and the relevant broader check if available.",
+        "kind": "decision",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "dependencies without need. Stop and ask when requirements conflict or a safe",
+        "kind": "decision",
+        "line": 38,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use `vertical-slice` when the request centers on one user action crossing UI,",
+        "kind": "decision",
+        "line": 41,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a trust boundary or data-loss risk, retain validation and recovery even when simplifying.",
+        "kind": "decision",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use after requirements are concrete for an ordinary product change; exclude cross-layer slice planning, explicit TDD, and QA-only requests, routing to vertical-slice, test-driven-development, or testing-qa.",
+        "kind": "verification",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.",
+        "kind": "verification",
+        "line": 13,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. Implement behavior with input validation, error handling, and accessibility",
+        "kind": "verification",
+        "line": 29,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "lint/type checks, and the relevant broader check if available.",
+        "kind": "verification",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "service/API, persistence, and verification. Use `test-driven-development` for",
+        "kind": "verification",
+        "line": 42,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a trust boundary or data-loss risk, retain validation and recovery even when simplifying.",
+        "kind": "verification",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "564930365f49be16b30ae5e0f51f688ad322d2db4ad09dba72220ed45907286a",
+  "generated_at": "2026-09-24T13:57:27.519822Z",
+  "inventory": [
+    {
+      "bytes": 3021,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "5f06f0214090cc95af054ab1b6ceb7bf93624662cddc34c2033519b8c2571875"
+    },
+    {
+      "bytes": 375,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "06207df4db7db626c7c21cd9886a1db10791cf1d9e722f23e4ecdb547cb3f14e"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 2,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 3396
+  },
+  "target": {
+    "description": "Implement a requested concrete feature in an existing repository as the smallest verified change with focused verification; use narrower cross-layer, TDD, or QA skills when explicit.",
+    "name": "feature-implementation",
+    "path": "skills/feature-implementation",
+    "version": null
+  }
+}
