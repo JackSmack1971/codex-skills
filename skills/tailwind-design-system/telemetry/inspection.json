@@ -1,0 +1,531 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "3. Existing CSS/configuration only as corroborating evidence, not as a version",
+        "kind": "boundary",
+        "line": 17,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If evidence is missing or conflicting, say that the version is unknown and stop",
+        "kind": "boundary",
+        "line": 20,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "before recommending version-sensitive setup. Do not silently choose v3 or v4.",
+        "kind": "boundary",
+        "line": 21,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "marked v3 or v4. Never mix the two setup patterns without explaining the",
+        "kind": "boundary",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Do not use this skill when",
+        "kind": "boundary",
+        "line": 46,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Clarify goals, constraints, and required inputs.",
+        "kind": "boundary",
+        "line": 53,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If detailed examples are required, open `resources/implementation-playbook.md`",
+        "kind": "boundary",
+        "line": 56,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "cannot be established, or the evidence conflicts, stop and request or gather",
+        "kind": "boundary",
+        "line": 41,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "that evidence. Do not default to v3.",
+        "kind": "boundary",
+        "line": 42,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- A config file or CSS directive by itself is only corroboration; dependency",
+        "kind": "boundary",
+        "line": 50,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "so do not add a legacy `content` array by default. If a v4 project still needs",
+        "kind": "boundary",
+        "line": 69,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "why; do not assume `tailwind.config.ts` is auto-detected. Use the v4 PostCSS or",
+        "kind": "boundary",
+        "line": 71,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not use the v3-only setup below as the default for a v4 project:",
+        "kind": "boundary",
+        "line": 74,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "plugins: [require('tailwindcss-animate')],",
+        "kind": "boundary",
+        "line": 124,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "password: z.string().min(8, 'Password must be at least 8 characters'),",
+        "kind": "boundary",
+        "line": 391,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!context) throw new Error('useTheme must be used within ThemeProvider')",
+        "kind": "boundary",
+        "line": 640,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<span className=\"sr-only\">Toggle theme</span>",
+        "kind": "boundary",
+        "line": 659,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Don't use arbitrary values** - Extend theme instead",
+        "kind": "boundary",
+        "line": 696,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Don't nest @apply** - Hurts readability",
+        "kind": "boundary",
+        "line": 697,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Don't skip focus states** - Keyboard users need them",
+        "kind": "boundary",
+        "line": 698,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Don't hardcode colors** - Use semantic tokens",
+        "kind": "boundary",
+        "line": 699,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Don't forget dark mode** - Test both themes",
+        "kind": "boundary",
+        "line": 700,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "compare the response with the required and forbidden behaviors.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`tailwindcss@4.x`. The response must identify v4 before setup guidance and",
+        "kind": "boundary",
+        "line": 7,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "use `@import \"tailwindcss\"` plus `@theme`; it must not default to a",
+        "kind": "boundary",
+        "line": 8,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The response must identify v3 and may use `tailwind.config.ts`, `content`,",
+        "kind": "boundary",
+        "line": 12,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "and the three v3 `@tailwind` directives. It must not present v4 CSS-first",
+        "kind": "boundary",
+        "line": 13,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "metadata conflicts with its config files. The response must report that the",
+        "kind": "boundary",
+        "line": 16,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "major version is unknown/conflicting, request or gather evidence, and stop",
+        "kind": "boundary",
+        "line": 17,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "version-sensitive setup guidance. It must not silently assume v3 or v4.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "Before giving version-sensitive setup or configuration guidance, establish the",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. The package manager's dependency tree when repository files are insufficient.",
+        "kind": "decision",
+        "line": 16,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If evidence is missing or conflicting, say that the version is unknown and stop",
+        "kind": "decision",
+        "line": 20,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "before recommending version-sensitive setup. Do not silently choose v3 or v4.",
+        "kind": "decision",
+        "line": 21,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "accessibility guidance below version-neutral unless a section is explicitly",
+        "kind": "decision",
+        "line": 31,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Use this skill when",
+        "kind": "decision",
+        "line": 37,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Do not use this skill when",
+        "kind": "decision",
+        "line": 46,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If detailed examples are required, open `resources/implementation-playbook.md`",
+        "kind": "decision",
+        "line": 56,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "after the version gate succeeds.",
+        "kind": "decision",
+        "line": 57,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The skill requires Tailwind major-version evidence before version-sensitive",
+        "kind": "decision",
+        "line": 3,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## When to Use This Skill",
+        "kind": "decision",
+        "line": 9,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before using either setup section, establish the Tailwind major version from",
+        "kind": "decision",
+        "line": 39,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`package.json` plus the lockfile or installed package metadata. If the version",
+        "kind": "decision",
+        "line": 40,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "metadata wins when evidence disagrees.",
+        "kind": "decision",
+        "line": 51,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "so do not add a legacy `content` array by default. If a v4 project still needs",
+        "kind": "decision",
+        "line": 69,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (stored) setTheme(stored)",
+        "kind": "decision",
+        "line": 603,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (theme === 'system') {",
+        "kind": "decision",
+        "line": 612,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!context) throw new Error('useTheme must be used within ThemeProvider')",
+        "kind": "decision",
+        "line": 640,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`tailwindcss@4.x`. The response must identify v4 before setup guidance and",
+        "kind": "decision",
+        "line": 7,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "medium",
+        "excerpt": "root.classList.remove('light', 'dark')",
+        "kind": "execution",
+        "line": 608,
+        "path": "resources/implementation-playbook.md"
+      }
+    ],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "Keep the design-token, component-variant, responsive, dark-mode, and",
+        "kind": "privacy",
+        "line": 30,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Version-independent token, variant, responsive, dark-mode, and accessibility",
+        "kind": "privacy",
+        "line": 7,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### 1. Design Token Hierarchy",
+        "kind": "privacy",
+        "line": 20,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "password: z.string().min(8, 'Password must be at least 8 characters'),",
+        "kind": "privacy",
+        "line": 391,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<Label htmlFor=\"password\">Password</Label>",
+        "kind": "privacy",
+        "line": 411,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "id=\"password\"",
+        "kind": "privacy",
+        "line": 413,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "type=\"password\"",
+        "kind": "privacy",
+        "line": 414,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "{...register('password')}",
+        "kind": "privacy",
+        "line": 415,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "error={errors.password?.message}",
+        "kind": "privacy",
+        "line": 416,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "token, variant, responsive, dark-mode, and accessibility guidance remains.",
+        "kind": "privacy",
+        "line": 10,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. **Preservation:** Across all three cases, verify that token hierarchy,",
+        "kind": "privacy",
+        "line": 19,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "project's Tailwind major version from repository evidence. Check, in order:",
+        "kind": "verification",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Apply relevant best practices and validate outcomes.",
+        "kind": "verification",
+        "line": 54,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "python -m unittest discover -s tests -v",
+        "kind": "verification",
+        "line": 15,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Don't forget dark mode** - Test both themes",
+        "kind": "verification",
+        "line": 700,
+        "path": "resources/implementation-playbook.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. **Preservation:** Across all three cases, verify that token hierarchy,",
+        "kind": "verification",
+        "line": 19,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "132b36d72d78d2b94641c2b804720dd1ef0084718e49d056f353c79301326eb6",
+  "generated_at": "2026-09-24T13:58:37.461448Z",
+  "inventory": [
+    {
+      "bytes": 2370,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "5622ffa5b56c8f661b25225acedcf04ede125152363632460027dd8898d489ce"
+    },
+    {
+      "bytes": 561,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "994b69991751b269f5e0d0ea93d512de7685926f6a5fb033c866bba9163cda09"
+    },
+    {
+      "bytes": 20100,
+      "kind": "other",
+      "language": null,
+      "path": "resources/implementation-playbook.md",
+      "sha256": "fdf6e8419c117a6746a874ff9719dd42b75b4e5efaf3a94be4a8d5e7a75b0589"
+    },
+    {
+      "bytes": 1376,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "94025020f3ee1630aedb806d6af2f29e3eecc6f3689220efc41239a6232f93ea"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 4,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 24407
+  },
+  "target": {
+    "description": "Build production-ready Tailwind design systems with tokens, variants, responsive patterns, and accessibility.",
+    "name": "tailwind-design-system",
+    "path": "skills/tailwind-design-system",
+    "version": null
+  }
+}
