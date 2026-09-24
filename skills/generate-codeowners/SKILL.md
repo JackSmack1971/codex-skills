@@ -141,4 +141,53 @@ Use a documented Codex project hook or rule only when deterministic enforcement 
 
 **[Output]** `.github/CODEOWNERS`, an untracked inventory and validation report under the Git metadata directory, and a final summary identifying ownership sources, exceptions, and ruleset recommendations.
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<generate|audit>" --invocation explicit)
+   ```
+2. In `audit` mode, after step 7 (report parser errors, dead rules,
+   shadowing, unowned paths, and individual-owner risks), record the audit
+   findings:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase audit --outcome <success|failure> \
+     --evidence-json '{"parser_errors":<N>,"dead_rules_found":<N>,"shadowing_detected":<true|false>,"unowned_paths_count":<N>,"individual_owner_risks":<N>}'
+   ```
+3. In `generate` mode, after steps 8-12 (classify the repository, resolve
+   owners, design the ownership map, and check for verified-owner gaps),
+   record the design decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase design \
+     --evidence-json '{"archetype":"<focused_library_or_sdk|modular_application|enterprise_monorepo|open_source_project|internal_platform_or_infra|small_or_mixed>","owner_resolution_sources":["<subset of owner_map,existing_codeowners_teams,github_visible_teams,personal_repo_owner>"],"unowned_domains_blocked_generation":<true|false>,"dual_team_paths":<N>}'
+   ```
+4. In `generate` mode, after steps 15-16 (validate immediately, fix, and
+   revalidate), record the validation result:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"exit_code":<N>,"retry_count":<N>,"self_owned":<true|false>,"diff_scope_expected_only":<true|false>}'
+   ```
+5. Before returning the completion contract, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"mode":"<generate|audit>","archetype":"<...|not_applicable>","unowned_paths_count":<N>,"validation_exit_code":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when step 12's
+   verified-owner gap blocked writing `.github/CODEOWNERS`, or another
+   Completion-contract condition was not met.
+
+If a maintainer later reassigns an owner this run selected, adds a
+blank-owner exception it did not recommend, or dismisses an audit finding as
+incorrect, record it as its own event so ownership-model drift is visible
+without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_assignment":"<path-or-rule>","correction":"<owner_reassigned|blank_owner_added|audit_finding_dismissed>","archetype":"<...>"}'
+```
 

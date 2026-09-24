@@ -14,42 +14,42 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps and named sections (superseding the
+generic candidate scan below, which is kept only as provenance for why these
+points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before Workflow step 1 | `run.started` | `task_category` (Common Scenarios domain) |
+| After Workflow step 3 (spawn parallel subagents) | `decision` (`phase=delegate`) | `subagents_spawned`, `delegated_domains`, `stop_conditions_specified` |
+| After Review Loop | `verification` (`phase=review`) | `cited_files_reopened`, `disagreements_resolved`, `high_risk_diffs_skimmed` |
+| Before presenting the result | `run.finished` | `delegated_domains`, `subagents_spawned`, `guardrail_violations` |
 
-- `README.md:18` — - Treats delegated findings as leads that the frontier model verifies before
-- `README.md:22` — ## When To Use It
-- `README.md:28` — Skip it when the work is tiny, when edits are all in the same fragile files, or
-- `README.md:29` — when the next step depends on one immediate blocker you need to inspect yourself.
-- `README.md:44` — and spot-check verification before presenting the final answer.
-- `README.md:52` — Use `--update-instructions` when you want the orchestration convention added to
-- `SKILL.md:23` — 5. Integrate and review centrally before presenting the result.
-- `SKILL.md:35` — - A verification command fails twice after a reasonable fix or retry.
-- `SKILL.md:43` — verification that matters before claiming completion. If delegated agents
-- `SKILL.md:52` — - Coding: delegate bounded patches, refactors, or mechanical edits when file
-- `SKILL.md:58` — - Debugging: send independent agents after separate theories, logs, or repro
-- `SKILL.md:63` — - Do not delegate the immediate blocker if your next step depends on it.
-- `SKILL.md:65` — - Do not trust subagent conclusions blindly when the risk is high; inspect the
-- `SKILL.md:67` — - Do not claim universal savings. The pattern works best when exploration and
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's
+runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `README.md:25` — repo exploration, refactors, multi-file implementation, test-failure clustering,
-- `README.md:26` — or PR-quality validation.
-- `README.md:33` — The frontier model should choose the validation plan. Cheaper agents can run
-- `README.md:44` — and spot-check verification before presenting the final answer.
-- `SKILL.md:17` — extraction, browser/testing passes, log reduction, test failure clustering,
-- `SKILL.md:42` — important cited files, skim high-risk diffs, and rerun or spot-check the
-- `SKILL.md:54` — - Testing: let the frontier model choose the validation strategy and scripts,
-- `VERIFICATION.md:9` — Delegated-agent orchestration depends on the active Codex host and is not run by this local check.
-- `tests/evaluation-cases.md:5` — 3. **Boundary:** Given a delegated test failing twice, stop and report command, failure, and residual risk.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:46-59` — the "Common Scenarios" list (Research, Coding, Testing, Debugging) — became the `task_category`/`delegated_domains` enum.
+- `SKILL.md:25-30` — the Handoff Packets requirement to include stop conditions — became `stop_conditions_specified`.
+- `SKILL.md:32-37` — the "Useful stop conditions" list — informed the `guardrail_violations`/failure framing at `finish`.
+- `SKILL.md:41-44` — the Review Loop's "reopen important cited files, skim high-risk diffs, and rerun or spot-check" — became `cited_files_reopened` and `high_risk_diffs_skimmed`.
+- `SKILL.md:44` — "If delegated agents disagree, resolve the disagreement at the frontier-model layer" — became `disagreements_resolved`.
+- `SKILL.md:63-68` — the Guardrails list (no same-file concurrent edits, no blind trust on high risk, no universal-savings claims) — became `guardrail_violations`.
 
 ### Execution candidates
 
-- None detected statically.
+- None: this skill has no bundled scripts and no numbered `Failure/stop`
+  section (its equivalent is `## Guardrails`, referenced by the `finish`
+  call's failure guidance); delegated-agent behavior is captured at the
+  `delegate`/`review` orchestration boundary instead of per-subagent.
 
 ## Hook evidence
 

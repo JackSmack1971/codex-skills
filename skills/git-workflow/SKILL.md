@@ -108,3 +108,42 @@ After a failed or unexpected Git command, stop further mutations and
 re-inspect state. Do not auto-reset, clean, force-push, delete, or resolve in
 response. Prefer the documented abort command when safe, and report partial
 effects, remaining conflicts, and the safest next step.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before inspecting the repository, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<inspection|branching|synchronization|staging|merge_or_rebase|recovery>" --invocation explicit)
+   ```
+2. After the Repository state section (inspecting root, status, branch, and
+   history before editing), record the inspection decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase inspect \
+     --evidence-json '{"detached_head_or_active_operation":<true|false>,"protected_branch_detected":<true|false>,"preexisting_changes_present":<true|false>}'
+   ```
+3. After the Changes and staging section (inspecting the staged diff and
+   diff --check), record the staging verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase stage --outcome <success|failure> \
+     --evidence-json '{"staged_scope":"<explicit_paths|explicit_hunks|broad_add_declined>","secrets_or_unrelated_found":<true|false>,"whitespace_or_mode_anomalies":<true|false>}'
+   ```
+4. Immediately before any Destructive local operation or Remote operation,
+   record the mutation decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase mutate \
+     --evidence-json '{"operation_class":"<destructive_local|remote_push_or_pr|routine>","explicit_approval_obtained":<true|false>,"force_with_lease_used":<true|false|not_applicable>}'
+   ```
+5. Before returning the result, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"task_category":"<inspection|branching|synchronization|staging|merge_or_rebase|recovery>","mutations_performed":<true|false>,"conflicts_encountered":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when Failure handling
+   triggered (a failed or unexpected Git command stopped further mutations)
+   instead of a clean completion.

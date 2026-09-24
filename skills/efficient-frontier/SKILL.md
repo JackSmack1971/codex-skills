@@ -72,3 +72,36 @@ Use these as soft suggestions:
 "I will use the frontier model as the orchestrator and reviewer, and use
 cheaper subagents for token-heavy research, coding, or testing so the expensive
 tokens go to judgment, synthesis, and final quality."
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before Workflow step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<research|coding|testing|debugging|mixed>" --invocation explicit)
+   ```
+2. After Workflow step 3 (spawn parallel subagents for independent slices),
+   record the delegation decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase delegate \
+     --evidence-json '{"subagents_spawned":<N>,"delegated_domains":["<subset of research,coding,testing,debugging>"],"stop_conditions_specified":<true|false>}'
+   ```
+3. After the Review Loop (treat delegated output as evidence to inspect),
+   record the verification pass:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase review --outcome <success|failure> \
+     --evidence-json '{"cited_files_reopened":<true|false>,"disagreements_resolved":<N>,"high_risk_diffs_skimmed":<true|false>}'
+   ```
+4. Before presenting the integrated result, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"delegated_domains":["<subset of research,coding,testing,debugging>"],"subagents_spawned":<N>,"guardrail_violations":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when a Guardrail was
+   violated (e.g. the same file edited by multiple agents, or a subagent
+   conclusion was forwarded unverified) instead of a clean integration.

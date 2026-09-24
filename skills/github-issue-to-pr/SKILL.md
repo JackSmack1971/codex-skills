@@ -86,3 +86,49 @@ Maintain `issue-processing-state.md` with columns:
 ## Invocation
 
 User says: "Run github-issue-to-pr skill. Start with Phase 1 scan on this repo."
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before Phase 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<single_issue|batched_issues|backlog_scan>" --invocation explicit)
+   ```
+2. After Phase 1 (resolve and inspect scope), record the scope decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase scope \
+     --evidence-json '{"issue_state":"<open|has_existing_pr|closed|stale|conflicting>","scope_type":"<single_issue|batched_issues|backlog_scan>"}'
+   ```
+3. After Phase 2 (analyze & plan, gate 1), record the planning decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase plan \
+     --evidence-json '{"execution_order_length":<N>,"batching_used":<true|false>,"issues_skipped":<N>,"gate1_plan_approved":<true|false>}'
+   ```
+4. After Phase 3 (verify thoroughly, gate 2 diff review, gate 3 pre-PR
+   approval), record the execution verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase execute --outcome <success|failure> \
+     --evidence-json '{"checklist_items_passed":<N of 7>,"gate2_diff_approved":<true|false>,"gate3_pr_approved":<true|false>,"pr_created":<true|false>}'
+   ```
+5. Before Phase 4 (state management / final report), close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"scope_type":"<single_issue|batched_issues|backlog_scan>","prs_created":<N>,"issues_completed":<N>,"gates_passed":<N of 3>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when Phase 1 stopped the
+   run (existing PR, closed issue, stale, or conflicting state) or a gate
+   was not approved.
+
+If a maintainer later rejects or requests changes on a PR this run created,
+or reverses a batching or skip decision from the approved plan, record it as
+its own event so plan- and PR-quality drift is visible without re-running
+the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_status":"<pr_created|planned|skipped>","correction":"<pr_rejected|plan_revised|batching_reversed>"}'
+```
