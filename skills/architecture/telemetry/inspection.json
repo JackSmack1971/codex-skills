@@ -1,0 +1,179 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "boundary",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Inputs:** Require the requested target and the repository, user, authority, and assumption evidence named by this package; identify material gaps instead of guessing.",
+        "kind": "boundary",
+        "line": 14,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Failure/stop:** Stop on conflicting scope, missing authority, unsafe state, or unverifiable completion, plus any stricter stop condition in this package.",
+        "kind": "boundary",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Runtime claims:** Claim only behavior supported by observed files, tools, commands, or tests; do not claim implicit routing accuracy or unavailable integrations.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "context is needed, inspect only the files relevant to the decision and treat",
+        "kind": "boundary",
+        "line": 27,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Do not create tickets, links, or external records unless the user explicitly",
+        "kind": "boundary",
+        "line": 93,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "requests that action and the required integration is available.",
+        "kind": "boundary",
+        "line": 94,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a destructive migration or external dependency, stop for explicit risk and rollback decisions.",
+        "kind": "boundary",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "compatibility: Requires a filesystem-readable project when reviewing existing design material.",
+        "kind": "decision",
+        "line": 4,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "decision",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "decision",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "known requirements and constraints before recommending an option. If project",
+        "kind": "decision",
+        "line": 26,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this ADR structure unless the user requests another format:",
+        "kind": "decision",
+        "line": 38,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "consequences, and action-item sections when they apply. Identify missing",
+        "kind": "decision",
+        "line": 83,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "scale, team familiarity, and maintenance burden when relevant.",
+        "kind": "decision",
+        "line": 89,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Do not create tickets, links, or external records unless the user explicitly",
+        "kind": "decision",
+        "line": 93,
+        "path": "SKILL.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.",
+        "kind": "verification",
+        "line": 13,
+        "path": "SKILL.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "721c4be7f1ad06f3e06647cc9287cdafd41392b9f1c6c821a482322ad8e5d6e2",
+  "generated_at": "2026-09-24T13:56:59.717744Z",
+  "inventory": [
+    {
+      "bytes": 3903,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "023289fbdfb55b010a547efd1c36a2127f820dd3ceeaa609893c79ed70a4a4ae"
+    },
+    {
+      "bytes": 395,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "ca1b84c879f05f4d57b6b3dcd70c7f783d1d05940bf94eb06a884e30aaf835fc"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 2,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 4298
+  },
+  "target": {
+    "description": "Create or evaluate architecture decisions and system designs with constraints, alternatives, and trade-offs.",
+    "name": "architecture",
+    "path": "skills/architecture",
+    "version": null
+  }
+}
