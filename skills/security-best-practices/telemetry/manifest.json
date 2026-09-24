@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Provide secure-by-default guidance and security reviews for Python, JavaScript/TypeScript, and Go web stacks.",
-    "fingerprint": "90354f994ab13dc768d42e03a393fac8ef4bc13d7274eb597f799b8820532e06",
+    "fingerprint": "370f3365b65b70eeb8cfae6d3fa85326b49bef513577210880a6041dc004255a",
     "name": "security-best-practices",
     "version": null
   }

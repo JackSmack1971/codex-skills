@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Reconstruct or update user-facing changelogs from Git history and diffs.",
-    "fingerprint": "740960aad944826a4e3be08e126c8341683d27596d1e7e23c819314842e08600",
+    "fingerprint": "ec4dcf6e591580ea96fd74545868e9ec9cc8d5d2f94a35abd42a10e24a675149",
     "name": "changelog-updater",
     "version": null
   }

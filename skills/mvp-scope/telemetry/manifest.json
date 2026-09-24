@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Use to turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions before specification or architecture. Do not use to discover the problem or write detailed feature behavior; use product-discovery or product-spec.",
-    "fingerprint": "ada006203ec2abce07f26003873493fae45bd858efd99c230a0a67b59648378f",
+    "fingerprint": "fd058dd041650d4ecceec3c89bef0310e43c9d881b808b517ef095d24c97bec5",
     "name": "mvp-scope",
     "version": null
   }

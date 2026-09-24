@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Find one unifying insight that removes duplicated logic, special cases, or redundant components.",
-    "fingerprint": "5e2178c65be2e49a9aae0f798476ad8accf5820064bb6cd7952f0ff2e78f07d7",
+    "fingerprint": "3fda3f6d1478ff3ff47440d6801af19d5327f8ad54523f8de7d7eb86cd1152f0",
     "name": "simplification-cascades",
     "version": null
   }

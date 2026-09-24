@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Require current authoritative documentation before using third-party APIs, libraries, frameworks, CLIs, or services.",
-    "fingerprint": "2bedbb12f9d01b8c316e010c9c331752d849bc2f7ae147d3a943edd5e279039a",
+    "fingerprint": "f7c30ede4680458349f3415097ca4b8d8926fe5f9022331970a850f3aa1b3cd8",
     "name": "read-the-damn-docs",
     "version": null
   }

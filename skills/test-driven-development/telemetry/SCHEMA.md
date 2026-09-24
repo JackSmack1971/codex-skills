@@ -2,7 +2,7 @@
 
 Schema version: `skilltelemetry.event.v1`
 
-Target fingerprint: `a8587e3970f558705478fa426545cc8647e61fa09d127eca7997bcd6e413aa76`
+Target fingerprint: `945501b59c5c7e7265fac8cd9b52b761e15897408bce212cce0f12c6b2b7b4f3`
 
 ## Event classes
 
@@ -21,8 +21,9 @@ Target fingerprint: `a8587e3970f558705478fa426545cc8647e61fa09d127eca7997bcd6e41
 
 - `semantic`: target-owned event with target fingerprint.
 - `confirmed`: imported/correlated evidence known to exercise this skill.
+- `correlated`: hook-observed execution evidence (tool calls, commands, exit codes) automatically attached to the semantic run that was open in the same session when it fired; included in analysis by default, but is a best-effort session-scoped join, not proof the tool call belongs to this skill's own logic.
 - `candidate`: likely related but not proven.
-- `ambient`: surrounding Codex lifecycle evidence; do not treat as causal.
+- `ambient`: surrounding Codex lifecycle evidence outside any open run; do not treat as causal.
 
 ## Privacy default
 

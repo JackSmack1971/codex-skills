@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Audit and professionalize GitHub repositories: stack and topology, stale worktrees, labels, .github governance and actions, documentation, settings, and tracked artifacts; create one idempotent issue per atomic step.",
-    "fingerprint": "beb9df2f1403478dfc3d08f5678d7b502c14e733e77355793225841498de5221",
+    "fingerprint": "f90ae962dc4532a44d686e3bfebb5ed27184892648b73d60bdee2e4c288a7899",
     "name": "maintaining-repository-hygiene",
     "version": null
   }

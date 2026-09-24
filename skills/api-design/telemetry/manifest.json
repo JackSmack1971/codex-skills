@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Design or review API contracts, schemas, errors, authorization, pagination, idempotency, and versioning.",
-    "fingerprint": "48efe9eb81bc9994b38441e09e161c07107735e55f67050f2041cd45e19b0cfa",
+    "fingerprint": "fe93a6157c7f5d98022aac823aa1678e91fe0406fea29c19c2d1e54a9c915fd9",
     "name": "api-design",
     "version": null
   }

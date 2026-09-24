@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Use after product intent is sufficiently understood to write an implementable feature specification covering behavior, requirements, edge cases, permissions, analytics, and acceptance criteria. Do not use to clarify a vague problem or reduce scope; use product-discovery or mvp-scope.",
-    "fingerprint": "146b12215cfca5be33a389be6abb5c1043730e24dd72c540711c342c738f59da",
+    "fingerprint": "fc3625d21da3d7343fe89ff09fe15222885b1c62bab1e85c4a62a303a27895cd",
     "name": "product-spec",
     "version": null
   }

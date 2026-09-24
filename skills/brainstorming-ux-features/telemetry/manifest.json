@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Brainstorm, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
-    "fingerprint": "2db124c4017f66f2529cf2e95260c99d38c490734c8eeb53056af76a9a80cfb6",
+    "fingerprint": "0eca3b5dcc8e1532517cd29a93db894537aec0cbf9e5503ba462b128a5ad7d40",
     "name": "brainstorming-ux-features",
     "version": null
   }

@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Create concrete TDD-first implementation plans with file maps and validation.",
-    "fingerprint": "8e30e0936a4a4a3f89296d8a17c2fe9d0ade010c70ce89219d020f283700b788",
+    "fingerprint": "0600e8928142fcec83644bbe9f88663696bb39f5d5e87f935e3a74cfe21ba8d0",
     "name": "writing-plans",
     "version": null
   }

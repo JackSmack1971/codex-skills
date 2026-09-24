@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Audit Codex context loading, skills discovery, config, hooks, MCP, subagents, compaction, and model settings read-only; use skill-auditor for skill packages.",
-    "fingerprint": "89fe937a1d8556df10a55c898f470b155e9b8d999124dabf09a721e8b06c248e",
+    "fingerprint": "8b2b5e893627bc8211c4b1dd25fa6f451e27be48a504dd2ffd339a7b70a814eb",
     "name": "context-doctor",
     "version": null
   }

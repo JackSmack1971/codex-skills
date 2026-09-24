@@ -2,7 +2,8 @@
   "analysis": {
     "include_attribution": [
       "semantic",
-      "confirmed"
+      "confirmed",
+      "correlated"
     ],
     "min_support": 2,
     "supported_confidence": 0.65
