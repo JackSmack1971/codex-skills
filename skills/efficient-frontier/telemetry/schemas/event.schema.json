@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "skilltelemetry.event.v1",
+  "title": "Skill Telemetry Event v1",
+  "type": "object",
+  "required": ["schema", "event_id", "run_id", "timestamp", "skill", "event", "source", "attribution", "privacy"],
+  "properties": {
+    "schema": {"const": "skilltelemetry.event.v1"},
+    "event_id": {"type": "string", "minLength": 8},
+    "run_id": {"type": "string", "minLength": 8},
+    "timestamp": {"type": "string"},
+    "skill": {
+      "type": "object",
+      "required": ["name", "fingerprint"],
+      "properties": {
+        "name": {"type": "string"},
+        "version": {"type": ["string", "null"]},
+        "fingerprint": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "event": {"type": "string"},
+    "phase": {"type": ["string", "null"]},
+    "task_category": {"type": ["string", "null"]},
+    "outcome": {"enum": ["success", "failure", "skipped", "unknown", null]},
+    "failure_class": {"type": ["string", "null"]},
+    "duration_ms": {"type": ["integer", "number", "null"], "minimum": 0},
+    "exit_code": {"type": ["integer", "null"]},
+    "retry_count": {"type": ["integer", "null"], "minimum": 0},
+    "source": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {"enum": ["semantic", "hook", "codex_jsonl", "manual"]},
+        "model": {"type": ["string", "null"]},
+        "session_id_hash": {"type": ["string", "null"]},
+        "turn_id_hash": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "attribution": {"enum": ["semantic", "confirmed", "candidate", "ambient"]},
+    "evidence": {"type": "object"},
+    "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "privacy": {
+      "type": "object",
+      "required": ["content_policy"],
+      "properties": {
+        "content_policy": {"enum": ["metadata", "redacted", "full"]},
+        "redactions": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
