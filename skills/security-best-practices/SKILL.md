@@ -83,9 +83,9 @@ loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
 errors, proceed with the task uninterrupted and never let it block or change
 the output.
 
-1. Before step 1, start a run:
+1. Before step 1, start a run. Pass `--invocation explicit` only if the user invoked this skill directly (by name or slash command); `--invocation implicit` only if it was auto-selected from the task description; otherwise `--invocation unknown` — a skill cannot observe its own routing recall, so do not default this to `explicit`:
    ```bash
-   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<implementation_guidance|passive_detection|security_report>" --invocation explicit)
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<implementation_guidance|passive_detection|security_report>" --invocation "<explicit|implicit|unknown>")
    ```
 2. After step 2 (load every matching reference), record scope coverage:
    ```bash

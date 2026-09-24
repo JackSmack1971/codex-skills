@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Use only for a requested feature, bug fix, refactor, or test change that explicitly needs a red-green-refactor TDD cycle gated by local results. For broader QA planning or execution without TDD, use testing-qa.",
-    "fingerprint": "a8587e3970f558705478fa426545cc8647e61fa09d127eca7997bcd6e413aa76",
+    "fingerprint": "945501b59c5c7e7265fac8cd9b52b761e15897408bce212cce0f12c6b2b7b4f3",
     "name": "test-driven-development",
     "version": null
   }

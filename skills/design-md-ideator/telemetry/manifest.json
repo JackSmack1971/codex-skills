@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Create, refine, reconstruct, or validate a standalone DESIGN.md design-system source of truth.",
-    "fingerprint": "c156fa044d399cc6ff1f5920150c2fc112cd405d3e13dc260cae6326b81101ab",
+    "fingerprint": "dd4f31a2fb471a2b6635c6f31cb26e3d5aa9e1b232d446f0f531eaa31c2797fa",
     "name": "design-md-ideator",
     "version": null
   }

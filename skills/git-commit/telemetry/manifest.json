@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Create commits or Conventional Commit messages when explicitly requested; use git-workflow for broader operations and github-issue-to-pr for the lifecycle.",
-    "fingerprint": "c3886d694c2462bef9324fb0d3420485836c8f523cee127eddeb6a20847efae0",
+    "fingerprint": "9a4e32c5956ea78f4ccb678f0504f101fc0ffe052ee540b96c39674e8f76dd0e",
     "name": "git-commit",
     "version": null
   }

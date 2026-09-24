@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Keep long-running or parallel work within usage limits by checking between waves and pausing safely.",
-    "fingerprint": "7d208766421dc884ff3ff8379847746ac6f78f9fad292bac5fde362c025485a1",
+    "fingerprint": "f90b7c8dfbc5612dc4a0886e6a6ed576fcad92f5f3d659cab769f6bb3f615d88",
     "name": "stay-within-limits",
     "version": null
   }

@@ -1,6 +1,6 @@
 # Telemetry sidecar: plugin-creator
 
-Generated for target fingerprint `476f65a43a5f504fc933959d3f86fe1889a5391a70010b52a6b1e60e88d339d6` in `repo` mode.
+Generated for target fingerprint `a99fff0cda2b25c6d0b7a70fdbebb1989499e5c54b11afc3824d049b5c99b437` in `repo` mode.
 
 This directory is an observability/eval substrate, not a self-modification engine.
 
@@ -20,7 +20,7 @@ On PowerShell, capture the first command output into a variable instead of using
 - `ambient/`: optional hook observations; ignored by VCS by default.
 - `derived/`: findings/eval candidates worth review.
 - `evals/regressions/`: only reviewed/promoted regression artifacts.
-- `state/`: local privacy salt and run index; ignored by VCS.
+- `state/`: local privacy salt, the active-run correlation pointer, and a durable run index (`runs_index.jsonl`); ignored by VCS.
 - `tools/`: portable analysis/import/comparison/validation utilities.
 - `schemas/`: machine-readable contracts for events, findings, manifests, inspections, and eval candidates.
 
@@ -32,6 +32,12 @@ The sidecar is self-contained for evidence analysis:
 python tools/analyze_telemetry.py .
 python tools/derive_eval_cases.py derived/findings.jsonl --out derived/eval-candidates.jsonl --supported-only
 python tools/validate_target_telemetry.py .
+```
+
+Find the most recent run without the original shell's `$RUN_ID` (for a later `user.correction`, for example):
+
+```bash
+python recorder.py last-run
 ```
 
 If runtime data is redirected with `SKILL_TELEMETRY_DATA_DIR` or `PLUGIN_DATA`, pass its resolved directory to `analyze_telemetry.py --data-root ...`.

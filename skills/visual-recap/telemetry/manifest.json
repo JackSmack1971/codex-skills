@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Turn PRs, branches, commits, or diffs into interactive visual recaps with diagrams and focused review notes.",
-    "fingerprint": "c681f0d84f7d716f8a1e047d6ca89e3af8b70cac6a09c15afb0b2f59c43cd388",
+    "fingerprint": "4ad799db2756dbcbf515ef27e0b92708687b83bd293df4bf099e794646a7c2cc",
     "name": "visual-recap",
     "version": null
   }

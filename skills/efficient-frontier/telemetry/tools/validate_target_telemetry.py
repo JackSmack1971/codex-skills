@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from common import SCHEMA_INSPECTION, SCHEMA_MANIFEST, load_jsonl, read_json
+from common import SCHEMA_INSPECTION, SCHEMA_MANIFEST, load_jsonl, read_json, target_fingerprint
 
 REQUIRED = [
     "manifest.json",
@@ -125,6 +125,21 @@ def validate(root: Path, *, run_smoke: bool = True) -> dict[str, Any]:
         issues.append(issue("error", "INSPECTION_SCHEMA", "unsupported inspection schema"))
     if manifest.get("target", {}).get("fingerprint") != inspection.get("fingerprint"):
         issues.append(issue("error", "FINGERPRINT_MISMATCH", "manifest and inspection target fingerprints differ"))
+
+    stored_fingerprint = manifest.get("target", {}).get("fingerprint")
+    if stored_fingerprint:
+        try:
+            live_fingerprint, _ = target_fingerprint(root.parent)
+            if live_fingerprint != stored_fingerprint:
+                issues.append(issue(
+                    "warning",
+                    "FINGERPRINT_LIVE_DRIFT",
+                    "the target skill directory on disk no longer matches the fingerprint recorded in "
+                    "manifest.json; regenerate this sidecar so recorded runs carry the current target "
+                    "identity instead of a stale one",
+                ))
+        except OSError as exc:
+            issues.append(issue("warning", "FINGERPRINT_LIVE_UNREADABLE", f"could not recompute live target fingerprint: {exc}"))
 
     capture = manifest.get("capture", {})
     if capture.get("raw_prompt_text") is not False or capture.get("raw_command_text") is not False or capture.get("tool_response_body") is not False:

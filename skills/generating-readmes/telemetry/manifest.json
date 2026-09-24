@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Create or upgrade grounded repository README operational manuals.",
-    "fingerprint": "ef77a67f3723ef94a5a2bbd925b512bdd15c60f4df0346f1d4944c4be4c31a3d",
+    "fingerprint": "68de6680c108d953813b41703f64721964200c6a809ec3fff15f46078ddac331",
     "name": "generating-readmes",
     "version": null
   }

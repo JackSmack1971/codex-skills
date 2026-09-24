@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Audit a broad repository and prepare plan-only architecture, security, performance, developer-experience, or product-direction improvements; use skill-auditor for skills.",
-    "fingerprint": "58b97ae0c6be0f0579aaef5efb0860eaccb7a2ea7fa9266f38bdab4ef2f2e352",
+    "fingerprint": "aa3d65f1b3b7422325dbb6dbf1145e6d19218e80e40769479d0afba1fd5bdab0",
     "name": "improve",
     "version": null
   }

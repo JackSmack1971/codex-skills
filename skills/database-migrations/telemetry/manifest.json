@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Plan, implement, or review safe persistent schema changes, backfills, compatibility windows, verification, and rollback.",
-    "fingerprint": "e9e68c8e8382035f08ff35ee6b86fd6ed92722252118e7183f950d32cfb0ca03",
+    "fingerprint": "00c920ef9eac195c2f16b04d10c4046e27d0c24340d2c2173c3926eaeee8a482",
     "name": "database-migrations",
     "version": null
   }

@@ -7492,7 +7492,7 @@
     "Inspection did not execute or import target code.",
     "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
   ],
-  "fingerprint": "90354f994ab13dc768d42e03a393fac8ef4bc13d7274eb597f799b8820532e06",
+  "fingerprint": "370f3365b65b70eeb8cfae6d3fa85326b49bef513577210880a6041dc004255a",
   "generated_at": "2026-09-24T13:58:19.686370Z",
   "inventory": [
     {

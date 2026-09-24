@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Generate or edit raster images when bitmap visuals are the right deliverable.",
-    "fingerprint": "f5b932028b65b839164077ea0c4851b9d4ab65d812214582163cb7b8c17164ef",
+    "fingerprint": "f6cac605ee748c16db05d31ab545367d4d16b337567116eb3981979d51aeb03c",
     "name": "imagegen",
     "version": null
   }

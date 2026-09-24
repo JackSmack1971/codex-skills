@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Perform broad Git repository operations; use git-commit for commit-only, using-git-worktrees for isolation, and github-issue-to-pr for the complete lifecycle.",
-    "fingerprint": "6a0e543a61c3905fa6cbc50afe6ab1fa2a77b8b2163cd261113b6efbe6b2784e",
+    "fingerprint": "ae3ab7b1c75ce60719e7c0f6b0f3983c12b097ef9d524385fb7f907e09694940",
     "name": "git-workflow",
     "version": null
   }

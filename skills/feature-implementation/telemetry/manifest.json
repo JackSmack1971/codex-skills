@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Implement a requested concrete feature in an existing repository as the smallest verified change with focused verification; use narrower cross-layer, TDD, or QA skills when explicit.",
-    "fingerprint": "564930365f49be16b30ae5e0f51f688ad322d2db4ad09dba72220ed45907286a",
+    "fingerprint": "3176c12906b48e5081e8bdfecd39c2705f715be317d8e53aa45f0d8b17aa2bec",
     "name": "feature-implementation",
     "version": null
   }

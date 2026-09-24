@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Orchestrate high-cost frontier-model work through cheaper delegated research, coding, and testing with final synthesis and review.",
-    "fingerprint": "272fb8a902d4e56b4a3d2e5c2688edd1a1b9757950c0e78399cb03b7b2db98ec",
+    "fingerprint": "5f88123a801195a360c5def93ad2b09765f5afd5752ffe7c7010988ce5418c5a",
     "name": "efficient-frontier",
     "version": null
   }

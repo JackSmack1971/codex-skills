@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Use for pull-request, branch-diff, or proposed-merge review, including merge-risk scoring and structured GitHub review output. Do not use for a generic delegated or read-only code-change review; use review-agent instead.",
-    "fingerprint": "c4af32aa1e45f7d461ec48eaed81c463b5da00f69564e2a4a8683888314674da",
+    "fingerprint": "e00b8717139d84a2003c6a013a632506e54c7367d45e463cacf07ca8f3e814c8",
     "name": "pr-review",
     "version": null
   }

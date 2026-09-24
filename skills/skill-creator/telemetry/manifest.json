@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Create or improve general standalone Open Agent skill work, including metadata, descriptions, tests, and migration; exclude named-library docs and plugin packaging.",
-    "fingerprint": "cc4171d128cb258f97b95df8b679db7df2f9e8ee491b0267c6a4c8262aabc6f8",
+    "fingerprint": "ad02fc8880eaf6d52b0b8a6d723b7a68e204d1fb6009589e3d085273ebcc6285",
     "name": "skill-creator",
     "version": null
   }

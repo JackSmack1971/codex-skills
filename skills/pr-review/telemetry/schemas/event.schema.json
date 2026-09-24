@@ -22,7 +22,7 @@
     "event": {"type": "string"},
     "phase": {"type": ["string", "null"]},
     "task_category": {"type": ["string", "null"]},
-    "outcome": {"enum": ["success", "failure", "skipped", "unknown", null]},
+    "outcome": {"enum": ["success", "failure", "skipped", "unknown", "interrupted", null]},
     "failure_class": {"type": ["string", "null"]},
     "duration_ms": {"type": ["integer", "number", "null"], "minimum": 0},
     "exit_code": {"type": ["integer", "null"]},
@@ -38,7 +38,7 @@
       },
       "additionalProperties": true
     },
-    "attribution": {"enum": ["semantic", "confirmed", "candidate", "ambient"]},
+    "attribution": {"enum": ["semantic", "confirmed", "candidate", "ambient", "correlated"]},
     "evidence": {"type": "object"},
     "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
     "privacy": {

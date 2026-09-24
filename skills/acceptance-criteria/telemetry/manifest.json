@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Turn ambiguous requirements into observable pass/fail acceptance criteria.",
-    "fingerprint": "629fd07c25eaf30278cc3ae1b0662e8dd7a16ae8e18092a8a5474d789bf7f696",
+    "fingerprint": "dc81722e7fb731ed936aadce2b9e0c30741ec860c2d563ba5701f54ab7af7a29",
     "name": "acceptance-criteria",
     "version": null
   }

@@ -13,6 +13,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+sys.path.insert(0, str(Path(__file__).resolve().parent / "tools"))
+from common import target_fingerprint  # noqa: E402
+
 SCHEMA = "skilltelemetry.event.v1"
 SECRET_KEY_RE = re.compile(r"(?:api[_-]?key|secret|token|password|passwd|credential|authorization|cookie|private[_-]?key)", re.I)
 SECRET_VALUE_RES = [
@@ -127,8 +130,28 @@ def command_class(command: str) -> str | None:
     return Path(first).name or None
 
 
+def _elapsed_ms(started_at: str | None) -> float | None:
+    if not started_at:
+        return None
+    try:
+        start = datetime.fromisoformat(str(started_at).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return max(0.0, (datetime.now(timezone.utc) - start).total_seconds() * 1000.0)
+
+
 def _run_state(root: Path, run_id: str) -> Path:
     return root / "state" / "runs" / f"{run_id}.json"
+
+
+def _read_run_state(root: Path, run_id: str) -> dict[str, Any]:
+    state = _run_state(root, run_id)
+    if not state.exists():
+        return {}
+    try:
+        return load_json(state)
+    except (ValueError, json.JSONDecodeError):
+        return {}
 
 
 def _run_path(root: Path, run_id: str, date: str | None = None) -> Path:
@@ -144,10 +167,69 @@ def _run_path(root: Path, run_id: str, date: str | None = None) -> Path:
     return root / "raw" / day / f"{run_id}.jsonl"
 
 
-def _register_run(root: Path, run_id: str, path: Path) -> None:
+def _register_run(root: Path, run_id: str, path: Path, **extra: Any) -> None:
+    """Persist (merging, never clobbering) this run's location and correlation metadata."""
     state = _run_state(root, run_id)
     state.parent.mkdir(parents=True, exist_ok=True)
-    state.write_text(json.dumps({"relative_path": path.relative_to(root).as_posix()}) + "\n", encoding="utf-8")
+    existing = _read_run_state(root, run_id)
+    existing["relative_path"] = path.relative_to(root).as_posix()
+    for key, value in extra.items():
+        if value is not None:
+            existing[key] = value
+    state.write_text(json.dumps(existing, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _active_run_path(root: Path) -> Path:
+    return root / "state" / "active_run.json"
+
+
+def get_active_run(root: Path) -> dict[str, Any] | None:
+    """The most recently started run for this sidecar that has not yet finished (or been marked interrupted)."""
+    path = _active_run_path(root)
+    if not path.exists():
+        return None
+    try:
+        value = load_json(path)
+    except (ValueError, json.JSONDecodeError):
+        return None
+    return value if value.get("run_id") else None
+
+
+def set_active_run(root: Path, value: dict[str, Any] | None) -> None:
+    path = _active_run_path(root)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if value is None:
+        try:
+            path.unlink()
+        except FileNotFoundError:
+            pass
+        return
+    path.write_text(json.dumps(value, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _runs_index_path(root: Path) -> Path:
+    return root / "state" / "runs_index.jsonl"
+
+
+def append_run_index(root: Path, record: dict[str, Any]) -> None:
+    """Durable run lookup table so a later session/day can find a run_id without holding the old shell variable."""
+    append_jsonl(_runs_index_path(root), record)
+
+
+def _fingerprint_drift_evidence(sidecar_root: Path, manifest: dict[str, Any]) -> dict[str, Any]:
+    """Recompute the target skill's live fingerprint so a stale sidecar (generated before a later
+    SKILL.md edit) is visible on every run.started instead of silently trusting the stored manifest."""
+    try:
+        live_fingerprint, _ = target_fingerprint(sidecar_root.parent)
+    except OSError:
+        return {}
+    stored_fingerprint = manifest.get("target", {}).get("fingerprint")
+    if not stored_fingerprint:
+        return {"live_fingerprint": live_fingerprint}
+    return {
+        "live_fingerprint": live_fingerprint,
+        "fingerprint_stale": live_fingerprint != stored_fingerprint,
+    }
 
 
 def base_event(
@@ -209,8 +291,45 @@ def parse_evidence(text: str | None) -> dict[str, Any]:
     return value
 
 
+def _close_interrupted_run(sidecar_root: Path, root: Path, stale: dict[str, Any], *, reason: str) -> None:
+    """Auto-close a run that never received a `finish` before a new run started, so an
+    agent crash or abandoned run is distinguishable from a run that is still legitimately open."""
+    run_id = str(stale.get("run_id"))
+    started_at = stale.get("started_at")
+    event, _, _ = base_event(
+        sidecar_root,
+        run_id=run_id,
+        event="run.finished",
+        source_kind="semantic",
+        attribution="correlated",
+    )
+    event.update({
+        "phase": "interrupted",
+        "outcome": "interrupted",
+        "failure_class": "run_not_finished",
+        "duration_ms": _elapsed_ms(started_at),
+        "evidence": {"detected_by": reason, "task_category": stale.get("task_category")},
+        "tags": ["auto_interrupted"],
+    })
+    emit(sidecar_root, event)
+    append_run_index(root, {
+        "run_id": run_id,
+        "started_at": started_at,
+        "finished_at": event["timestamp"],
+        "outcome": "interrupted",
+        "task_category": stale.get("task_category"),
+    })
+
+
 def cmd_start(args: argparse.Namespace, sidecar_root: Path) -> int:
     run_id = args.run_id or str(uuid.uuid4())
+    manifest = load_manifest(sidecar_root)
+    root = data_root(sidecar_root, manifest)
+
+    stale = get_active_run(root)
+    if stale and str(stale.get("run_id")) != run_id:
+        _close_interrupted_run(sidecar_root, root, stale, reason="next_run_started")
+
     event, _, _ = base_event(
         sidecar_root,
         run_id=run_id,
@@ -219,14 +338,29 @@ def cmd_start(args: argparse.Namespace, sidecar_root: Path) -> int:
         turn_id=args.turn_id,
         model=args.model,
     )
+    evidence = {"invocation": args.invocation, **_fingerprint_drift_evidence(sidecar_root, manifest)}
     event.update({
         "phase": args.phase,
         "task_category": args.task_category,
         "outcome": "unknown",
-        "evidence": {"invocation": args.invocation},
+        "evidence": evidence,
         "tags": sorted(set(args.tag or [])),
     })
-    emit(sidecar_root, event)
+    path = emit(sidecar_root, event)
+    _register_run(
+        root, run_id, path,
+        started_at=event["timestamp"],
+        task_category=args.task_category,
+        model=args.model,
+        session_id_hash=event["source"]["session_id_hash"],
+    )
+    set_active_run(root, {
+        "run_id": run_id,
+        "started_at": event["timestamp"],
+        "task_category": args.task_category,
+        "model": args.model,
+        "session_id_hash": event["source"]["session_id_hash"],
+    })
     print(run_id)
     return 0
 
@@ -266,6 +400,11 @@ def cmd_event(args: argparse.Namespace, sidecar_root: Path) -> int:
 
 
 def cmd_finish(args: argparse.Namespace, sidecar_root: Path) -> int:
+    manifest = load_manifest(sidecar_root)
+    root = data_root(sidecar_root, manifest)
+    state = _read_run_state(root, args.run_id)
+    duration_ms = args.duration_ms if args.duration_ms is not None else _elapsed_ms(state.get("started_at"))
+
     event, _, _ = base_event(
         sidecar_root,
         run_id=args.run_id,
@@ -278,11 +417,53 @@ def cmd_finish(args: argparse.Namespace, sidecar_root: Path) -> int:
         "phase": args.phase,
         "outcome": args.outcome,
         "failure_class": args.failure_class,
-        "duration_ms": args.duration_ms,
+        "duration_ms": duration_ms,
         "evidence": parse_evidence(args.evidence_json),
         "tags": sorted(set(args.tag or [])),
     })
     emit(sidecar_root, event)
+
+    active = get_active_run(root)
+    if active and str(active.get("run_id")) == args.run_id:
+        set_active_run(root, None)
+    append_run_index(root, {
+        "run_id": args.run_id,
+        "started_at": state.get("started_at"),
+        "finished_at": event["timestamp"],
+        "outcome": args.outcome,
+        "task_category": state.get("task_category"),
+    })
+    return 0
+
+
+def cmd_last_run(args: argparse.Namespace, sidecar_root: Path) -> int:
+    """Durable lookup for `user.correction` linkage: find the most recent recorded run
+    without needing the shell's $RUN_ID from the original session."""
+    manifest = load_manifest(sidecar_root)
+    root = data_root(sidecar_root, manifest)
+    idx_path = _runs_index_path(root)
+    if not idx_path.exists():
+        return 1
+    records: list[dict[str, Any]] = []
+    with idx_path.open("r", encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(value, dict):
+                records.append(value)
+    if args.task_category:
+        records = [r for r in records if r.get("task_category") == args.task_category]
+    if args.outcome:
+        records = [r for r in records if r.get("outcome") == args.outcome]
+    if not records:
+        return 1
+    records.sort(key=lambda r: str(r.get("finished_at") or r.get("started_at") or ""))
+    print(json.dumps(records[-1], sort_keys=True))
     return 0
 
 
@@ -291,6 +472,9 @@ def add_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--turn-id")
     parser.add_argument("--model")
     parser.add_argument("--tag", action="append")
+
+
+OUTCOME_CHOICES = ["success", "failure", "skipped", "unknown", "interrupted"]
 
 
 def main() -> int:
@@ -302,7 +486,12 @@ def main() -> int:
     p_start.add_argument("--run-id")
     p_start.add_argument("--phase", default="start")
     p_start.add_argument("--task-category")
-    p_start.add_argument("--invocation", choices=["explicit", "implicit", "unknown"], default="unknown")
+    p_start.add_argument(
+        "--invocation", choices=["explicit", "implicit", "unknown"], default="unknown",
+        help="explicit only if the user invoked this skill by name/slash command; implicit only if it was "
+             "auto-selected from the task description; unknown (the default) otherwise. A skill cannot "
+             "observe its own routing recall, so do not default this to explicit.",
+    )
     add_common(p_start)
 
     p_event = sub.add_parser("event")
@@ -310,7 +499,7 @@ def main() -> int:
     p_event.add_argument("--event", required=True)
     p_event.add_argument("--phase")
     p_event.add_argument("--task-category")
-    p_event.add_argument("--outcome", choices=["success", "failure", "skipped", "unknown"])
+    p_event.add_argument("--outcome", choices=OUTCOME_CHOICES)
     p_event.add_argument("--failure-class")
     p_event.add_argument("--duration-ms", type=float)
     p_event.add_argument("--exit-code", type=int)
@@ -325,11 +514,19 @@ def main() -> int:
     p_finish = sub.add_parser("finish")
     p_finish.add_argument("--run-id", required=True)
     p_finish.add_argument("--phase", default="finish")
-    p_finish.add_argument("--outcome", choices=["success", "failure", "skipped", "unknown"], default="success")
+    p_finish.add_argument("--outcome", choices=OUTCOME_CHOICES, default="success")
     p_finish.add_argument("--failure-class")
-    p_finish.add_argument("--duration-ms", type=float)
+    p_finish.add_argument(
+        "--duration-ms", type=float,
+        help="Optional override. By default the recorder computes this itself from the run's "
+             "recorded run.started timestamp, so callers do not need to track wall-clock time.",
+    )
     p_finish.add_argument("--evidence-json")
     add_common(p_finish)
+
+    p_last = sub.add_parser("last-run", help="Print the most recently completed/interrupted run as JSON, for durable correction linkage.")
+    p_last.add_argument("--task-category")
+    p_last.add_argument("--outcome", choices=OUTCOME_CHOICES)
 
     args = parser.parse_args()
     root = args.sidecar_root.resolve()
@@ -339,6 +536,8 @@ def main() -> int:
         return cmd_event(args, root)
     if args.subcommand == "finish":
         return cmd_finish(args, root)
+    if args.subcommand == "last-run":
+        return cmd_last_run(args, root)
     return 2
 
 

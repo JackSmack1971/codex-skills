@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Design or review durable data models, relationships, constraints, indexes, lifecycle, and concurrency assumptions.",
-    "fingerprint": "a50e957eb29d947902ba791c5d92478350bfeff3caebf1b12f4ea5f080085f4b",
+    "fingerprint": "50bef9511dc664c24b170a66553377f77ff0c80b0a44de211f548c8cc2bf8ac6",
     "name": "data-modeling",
     "version": null
   }

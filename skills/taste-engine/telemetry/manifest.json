@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Apply an explicitly enabled user-maintained design preference profile to UI/UX briefs.",
-    "fingerprint": "ceca3db9f0c0075a167c721282cfb6c1132c91043ec2c9d1c7343db2d5bdbfe7",
+    "fingerprint": "0688401853295cd66b4a43bb2d1cd092103efe162dff7df01e4281e36f2a66fa",
     "name": "taste-engine",
     "version": null
   }

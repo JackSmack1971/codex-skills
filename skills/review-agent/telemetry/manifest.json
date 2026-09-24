@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Use for a delegated, read-only, defect-first review of specified code changes such as uncommitted changes, a base-branch diff, a commit, or custom instructions. Do not use for pull-request or proposed-merge review; use pr-review instead.",
-    "fingerprint": "f67152d12851a4041c333901fdd77f528cfb33f7b016b75712a4c81f8dea3ea8",
+    "fingerprint": "2a21dc4b54b411ba5cbfbbb44c6bdbee99b05269a54694f2a97fbc86f940e647",
     "name": "review-agent",
     "version": null
   }

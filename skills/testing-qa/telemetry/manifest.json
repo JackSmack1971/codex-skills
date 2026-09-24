@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Use to choose or run proportionate QA checks across unit, integration, browser, performance, security, or release quality for an existing change. Do not use when the requested workflow is specifically red-green-refactor TDD; use test-driven-development.",
-    "fingerprint": "f3a8333959ec1a0cc89dc4a3bb7c49a62c66f89fc9a75653c9e18a3f720c0474",
+    "fingerprint": "2c4299862573f562ed90ec4ea9d2aeb57e7e81d02bd4bc50a2530772bb969035",
     "name": "testing-qa",
     "version": null
   }

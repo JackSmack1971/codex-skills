@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Safely implement or review integrations with external APIs, SDKs, webhooks, OAuth, and service providers.",
-    "fingerprint": "d11f3a430ee660bde54b037b73fb942c9ec394e575ea88f18d5a92593deee1b7",
+    "fingerprint": "cc43583b3f234d8f401afc24f4f96f4b7b96fc012586584739257a57adc57c93",
     "name": "integration-engineering",
     "version": null
   }

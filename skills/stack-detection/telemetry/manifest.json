@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Classify a desktop client stack before architectural or client-layer changes.",
-    "fingerprint": "ffcc36a46a21f8e9372dd74f6f785bc7735b32c5cf56d21e0e9752c71539bfdf",
+    "fingerprint": "d3a9a2b05c0aaec3fada0603cf3dbaa1c666133dbd942a1c19a10ae4250249ec",
     "name": "stack-detection",
     "version": null
   }

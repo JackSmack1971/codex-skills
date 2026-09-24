@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Audit skill packages, routing boundaries, metadata, and multi-skill handoffs; exclude broad repository audits and Codex configuration.",
-    "fingerprint": "de12529a9bc3f3f55e4d9253fa3bd44190e39840d161b0484dd8a3899d20df9e",
+    "fingerprint": "9f9271107c1394f91f2cbccde20a31f0fdb9f52390203a920a260d7efd680264",
     "name": "skill-auditor",
     "version": null
   }

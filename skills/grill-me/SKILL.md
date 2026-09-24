@@ -18,9 +18,9 @@ loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
 errors, proceed with the session uninterrupted and never let it block or
 change the output.
 
-1. Before starting the interrogation, start a run:
+1. Before starting the interrogation, start a run. Pass `--invocation explicit` only if the user invoked this skill directly (by name or slash command); `--invocation implicit` only if it was auto-selected from the task description; otherwise `--invocation unknown` — a skill cannot observe its own routing recall, so do not default this to `explicit`:
    ```bash
-   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<plan|design>" --invocation explicit)
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<plan|design>" --invocation "<explicit|implicit|unknown>")
    ```
 2. After the questioning has run its course (assumptions challenged, missing
    constraints exposed, alternatives tested), record the interrogation

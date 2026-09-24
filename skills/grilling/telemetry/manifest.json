@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Use for a new interactive plan or design stress-test, asking one recommended question at a time until shared understanding. Do not use for explicit /grill-me compatibility invocations; route those to grill-me.",
-    "fingerprint": "b57ab5d31081ba7ec4daaf5da6fe8838b94209146a1429dd871ac127125b015f",
+    "fingerprint": "e8d1a6e1c70f87784b953cc817b0ea46bdb92d6798c49660c16af7c6e92f629d",
     "name": "grilling",
     "version": null
   }

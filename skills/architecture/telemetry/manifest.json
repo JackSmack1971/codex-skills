@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Create or evaluate architecture decisions and system designs with constraints, alternatives, and trade-offs.",
-    "fingerprint": "721c4be7f1ad06f3e06647cc9287cdafd41392b9f1c6c821a482322ad8e5d6e2",
+    "fingerprint": "48ef5b90c208c5e93a2828ff5d79b08afa3590cfda122458e73b74984865191c",
     "name": "architecture",
     "version": null
   }

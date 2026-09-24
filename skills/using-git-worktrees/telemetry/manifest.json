@@ -53,7 +53,7 @@
   },
   "target": {
     "description": "Create or verify an isolated Git worktree for parallel or branch-isolated work; github-issue-to-pr composes it for the complete lifecycle.",
-    "fingerprint": "5d1f30d195e4c676a68f74c2c2b1261ef78830a1265691e32a1bb7ed77bb77e4",
+    "fingerprint": "dda5a928653a833c78a668832fde902ff188ecb81e4b99a781bc5956e04a01ca",
     "name": "using-git-worktrees",
     "version": null
   }
