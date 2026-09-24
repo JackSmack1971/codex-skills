@@ -56,3 +56,50 @@ All of these scripts use network, so when running in the sandbox, request escala
 - The skills at https://github.com/openai/skills/tree/main/skills/.system are preinstalled. Explain that they do not need installation. The bundled installer always refuses an existing destination and does not support overwrite or replacement. If the user explicitly requests replacement, preserve the existing directory and use a separately reviewed backup-and-replace workflow; do not imply that this installer can overwrite it.
 - Installed annotations come from `$HOME/.agents/skills`.
 - Plugins are preferred for reusable or bundled distribution; this skill remains for individual standalone skills and local experimentation.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before running the first helper script, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<list_curated|list_experimental|install_curated|install_experimental|install_external_repo>" --invocation explicit)
+   ```
+   If `python3` is unavailable, use `python`.
+2. After resolving the source (curated list, experimental list, or an
+   external/private repo per the Scripts section), record the source
+   decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase resolve_source \
+     --evidence-json '{"source_type":"<curated|experimental|external_repo|private_repo>","skills_requested_count":<N>,"auth_method":"<none|github_token|git_credentials>"}'
+   ```
+3. Before installing, after checking whether the destination skill directory
+   already exists (Behavior and Options: "Aborts if the destination skill
+   directory already exists"), record the conflict check:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase conflict_check \
+     --evidence-json '{"conflicting_skill_count":<N>,"aborted_for_conflict":<true|false>}'
+   ```
+4. After the install attempt (direct download, or the git-fallback path with
+   HTTPS tried before SSH), record the install outcome; if the direct
+   download failed and the git fallback was used, emit this as a `retry`
+   event instead of `verification`:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event <verification|retry> --phase install --outcome <success|failure> \
+     --evidence-json '{"install_method_used":"<direct_download|git_https|git_ssh>","fallback_triggered":<true|false>}'
+   ```
+5. Before telling the user the skill will be available next turn, close the
+   run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"skills_installed_count":<N>,"source_type":"<curated|experimental|external_repo|private_repo>","install_method_used":"<direct_download|git_https|git_ssh|not_attempted>","conflicts_encountered":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g.
+   `curated_listing_unavailable`, `destination_conflict`,
+   `download_and_git_failed`) when the curated listing could not be fetched,
+   every destination conflicted, or both the download and git fallback
+   failed.

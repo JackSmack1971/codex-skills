@@ -60,4 +60,47 @@ Build production-ready design systems with Tailwind CSS, including design tokens
 
 - `resources/implementation-playbook.md` for detailed patterns and examples.
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before the version gate, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<component_library|design_tokens|responsive_accessible|pattern_standardization|migration|dark_mode_setup>" --invocation explicit)
+   ```
+   If `python3` is unavailable, use `python`.
+2. After the version gate resolves (or fails to), record the version
+   decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase version_gate --outcome <success|failure> \
+     --evidence-json '{"tailwind_version":"<v3|v4|unknown>","evidence_source":"<package_json|lockfile|dependency_tree|css_config|insufficient>","stopped_due_to_unknown":<true|false>}'
+   ```
+3. After selecting and applying the matching v3/v4 playbook section
+   (Instructions: "apply relevant best practices and validate outcomes"),
+   record what was applied:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event operation --phase apply_playbook \
+     --evidence-json '{"playbook_loaded":<true|false>,"version_neutral_sections_used":["<subset of design_tokens,component_variants,responsive,dark_mode,accessibility>"],"mixed_setup_flagged":<true|false>}'
+   ```
+4. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"tailwind_version":"<v3|v4|unknown>","task_category":"<component_library|design_tokens|responsive_accessible|pattern_standardization|migration|dark_mode_setup>","playbook_loaded":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (`version_unknown`) when
+   the version gate could not establish a version and guidance stopped
+   before any version-sensitive setup, per the Version gate section.
+
+If a maintainer later reports the detected Tailwind version was wrong,
+record it as its own event so drift in the version gate's accuracy is
+visible without re-running the guidance:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_tailwind_version":"<v3|v4|unknown>","correction":"version_misdetected","corrected_version":"<v3|v4>"}'
+```
+
 

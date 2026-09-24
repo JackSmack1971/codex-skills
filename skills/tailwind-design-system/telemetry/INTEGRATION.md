@@ -14,39 +14,40 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual version-gate and playbook flow (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before the version gate | `run.started` | `task_category` ("Use this skill when" scenario) |
+| After the version gate | `decision` (`phase=version_gate`) | `tailwind_version`, `evidence_source`, `stopped_due_to_unknown` |
+| After applying the matched v3/v4 playbook section | `operation` (`phase=apply_playbook`) | `playbook_loaded`, `version_neutral_sections_used`, `mixed_setup_flagged` |
+| Before returning output | `run.finished` | `tailwind_version`, `task_category`, `playbook_loaded` |
+| When a maintainer later disputes the detected version | `user.correction` | `original_tailwind_version`, `correction`, `corrected_version` |
 
-- `SKILL.md:11` — Before giving version-sensitive setup or configuration guidance, establish the
-- `SKILL.md:16` — 2. The package manager's dependency tree when repository files are insufficient.
-- `SKILL.md:20` — If evidence is missing or conflicting, say that the version is unknown and stop
-- `SKILL.md:21` — before recommending version-sensitive setup. Do not silently choose v3 or v4.
-- `SKILL.md:31` — accessibility guidance below version-neutral unless a section is explicitly
-- `SKILL.md:37` — ## Use this skill when
-- `SKILL.md:46` — ## Do not use this skill when
-- `SKILL.md:56` — - If detailed examples are required, open `resources/implementation-playbook.md`
-- `SKILL.md:57` — after the version gate succeeds.
-- `VERIFICATION.md:3` — - The skill requires Tailwind major-version evidence before version-sensitive
-- `resources/implementation-playbook.md:9` — ## When to Use This Skill
-- `resources/implementation-playbook.md:39` — Before using either setup section, establish the Tailwind major version from
-- `resources/implementation-playbook.md:40` — `package.json` plus the lockfile or installed package metadata. If the version
-- `resources/implementation-playbook.md:51` — metadata wins when evidence disagrees.
-- `resources/implementation-playbook.md:69` — so do not add a legacy `content` array by default. If a v4 project still needs
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the accuracy analysis (`tailwind_version` joined against later
+`user.correction`) an improvement agent should run over these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:12` — project's Tailwind major version from repository evidence. Check, in order:
-- `SKILL.md:54` — - Apply relevant best practices and validate outcomes.
-- `VERIFICATION.md:15` — python -m unittest discover -s tests -v
-- `resources/implementation-playbook.md:700` — - **Don't forget dark mode** - Test both themes
-- `tests/evaluation-cases.md:19` — 4. **Preservation:** Across all three cases, verify that token hierarchy,
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:11-18` — the version-gate evidence priority (`package.json`/lockfile, dependency tree, CSS/config as corroborating-only) — became `evidence_source`.
+- `SKILL.md:20-21` — "say that the version is unknown and stop... Do not silently choose v3 or v4" — became `stopped_due_to_unknown` and the `version_unknown` failure class.
+- `SKILL.md:25-33` — the v3/v4 playbook branches and "never mix the two setup patterns without explaining the compatibility reason" — became `mixed_setup_flagged`.
+- `SKILL.md:30-32` — the version-neutral guidance areas (design tokens, component variants, responsive, dark mode, accessibility) — became `version_neutral_sections_used`.
+- `SKILL.md:37-44` — the "Use this skill when" scenario list — became the `task_category` enum.
+- `SKILL.md:56-57` — "open `resources/implementation-playbook.md` after the version gate succeeds" — became `playbook_loaded`.
 
 ### Execution candidates
 
-- `resources/implementation-playbook.md:608` — root.classList.remove('light', 'dark')
+- None; this skill has no bundled scripts.
 
 ## Hook evidence
 

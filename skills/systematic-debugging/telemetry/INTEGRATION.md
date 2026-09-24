@@ -14,51 +14,42 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Diagnostic workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (failure class) |
+| After step 1 (establish failure and baseline) | `verification` (`phase=baseline`) | `reproducible`, `intermittent`, `baseline_captured` |
+| After step 3 (test a falsifiable hypothesis) | `decision` (`phase=hypothesis`) | `hypothesis_confirmed`, `failed_attempts`, `scope_expansion_requested` |
+| After step 4 (correct the cause) | `operation` (`phase=correct`) | `containment_used`, `regression_check_added`, `defense_in_depth_added`, `scope_expansion_flagged` |
+| After step 5 (verify and stop) | `verification` (`phase=verify`) | `symptom_resolved`, `regression_check_passes`, `surrounding_checks_clean`, `completion_status` |
+| Before returning output | `run.finished` | `completion_status`, `failed_attempts`, `containment_used` |
+| When a maintainer later disputes the diagnosis or fix | `user.correction` | `original_completion_status`, `correction` |
 
-- `LICENSE.txt:19` — LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-- `SKILL.md:3` — description: "Diagnose bugs, test or build failures, regressions, and unexpected behavior before a permanent fix; exclude planned features without a failure signal."
-- `SKILL.md:11` — - **Trigger and exclusion:** Use before proposing a permanent fix for a bug, test failure, performance regression, build failure, or unexpected behavior; exclude planned feature work without a failure signal, routing it to feature-implementation.
-- `SKILL.md:19` — - **References:** Resolve required references and scripts relative to this package; stop if a required bundled resource is absent.
-- `SKILL.md:25` — Immediate containment may precede diagnosis only when needed to limit a
-- `SKILL.md:37` — - Reproduce with the smallest reliable case. If intermittent, record frequency,
-- `SKILL.md:41` — - When tests already fail, capture the pre-change baseline so introduced
-- `SKILL.md:44` — If the failure cannot be reproduced or observed well enough to discriminate
-- `SKILL.md:55` — Read [root-cause-tracing.md](../root-cause-tracing.md) when the bad state originates
-- `SKILL.md:62` — the smallest reversible experiment that changes one meaningful variable. If
-- `SKILL.md:66` — Repeated failed hypotheses do not prove that the architecture is wrong. After
-- `SKILL.md:69` — whether broader architectural investigation is warranted. Ask before expanding
-- `SKILL.md:74` — - Add the smallest durable regression check practical for the failure. When an
-- `SKILL.md:78` — - Avoid unrelated refactors unless the root cause cannot be corrected safely
-- `SKILL.md:79` — without them; surface that scope expansion before proceeding.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the accuracy analysis (`completion_status` joined against later
+`user.correction`) an improvement agent should run over these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:3` — description: "Diagnose bugs, test or build failures, regressions, and unexpected behavior before a permanent fix; exclude planned features without a failure signal."
-- `SKILL.md:11` — - **Trigger and exclusion:** Use before proposing a permanent fix for a bug, test failure, performance regression, build failure, or unexpected behavior; exclude planned feature work without a failure signal, routing it to feature-implementation.
-- `SKILL.md:12` — - **Bounded workflow:** Establish the symptom and baseline, localize the fault, test one falsifiable hypothesis, implement the narrowest root-cause correction, and verify the original symptom plus relevant regressions.
-- `SKILL.md:13` — - **Output:** Return the diagnosis, supporting evidence, change made or safe stop, validation results, and remaining uncertainty.
-- `SKILL.md:39` — - Check relevant error output, stack traces, recent diffs, dependency/config
-- `SKILL.md:59` — ### 3. Test a falsifiable hypothesis
-- `SKILL.md:67` — three unsuccessful correction attempts, stop patching, re-check the
-- `SKILL.md:74` — - Add the smallest durable regression check practical for the failure. When an
-- `SKILL.md:75` — automated test is infeasible, define an observable manual or integration
-- `SKILL.md:76` — check and explain the limitation.
-- `SKILL.md:84` — For order-dependent test pollution, the bundled
-- `SKILL.md:87` — ### 5. Verify and stop
-- `SKILL.md:89` — Re-run the original reproduction and the new regression check, then run the
-- `SKILL.md:90` — narrowest relevant surrounding validation capable of detecting collateral
-- `SKILL.md:96` — - the regression check fails without the correction and passes with it, when
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:3` — description naming bug/test/build/regression/unexpected-behavior triggers — became the `task_category` enum.
+- `SKILL.md:36-44` — reproduction, intermittency recording, and pre-change baseline capture — became the `baseline`-phase fields.
+- `SKILL.md:66-69` — "After three unsuccessful correction attempts, stop patching... Ask before expanding scope" — became `failed_attempts` and `scope_expansion_requested`.
+- `SKILL.md:25-29` — the Invariant and containment exception's "temporary mitigation" concept — became `containment_used`.
+- `SKILL.md:74-81` — the smallest-durable-regression-check, unrelated-refactor, and defense-in-depth rules — became `regression_check_added`, `scope_expansion_flagged`, `defense_in_depth_added`.
+- `SKILL.md:93-101` — the five explicit completion-criteria bullets under step 5 — became `symptom_resolved`, `regression_check_passes`, `surrounding_checks_clean`, and `completion_status`.
 
 ### Execution candidates
 
-- `scripts/find_polluter.py:7` — import subprocess
-- `scripts/find_polluter.py:31` — subprocess.run(["npm", "test", str(test_file)], stdout=subprocess.DEVNULL,
-- `scripts/find_polluter.py:32` — stderr=subprocess.DEVNULL, check=False)
+- `scripts/find_polluter.py` remains uninstrumented directly; when used for order-dependent test pollution it is folded into the `correct`-phase `operation` event above instead of being instrumented per-subprocess-call, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

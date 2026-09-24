@@ -14,44 +14,39 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Core Loop steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before Core Loop step 1 | `run.started` | `task_category` (pre-wave vs. between-wave vs. resume check) |
+| After step 3 (check current usage) | `verification` (`phase=check_usage`) | `usage_signal_source`, `five_hour_window_pct`, `weekly_window_pct`, `threshold` |
+| After step 4 (decide to stop/continue) | `decision` (`phase=throttle`) | `action_taken`, `threshold_breached_window`, `wave_size` |
+| After scheduling a resume (Pausing And Resuming) | `operation` (`phase=schedule_resume`) | `wait_mechanism`, `wait_seconds`, `chained_wakeups` |
+| Before ending the turn (after Reporting) | `run.finished` | `action_taken`, `usage_signal_source`, `paused_count` |
+| When a user later disputes the pause/continue call | `user.correction` | `original_action`, `correction` |
 
-- `README.md:7` — runs work in bounded waves, and pauses before it crosses the limit instead of
-- `README.md:12` — - Checks 5-hour and weekly usage before substantial work and between waves.
-- `README.md:14` — - Pauses new work when either window reaches 95% of its limit.
-- `README.md:15` — - Resumes only after re-checking that the actual window or block is clear.
-- `README.md:16` — - Makes wake prompts self-contained so work can continue after a long pause.
-- `README.md:22` — ## When To Use It
-- `README.md:33` — When Codex CLI does not expose a better first-party usage signal, use:
-- `README.md:47` — rule to reschedule if the limit is still too high. If more delegated work
-- `README.md:60` — Use `--update-instructions` when you want the 5-hour and weekly limit convention
-- `SKILL.md:11` — Check before launching substantial work and between bounded waves. If the user
-- `SKILL.md:12` — has not selected a threshold, use 95% only when a first-party signal reports a
-- `SKILL.md:17` — 1. Run a bounded wave of work. Default to at most 3 parallel subagents unless
-- `SKILL.md:22` — 4. If any reported window is at or above the chosen threshold, stop launching
-- `SKILL.md:23` — work and schedule a self-contained resume when that window should clear.
-- `SKILL.md:24` — 5. On resume, re-check the real window or block before continuing. Do not trust
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `README.md:31` — ## Codex CLI Usage Check
-- `README.md:41` — previous check rather than trusting elapsed time alone.
-- `README.md:46` — plan, the 95% pause threshold, the wave throttle, the exact usage check, and the
-- `SKILL.md:11` — Check before launching substantial work and between bounded waves. If the user
-- `SKILL.md:21` — 3. Check current usage with a first-party host signal.
-- `SKILL.md:24` — 5. On resume, re-check the real window or block before continuing. Do not trust
-- `SKILL.md:56` — waits. Each wakeup should re-check usage, reschedule if still over budget, and
-- `SKILL.md:62` — - The check-then-reschedule rule.
-- `SKILL.md:64` — - The first-party usage signal to check.
-- `SKILL.md:85` — the source of that reading, when you scheduled or expect the next check, and
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:11-12` — "Check before launching substantial work and between bounded waves" and the 95%-only-with-a-direct-signal rule — became `task_category` and `threshold`.
+- `SKILL.md:17` — "Default to at most 3 parallel subagents" — became `wave_size`.
+- `SKILL.md:21-24` — the usage-check, threshold-comparison, and re-check-on-resume steps — became the `check_usage` and `throttle` phase fields.
+- `SKILL.md:29-33` — the Usage Signals priority order (first-party tool, `/status`, dashboard) and `UNKNOWN` fallback — became the `usage_signal_source` enum.
+- `SKILL.md:49-57` — the `min(3600, secondsUntilWindowClears)` wake rule and 60-3600s clamp/chaining — became `wait_seconds`/`chained_wakeups`.
+- `SKILL.md:70-76` — the Choosing The Wait Mechanism list (wake/resume tool, background sleep, cron) — became the `wait_mechanism` enum.
 
 ### Execution candidates
 
-- None detected statically.
+- None; this skill has no bundled scripts.
 
 ## Hook evidence
 

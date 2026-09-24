@@ -58,3 +58,49 @@ real before/after target.
 Run the scanner, parse its JSON, identify the unifying abstraction, confirm at
 least three eliminations, rerun with `--verify` after an actual refactor, and
 return the evidence plus an implementation plan.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<explicit_target_path|default_target_path>" --invocation explicit)
+   ```
+2. After step 3 (parse the scanner's JSON output), record the scan signal
+   profile:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event operation --phase scan \
+     --evidence-json '{"cascade_score":<N>,"duplicate_patterns_count":<N>,"special_case_hotspots_count":<N>,"config_bloat_files_count":<N>,"signals_detected":<true|false>}'
+   ```
+3. After steps 5-6 (state the unifying abstraction, test the 20% fit
+   threshold, and count eliminations), record the abstraction decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase abstract \
+     --evidence-json '{"elimination_count":<N>,"cascade_valid":<true|false>,"fit_violated_threshold":<true|false>,"signal_types_addressed":["<subset of duplicate_patterns,special_case_hotspots,config_bloat_files>"]}'
+   ```
+4. After step 7 (rerun with `--verify`), record the verification outcome:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome <success|failure> \
+     --evidence-json '{"verified":<true|false>,"cascade_score":<N>,"post_cascade_score":<N>,"score_improved":<true|false>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"cascade_valid":<true|false>,"elimination_count":<N>,"verified":<true|false>,"score_improved":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g. `no_cascade_detected`,
+   matching step 4's empty-signal report) when the workflow stopped under
+   Boundaries instead of producing a refactor recommendation.
+
+If a maintainer later rejects the proposed abstraction or finds the claimed
+elimination count overstated, record it as its own event so drift in this
+skill's judgment is visible without re-running the scan:
+```bash
+python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_elimination_count":<N>,"correction":"<abstraction_rejected|elimination_count_overstated|false_positive_signal>"}'
+```
