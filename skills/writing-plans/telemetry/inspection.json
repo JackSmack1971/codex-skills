@@ -1,0 +1,329 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "boundary",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Inputs:** Require the requested target and the repository, user, authority, and assumption evidence named by this package; identify material gaps instead of guessing.",
+        "kind": "boundary",
+        "line": 14,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Failure/stop:** Stop on conflicting scope, missing authority, unsafe state, or unverifiable completion, plus any stricter stop condition in this package.",
+        "kind": "boundary",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Runtime claims:** Claim only behavior supported by observed files, tools, commands, or tests; do not claim implicit routing accuracy or unavailable integrations.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The validator reports placeholder hits and task count as JSON. Fix every placeholder hit before saving. Do not require `run_command`, shell quoting, a specific shell, a subagent product, or a Git repository; Codex can execute the commands directly and the user chooses the handoff.",
+        "kind": "boundary",
+        "line": 33,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- No Git, shell, or external runner is required.",
+        "kind": "boundary",
+        "line": 5,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**Tech Stack:** List only technologies verified in the repository.",
+        "kind": "boundary",
+        "line": 9,
+        "path": "examples/example-plan-header.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "sub = parser.add_subparsers(dest=\"command\", required=True)",
+        "kind": "boundary",
+        "line": 14,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "validate.add_argument(\"--plan-path\", required=True)",
+        "kind": "boundary",
+        "line": 17,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "save.add_argument(\"--path\", required=True)",
+        "kind": "boundary",
+        "line": 19,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "save.add_argument(\"--content\", required=True)",
+        "kind": "boundary",
+        "line": 20,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "result = {\"plan_path\": str(path), \"task_count\": sum(line.startswith(\"### Task \") for line in lines), \"placeholder_hits\": hits, \"placeholder_hit_count\": len(hits), \"spec_gaps\": [], \"type_inconsistencies\": [], \"status\": \"FAIL\" if hits else \"PASS\"}",
+        "kind": "boundary",
+        "line": 42,
+        "path": "scripts/plan_tools.py"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use when a concrete implementation plan or task list is requested before coding; exclude direct implementation and vague discovery, routing to feature-implementation or product-discovery.",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "decision",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "decision",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this skill when the user asks for a plan, task list, implementation design, or a plan before coding. Extract a short hyphenated feature name, use today's date, and default to `docs/superpowers/plans/` unless the user gives another location.",
+        "kind": "decision",
+        "line": 21,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The validator reports placeholder hits and task count as JSON. Fix every placeholder hit before saving. Do not require `run_command`, shell quoting, a specific shell, a subagent product, or a Git repository; Codex can execute the commands directly and the user chooses the handoff.",
+        "kind": "decision",
+        "line": 33,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.command == \"date\":",
+        "kind": "decision",
+        "line": 23,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.command == \"save\":",
+        "kind": "decision",
+        "line": 26,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file() or not path.stat().st_size:",
+        "kind": "decision",
+        "line": 30,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file():",
+        "kind": "decision",
+        "line": 37,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "hits = [f\"{i}:{line}\" for i, line in enumerate(lines, 1) if any(p.lower() in line.lower() for p in FORBIDDEN)]",
+        "kind": "decision",
+        "line": 41,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "result = {\"plan_path\": str(path), \"task_count\": sum(line.startswith(\"### Task \") for line in lines), \"placeholder_hits\": hits, \"placeholder_hit_count\": len(hits), \"spec_gaps\": [], \"type_inconsistencies\": [], \"status\": \"FAIL\" if hits else \"PASS\"}",
+        "kind": "decision",
+        "line": 42,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 47,
+        "path": "scripts/plan_tools.py"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "high",
+        "excerpt": "path.write_text(args.content, encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 29,
+        "path": "scripts/plan_tools.py"
+      }
+    ],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Create concrete TDD-first implementation plans with file maps and validation.\"",
+        "kind": "verification",
+        "line": 3,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.",
+        "kind": "verification",
+        "line": 13,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Keep the plan independently executable: state the goal, architecture, stack, exact files, test-first steps, commands, expected results, and commit boundary. Reject specs that combine unrelated subsystems instead of hiding the split in one oversized plan.",
+        "kind": "verification",
+        "line": 23,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "python scripts/plan_tools.py validate --plan-path <path>",
+        "kind": "verification",
+        "line": 29,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Bash date/save/validation helpers were replaced with `scripts/plan_tools.py`.",
+        "kind": "verification",
+        "line": 3,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Date, save, and JSON validation commands run on Python 3.14 in this workspace.",
+        "kind": "verification",
+        "line": 4,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "FORBIDDEN = (\"TBD\", \"TODO\", \"implement later\", \"fill in details\", \"Add appropriate error handling\", \"add validation\", \"handle edge cases\")",
+        "kind": "verification",
+        "line": 9,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "validate = sub.add_parser(\"validate\")",
+        "kind": "verification",
+        "line": 16,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "validate.add_argument(\"--plan-path\", required=True)",
+        "kind": "verification",
+        "line": 17,
+        "path": "scripts/plan_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Normal:** Given a feature specification, produce a TDD-first plan with file map, dependencies, and validation commands.",
+        "kind": "verification",
+        "line": 3,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "8e30e0936a4a4a3f89296d8a17c2fe9d0ade010c70ce89219d020f283700b788",
+  "generated_at": "2026-09-24T13:59:02.301484Z",
+  "inventory": [
+    {
+      "bytes": 2723,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "d3b2ef6ecd56072d89fdcf6a6322bd8f89eaefc246f9cce7c455586578ac9243"
+    },
+    {
+      "bytes": 226,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "282100f23c375c5e3d33b9aea6e85cf546288b4bf4680fc82f6c21548d3b8c14"
+    },
+    {
+      "bytes": 332,
+      "kind": "other",
+      "language": null,
+      "path": "examples/example-plan-header.md",
+      "sha256": "59d5e14addc0101f20af317fbb3b730cad728c04670372e923ac07e0fab8f482"
+    },
+    {
+      "bytes": 1890,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/plan_tools.py",
+      "sha256": "735209da0d6cc8481ca8d2405a2735e7fe15cc313057448c932116840d517d1d"
+    },
+    {
+      "bytes": 405,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "d413ceb21875343bf3962c06a34a8a39067e3f8c76d805fd032cf0814102a9ae"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 5,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 0,
+    "script_files": 1,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 5576
+  },
+  "target": {
+    "description": "Create concrete TDD-first implementation plans with file maps and validation.",
+    "name": "writing-plans",
+    "path": "skills/writing-plans",
+    "version": null
+  }
+}
