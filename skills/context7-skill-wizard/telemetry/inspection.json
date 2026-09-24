@@ -1,0 +1,496 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Use only to build a focused Open Agent skill from current Context7 documentation for a named library or framework. Use skill-creator for general skill work and plugin-creator for plugin packaging.\"",
+        "kind": "boundary",
+        "line": 3,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "documentation. Keep the generated package in the workspace and stop before",
+        "kind": "boundary",
+        "line": 10,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. Extract a concrete library, framework, or domain. If it is missing, ask for",
+        "kind": "boundary",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Ask exactly two or three scope questions whose answers map to documentation",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "example must be traceable to fetched documentation.",
+        "kind": "boundary",
+        "line": 28,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not fabricate APIs, configuration keys, versions, benchmark claims, or",
+        "kind": "boundary",
+        "line": 35,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not install dependencies, call web fallback tools, open browsers, or",
+        "kind": "boundary",
+        "line": 38,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If Context7 is unavailable, report the exact gap and stop; do not silently",
+        "kind": "boundary",
+        "line": 42,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `python .agents/skills/context-doctor/scripts/context_inventory.py --repo . --cwd . --codex-home .codex` | PASS; read-only inventory, no runtime telemetry |",
+        "kind": "boundary",
+        "line": 19,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `codex exec --skip-git-repo-check --sandbox read-only --ephemeral --ignore-user-config ...` with explicit `$context7-skill-wizard` | PASS; skill discovered and used, no files modified |",
+        "kind": "boundary",
+        "line": 20,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use only supported fields such as `name`, `description`, `compatibility`,",
+        "kind": "boundary",
+        "line": 7,
+        "path": "references/skill-template.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`name` must be lowercase kebab-case and no longer than 64 characters. Keep",
+        "kind": "boundary",
+        "line": 10,
+        "path": "references/skill-template.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`description` must say what the skill does, include three to five realistic",
+        "kind": "boundary",
+        "line": 13,
+        "path": "references/skill-template.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "trigger phrases, state prerequisites, and avoid XML tags and first-person",
+        "kind": "boundary",
+        "line": 14,
+        "path": "references/skill-template.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Ask questions that directly become documentation topics, not generic skill",
+        "kind": "boundary",
+        "line": 5,
+        "path": "references/wizard-phase-guide.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "For an unknown domain ask: primary use case, focused versus comprehensive",
+        "kind": "boundary",
+        "line": 18,
+        "path": "references/wizard-phase-guide.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Format-only change: edit without re-fetching.",
+        "kind": "boundary",
+        "line": 43,
+        "path": "references/wizard-phase-guide.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate a generated Open Agent skill using only the standard library.\"\"\"",
+        "kind": "boundary",
+        "line": 2,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"name must be lowercase kebab-case and <= 64 characters\")",
+        "kind": "boundary",
+        "line": 37,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"name must match the skill directory\")",
+        "kind": "boundary",
+        "line": 39,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"description must be non-empty, <= 1024 characters, and contain no angle brackets\")",
+        "kind": "boundary",
+        "line": 42,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"references must be one level deep\")",
+        "kind": "boundary",
+        "line": 46,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"FAIL: {failure}\")",
+        "kind": "boundary",
+        "line": 57,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Ask for \u201cgeneral advice on writing skills\u201d. The skill should not trigger as",
+        "kind": "boundary",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Simulate unavailable Context7. The workflow should report the gap and stop,",
+        "kind": "boundary",
+        "line": 7,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "confirm invalid frontmatter, nested references, and oversized bodies fail.",
+        "kind": "boundary",
+        "line": 10,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "documentation. Keep the generated package in the workspace and stop before",
+        "kind": "decision",
+        "line": 10,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "external publication unless the user explicitly requests it.",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. Extract a concrete library, framework, or domain. If it is missing, ask for",
+        "kind": "decision",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "one specific technology before continuing.",
+        "kind": "decision",
+        "line": 16,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "derived topics. Retry once with a broader topic when a query is empty and",
+        "kind": "decision",
+        "line": 22,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "plan and wait for approval before writing the generated skill.",
+        "kind": "decision",
+        "line": 25,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "before packaging. Use the repository's migrated `skill-creator` package",
+        "kind": "decision",
+        "line": 30,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "helper when a `.skill` archive is explicitly requested.",
+        "kind": "decision",
+        "line": 31,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If Context7 is unavailable, report the exact gap and stop; do not silently",
+        "kind": "decision",
+        "line": 42,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`license`, `metadata`, and `allowed-tools` when the host documents them.",
+        "kind": "decision",
+        "line": 8,
+        "path": "references/skill-template.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "platform names out of the name unless they are essential to the technology.",
+        "kind": "decision",
+        "line": 11,
+        "path": "references/skill-template.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use one to three topic queries per selected library. Broaden once when a",
+        "kind": "decision",
+        "line": 34,
+        "path": "references/wizard-phase-guide.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not lines or lines[0].strip() != \"---\":",
+        "kind": "decision",
+        "line": 12,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "end = next(i for i, line in enumerate(lines[1:], 1) if line.strip() == \"---\")",
+        "kind": "decision",
+        "line": 15,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if line.strip() and not line.startswith((\" \", \"\\t\")) and \":\" in line:",
+        "kind": "decision",
+        "line": 20,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file():",
+        "kind": "decision",
+        "line": 29,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if set(frontmatter) - ALLOWED:",
+        "kind": "decision",
+        "line": 34,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not re.fullmatch(r\"[a-z0-9]+(?:-[a-z0-9]+)*\", name or \"\") or len(name) > 64:",
+        "kind": "decision",
+        "line": 36,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if name != root.name:",
+        "kind": "decision",
+        "line": 38,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not description or len(description) > 1024 or \"<\" in description or \">\" in description:",
+        "kind": "decision",
+        "line": 41,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len([line for line in body if line.strip()]) > 500:",
+        "kind": "decision",
+        "line": 43,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if any(\"references/\" in line and re.search(r\"references/[^/]+/\", line) for line in body):",
+        "kind": "decision",
+        "line": 45,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (root / \"README.md\").exists():",
+        "kind": "decision",
+        "line": 47,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 52,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(sys.argv) != 2:",
+        "kind": "decision",
+        "line": 53,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if failures:",
+        "kind": "decision",
+        "line": 58,
+        "path": "scripts/validate_generated_skill.py"
+      }
+    ],
+    "execution": [],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "compatibility: Requires Codex CLI, Context7 MCP tools, and Python 3.11+ for local validation.",
+        "kind": "verification",
+        "line": 4,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Report selected libraries, topics fetched, generated files, validation output,",
+        "kind": "verification",
+        "line": 54,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `codex exec --skip-git-repo-check --sandbox read-only --ephemeral --ignore-user-config ...` with explicit `$context7-skill-wizard` | PASS; skill discovered and used, no files modified |",
+        "kind": "verification",
+        "line": 20,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate a generated Open Agent skill using only the standard library.\"\"\"",
+        "kind": "verification",
+        "line": 2,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "def validate(skill_dir):",
+        "kind": "verification",
+        "line": 26,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "failures = validate(sys.argv[1])",
+        "kind": "verification",
+        "line": 55,
+        "path": "scripts/validate_generated_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. Validate a generated fixture with `scripts/validate_generated_skill.py` and",
+        "kind": "verification",
+        "line": 9,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "dd9b4980942b50363200a70edb4ddda7076c90e84156bdde9f06b95f5f9b1917",
+  "generated_at": "2026-09-24T13:57:10.000725Z",
+  "inventory": [
+    {
+      "bytes": 2750,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "6222307134cc202194cc9cc33c1d1320500588a5d1045514419a137bc34cc859"
+    },
+    {
+      "bytes": 1510,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "45a460b6c7f3c747de623026ba801df55cf7e19e2484c665ba4ebf48939607d3"
+    },
+    {
+      "bytes": 1120,
+      "kind": "reference",
+      "language": null,
+      "path": "references/skill-template.md",
+      "sha256": "60c2c3cfda8c5b35937172fd5e7b4d5e0e585acf3153a61e912ab29bed4f7763"
+    },
+    {
+      "bytes": 1562,
+      "kind": "reference",
+      "language": null,
+      "path": "references/wizard-phase-guide.md",
+      "sha256": "5ab172023df71e59d1a5dd2f5d748279077bbb889bcff9526555fb02d39b9d83"
+    },
+    {
+      "bytes": 2399,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/validate_generated_skill.py",
+      "sha256": "a2979c9ec149ed3c7e5b192d450c64b922fb0af7719a911472a0fc9913284308"
+    },
+    {
+      "bytes": 616,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "28fdffc3940bf5fe02010ea2aaf0b21a203f97de15cd9662e96aac3cc9761f83"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 6,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 2,
+    "script_files": 1,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 9957
+  },
+  "target": {
+    "description": "Use only to build a focused Open Agent skill from current Context7 documentation for a named library or framework. Use skill-creator for general skill work and plugin-creator for plugin packaging.",
+    "name": "context7-skill-wizard",
+    "path": "skills/context7-skill-wizard",
+    "version": null
+  }
+}
