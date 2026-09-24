@@ -14,33 +14,39 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category="feature_implementation"` |
+| After step 1 (read spec, list missing decisions) | `decision` (`phase=scope`) | `missing_decisions_count`, `scope_conflict_flagged` |
+| After steps 3-4 (choose slice, implement) | `decision` (`phase=implement`) | `files_touched`, `layer`, `input_validation_added`, `error_handling_added`, `security_or_accessibility_addressed` |
+| After step 5 (add/update verification, run checks) | `verification` (`phase=verify`) | `tests_added_or_updated`, `focused_tests_passed`, `lint_type_checks_passed` |
+| Before step 6 (report) | `run.finished` | `files_changed`, `layer`, `deferred_work_items` |
 
-- `SKILL.md:3` — description: "Implement a requested concrete feature in an existing repository as the smallest verified change with focused verification; use narrower cross-layer, TDD, or QA skills when explicit."
-- `SKILL.md:11` — - **Trigger and exclusion:** Use after requirements are concrete for an ordinary product change; exclude cross-layer slice planning, explicit TDD, and QA-only requests, routing to vertical-slice, test-driven-development, or testing-qa.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:32` — lint/type checks, and the relevant broader check if available.
-- `SKILL.md:38` — dependencies without need. Stop and ask when requirements conflict or a safe
-- `SKILL.md:41` — Use `vertical-slice` when the request centers on one user action crossing UI,
-- `tests/evaluation-cases.md:5` — 3. **Boundary:** Given a trust boundary or data-loss risk, retain validation and recovery even when simplifying.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's
+runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:11` — - **Trigger and exclusion:** Use after requirements are concrete for an ordinary product change; exclude cross-layer slice planning, explicit TDD, and QA-only requests, routing to vertical-slice, test-driven-development, or testing-qa.
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:29` — 4. Implement behavior with input validation, error handling, and accessibility
-- `SKILL.md:32` — lint/type checks, and the relevant broader check if available.
-- `SKILL.md:42` — service/API, persistence, and verification. Use `test-driven-development` for
-- `tests/evaluation-cases.md:5` — 3. **Boundary:** Given a trust boundary or data-loss risk, retain validation and recovery even when simplifying.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:26` — "list missing decisions" — became `missing_decisions_count`.
+- `SKILL.md:27` — "Inspect the relevant architecture, callers, data flow" — became the `layer` enum.
+- `SKILL.md:28` — "identify the fewest files it needs" — became `files_touched`/`files_changed`.
+- `SKILL.md:29-30` — "input validation, error handling, and accessibility or security requirements" — became the three implement-phase boolean fields.
+- `SKILL.md:31` — "run focused tests, lint/type checks, and the relevant broader check" — became the `verify`-phase fields.
+- `SKILL.md:38` — "Stop and ask when requirements conflict" — became `scope_conflict_flagged`.
 
 ### Execution candidates
 
-- None detected statically.
+- None: this skill has no bundled scripts; its checks are the repository's own test/lint/type tooling, captured through the `verify`-phase event rather than per-command instrumentation.
 
 ## Hook evidence
 

@@ -108,3 +108,57 @@ inconclusive, with the next discriminating observation needed.
 This workflow is adapted from the MIT-licensed `systematic-debugging` skill in
 [`obra/superpowers`](https://github.com/obra/superpowers). The upstream notice
 is preserved in [LICENSE.txt](LICENSE.txt).
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the diagnosis uninterrupted and never let it block or
+change the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<bug|test_failure|build_failure|regression|unexpected_behavior>" --invocation explicit)
+   ```
+   If `python3` is unavailable, use `python`.
+2. After step 1 (establish the failure and baseline), record what could
+   actually be established:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase baseline --outcome <success|failure> \
+     --evidence-json '{"reproducible":<true|false>,"intermittent":<true|false>,"baseline_captured":<true|false>}'
+   ```
+3. After step 3 (test a falsifiable hypothesis), record the hypothesis
+   decision; if this is a repeat after a refuted hypothesis, use `--retry-count`:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase hypothesis --retry-count <N> \
+     --evidence-json '{"hypothesis_confirmed":<true|false>,"failed_attempts":<N>,"scope_expansion_requested":<true|false>}'
+   ```
+4. After step 4 (correct the cause), record what kind of correction was
+   applied:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event operation --phase correct \
+     --evidence-json '{"containment_used":<true|false>,"regression_check_added":<true|false>,"defense_in_depth_added":<true|false>,"scope_expansion_flagged":<true|false>}'
+   ```
+5. After step 5 (verify and stop), record the completion check:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome <success|failure> \
+     --evidence-json '{"symptom_resolved":<true|false>,"regression_check_passes":<true|false>,"surrounding_checks_clean":<true|false>,"completion_status":"<complete|partial|inconclusive>"}'
+   ```
+6. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"completion_status":"<complete|partial|inconclusive>","failed_attempts":<N>,"containment_used":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (`conflicting_scope`,
+   `missing_authority`, `unsafe_state`, `non_reproducible`, or
+   `unverifiable_completion`) when the workflow stopped under Failure/stop
+   instead of reaching step 5's completion criteria.
+
+If a maintainer later reports the diagnosed root cause was wrong, the fix was
+ineffective, or the regression returned, record it as its own event so
+diagnostic accuracy drift is visible without re-running the investigation:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_completion_status":"<complete|partial|inconclusive>","correction":"<root_cause_incorrect|regression_reintroduced|fix_ineffective>"}'
+```

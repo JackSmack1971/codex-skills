@@ -30,3 +30,39 @@ The helper detects the project's supported test runner (including pytest,
 Vitest, and Jest) from the current project. It emits one JSON result and never
 invokes a shell command through `eval`. Do not invent a test path or claim
 completion without all three stage results.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before the red stage, start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<feature|bug_fix|refactor|test_change>" --invocation explicit)
+   ```
+2. After the red stage (`--stage red`), record the result:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase red --outcome <success|failure> \
+     --evidence-json '{"stage_result":"<FAIL_CORRECT|PASS_UNEXPECTED|ERROR>","runner_detected":"<pytest|vitest|jest|npm_test|none>","mocks_used":<true|false>}'
+   ```
+3. After the green stage (`--stage green`), record the result:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase green --outcome <success|failure> \
+     --evidence-json '{"stage_result":"<ALL_PASS|TARGET_FAIL|REGRESSION|ERROR>","retry_count":<N>}'
+   ```
+4. After the refactor stage (`--stage refactor`), record the result:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase refactor --outcome <success|failure> \
+     --evidence-json '{"stage_result":"<ALL_PASS|TARGET_FAIL|REGRESSION|ERROR>","refactor_performed":<true|false>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"stages_reached":["<subset of red,green,refactor>"],"final_stage_result":"<FAIL_CORRECT|PASS_UNEXPECTED|ALL_PASS|TARGET_FAIL|REGRESSION|ERROR>"}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g. `red_stage_not_failing`,
+   `runner_error`) when the cycle stopped under Failure/stop — a passing red
+   test or a test-runner error — instead of completing all three stages.

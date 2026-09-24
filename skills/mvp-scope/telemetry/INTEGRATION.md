@@ -14,23 +14,38 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (input form) |
+| After step 3 (classify items) | `decision` (`phase=classify`) | `must_have_count`, `should_have_count`, `later_count`, `wont_build_count` |
+| After step 4 (remove speculative scope) | `decision` (`phase=trim`) | `trimmed_categories`, `items_removed`, `safety_constraint_preserved` |
+| After step 5 (record risks/unresolved/slice) | `verification` (`phase=finalize`) | `risks_count`, `unresolved_decisions_count`, `end_to_end_slice_defined` |
+| Before returning output | `run.finished` | `must_have_count`, `wont_build_count`, `promotion_criteria_stated` |
 
-- `SKILL.md:3` — description: "Use to turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions before specification or architecture. Do not use to discover the problem or write detailed feature behavior; use product-discovery or product-spec."
-- `SKILL.md:30` — loss requirement. Flag it as a constraint even when it is not user-visible.
-- `tests/evaluation-cases.md:5` — 3. **Boundary:** Given a compliance or safety requirement, keep it in must-have even when reducing scope.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- None detected statically.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:4` — compatibility: "Requires a product problem, desired outcome, constraints, or feature list." — became the `task_category` enum.
+- `SKILL.md:16` — step 3 classification into Must have/Should have/Later/Explicitly won't build — became the `classify`-phase counts.
+- `SKILL.md:17-18` — step 4 removal list (speculative flexibility, premature scale, admin, multi-tenancy, extensibility, infrastructure) — became the `trimmed_categories` enum.
+- `SKILL.md:19` — step 5 "risks, unresolved decisions, and the smallest end-to-end slice" — became the `finalize`-phase fields.
+- `SKILL.md:23,25` — Output's "definition of done" and "evidence that would justify promoting a deferred item" — became `promotion_criteria_stated`.
+- `SKILL.md:29-30` — Boundary rule against silently dropping safety/accessibility/compliance/data-loss requirements — became `safety_constraint_preserved`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

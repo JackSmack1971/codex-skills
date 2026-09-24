@@ -14,42 +14,40 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual named sections (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before inspecting the repository | `run.started` | `task_category` (Trigger/exclusion operation class) |
+| After Repository state (inspect before editing) | `decision` (`phase=inspect`) | `detached_head_or_active_operation`, `protected_branch_detected`, `preexisting_changes_present` |
+| After Changes and staging (post-staging inspection) | `verification` (`phase=stage`) | `staged_scope`, `secrets_or_unrelated_found`, `whitespace_or_mode_anomalies` |
+| Before Destructive local operations or Remote operations | `decision` (`phase=mutate`) | `operation_class`, `explicit_approval_obtained`, `force_with_lease_used` |
+| Before returning the result | `run.finished` | `task_category`, `mutations_performed`, `conflicts_encountered` |
 
-- `SKILL.md:4` — compatibility: Requires Git and a filesystem-readable repository when Git actions are requested.
-- `SKILL.md:11` — - **Trigger and exclusion:** Use for requested Git inspection, branching, synchronization, staging, merge, rebase, or recovery; exclude commit authoring when no other Git action is needed, routing to git-commit.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:28` — - Before editing, inspect the repository root, `git status --short --branch`,
-- `SKILL.md:30` — - Before synchronization, branch changes, deletion, or remote work, inspect
-- `SKILL.md:35` — out of scope unless explicitly requested.
-- `SKILL.md:37` — modified file before touching it; never overwrite, restore, reset, clean,
-- `SKILL.md:43` — - Do not create or switch branches unless required. Verify current changes
-- `SKILL.md:45` — - Do not work directly on a protected or default branch when the repository
-- `SKILL.md:47` — - Prefer `git fetch` plus explicit comparison when remote freshness matters;
-- `SKILL.md:48` — use `git pull --ff-only` only when fast-forward-only synchronization is
-- `SKILL.md:50` — - If local and upstream history diverge, report ahead/behind state instead of
-- `SKILL.md:59` — - After staging, inspect status, the cached diff stat, the complete cached
-- `SKILL.md:69` — security checks before committing when applicable.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's
+runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:43` — - Do not create or switch branches unless required. Verify current changes
-- `SKILL.md:60` — diff, and `git diff --check`.
-- `SKILL.md:63` — - Verify the staged snapshot contains no credentials, local environment files,
-- `SKILL.md:68` — - Run the repository's required tests, lint, format, type-check, build, and
-- `SKILL.md:88` — Before deleting a branch, verify it is not checked out elsewhere and whether
-- `SKILL.md:97` — remote mutation, re-check status, branch, source and destination refs,
-- `tests/evaluation-cases.md:5` — 3. **Boundary:** Given a destructive cleanup request, verify exact targets and require explicit approval.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:11` — the Trigger/exclusion operation list (inspection, branching, synchronization, staging, merge, rebase, recovery) — became the `task_category` enum.
+- `SKILL.md:32-33` — "Stop and report detached HEAD, unresolved conflicts, or an active merge/rebase/cherry-pick/revert/bisect" — became `detached_head_or_active_operation`.
+- `SKILL.md:45-46` — "Do not work directly on a protected or default branch" — became `protected_branch_detected`.
+- `SKILL.md:57-58` — "avoid `git add -A`, `git add .`, and `commit -a` in a dirty or mixed-scope worktree" — became `staged_scope`.
+- `SKILL.md:63-64` — "Verify the staged snapshot contains no credentials, local environment files ... or unrelated changes" — became `secrets_or_unrelated_found`.
+- `SKILL.md:81-89` — the Destructive local operations approval requirement — became `explicit_approval_obtained` for `operation_class=destructive_local`.
+- `SKILL.md:101-103` — "Never use raw `--force`; an approved rewrite requires `--force-with-lease`" — became `force_with_lease_used`.
 
 ### Execution candidates
 
-- `SKILL.md:87` — recoverable checkpoint when practical. For `git clean`, run a dry run first.
+- None: this skill runs plain `git` commands rather than bundled scripts; their results are captured through the `inspect`/`stage`/`mutate` events above instead of per-command instrumentation.
 
 ## Hook evidence
 

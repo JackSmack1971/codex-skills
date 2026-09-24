@@ -14,33 +14,41 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow Phases (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before Phase 1 | `run.started` | `task_category` (`single_issue`/`batched_issues`/`backlog_scan`) |
+| After Phase 1 (resolve and inspect scope) | `decision` (`phase=scope`) | `issue_state`, `scope_type` |
+| After Phase 2 (analyze & plan, gate 1) | `decision` (`phase=plan`) | `execution_order_length`, `batching_used`, `issues_skipped`, `gate1_plan_approved` |
+| After Phase 3 (verify, gate 2, gate 3) | `verification` (`phase=execute`) | `checklist_items_passed`, `gate2_diff_approved`, `gate3_pr_approved`, `pr_created` |
+| Before Phase 4 (state management) | `run.finished` | `scope_type`, `prs_created`, `issues_completed`, `gates_passed` |
+| When a maintainer later overturns the plan or PR | `user.correction` | `original_status`, `correction` |
 
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:23` — Convert one explicitly selected open GitHub issue into a clean, focused pull request. Process multiple issues only when the user explicitly authorizes that exact issue set or a backlog-wide run. Maintain strict one-issue-per-PR discipline unless explicit batching is approved.
-- `SKILL.md:28` — - Never enumerate or process the full backlog unless the user explicitly authorizes a backlog scan
-- `SKILL.md:30` — - Batching only allowed when issues share files or are part of the same atomic feature and have no conflicts
-- `SKILL.md:40` — Resolve the explicitly selected issue with the available GitHub integration (preferred) or `gh issue view --json`. Confirm repository identity, issue state, labels, summary, dependencies, and existing linked PRs. If the user authorized a specific issue set, fetch only that set. If no issue is selected, ask for one; do not substitute the full open backlog.
-- `SKILL.md:42` — If the issue already has an open pull request, is closed, cannot be reproduced, is stale relative to current behavior, or conflicts with repository state, report that status and stop before creating a branch unless the user explicitly chooses a supported next action.
-- `SKILL.md:65` — 6. Only after approval: push and create the PR with the connected GitHub integration or authenticated `gh`; stop if publishing capability or permission is unavailable
-- `SKILL.md:76` — ## Verification Checklist (run before every commit)
-- `tests/evaluation-cases.md:4` — 2. **Negative:** Given missing acceptance criteria, stop before implementation and comment the blocker.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the calibration analysis (`plan`/`execute` joined against later
+`user.correction`) an improvement agent should run over these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:62` — 3. Verify thoroughly (run tests, lint, reproduce original issue)
-- `SKILL.md:81` — - [ ] Lint / typecheck clean
-- `tests/evaluation-cases.md:3` — 1. **Normal:** Given an open issue and clean repository, plan, isolate, implement, verify, and record milestones.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:23` — "Process multiple issues only when the user explicitly authorizes ... Maintain strict one-issue-per-PR discipline" — became the `task_category`/`scope_type` enum.
+- `SKILL.md:42` — Phase 1's stop conditions (existing PR, closed, stale, conflicting) — became `issue_state`.
+- `SKILL.md:30` — the batching restriction (shared files or atomic feature, no conflicts) — became `batching_used`.
+- `SKILL.md:32` — "Human approval required at three gates: (1) Prioritization plan, (2) Post-implementation diff, (3) Pre-PR creation" — became `gate1_plan_approved`/`gate2_diff_approved`/`gate3_pr_approved`/`gates_passed`.
+- `SKILL.md:54` — "STOP HERE and wait for human approval of the plan" — became `gate1_plan_approved`.
+- `SKILL.md:76-84` — the Verification Checklist's seven items — became `checklist_items_passed`.
+- `SKILL.md:65` — "Only after approval: push and create the PR ... stop if publishing capability or permission is unavailable" — became `pr_created`.
 
 ### Execution candidates
 
-- None detected statically.
+- None: this skill has no bundled scripts; it drives `gh`/git-worktree operations directly, captured through the `scope`/`plan`/`execute` events above instead of per-command instrumentation.
 
 ## Hook evidence
 

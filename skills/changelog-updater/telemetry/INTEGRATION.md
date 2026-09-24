@@ -14,63 +14,42 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual numbered Workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 (establish context) | `run.started` | `task_category` (`reconstruct`\|`update_unreleased`\|`release`\|`render_only`) |
+| After step 2 (collect history) | `operation` (`phase=collect`) | `commits_collected`, `collector_mode`, `merges_included` |
+| After step 3 (build the semantic plan) | `decision` (`phase=plan`) | `sections_used`, `entries_count`, `omitted_commits_count`, `breaking_changes_flagged` |
+| After step 4 (validate, preview, and apply) | `verification` (`phase=validate`) | `plan_valid`, `dry_run_reviewed`, `applied`, `allow_replace_used`; preceding `retry` event if repaired |
+| After step 5 (verify) | `verification` (`phase=verify`) | `verify_exit_code`, `git_diff_check_passed` |
+| Before returning output | `run.finished` | `mode`, `entries_count`, `omitted_count`, `backup_created` |
 
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:39` — 5. Omit internal-only noise unless it changes supported behavior, security, compatibility, performance, packaging, deployment, or documented usage.
-- `SKILL.md:43` — 9. When evidence is insufficient, inspect the diff. If ambiguity remains, use conservative wording or omit the entry and record the reason.
-- `SKILL.md:57` — - [ ] Apply only after the preview matches intent
-- `SKILL.md:63` — Run `git status --short`, identify the repository root, and inspect existing changelog conventions. Detect the project version source when preparing a release. Respect user-supplied date, revision, version, and voice constraints.
-- `SKILL.md:65` — Stop if the directory is not a Git worktree. Do not silently initialize a repository.
-- `SKILL.md:132` — The writer uses an atomic replacement and creates `CHANGELOG.md.bak` by default when replacing an existing file.
-- `SKILL.md:143` — If verification fails, repair the plan or changelog and rerun all relevant checks. Stop after repeated failure and report the exact errors; do not claim success.
-- `SKILL.md:152` — | Update after recent work | `since-tag` or `range` | `update_unreleased` |
-- `SKILL.md:159` — - “Since last tag” means the latest tag reachable from `HEAD`; if none exists, collect full history and state the fallback.
-- `SKILL.md:163` — - Merge commits are excluded by default but their non-merge commits remain available. Include merges only when the merge message carries unique release intent.
-- `SKILL.md:176` — Represent breaking changes under the relevant section and prefix the entry with `**Breaking:**`. Do not create a nonstandard top-level category unless the user explicitly requires it.
-- `SKILL.md:185` — - Documentation → include only when it materially changes user guidance, migration, setup, or supported behavior
-- `SKILL.md:186` — - Chores/tests/CI/dependencies → omit by default; include only when they alter shipped behavior, compatibility, security, packaging, or operator workflow
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:11` — - **Trigger and exclusion:** Use to reconstruct, update, preview, or verify user-facing CHANGELOG.md entries from Git evidence; exclude generic README or release-process work.
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:21` — Turn repository history into a concise, user-facing `CHANGELOG.md`. Codex performs semantic synthesis; bundled scripts perform deterministic collection, validation, mutation, and verification.
-- `SKILL.md:55` — - [ ] Validate the plan; fix and repeat until valid
-- `SKILL.md:58` — - [ ] Verify the resulting changelog; fix and repeat until valid
-- `SKILL.md:101` — ### 4. Validate, preview, and apply
-- `SKILL.md:134` — ### 5. Verify
-- `SKILL.md:139` — git diff --check -- CHANGELOG.md
-- `SKILL.md:155` — | Generate release body without editing | any bounded mode | validate plan, then render dry-run only |
-- `SKILL.md:221` — - [ ] `git diff --check -- CHANGELOG.md` exits `0`
-- `VERIFICATION.md:17` — - [x] Unit test suite passes: 6 tests, 0 failures
-- `resources/cli-contracts.md:10` — {"ok": true, "operation": "validate-plan", "warnings": []}
-- `resources/cli-contracts.md:79` — | 4 | Plan or changelog validation error |
-- `resources/evaluations.md:7` — History contains `feat`, `fix`, `docs`, `test`, and `chore` commits.
-- `resources/evaluations.md:12` — - Test and internal chore are omitted with reasons.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:149-155` — the Mode selection table (`reconstruct`, `update_unreleased`/`release` via `since-tag`/`range`/`dates`, dry-run-only rendering) — became the `task_category` enum.
+- `SKILL.md:163` — merge-commit default-exclusion rule — became `merges_included`.
+- `SKILL.md:39,43` — Operating rules 5 and 9 (omit internal noise; omit or conservatively word ambiguous entries) — became `omitted_commits_count`.
+- `SKILL.md:167-176` — the six Keep a Changelog sections and the `**Breaking:**` prefix rule — became `sections_used` and `breaking_changes_flagged`.
+- `SKILL.md:40` — Operating rule 6 ("do not modify CHANGELOG.md until a plan validates and a dry run has been reviewed") — became `plan_valid`/`dry_run_reviewed`.
+- `SKILL.md:122-130` — the `--allow-replace` destructive-reconstruction gate — became `allow_replace_used`.
+- `SKILL.md:210-222` — the Completion gate checklist (`validate_plan.py` exit 0, dry-run reviewed, `verify_changelog.py` exit 0, `git diff --check` exit 0) — became the `validate`/`verify` phase fields.
+- `SKILL.md:132` — the atomic-replacement/`CHANGELOG.md.bak` backup behavior — became `backup_created`.
 
 ### Execution candidates
 
-- `resources/portability-security.md:34` — Treat third-party modifications to this Skill as software changes. Review every script for subprocess calls, path handling, network access, and write behavior before installation.
-- `scripts/apply_changelog.py:344` — temp.write_text(content, encoding="utf-8")
-- `scripts/apply_changelog.py:348` — temp.unlink(missing_ok=True)
-- `scripts/collect_history.py:9` — import subprocess
-- `scripts/collect_history.py:39` — def run_git(repo: Path, args: Sequence[str], *, check: bool = True) -> subprocess.CompletedProcess[str]:
-- `scripts/collect_history.py:40` — process = subprocess.run(
-- `scripts/collect_history.py:43` — stdout=subprocess.PIPE,
-- `scripts/collect_history.py:44` — stderr=subprocess.PIPE,
-- `scripts/collect_history.py:396` — temp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-- `scripts/collect_history.py:400` — temp.unlink(missing_ok=True)
-- `tests/test_changelog_tools.py:5` — import subprocess
-- `tests/test_changelog_tools.py:15` — def run(*args: str, cwd: Optional[Path] = None, expect: int = 0) -> subprocess.CompletedProcess[str]:
-- `tests/test_changelog_tools.py:16` — process = subprocess.run(args, cwd=cwd, text=True, capture_output=True)
-- `tests/test_changelog_tools.py:25` — path.write_text(
-- `tests/test_changelog_tools.py:57` — (root / "app.txt").write_text("one\n", encoding="utf-8")
+- `scripts/collect_history.py`, `scripts/validate_plan.py`, `scripts/apply_changelog.py`, and `scripts/verify_changelog.py` remain uninstrumented directly; their outcomes are captured through the `collect`/`plan`/`validate`/`verify` events above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

@@ -87,3 +87,51 @@ what work remains. If usage is UNKNOWN, say so rather than claiming the work is
 within budget. Keep enough state in the wake prompt that the next turn can
 resume without relying on conversation momentum.
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1 of the Core Loop, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<pre_wave_check|between_wave_check|resume_check>" --invocation explicit)
+   ```
+   If `python3` is unavailable, use `python`.
+2. After step 3 (check current usage with a first-party host signal),
+   record what was observed:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase check_usage --outcome <success|failure> \
+     --evidence-json '{"usage_signal_source":"<first_party_tool|status_command|dashboard_link|unknown>","five_hour_window_pct":<N|null>,"weekly_window_pct":<N|null>,"threshold":<N>}'
+   ```
+3. After step 4 (decide whether to stop launching work), record the
+   throttle decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase throttle \
+     --evidence-json '{"action_taken":"<continued|paused>","threshold_breached_window":"<five_hour|weekly|none>","wave_size":<N>}'
+   ```
+4. If paused, after scheduling the resume (Pausing And Resuming), record the
+   wait mechanism chosen:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event operation --phase schedule_resume \
+     --evidence-json '{"wait_mechanism":"<wake_tool|background_sleep|cron>","wait_seconds":<N>,"chained_wakeups":<true|false>}'
+   ```
+5. Before ending the turn (after Reporting), close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"action_taken":"<continued|paused>","usage_signal_source":"<first_party_tool|status_command|dashboard_link|unknown>","paused_count":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g. `usage_unknown`)
+   when no first-party signal was observable and usage had to be recorded as
+   UNKNOWN instead of a confident pause/resume decision.
+
+If a user later reports that this run paused unnecessarily or, conversely,
+kept working past the real limit, record it as its own event so throttling
+calibration drift is visible without re-running the loop:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_action":"<continued|paused>","correction":"<paused_unnecessarily|failed_to_pause>"}'
+```
+

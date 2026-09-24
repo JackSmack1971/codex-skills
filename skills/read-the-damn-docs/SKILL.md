@@ -126,3 +126,42 @@ formatting, or self-contained code with no external contract, proceed normally.
 If network access, auth, or missing local files prevents reading the docs, say
 that plainly before relying on memory. Narrow the uncertainty, inspect source or
 types if available, and avoid presenting the result as confirmed-current.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before Required Workflow step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<package_add_or_upgrade|provider_api_or_auth|error_or_deprecation|local_repo_contract|irreversible_choice|explicit_request>" --invocation explicit)
+   ```
+2. After step 2 (search the web for current official docs unless already
+   local or supplied), record source discovery:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase search --outcome <success|failure> \
+     --evidence-json '{"docs_already_local":<true|false>,"web_search_performed":<true|false>,"source_domain":"<official_product_docs|package_registry|local_repo|source_code_types|other>"}'
+   ```
+3. After step 4 (extract the facts needed for the task), record the
+   extraction decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase extract \
+     --evidence-json '{"facts_extracted_count":<N>,"breaking_changes_found":<true|false>,"version_verified":<true|false>}'
+   ```
+4. After step 6 (verify with the smallest useful check), record the
+   verification result:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify_check --outcome <success|failure> \
+     --evidence-json '{"check_type":"<typecheck|tests|build|cli_dry_run|api_schema_validation|local_reproduction|none>","check_passed":<true|false>}'
+   ```
+5. Before the final answer, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"docs_named_in_answer":<true|false>,"docs_unavailable_disclosed":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when docs were
+   unavailable and the answer had to proceed on narrowed uncertainty instead
+   of a docs-grounded result.

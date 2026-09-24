@@ -14,44 +14,39 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Inspect → choose surface → load block schema → draft →
+self-review → publish arrow-workflow (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before "Inspect" | `run.started` | `task_category` (`fresh_plan`/`from_existing_plan`) |
+| After "choose surface" | `decision` (`phase=choose_surface`) | `surface_mode`, `tool_mapped` |
+| After "self-review" | `verification` (`phase=self_review`) | `factual_grounding_checked`, `accessibility_checked`, `hard_to_reverse_decisions_flagged`, `unresolved_questions_count` |
+| Before "publish and hand off" | `run.finished` | `surface_mode`, `publish_mode`, `unresolved_questions_count`, `approval_requested` |
+| When a reviewer's anchored feedback overturns the plan | `user.correction` | `correction` |
 
-- `SKILL.md:9` — Use `/visual-plan` when a plan benefits from a reviewable structured artifact:
-- `SKILL.md:11` — Start from an existing Codex/Markdown/pasted plan when one exists. Skip it for
-- `SKILL.md:20` — - Read the live block catalog before authoring structured blocks.
-- `SKILL.md:23` — defaults; request approval before implementation.
-- `SKILL.md:24` — - Read the relevant reference before authoring wireframes, canvas, or document
-- `SKILL.md:25` — content, and inspect rendered UI when a browser is available.
-- `SKILL.md:32` — and hand off. Stop when required facts, connector/schema validation,
-- `references/canvas.md:5` — in full before authoring or editing any canvas/artboard content; do not author
-- `references/canvas.md:21` — wireframe HTML; board-level artboard `x`/`y` IS allowed when it creates clear
-- `references/canvas.md:24` — **Lay out mixed canvases in lanes.** When a canvas contains broad browser /
-- `references/canvas.md:31` — frames. Before handoff, inspect the top canvas at default zoom and move any
-- `references/canvas.md:34` — **Canvas annotations are designer notes on the artboard.** When a top canvas is
-- `references/canvas.md:57` — edits. If an agent is working from exported source files, use
-- `references/canvas.md:68` — or surfaces can disappear. If a full replacement is truly unavoidable, read the
-- `references/canvas.md:70` — payload, and verify the source/export immediately after the update.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:32` — and hand off. Stop when required facts, connector/schema validation,
-- `references/canvas.md:70` — payload, and verify the source/export immediately after the update.
-- `references/document-quality.md:5` — pre-handoff check. Read it in full before authoring the plan document; it is the
-- `references/document-quality.md:61` — implementation phases, risks, and validation. For architecture/code reviews,
-- `references/document-quality.md:157` — should go beyond typecheck/unit tests when the plan changes UI, local files,
-- `references/document-quality.md:174` — **Before handoff, open the plan and check it.** Fix overlap, excessive
-- `references/entrypoint-guidance.md:51` — Local-files mode is valid for private material: run the local plan check and
-- `references/entrypoint-guidance.md:59` — local fallback cannot validate, when a required visual or data fact cannot be
-- `references/exemplar.md:22` — and a validation step — none of it repeating the canvas. If the task also
-- `references/wireframe.md:60` — `check`, `chevronDown`, `chevronUp`, `chevronLeft`, `chevronRight`, `dots`/`more`,
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:11` — "Start from an existing Codex/Markdown/pasted plan when one exists. Skip it for trivial, unambiguous work." — became `task_category`.
+- `SKILL.md:18-19` — "Choose document-only, UI-first, prototype-first, design-first, or visual-intake mode from the task." plus `references/entrypoint-guidance.md:29-34`'s tool mapping — became `surface_mode`/`tool_mapped`.
+- `SKILL.md:22-23` — "Surface hard-to-reverse decisions and unresolved questions with recommended defaults; request approval before implementation." — became `hard_to_reverse_decisions_flagged`, `unresolved_questions_count`, `approval_requested`.
+- `SKILL.md:26-28` — "Keep private material local or org/login-gated; never expose secrets or guess hosted/local plan URLs." plus the entrypoint guidance's local-files-mode boundary — became `publish_mode`.
+- `SKILL.md:31-33` — the Inspect → ... → publish workflow and its stop conditions — became the wired event sequence and `--failure-class` values.
+- `references/document-quality.md:174` — "Before handoff, open the plan and check it." — became `factual_grounding_checked`/`accessibility_checked`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument (the plan-service tool calls it drives are external MCP tools, not local scripts).
 
 ## Hook evidence
 

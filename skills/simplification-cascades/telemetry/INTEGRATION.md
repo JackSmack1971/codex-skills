@@ -14,47 +14,38 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (explicit vs. default target path) |
+| After step 3 (parse scanner JSON) | `operation` (`phase=scan`) | `cascade_score`, `duplicate_patterns_count`, `special_case_hotspots_count`, `config_bloat_files_count`, `signals_detected` |
+| After steps 5-6 (abstraction + elimination count) | `decision` (`phase=abstract`) | `elimination_count`, `cascade_valid`, `fit_violated_threshold`, `signal_types_addressed` |
+| After step 7 (`--verify` rerun) | `verification` (`phase=verify`) | `verified`, `cascade_score`, `post_cascade_score`, `score_improved` |
+| Before returning output | `run.finished` | `cascade_valid`, `elimination_count`, `verified`, `score_improved` |
+| When a maintainer later rejects the abstraction | `user.correction` | `original_elimination_count`, `correction` |
 
-- `SKILL.md:10` — that collapses multiple components into one. Run the local scan before
-- `SKILL.md:15` — 1. Extract a target directory from the request. Use `.` when none is given.
-- `SKILL.md:22` — 4. If the score is zero and all lists are empty, report: `No cascade signals
-- `SKILL.md:24` — 5. Otherwise, list the variations, state the unifying principle as
-- `SKILL.md:26` — cases fit. If more than 20% do not fit, revise the abstraction.
-- `SKILL.md:29` — 7. When changes have been applied, rerun with `--verify` and compare the
-- `SKILL.md:31` — unless the latter is lower.
-- `SKILL.md:43` — configuration details before proposing a refactor. Do not mutate files merely
-- `SKILL.md:50` — real before/after target.
-- `SKILL.md:59` — least three eliminations, rerun with `--verify` after an actual refactor, and
-- `scripts/scan_cascade_signals.py:11` — BRANCH_RE = re.compile(r"^\s*(if|elif|else if|case|switch|catch|except)\b")
-- `scripts/scan_cascade_signals.py:17` — path for path in target.rglob("*") if path.is_file() and path.suffix in suffixes
-- `scripts/scan_cascade_signals.py:29` — if any(abs(count - seen) < seen // 7 + 1 and count > 20 for seen in seen_counts):
-- `scripts/scan_cascade_signals.py:37` — if branches > len(lines) // 8 and branches > 4:
-- `scripts/scan_cascade_signals.py:43` — if keys > 50:
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:25` — `Everything here is a special case of [X].`, and test whether all detected
-- `SKILL.md:29` — 7. When changes have been applied, rerun with `--verify` and compare the
-- `SKILL.md:59` — least three eliminations, rerun with `--verify` after an actual refactor, and
-- `VERIFICATION.md:7` — - Preserved: JSON scan fields, score calculation, duplicate/special-case/config heuristics, and verify-mode field.
-- `VERIFICATION.md:18` — python .agents/skills/simplification-cascades/scripts/scan_cascade_signals.py --path .agents/skills/simplification-cascades --verify
-- `VERIFICATION.md:27` — - Normal and `--verify` scans completed with valid JSON and a zero score on
-- `VERIFICATION.md:34` — - The repository TDD runner reports no supported project test runner; direct
-- `scripts/scan_cascade_signals.py:21` — def scan(target: Path, verify: bool) -> dict:
-- `scripts/scan_cascade_signals.py:54` — "verify_mode": verify,
-- `scripts/scan_cascade_signals.py:58` — "post_cascade_score" if verify else "cascade_score": score,
-- `scripts/scan_cascade_signals.py:67` — parser.add_argument("--verify", action="store_true")
-- `scripts/scan_cascade_signals.py:73` — print(json.dumps(scan(target, args.verify), indent=2))
-- `tests/evaluation-cases.md:5` — 3. Run with `--verify`; the score key is `post_cascade_score`.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:15` — "Extract a target directory from the request. Use `.` when none is given." — became the `task_category` enum.
+- `SKILL.md:20-21` — the scanner's JSON fields (`duplicate_patterns`, `special_case_hotspots`, `config_bloat_files`, `cascade_score`) — became the `scan`-phase `operation` fields.
+- `SKILL.md:26-28` — "Everything here is a special case of [X]," the 20%-fit test, and "at least three" eliminations — became `elimination_count`, `cascade_valid`, `fit_violated_threshold`.
+- `SKILL.md:29-31` — rerun with `--verify` and "do not claim success unless the latter is lower" — became the `verify`-phase `verification` event and `score_improved`.
+- `SKILL.md:22` — the zero-score/empty-lists report — became the `no_cascade_detected` failure class.
 
 ### Execution candidates
 
-- None detected statically.
+- `scripts/scan_cascade_signals.py` remains uninstrumented directly; its JSON output is captured through the `scan`- and `verify`-phase events above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

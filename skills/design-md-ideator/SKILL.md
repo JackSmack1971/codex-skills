@@ -181,3 +181,41 @@ Stop and report rather than fabricate when:
 - validation still fails after fixes because the requested content violates the schema.
 
 Otherwise, continue through generation and validation without unnecessary confirmation gates.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<create|refine|reconstruct|validate>" --invocation explicit)
+   ```
+2. After step 1 (discover existing design evidence), record the evidence and
+   ledger state:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase discover \
+     --evidence-json '{"evidence_sources":["<subset of existing_design_md,tokens_or_css,screenshots_or_brand,existing_components,user_requirements>"],"ledger_classifications":{"confirmed":<N>,"recommended":<N>,"assumed":<N>,"conflict":<N>}}'
+   ```
+3. After step 5 (present the decision ledger), record the token-group and
+   assumption state:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase ledger \
+     --evidence-json '{"token_groups_nonempty":["<subset of colors,typography,spacing,rounded,components>"],"unresolved_assumptions":<N>,"recommended_defaults":<N>}'
+   ```
+4. After step 7 (validate, fix, and revalidate), record the validation
+   result:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"exit_code":<N>,"retry_count":<N>,"profile":"strict"}'
+   ```
+5. Before step 8 (deliver), close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"task_category":"<create|refine|reconstruct|validate>","sections_completed":<N>,"validation_exit_code":<N>,"assumptions_disclosed":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Stop conditions instead of delivering the file.

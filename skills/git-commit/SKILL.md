@@ -73,3 +73,50 @@ docs: explain local setup
 
 Do not use interactive or destructive Git operations implicitly. If the
 repository state is ambiguous, stop and report it before staging or committing.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<explicit_request|workflow_required>" --invocation explicit)
+   ```
+2. After step 3 (stage only explicit files or hunks), record the staging
+   decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase stage \
+     --evidence-json '{"worktree_state":"<clean|mixed|already_staged>","excluded_paths":["<subset of env,credentials,private_keys,unrelated_files,none>"],"staged_file_count":<N>}'
+   ```
+3. After step 4 (infer type and scope, write the description), record the
+   message classification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase classify \
+     --evidence-json '{"type":"<feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert>","scope_included":<true|false>,"breaking_change":<true|false>,"subject_length":<N>}'
+   ```
+4. After step 5 (commit only when requested, after running required
+   checks), record the commit verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase commit --outcome <success|failure> \
+     --evidence-json '{"required_checks_run":<true|false>,"checks_passed":<true|false>,"commit_created":<true|false>}'
+   ```
+5. Before step 6 (report the commit hash, subject, scope, and checks run),
+   close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"type":"<feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert>","commit_hash_present":<true|false>,"checks_run":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the repository
+   state was ambiguous and the run stopped before staging or committing.
+
+If a maintainer later rewords this commit's message, recategorizes its
+type, or amends it because the classification was wrong, record it as its
+own event so message-quality drift is visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_type":"<feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert>","correction":"<message_reworded|type_recategorized|commit_amended>"}'
+```

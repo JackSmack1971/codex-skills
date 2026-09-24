@@ -14,28 +14,42 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual numbered Workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (`plan`\|`implement`\|`review`) |
+| After step 2 (classify the change) | `decision` (`phase=classify`) | `change_type`, `destructive_approval_required` |
+| After step 3 (expand/contract sequencing) | `decision` (`phase=sequence`) | `expand_contract_used`, `compatibility_window_defined` |
+| After step 4 (batching, locks, idempotency, observability, failure handling) | `verification` (`phase=safety`) | `idempotent`, `batching_defined`, `failure_handling_defined`, `observability_defined` |
+| After step 5 (verification, rollback, backup) | `verification` (`phase=verify`) | `rollback_strategy`, `backup_assumption_stated`, `verification_checks_count` |
+| Before returning output | `run.finished` | `change_type`, `destructive`, `rollback_strategy`, `verification_checks_count` |
+| When a reviewer later reclassifies the change | `user.correction` | `original_change_type`, `correction`, `new_change_type` |
 
-- `SKILL.md:4` — compatibility: Requires the repository's migration tooling and a documented current schema when available.
-- `SKILL.md:11` — - **Trigger and exclusion:** Use when stored schema or data changes must be planned, applied, or reviewed; exclude merely modeling new entities, routing to data-modeling.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:30` — 3. Use expand/contract sequencing when compatibility requires it: add, deploy
-- `SKILL.md:35` — backup assumptions before applying anything.
-- `SKILL.md:40` — approval and a verified target. Do not promise rollback when data transformation
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the reclassification-rate analysis an improvement agent should run over
+these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:31` — compatible code, backfill safely, verify, then contract.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:3` — the frontmatter description "Plan, implement, or review safe persistent schema changes" — became the `task_category` enum.
+- `SKILL.md:27-29` — "classify the change as additive, backfill, rewrite, rename, constraint, or destructive" — became the `change_type` enum.
+- `SKILL.md:30-31` — "Use expand/contract sequencing when compatibility requires it: add, deploy compatible code, backfill safely, verify, then contract" — became `expand_contract_used`/`compatibility_window_defined`.
+- `SKILL.md:32-33` — "Define batching, locks, transaction limits, idempotency, observability, and failure handling" — became the `safety`-phase `verification` fields.
+- `SKILL.md:34-35` — "State verification queries/checks, rollback or forward-fix strategy, and backup assumptions before applying anything" — became the `verify`-phase `verification` fields.
+- `SKILL.md:39-41` — the Boundary section (no destructive migration without explicit approval; never promise rollback when irreversible) — became `destructive_approval_required` and the `user.correction` block.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

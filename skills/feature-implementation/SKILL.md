@@ -41,3 +41,42 @@ data migration is required but not specified.
 Use `vertical-slice` when the request centers on one user action crossing UI,
 service/API, persistence, and verification. Use `test-driven-development` for
 an explicit red-green-refactor constraint and `testing-qa` for QA without TDD.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "feature_implementation" --invocation explicit)
+   ```
+2. After step 1 (read specification and list missing decisions), record the
+   scoping decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase scope \
+     --evidence-json '{"missing_decisions_count":<N>,"scope_conflict_flagged":<true|false>}'
+   ```
+3. After steps 3-4 (choose the end-to-end slice and implement it), record
+   the implementation decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase implement \
+     --evidence-json '{"files_touched":<N>,"layer":"<ui_or_client|api_or_service|data_or_persistence|cross_cutting>","input_validation_added":<true|false>,"error_handling_added":<true|false>,"security_or_accessibility_addressed":<true|false>}'
+   ```
+4. After step 5 (add/update verification and run focused tests, lint/type
+   checks, and the relevant broader check), record the verification result:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome <success|failure> \
+     --evidence-json '{"tests_added_or_updated":<true|false>,"focused_tests_passed":<true|false>,"lint_type_checks_passed":<true|false>}'
+   ```
+5. Before step 6 (report changed files, verification results, and deferred
+   work), close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"files_changed":<N>,"layer":"<ui_or_client|api_or_service|data_or_persistence|cross_cutting>","deferred_work_items":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Boundary instead of shipping a verified change.

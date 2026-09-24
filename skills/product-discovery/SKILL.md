@@ -40,3 +40,41 @@ answer, use the same headings without creating a file.
 
 Do not design a feature, choose an architecture, or claim validation from
 opinions alone. Stop when the problem and next evidence-gathering step are clear.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<problem_unclear|target_user_unclear|desired_outcome_unclear|multiple_unclear>" --invocation explicit)
+   ```
+2. After step 3 (list evidence and assumptions separately), record the
+   evidence/assumption split:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase classify_evidence \
+     --evidence-json '{"evidence_count":<N>,"assumption_count":<N>,"invented_facts_flagged":<true|false>}'
+   ```
+3. After step 4 (rank assumptions by uncertainty times consequence), record
+   the ranking decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase rank \
+     --evidence-json '{"assumptions_ranked":<N>,"riskiest_assumption_identified":<true|false>}'
+   ```
+4. After step 5 (define the smallest validation experiments, signals, and
+   decision rules), record verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase experiments --outcome success \
+     --evidence-json '{"experiments_count":<N>,"signals_defined":<true|false>,"decision_rules_defined":<true|false>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"open_questions_count":<N>,"evidence_count":<N>,"assumption_count":<N>,"output_format":"<file|inline>"}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Failure/stop instead of producing output.

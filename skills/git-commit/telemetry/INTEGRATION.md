@@ -14,33 +14,41 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (`explicit_request`/`workflow_required`) |
+| After step 3 (stage only explicit files or hunks) | `decision` (`phase=stage`) | `worktree_state`, `excluded_paths`, `staged_file_count` |
+| After step 4 (infer type and scope) | `decision` (`phase=classify`) | `type`, `scope_included`, `breaking_change`, `subject_length` |
+| After step 5 (commit after required checks) | `verification` (`phase=commit`) | `required_checks_run`, `checks_passed`, `commit_created` |
+| Before step 6 (report) | `run.finished` | `type`, `commit_hash_present`, `checks_run` |
+| When a maintainer later overturns the message or type | `user.correction` | `original_type`, `correction` |
 
-- `SKILL.md:3` — description: "Create commits or Conventional Commit messages when explicitly requested; use git-workflow for broader operations and github-issue-to-pr for the lifecycle."
-- `SKILL.md:11` — - **Trigger and exclusion:** Use only when creating a Git commit or commit message is explicitly requested; exclude general Git inspection or synchronization, routing to git-workflow.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:22` — Inspect the actual diff before choosing the message or staging files.
-- `SKILL.md:50` — Use `!` after the type or scope, or a `BREAKING CHANGE:` footer, for breaking
-- `SKILL.md:62` — 5. Commit only when the user explicitly requested it or the established
-- `SKILL.md:64` — 6. After committing, report the commit hash, subject, scope, and checks run.
-- `SKILL.md:74` — Do not use interactive or destructive Git operations implicitly. If the
-- `SKILL.md:75` — repository state is ambiguous, stop and report it before staging or committing.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the calibration analysis (`classify` joined against later
+`user.correction`) an improvement agent should run over these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:44` — | `test` | Tests |
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:11` — "Use only when creating a Git commit ... is explicitly requested" and step 5's workflow-required alternative — became `task_category`.
+- `SKILL.md:36-48` — the Conventional Commits type table — became the `type` enum.
+- `SKILL.md:50` — the `!`/`BREAKING CHANGE:` breaking-change convention — became `breaking_change`.
+- `SKILL.md:59` — "Never stage `.env`, credentials, private keys, or unrelated user work" — became `excluded_paths`.
+- `SKILL.md:61` — "under 72 characters" subject-length rule — became `subject_length`.
+- `SKILL.md:63` — "Run the repository's required checks first" — became `required_checks_run`/`checks_passed`.
+- `SKILL.md:64` — "report the commit hash, subject, scope, and checks run" — became `commit_hash_present`/`checks_run`.
 
 ### Execution candidates
 
-- `SKILL.md:7` — # Git Commit
-- `SKILL.md:11` — - **Trigger and exclusion:** Use only when creating a Git commit or commit message is explicitly requested; exclude general Git inspection or synchronization, routing to git-workflow.
-- `SKILL.md:21` — Create a focused, semantic Git commit using the Conventional Commits format.
+- None: this skill runs plain `git` commands rather than bundled scripts; their results are captured through the `stage`/`commit` events above instead of per-command instrumentation.
 
 ## Hook evidence
 

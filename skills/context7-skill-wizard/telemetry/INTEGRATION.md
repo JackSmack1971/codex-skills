@@ -14,41 +14,39 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual numbered Workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (`single_library`\|`multi_library`) |
+| After step 2 (resolve-library-id) | `decision` (`phase=resolve`) | `libraries_resolved_count`, `library_ambiguous` |
+| After step 4 (query-docs with retry) | `verification` (`phase=query`) | `topics_queried_count`, `empty_query_retried`, `coverage_gaps_count` |
+| After step 7 (`validate_generated_skill.py`) | `verification` (`phase=validate`) | `validation_passed`, `retry_count`, `body_lines_count`; preceding `retry` event if repaired |
+| Before returning the Completion report | `run.finished` | `libraries_selected_count`, `topics_fetched_count`, `coverage_gaps_count`, `validation_passed` |
 
-- `SKILL.md:10` — documentation. Keep the generated package in the workspace and stop before
-- `SKILL.md:11` — external publication unless the user explicitly requests it.
-- `SKILL.md:15` — 1. Extract a concrete library, framework, or domain. If it is missing, ask for
-- `SKILL.md:16` — one specific technology before continuing.
-- `SKILL.md:22` — derived topics. Retry once with a broader topic when a query is empty and
-- `SKILL.md:25` — plan and wait for approval before writing the generated skill.
-- `SKILL.md:30` — before packaging. Use the repository's migrated `skill-creator` package
-- `SKILL.md:31` — helper when a `.skill` archive is explicitly requested.
-- `SKILL.md:42` — - If Context7 is unavailable, report the exact gap and stop; do not silently
-- `references/skill-template.md:8` — `license`, `metadata`, and `allowed-tools` when the host documents them.
-- `references/skill-template.md:11` — platform names out of the name unless they are essential to the technology.
-- `references/wizard-phase-guide.md:34` — Use one to three topic queries per selected library. Broaden once when a
-- `scripts/validate_generated_skill.py:12` — if not lines or lines[0].strip() != "---":
-- `scripts/validate_generated_skill.py:15` — end = next(i for i, line in enumerate(lines[1:], 1) if line.strip() == "---")
-- `scripts/validate_generated_skill.py:20` — if line.strip() and not line.startswith((" ", "\t")) and ":" in line:
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:4` — compatibility: Requires Codex CLI, Context7 MCP tools, and Python 3.11+ for local validation.
-- `SKILL.md:54` — Report selected libraries, topics fetched, generated files, validation output,
-- `VERIFICATION.md:20` — | `codex exec --skip-git-repo-check --sandbox read-only --ephemeral --ignore-user-config ...` with explicit `$context7-skill-wizard` | PASS; skill discovered and used, no files modified |
-- `scripts/validate_generated_skill.py:2` — """Validate a generated Open Agent skill using only the standard library."""
-- `scripts/validate_generated_skill.py:26` — def validate(skill_dir):
-- `scripts/validate_generated_skill.py:55` — failures = validate(sys.argv[1])
-- `tests/evaluation-cases.md:9` — 4. Validate a generated fixture with `scripts/validate_generated_skill.py` and
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:21` — "For each selected library, call Context7 `query-docs`" — became the `single_library`/`multi_library` `task_category` enum.
+- `SKILL.md:16-17` — resolving a library and presenting matches with their IDs — became `libraries_resolved_count`/`library_ambiguous`.
+- `SKILL.md:21-23` — "query-docs for one to three derived topics. Retry once with a broader topic when a query is empty and record remaining coverage gaps as UNKNOWN" — became `topics_queried_count`, `empty_query_retried`, and `coverage_gaps_count`.
+- `SKILL.md:29-30` — `scripts/validate_generated_skill.py` gate before packaging — became the `validate`-phase `verification`/`retry` events.
+- `SKILL.md:40-41` — the 500-non-empty-body-line and 1024-character description limits — became `body_lines_count`.
+- `SKILL.md:54-56` — the Completion section's required report contents (libraries, topics, generated files, validation output, UNKNOWN gaps) — became the `run.finished` evidence fields.
 
 ### Execution candidates
 
-- None detected statically.
+- `scripts/validate_generated_skill.py` remains uninstrumented directly; its outcome is captured through the `validate`-phase `verification` event above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

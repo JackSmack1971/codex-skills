@@ -90,3 +90,54 @@ unknown behavior, and validation evidence. Leave the source package untouched.
 Pause and report when the target runtime behavior is undocumented, a required
 Codex command or schema is unavailable, a test needs external credentials, or
 the requested change would require mutating configuration outside the skill.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<new_skill|improve_existing|migration>" --invocation explicit)
+   ```
+   If `python3` is unavailable, use `python`.
+2. After step 4 (read the evaluation contract and build the eval corpus),
+   record the eval-design decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase eval_design \
+     --evidence-json '{"corpus_size":<N>,"repetition_count":<N>,"case_types":["<subset of positive,negative,neighboring_routing,representative_task,failure_case>"],"corpus_reduced_and_justified":<true|false>}'
+   ```
+3. After step 6 (calculate G1-G5 metrics and Design Readiness), record the
+   scoring result:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase score \
+     --evidence-json '{"design_readiness_score":<0-50>,"gates_passed":["<subset of g1,g2,g3,g4>"],"g5_status":"<unvalidated|validated>","validated_performance_reported":<true|false>}'
+   ```
+4. After step 8 (validate the package from the repository root), record the
+   validation result:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"metadata_valid":<true|false>,"references_valid":<true|false>,"python_syntax_valid":<true|false>,"redaction_clean":<true|false>,"source_runtime_fields_removed":<true|false>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"design_readiness_score":<0-50>,"g5_status":"<unvalidated|validated>","validated_performance_reported":<true|false>,"package_validated":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g.
+   `undocumented_runtime_behavior`, `missing_codex_command`,
+   `credentials_required`, `scope_outside_skill`) when a Stop condition
+   triggered instead of producing a validated skill package.
+
+If a later evaluation or maintainer determines this run's reported score or
+gate status was overstated (e.g. G5 claimed validated without matched
+paired-trial evidence, or a shipped skill regresses), record it as its own
+event so scoring calibration drift is visible without re-running the
+evaluation:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_g5_status":"<unvalidated|validated>","correction":"<score_overstated|regression_found|gate_disputed>"}'
+```

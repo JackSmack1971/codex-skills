@@ -39,3 +39,55 @@ old and new application versions may overlap.
 Never run a destructive migration or production backfill without explicit
 approval and a verified target. Do not promise rollback when data transformation
 is irreversible; describe the recovery path instead.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<plan|implement|review>" --invocation explicit)
+   ```
+2. After step 2 (classify the change), record the classification decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase classify \
+     --evidence-json '{"change_type":"<additive|backfill|rewrite|rename|constraint|destructive>","destructive_approval_required":<true|false>}'
+   ```
+3. After step 3 (expand/contract sequencing), record the sequencing decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase sequence \
+     --evidence-json '{"expand_contract_used":<true|false>,"compatibility_window_defined":<true|false>}'
+   ```
+4. After step 4 (batching, locks, idempotency, observability, and failure
+   handling), record verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase safety --outcome success \
+     --evidence-json '{"idempotent":<true|false>,"batching_defined":<true|false>,"failure_handling_defined":<true|false>,"observability_defined":<true|false>}'
+   ```
+5. After step 5 (verification queries/checks, rollback strategy, and backup
+   assumptions), record verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome success \
+     --evidence-json '{"rollback_strategy":"<rollback|forward_fix>","backup_assumption_stated":<true|false>,"verification_checks_count":<N>}'
+   ```
+6. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"change_type":"<additive|backfill|rewrite|rename|constraint|destructive>","destructive":<true|false>,"rollback_strategy":"<rollback|forward_fix>","verification_checks_count":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Boundary (no explicit approval for a destructive migration, or no
+   verified target) instead of producing a plan.
+
+If a reviewer later reclassifies a change this run judged safe (e.g. an
+"additive" change turns out destructive), revokes an approval, or finds the
+described rollback path infeasible, record it so migration-planning
+calibration drift is visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_change_type":"<additive|backfill|rewrite|rename|constraint|destructive>","correction":"<reclassified|rollback_infeasible|approval_revoked>","new_change_type":"<additive|backfill|rewrite|rename|constraint|destructive|na>"}'
+```

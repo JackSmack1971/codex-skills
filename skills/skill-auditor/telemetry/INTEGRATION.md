@@ -14,50 +14,42 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Audit workflow steps (superseding the generic candidate
+scan below, which is kept only as provenance for why these points were
+chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (operating mode) |
+| After step 2 (context-sufficiency gate) | `decision` (`phase=gate`) | `proceeded_without_questions`, `questions_asked_count`, `missing_grounding_source` |
+| After step 4 (rule-and-evidence ledger) | `verification` (`phase=evidence`) | `verified_quote_count`, `verified_observation_count`, `reported_count`, `estimated_count`, `unknown_count` |
+| After step 5 (analyze applicable audit lenses) | `decision` (`phase=findings`) | `h_findings`, `m_findings`, `l_findings`, `lenses_applied` |
+| After step 8 (validate, fix, revalidate) | `verification` (`phase=validate`) | `checklist_failed_count`, `revalidated` |
+| Before returning output | `run.finished` | `mode`, `h_findings`, `m_findings`, `l_findings`, `remediation_requested` |
+| When a maintainer later overturns a finding or the audit | `user.correction` | `original_severity`, `correction`, `finding_id` |
 
-- `SKILL.md:28` — [ASSUMPTION: Audits are read-only unless a later, explicit execution step is delegated to an editing capability.]
-- `SKILL.md:33` — - Ask questions only when missing information could materially change the findings.
-- `SKILL.md:36` — - Do not invent product requirements. Apply canonical Agent Skill rules only when their provenance is declared.
-- `SKILL.md:70` — Stop and request the target only when no target can be identified. Do not guess from unrelated context. When several candidates are plausible, present the smallest candidate list and ask the user to choose.
-- `SKILL.md:74` — Proceed without questions when all are true:
-- `SKILL.md:87` — Do not ask for information already present in the request or files. If the user says to proceed with minimal context, continue and label defaults and unknowns explicitly.
-- `SKILL.md:89` — Stop condition: no audit may proceed without a readable target. Missing original intent lowers confidence but does not block an architecture-only audit when defaults are authorized.
-- `SKILL.md:125` — Use the lean checks in this file first. Load [the full audit rubric](../resources/audit-rubric.md) for `standard-audit`, `workflow-audit`, `self-audit`, or when severity is uncertain.
-- `SKILL.md:126` — When judging skill quality, retention, compression, or comparative value, also
-- `SKILL.md:157` — For `workflow-audit`, require an ordered workflow or reconstruct one from artifacts and mark it `[ESTIMATED]`. If ordering cannot be established, report the limitation instead of asserting breakage.
-- `SKILL.md:161` — Load [the report template](../resources/report-template.md) before finalizing the audit.
-- `SKILL.md:187` — Write “None verified in the inspected scope” when a section has no findings.
-- `SKILL.md:191` — Before claiming completion, verify:
-- `SKILL.md:207` — If any item fails, revise the report and repeat the checklist. Do not claim “audited,” “verified,” or “complete” until the validation pass succeeds.
-- `SKILL.md:217` — Do not inflate severity because a recommendation is easy or desirable. When evidence supports several severities, choose the lower one and state the uncertainty.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the calibration analysis (`decision` joined against later
+`user.correction`) an improvement agent should run over these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `README.md:5` — ## Validate
-- `SKILL.md:63` — - [ ] 8. Validate, fix, and revalidate
-- `SKILL.md:121` — For absence claims, name the searched scope. Example: “No validation loop found in `SKILL.md` or the three directly linked resources.” Do not fabricate a quote for missing content.
-- `SKILL.md:137` — - workflow determinism and validate-fix loops;
-- `SKILL.md:152` — producer -> output artifact/state -> transport/path -> consumer input -> validation -> failure behavior
-- `SKILL.md:155` — Check names, formats, paths, ownership, ordering, idempotency, error propagation, information loss, duplicated authority, and contradictory defaults.
-- `SKILL.md:172` — 8. Audit Confidence and Validation.
-- `SKILL.md:189` — ### 8. Validate, fix, and revalidate
-- `SKILL.md:191` — Before claiming completion, verify:
-- `SKILL.md:207` — If any item fails, revise the report and repeat the checklist. Do not claim “audited,” “verified,” or “complete” until the validation pass succeeds.
-- `SKILL.md:214` — - `M`: recurring reliability loss, ambiguous control flow, material integration friction, incomplete validation, or substantial token/context waste.
-- `SKILL.md:246` — - weakening evidence tags, stop conditions, or validation requirements.
-- `SKILL.md:248` — Also check whether this skill’s own instructions create unnecessary questioning, circular authority, or impossible evidence requirements.
-- `SKILL.md:265` — - [Evaluation cases](../resources/evaluations.md) — regression tests for this auditor.
-- `SKILL.md:284` — - the report passed the validate-fix-revalidate checklist;
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:40-46` — the Operating modes list (`quick-trace`, `standard-audit`, `workflow-audit`, `self-audit`, `remediation-plan`) — became the `task_category` enum.
+- `SKILL.md:74-89` — the context-sufficiency gate's proceed-without-questions conditions and one-batch question rule — became the `gate`-phase `decision` fields.
+- `SKILL.md:113-120` — the `[VERIFIED: QUOTE]`/`[VERIFIED: OBSERVATION]`/`[REPORTED]`/`[ESTIMATED]`/`[UNKNOWN]` calibration tags — became the `evidence`-phase `verification` fields.
+- `SKILL.md:132-143` — the applicable audit lenses list (discovery metadata through evaluation coverage) — became the `lenses_applied` enum.
+- `SKILL.md:211-217` — the H/M/L severity definitions — became `h_findings`/`m_findings`/`l_findings`.
+- `SKILL.md:189-207` — the step-8 validate-fix-revalidate checklist — became `checklist_failed_count`/`revalidated`.
 
 ### Execution candidates
 
-- `scripts/inventory_skill.py:153` — output.write_text(rendered, encoding="utf-8")
-- `scripts/validate_skill_pack.py:182` — output.write_text(rendered, encoding="utf-8")
+- `scripts/inventory_skill.py` and `scripts/validate_skill_pack.py` remain uninstrumented directly; they are read-only inventory/validation helpers whose results feed the `evidence` and `validate` phase events above rather than being instrumented per-subprocess-call, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

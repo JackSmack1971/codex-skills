@@ -14,63 +14,41 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (new skill vs. improve vs. migration) |
+| After step 4 (eval contract + corpus) | `decision` (`phase=eval_design`) | `corpus_size`, `repetition_count`, `case_types`, `corpus_reduced_and_justified` |
+| After step 6 (G1-G5 metrics + Design Readiness) | `verification` (`phase=score`) | `design_readiness_score`, `gates_passed`, `g5_status`, `validated_performance_reported` |
+| After step 8 (validate the package) | `verification` (`phase=validate`) | `metadata_valid`, `references_valid`, `python_syntax_valid`, `redaction_clean`, `source_runtime_fields_removed` |
+| Before returning output | `run.finished` | `design_readiness_score`, `g5_status`, `validated_performance_reported`, `package_validated` |
+| When a later evaluation disputes the score/gate claims | `user.correction` | `original_g5_status`, `correction` |
 
-- `SKILL.md:9` — Before relying on CLI or skill-contract behavior, detect the local runtime and
-- `SKILL.md:19` — 2. Inspect the existing skill and repository conventions before editing. For a
-- `SKILL.md:24` — templates in `assets/` only when they are actually needed.
-- `SKILL.md:26` — State the value hypothesis before testing. Build positive, negative, and
-- `SKILL.md:28` — the contract's default corpus and repetition counts when practical; record
-- `SKILL.md:31` — state with outcome rubrics fixed before results. Use
-- `SKILL.md:32` — `codex exec` when available, capture exit status and final output, and use
-- `SKILL.md:33` — `codex exec --json` only when runtime usage evidence is needed. Keep runs
-- `SKILL.md:37` — Validated Performance and an overall `/100` only when repeated paired
-- `SKILL.md:50` — - `scripts/package_skill.py`: creates a `.skill` archive after validation.
-- `SKILL.md:72` — only when a documented Codex requirement and a test justify them.
-- `SKILL.md:90` — Pause and report when the target runtime behavior is undocumented, a required
-- `assets/eval_review.html:35` — .toggle .slider::before { content: ""; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
-- `assets/eval_review.html:37` — .toggle input:checked + .slider::before { transform: translateX(20px); }
-- `assets/eval_review.html:82` — if (group !== lastGroup) {
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the scoring-integrity analysis (`g5_status` vs. `validated_performance_reported`,
+joined against later `user.correction`) an improvement agent should run over
+these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — and validation behavior explicit.
-- `SKILL.md:38` — evidence is sufficient. Static or deterministic validation leaves G5
-- `SKILL.md:42` — and check for material regressions.
-- `SKILL.md:43` — 8. Validate the package from the repository root. Check metadata, relative
-- `SKILL.md:49` — - `scripts/quick_validate.py`: dependency-free metadata and package validation.
-- `SKILL.md:50` — - `scripts/package_skill.py`: creates a `.skill` archive after validation.
-- `SKILL.md:55` — - `eval-viewer/generate_review.py --static`: produces a reviewable HTML file
-- `SKILL.md:72` — only when a documented Codex requirement and a test justify them.
-- `SKILL.md:86` — unknown behavior, and validation evidence. Leave the source package untouched.
-- `SKILL.md:91` — Codex command or schema is unavailable, a test needs external credentials, or
-- `assets/eval_review.html:9` — <title>Eval Set Review - __SKILL_NAME_PLACEHOLDER__</title>
-- `assets/eval_review.html:44` — <h1>Eval Set Review: <span id="skill-name">__SKILL_NAME_PLACEHOLDER__</span></h1>
-- `assets/eval_review.html:49` — <button class="btn btn-export" onclick="exportEvalSet()">Export Eval Set</button>
-- `assets/eval_review.html:60` — <tbody id="eval-body"></tbody>
-- `assets/eval_review.html:71` — const tbody = document.getElementById('eval-body');
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:19-21` — "For a migration, inventory every source file..." vs. fresh authoring vs. improving an existing skill — became the `task_category` enum.
+- `SKILL.md:26-29` — "Build positive, negative, and neighboring routing cases plus representative task and failure cases," default corpus and repetition counts, and "record any justified reduction" — became the `eval_design`-phase fields.
+- `SKILL.md:36-39` — G1-G5 gates, Design Readiness `/50`, and "Static or deterministic validation leaves G5 UNVALIDATED" — became the `score`-phase fields.
+- `SKILL.md:43` — "Validate the package... Check metadata, relative references, Python syntax, redaction boundaries, and that no source-runtime fields or commands remain" — became the `validate`-phase fields.
+- `SKILL.md:77-80` — "Never call a deterministic validator behavioral evidence... Report the corpus, repetitions, matched baseline, metrics, and remaining uncertainty" — became the `user.correction` block's scoring-integrity concept.
+- `SKILL.md:88-92` — the Stop conditions list — became the failure-class guidance.
 
 ### Execution candidates
 
-- `eval-viewer/generate_review.py:21` — import subprocess
-- `eval-viewer/generate_review.py:276` — result = subprocess.run(
-- `eval-viewer/generate_review.py:288` — except subprocess.TimeoutExpired:
-- `eval-viewer/generate_review.py:354` — self.feedback_path.write_text(json.dumps(data, indent=2) + "\n")
-- `eval-viewer/generate_review.py:419` — args.static.write_text(html)
-- `eval-viewer/viewer.html:670` — const resp = await fetch("/api/feedback");
-- `eval-viewer/viewer.html:698` — content.classList.remove("open");
-- `eval-viewer/viewer.html:699` — document.getElementById("grades-arrow").classList.remove("open");
-- `eval-viewer/viewer.html:755` — content.classList.remove("open");
-- `eval-viewer/viewer.html:756` — document.getElementById("prev-outputs-arrow").classList.remove("open");
-- `eval-viewer/viewer.html:840` — fetch("/api/feedback", {
-- `eval-viewer/viewer.html:872` — fetch("/api/feedback", {
-- `eval-viewer/viewer.html:894` — document.getElementById("done-overlay").classList.remove("visible");
-- `eval-viewer/viewer.html:902` — setTimeout(() => toast.classList.remove("visible"), 2000);
-- `eval-viewer/viewer.html:935` — document.querySelectorAll(".view-tab").forEach(t => t.classList.remove("active"));
+- `scripts/quick_validate.py`, `scripts/package_skill.py`, and `eval-viewer/generate_review.py` remain uninstrumented directly; their outcomes are captured through the `score`- and `validate`-phase events above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

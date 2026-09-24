@@ -41,3 +41,41 @@ Acceptance Criteria, Analytics, Out of Scope, and Open Questions.
 
 Keep requirements testable and technology-neutral. If a requirement cannot be
 verified, mark it unresolved rather than hiding it in prose.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<new_feature|existing_system_extension>" --invocation explicit)
+   ```
+2. After step 2 (define functional requirements and observable states),
+   record the states decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase define_states \
+     --evidence-json '{"functional_requirements_count":<N>,"states_covered":["<subset of loading,empty,success,failure,retry,recovery>"]}'
+   ```
+3. After step 3 (non-functional requirements, permissions, data handling,
+   analytics, operational constraints), record that decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase non_functional \
+     --evidence-json '{"permissions_defined":<true|false>,"analytics_events_count":<N>,"operational_constraints_flagged":<true|false>}'
+   ```
+4. After step 4 (edge cases and acceptance criteria with concrete inputs and
+   outcomes), record verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase edge_cases --outcome success \
+     --evidence-json '{"edge_cases_count":<N>,"acceptance_criteria_count":<N>,"criteria_have_concrete_inputs":<true|false>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"open_questions_count":<N>,"out_of_scope_count":<N>,"unresolved_policy_flagged":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Failure/stop instead of producing `PRODUCT_SPEC.md`.

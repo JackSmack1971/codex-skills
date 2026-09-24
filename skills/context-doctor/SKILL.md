@@ -61,3 +61,49 @@ Do not inspect control-plane formats belonging to another agent. Do not infer un
 ## Completion
 
 End with the report contract's required approval sentence. Make no changes.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<static_only|with_runtime_telemetry>" --invocation explicit)
+   ```
+2. After step 2 (run the bundled collector), record collection health:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase collect --outcome success \
+     --evidence-json '{"collector_completed":<true|false>,"agents_md_files_found":<N>,"config_layers_detected":<N>}'
+   ```
+3. After step 5 (label claims DIRECT/MEASURED/INFERRED/UNKNOWN), record the
+   labeling decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase label \
+     --evidence-json '{"claim_labels_used":["<subset of DIRECT,MEASURED,INFERRED,UNKNOWN>"],"unknown_claim_count":<N>}'
+   ```
+4. After step 7 (rank actionable findings), record the ranking decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase rank \
+     --evidence-json '{"findings_count":<N>,"risk_categories":["<subset of agents_md,skills_discovery,config_layers,hooks_mcp,compaction,model_settings>"]}'
+   ```
+5. Before returning the report (after step 8), close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"findings_count":<N>,"unknown_claim_count":<N>,"approval_sentence_included":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when a required bundled
+   resource was absent or the collector could not run, instead of producing
+   the report.
+
+Findings are audit judgments a reader may later dispute. If a maintainer
+later dismisses a finding, reclassifies a claim's label, or disputes the
+stated burden, record it so audit calibration drift is visible without
+re-running the skill:
+```bash
+python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"finding_category":"<agents_md|skills_discovery|config_layers|hooks_mcp|compaction|model_settings>","correction":"<finding_dismissed|claim_reclassified|burden_disputed>"}'
+```

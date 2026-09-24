@@ -35,3 +35,36 @@ Read at most one primary reference. Do not open every route, bundled model guide
 - Use `references/latest-model.md` only as a disclosed fallback after current official model guidance does not answer the question. Read `references/upgrading-to-gpt-5p6-sol.md` only for an actual, requested GPT-5.6-family migration; read `references/prompting-guide.md` only for requested prompting work.
 - Before building, running, editing, debugging, or testing an API-backed app or tool, use `openai-platform-api-key` first when available. Documentation, conceptual examples, model selection, and read-only guidance do not require an API key.
 - Say "OpenAI Docs" or "official OpenAI documentation" in user-facing answers. Keep exact official citations and examples concise.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before the first substantive action (the docs search), start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<local_integration|model_migration|model_selection|product_api_docs|codex_self_knowledge|direct_citation_no_route>" --invocation explicit)
+   ```
+2. After the first substantive action (search, then fetch or open the
+   matching official page), record source-order health:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase search --outcome <success|failure> \
+     --evidence-json '{"source_order_followed":<true|false>,"official_domain":"<developers.openai.com|platform.openai.com|help.openai.com|learn.chatgpt.com|openai.com_product_docs|other>","page_fetched":<true|false>}'
+   ```
+3. After "Choose one primary route" is resolved, record the routing
+   decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase route \
+     --evidence-json '{"route":"<local_integration|model_migration|model_selection|product_api_docs|codex_self_knowledge|direct_citation_no_route>","reference_read":<true|false>,"requested_model_preserved":<true|false>}'
+   ```
+4. Before returning the answer (after applying "Source and execution
+   boundaries"), close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"route":"<local_integration|model_migration|model_selection|product_api_docs|codex_self_knowledge|direct_citation_no_route>","citations_count":<N>,"uncertainty_disclosed":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when no official source
+   could establish the answer instead of a cited response.

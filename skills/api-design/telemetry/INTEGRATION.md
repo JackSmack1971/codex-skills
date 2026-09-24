@@ -14,25 +14,38 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (transport family) |
+| After step 2 (specify transport shape) | `decision` (`phase=contract`) | `transport`, `error_codes_count`, `empty_states_covered` |
+| After step 3 (cross-cutting concerns) | `decision` (`phase=concerns`) | `concerns_addressed` |
+| After step 4 (naming/compatibility/sensitive-data/observability check) | `verification` (`phase=check`) | `naming_consistent`, `compatibility_risk_found`, `sensitive_data_exposure_found`, `observability_defined` |
+| Before returning output | `run.finished` | `transport`, `error_codes_count`, `concerns_addressed_count`, `boundary_additions_avoided` |
+| When a reviewer later changes a contract decision | `user.correction` | `original_decision`, `correction`, `concern_category` |
 
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:27` — 2. Specify transport shape, inputs, outputs, validation, empty states, and
-- `SKILL.md:31` — 4. Check naming, compatibility, sensitive-data exposure, and observability.
-- `tests/evaluation-cases.md:4` — 2. **Negative:** Given an endpoint accepting arbitrary user input, require validation and safe error handling.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:11` — trigger/exclusion boundary naming HTTP, RPC, GraphQL, and internal API contracts — became the `task_category`/`transport` enum.
+- `SKILL.md:27` — "Specify transport shape, inputs, outputs, validation, empty states, and stable error codes" — became `error_codes_count`/`empty_states_covered`.
+- `SKILL.md:29-30` — authentication, authorization, rate limits, pagination/filtering, idempotency, consistency, and timeout expectations — became the `concerns_addressed` enum.
+- `SKILL.md:31` — "Check naming, compatibility, sensitive-data exposure, and observability" — became the `check`-phase `verification` fields.
+- `SKILL.md:41-43` — Boundary section (no versioning/pagination/abstraction without need; never expose internal errors, secrets, or unauthorized data) — became `boundary_additions_avoided` and `sensitive_data_exposure_found`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

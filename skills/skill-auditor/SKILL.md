@@ -284,3 +284,56 @@ The audit is complete only when:
 - the report passed the validate-fix-revalidate checklist;
 - unknowns and confidence are honestly reported.
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the audit uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<quick-trace|standard-audit|workflow-audit|self-audit|remediation-plan>" --invocation explicit)
+   ```
+2. After step 2 (pass the context-sufficiency gate), record the gating
+   decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase gate \
+     --evidence-json '{"proceeded_without_questions":<true|false>,"questions_asked_count":<N>,"missing_grounding_source":<true|false>}'
+   ```
+3. After step 4 (build the rule-and-evidence ledger), record the evidence
+   calibration mix:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase evidence \
+     --evidence-json '{"verified_quote_count":<N>,"verified_observation_count":<N>,"reported_count":<N>,"estimated_count":<N>,"unknown_count":<N>}'
+   ```
+4. After step 5 (analyze applicable audit lenses), record the findings
+   decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase findings \
+     --evidence-json '{"h_findings":<N>,"m_findings":<N>,"l_findings":<N>,"lenses_applied":["<subset of discovery_metadata,progressive_disclosure,rule_fidelity,workflow_determinism,output_contracts,executable_code,integration_handoffs,security_trust,portability,evaluation_coverage>"]}'
+   ```
+5. After step 8 (validate, fix, and revalidate), record the validation
+   result:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"checklist_failed_count":<N>,"revalidated":<true|false>}'
+   ```
+6. Before returning output, close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"mode":"<quick-trace|standard-audit|workflow-audit|self-audit|remediation-plan>","h_findings":<N>,"m_findings":<N>,"l_findings":<N>,"remediation_requested":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g.
+   `unreadable_target`) when the workflow stopped under the Audit workflow's
+   stop condition instead of producing a validated report.
+
+If a maintainer later dismisses a finding or overturns the audit's overall
+assessment, record it as its own event so calibration drift is visible
+without re-running the audit:
+```bash
+python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_severity":"<H|M|L>","correction":"<finding_dismissed|severity_adjusted|audit_overturned>","finding_id":"<id>"}'
+```
+

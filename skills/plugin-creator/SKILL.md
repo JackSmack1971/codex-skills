@@ -242,3 +242,41 @@ neighboring skill package:
 ```bash
 python3 "<skill-dir>/scripts/validate_plugin.py" <plugin-path>
 ```
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before Quick Start step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<basic_scaffold|with_marketplace|repo_team_marketplace|existing_plugin_update>" --invocation explicit)
+   ```
+2. After Quick Start step 1 (scaffold script), record what was created:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event operation --phase scaffold --outcome <success|failure> \
+     --evidence-json '{"plugin_name_normalized":<true|false>,"companion_folders_created":["<subset of skills,hooks,scripts,assets,mcp,apps>"],"marketplace_flag_used":<true|false>}'
+   ```
+3. After Quick Start step 3 (marketplace entry generation), record the
+   marketplace decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase marketplace \
+     --evidence-json '{"marketplace_target":"<personal_default|custom_name|repo_team|none>","policy_fields_set":<true|false>,"marketplace_created_new":<true|false>}'
+   ```
+4. After the Validation step (running `validate_plugin.py`), record the
+   result; if validation failed and was repaired, emit a `retry` event first
+   with `--failure-class` describing the defect:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"validation_passed":<true|false>,"todo_placeholders_found":<N>,"retry_count":<N>}'
+   ```
+5. Before handing back the generated plugin, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"plugin_created":<true|false>,"marketplace_updated":<true|false>,"deeplinks_emitted":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when validation could
+   not be made to pass instead of handing back a plugin.

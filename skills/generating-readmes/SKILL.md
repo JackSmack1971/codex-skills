@@ -99,4 +99,48 @@ A completed README update must include:
 [Output]
 A grounded `README.md` plus a concise final report listing evidence sources, score, files changed, commands verified, and remaining `[INFERRED]` or `[TBD]` items.
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output. This skill invokes its own scripts with `python`; mirror that
+convention for `recorder.py` too.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<write|audit_only|no_write>" --invocation explicit)
+   ```
+2. After step 2 (build the repository evidence inventory), record the
+   inventory decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase inventory \
+     --evidence-json '{"key_files_inspected":<N>,"secrets_excluded":<true|false>}'
+   ```
+3. After step 5 (write or report), record the draft decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase draft \
+     --evidence-json '{"mode":"<write|audit_only|no_write>","sections_covered":["<subset of quickstart,features,architecture,directory_structure,configuration,command_center,testing_verification,troubleshooting,stack_inventory,reproducibility,contribution_governance>"],"inferred_items_count":<N>}'
+   ```
+4. After step 6 (verify before completion), record the quality-check result:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome <success|failure> \
+     --evidence-json '{"quality_score":<N>,"min_score_met":<true|false>,"rerun_count":<N>}'
+   ```
+5. Before returning the final report, close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"mode":"<write|audit_only|no_write>","quality_score":<N>,"tbd_items_count":<N>,"inferred_items_count":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the Safety rules or
+   Definition of done blocked a complete, grounded README instead.
+
+If a maintainer later corrects an `[INFERRED]` claim this run made, dismisses
+an audit-mode gap, or disputes the reported quality score, record it as its
+own event so grounding drift is visible without re-running the skill:
+```bash
+python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_quality_score":<N>,"correction":"<inferred_claim_corrected|gap_dismissed|score_disputed>"}'
+```
 

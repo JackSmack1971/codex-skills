@@ -14,42 +14,38 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before Workflow step 1 (detect state) | `run.started` | `task_category` (`initial_setup` \| `maintenance`) |
+| After Workflow steps 1-2 (detect state, route) | `decision` (`phase=route`) | `detected_state`, `route` |
+| After Workflow step 4 (decide root/child nodes) or the maintenance-mode question | `decision` (`phase=plan`) | `child_nodes_planned`, `signals_triggered`, `maintenance_choice` |
+| After Workflow step 5 (execute and validate) | `verification` (`phase=validate`) | `one_root_confirmed`, `read_first_directive_present`, `max_node_tokens` |
+| Before returning output | `run.finished` | `route`, `nodes_created`, `max_node_tokens`, `maintenance_choice` |
 
-- `README.md:37` — ## When to Use
-- `README.md:39` — Use intent-layer when:
-- `README.md:56` — 1. **Detect** - Check if Intent Layer exists
-- `SKILL.md:32` — Has root file → Add Intent Layer section + child nodes if needed
-- `SKILL.md:39` — 6. Maintenance mode (when state=complete)
-- `SKILL.md:46` — ## When to Create Child Nodes
-- `SKILL.md:55` — Do NOT create for: every directory, simple utilities, test folders (unless complex).
-- `SKILL.md:59` — When documenting existing code, ask:
-- `references/capture-protocol.md:27` — - "What must always be true here? What would break if violated?"
-- `references/capture-protocol.md:38` — - "What should never be done, even if the code allows it?"
-- `references/capture-protocol.md:47` — When creating parent nodes:
-- `references/capture-protocol.md:55` — Before finalizing a node:
-- `references/node-examples.md:9` — - [Before (~800 tokens)](#before-800-tokens)
-- `references/node-examples.md:10` — - [After (~250 tokens)](#after-250-tokens)
-- `references/node-examples.md:81` — ### Before (~800 tokens)
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's
+runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `README.md:56` — 1. **Detect** - Check if Intent Layer exists
-- `README.md:64` — - `intent_tools.py detect-state` - Check Intent Layer state
-- `SKILL.md:37` — Validate: one root, READ-FIRST directive, <4k tokens per node
-- `SKILL.md:55` — Do NOT create for: every directory, simple utilities, test folders (unless complex).
-- `SKILL.md:68` — - `scripts/intent_tools.py detect-state` - Check Intent Layer state (none/partial/complete)
-- `references/capture-protocol.md:71` — → Purpose: Owns payment lifecycle: initiation → validation → processing → settlement.
-- `references/node-examples.md:49` — Owns payment lifecycle: initiation → validation → processing → settlement.
-- `references/templates.md:47` — - Don't bypass validation layer
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:18-19` — Workflow step 1-2 "Detect state ... Route: none/partial → Initial setup ... complete → Maintenance" — became `detected_state` and `route`.
+- `SKILL.md:11-13` — Core Principle "Only ONE root context file" — became `one_root_confirmed`.
+- `SKILL.md:37` — Workflow step 5 "Validate: one root, READ-FIRST directive, <4k tokens per node" — became `read_first_directive_present`, `max_node_tokens`.
+- `SKILL.md:39-44` — Workflow step 6 "Maintenance mode: Audit nodes | Find candidates | Both" — became the `maintenance_choice` enum.
+- `SKILL.md:46-55` — "When to Create Child Nodes" signal table (`>20k tokens`, responsibility shift, hidden contracts/invariants, cross-cutting concern) — became the `signals_triggered` enum and `child_nodes_planned`.
 
 ### Execution candidates
 
-- None detected statically.
+- `scripts/intent_tools.py`'s `detect-state`, `analyze`, and `estimate` subcommands remain uninstrumented directly; their outputs are captured through the `route`/`plan`/`validate` events above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

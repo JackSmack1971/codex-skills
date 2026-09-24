@@ -84,3 +84,52 @@ would require an out-of-scope path or mutation.
 - [Finding contract](references/finding-contract.md)
 - [Plan specification](references/plan-spec.md)
 - [Portability and security](references/portability-and-security.md)
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the audit uninterrupted and never let it block or
+change the output.
+
+1. Before Required-workflow step 1, start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<audit|direction|plan|review_plan>" --invocation explicit)
+   ```
+2. After step 1 (establish repository scope) and parsing the Invocation
+   arguments, record the scoping decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase scope \
+     --evidence-json '{"effort":"<quick|standard|deep>","focus":"<security|performance|tests|architecture|dependencies|dx|docs|all>","branch_scoped":<true|false>}'
+   ```
+3. After step 4 (independently reopen every cited location and reject stale,
+   duplicate, generic, unreachable, or documented candidates), record the
+   vetting verification:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase vet --outcome success \
+     --evidence-json '{"candidates_considered":<N>,"candidates_rejected":<N>,"rejection_reasons":["<subset of stale,duplicate,generic,unreachable,documented>"]}'
+   ```
+4. After step 8 (validate persisted plans and scan for sensitive output),
+   record the validation result; if a validator failed and was repaired,
+   emit a `retry` event first with `--failure-class` naming the defect:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"plan_validation_exit_code":<N>,"sensitive_output_flagged":<true|false>,"retry_count":<N>}'
+   ```
+5. Before returning output (after step 6/8), close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"focus":"<security|performance|tests|architecture|dependencies|dx|docs|all>","effort":"<quick|standard|deep>","findings_count":<N>,"plans_written":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when a Stop condition
+   triggered instead of producing a plan.
+
+If a human maintainer or the agent executing this skill's plan later reports
+that a finding was invalid or a plan step was infeasible or incomplete,
+record it as its own event so calibration drift is visible without
+re-running the skill:
+```bash
+python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"correction":"<finding_invalid|plan_step_infeasible|plan_step_incomplete>","detail":"<short label>"}'
+```

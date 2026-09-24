@@ -14,53 +14,42 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual numbered workflow sections (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 (repository discovery) | `run.started` | `task_category` (`ideas_only`\|`specification_only`\|`full_workflow`) |
+| After step 2 (candidate generation) | `decision` (`phase=generate`) | `candidate_count`, `opportunity_classes_covered`, `candidates_rejected_count` |
+| After step 3 (scoring and selection) | `decision` (`phase=score`) | `min_gates_failed_count`, `top_score`, `tie_break_applied` |
+| After step 6 (validation loop) | `verification` (`phase=validate`) | `validation_status`, `retry_count` |
+| Before returning output | `run.finished` | `mode`, `selected_feature_score`, `validation_status`, `blocking_questions_count` |
+| When a stakeholder later overturns the selection | `user.correction` | `original_selection`, `correction`, `work_item_id` |
 
-- `SKILL.md:9` — Generate evidence-backed UX feature ideas and, when requested, convert the strongest candidate into a deterministic implementation contract for downstream agents.
-- `SKILL.md:27` — Default to the full workflow unless the user explicitly requests only ideas or only a specification.
-- `SKILL.md:32` — - User goal, product area, or UX concern when supplied
-- `SKILL.md:44` — - Select one feature unless the user explicitly requests ideas-only output.
-- `SKILL.md:73` — Stop only when the artifact validates, or when a blocking unknown cannot be resolved from available evidence. In the latter case, emit no implementation-ready contract; report the evidence gap and the smallest question needed to unblock it.
-- `SKILL.md:93` — Do not treat an assumption as evidence. Include exact repository paths when available. If no repository is accessible, proceed using user context and assumptions, but lower `evidence_confidence` scores and make implementation paths provisional.
-- `SKILL.md:121` — Apply the minimum gates first. A candidate is ineligible if any answer is `false`:
-- `SKILL.md:149` — When scores are within 3 points, prefer in order:
-- `SKILL.md:156` — `scripts/score_candidates.py` only computes and sorts numeric totals; if the top candidates are within 3 points, do the tie-break review manually using the order above before selecting one.
-- `SKILL.md:160` — Read `resources/ux-principles.md` before finalizing the selected feature.
-- `SKILL.md:176` — Acceptance criteria MUST be testable Given/When/Then contracts. Avoid subjective terms such as "intuitive," "clean," "fast," or "user-friendly" unless paired with an observable threshold.
-- `SKILL.md:202` — 3. If validation fails, fix every reported error and run it again.
-- `SKILL.md:235` — - Minimize collection of personal or sensitive data; define retention and deletion behavior when data is added.
-- `resources/evaluations.md:3` — Run these evaluations with a fresh Codex run. Test at least one economical, balanced, and high-reasoning model when available.
-- `resources/evaluations.md:25` — - Repository evidence is inspected before ideas are finalized.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the selection-calibration analysis an improvement agent should run over
+these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:20` — - [Validation loop](#6-validation-loop)
-- `SKILL.md:39` — The JSON file is the canonical handoff artifact. It MUST validate against `resources/feature-brief.schema.json` and the semantic checks in `scripts/validate_feature_brief.py`.
-- `SKILL.md:69` — - [ ] 9. Validate, fix, and revalidate
-- `SKILL.md:70` — - [ ] 10. Report the selected feature, path, score, and validation status
-- `SKILL.md:115` — - A duplication check against existing capabilities
-- `SKILL.md:189` — Use dependency IDs to define execution order. Put only dependency-free work in parallel groups. Include stop conditions for contract conflicts, missing paths, failed migrations, security violations, inaccessible dependencies, and failing validation.
-- `SKILL.md:193` — ## 6. Validation loop
-- `SKILL.md:202` — 3. If validation fails, fix every reported error and run it again.
-- `SKILL.md:204` — 5. Do not hand the artifact to implementation agents while validation fails.
-- `SKILL.md:227` — Validation: PASS
-- `SKILL.md:251` — - `scripts/validate_feature_brief.py` — schema, semantic, path, and graph validation
-- `VERIFICATION.md:5` — - Windows smoke check: `python scripts/validate_feature_brief.py --help`.
-- `resources/evaluations.md:3` — Run these evaluations with a fresh Codex run. Test at least one economical, balanced, and high-reasoning model when available.
-- `resources/evaluations.md:10` — - [Quality regression checklist](#quality-regression-checklist)
-- `resources/evaluations.md:46` — Fix the failing unit test in src/parser.test.ts.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:43-53` — Mode outputs (ideas-only, specification-only, full workflow) — became the `task_category`/`mode` enum.
+- `SKILL.md:97-106` — the eight UX opportunity classes in "2. Candidate generation" — became the `opportunity_classes_covered` enum.
+- `SKILL.md:117` — candidate rejection criteria (cosmetic, duplicate, unmeasurable, invented demand, rewrite-only) — became `candidates_rejected_count`.
+- `SKILL.md:121-127` — the minimum-gates checklist in "3. Scoring and selection" — became `min_gates_failed_count`.
+- `SKILL.md:149-156` — the within-3-points manual tie-break order — became `tie_break_applied`.
+- `SKILL.md:193-206` — the "6. Validation loop" strict-validation requirement — became `validation_status`/`retry_count`.
+- `SKILL.md:227-229` — the required final response format including "Blocking questions: none | <count>" — became `blocking_questions_count`.
 
 ### Execution candidates
 
-- `resources/example.feature.json:239` — "guardrail": "Do not increase duplicate task creation or repeated save requests."
-- `resources/example.feature.json:302` — "system_response": "The application resubmits the current draft once and shows progress without duplicating requests.",
-- `resources/example.feature.json:694` — "Confirm a double activation cannot create duplicate save requests."
-- `scripts/score_candidates.py:96` — args.input.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-- `scripts/validate_feature_brief.py:163` — visiting.remove(node)
+- `scripts/score_candidates.py` and `scripts/validate_feature_brief.py` remain uninstrumented directly; their outcomes are captured through the `score`/`validate` events above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 
