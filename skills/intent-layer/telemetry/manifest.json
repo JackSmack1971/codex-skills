@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 33,
+    "decisions": 35,
+    "execution": 0,
+    "privacy": 4,
+    "verification": 8
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "intent-layer"
+  },
+  "generated_at": "2026-09-24T13:57:59.555703Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Set up hierarchical AGENTS.md intent context for codebases.",
+    "fingerprint": "48c32706fbc8fac48de606acdf80f4063eb8881118ddccc297317c42f1c8c84c",
+    "name": "intent-layer",
+    "version": null
+  }
+}

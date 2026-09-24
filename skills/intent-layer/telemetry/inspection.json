@@ -1,0 +1,658 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "Ask Codex to set up the Intent Layer:",
+        "kind": "boundary",
+        "line": 20,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Ask whether to use `AGENTS.md` at root",
+        "kind": "boundary",
+        "line": 33,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**Only ONE root context file.** Keep `AGENTS.md` at the project root.",
+        "kind": "boundary",
+        "line": 47,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**Only ONE root context file.** Keep `AGENTS.md` as the Codex/Open Agent instruction root. Child `AGENTS.md` files are encouraged for complex subsystems.",
+        "kind": "boundary",
+        "line": 13,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "No root file  \u2192 Ask whether to add a root AGENTS.md.",
+        "kind": "boundary",
+        "line": 31,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Ask user:",
+        "kind": "boundary",
+        "line": 40,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do NOT create for: every directory, simple utilities, test folders (unless complex).",
+        "kind": "boundary",
+        "line": 55,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When documenting existing code, ask:",
+        "kind": "boundary",
+        "line": 59,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. What invariants must never be violated?",
+        "kind": "boundary",
+        "line": 61,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Repository-specific intent generation is not exercised beyond the read-only local scan.",
+        "kind": "boundary",
+        "line": 10,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- \"What must always be true here? What would break if violated?\"",
+        "kind": "boundary",
+        "line": 27,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- \"What should never be done, even if the code allows it?\"",
+        "kind": "boundary",
+        "line": 38,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Q: \"What invariants must never be violated?\"",
+        "kind": "boundary",
+        "line": 74,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\u2192 Contracts: Idempotency keys required for all mutations (enforced by ProcessorClient type)",
+        "kind": "boundary",
+        "line": 78,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Services communicate via message queue, never direct HTTP",
+        "kind": "boundary",
+        "line": 29,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- All config lives in `platform-config/`, never hardcoded",
+        "kind": "boundary",
+        "line": 30,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never import between services directly",
+        "kind": "boundary",
+        "line": 35,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Don't put business logic in packages/ (utilities only)",
+        "kind": "boundary",
+        "line": 36,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `src/api/` - REST endpoints (internal only, via API gateway)",
+        "kind": "boundary",
+        "line": 54,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Idempotency keys required for all payment mutations",
+        "kind": "boundary",
+        "line": 60,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never bypass `processor-client.ts` for external calls",
+        "kind": "boundary",
+        "line": 71,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Don't store card numbers - use tokenization only",
+        "kind": "boundary",
+        "line": 72,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never store passwords - use `packages/auth/hash.ts`",
+        "kind": "boundary",
+        "line": 120,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Don't query users table directly from other services - use events",
+        "kind": "boundary",
+        "line": 121,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. **Contracts are explicit** - Where things must go through",
+        "kind": "boundary",
+        "line": 127,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Anti-patterns from experience** - Real mistakes to avoid",
+        "kind": "boundary",
+        "line": 128,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. **Downlinks for depth** - Point to related context, don't duplicate",
+        "kind": "boundary",
+        "line": 130,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never import from `./internal/` outside this directory",
+        "kind": "boundary",
+        "line": 37,
+        "path": "references/templates.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never call external APIs directly; use `./clients/`",
+        "kind": "boundary",
+        "line": 46,
+        "path": "references/templates.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Don't bypass validation layer",
+        "kind": "boundary",
+        "line": 47,
+        "path": "references/templates.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(\"state: none\\naction: initial setup required\")",
+        "kind": "boundary",
+        "line": 38,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"1. Root: {root / 'AGENTS.md'} (required)\")",
+        "kind": "boundary",
+        "line": 67,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. **Negative:** Given conflicting existing instructions, stop and surface the conflict rather than replacing them.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "## When to Use",
+        "kind": "decision",
+        "line": 37,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use intent-layer when:",
+        "kind": "decision",
+        "line": 39,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Detect** - Check if Intent Layer exists",
+        "kind": "decision",
+        "line": 56,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Has root file \u2192 Add Intent Layer section + child nodes if needed",
+        "kind": "decision",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "6. Maintenance mode (when state=complete)",
+        "kind": "decision",
+        "line": 39,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## When to Create Child Nodes",
+        "kind": "decision",
+        "line": 46,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do NOT create for: every directory, simple utilities, test folders (unless complex).",
+        "kind": "decision",
+        "line": 55,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When documenting existing code, ask:",
+        "kind": "decision",
+        "line": 59,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- \"What must always be true here? What would break if violated?\"",
+        "kind": "decision",
+        "line": 27,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- \"What should never be done, even if the code allows it?\"",
+        "kind": "decision",
+        "line": 38,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When creating parent nodes:",
+        "kind": "decision",
+        "line": 47,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before finalizing a node:",
+        "kind": "decision",
+        "line": 55,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Before (~800 tokens)](#before-800-tokens)",
+        "kind": "decision",
+        "line": 9,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [After (~250 tokens)](#after-250-tokens)",
+        "kind": "decision",
+        "line": 10,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### Before (~800 tokens)",
+        "kind": "decision",
+        "line": 81,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### After (~250 tokens)",
+        "kind": "decision",
+        "line": 101,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Purpose before structure** - What it owns, what it doesn't",
+        "kind": "decision",
+        "line": 126,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**Before modifying code in a subdirectory, read its AGENTS.md first** to understand local patterns and invariants.",
+        "kind": "decision",
+        "line": 10,
+        "path": "references/templates.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if any(part in SKIP_DIRS for part in path.parts):",
+        "kind": "decision",
+        "line": 20,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.is_file():",
+        "kind": "decision",
+        "line": 22,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "root_file = \"AGENTS.md\" if (root / \"AGENTS.md\").is_file() else None",
+        "kind": "decision",
+        "line": 27,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "children = sorted(path for path in root.rglob(\"AGENTS.md\") if path != root / \"AGENTS.md\" and not any(part in SKIP_DIRS for part in path.parts))",
+        "kind": "decision",
+        "line": 29,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not root_file:",
+        "kind": "decision",
+        "line": 37,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "dirs = sorted({path.parent for path in files(root) if len(path.relative_to(root).parts) <= 3})[:50]",
+        "kind": "decision",
+        "line": 50,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not any(part in SKIP_DIRS for part in path.parts):",
+        "kind": "decision",
+        "line": 55,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "count = sum(1 for path in directory.iterdir() if path.is_file())",
+        "kind": "decision",
+        "line": 59,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if count > 20:",
+        "kind": "decision",
+        "line": 60,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.name in {\"package.json\", \"Cargo.toml\", \"go.mod\", \"pyproject.toml\"} and len(path.relative_to(root).parts) <= 4:",
+        "kind": "decision",
+        "line": 64,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (root / name).is_dir():",
+        "kind": "decision",
+        "line": 69,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not root.is_dir():",
+        "kind": "decision",
+        "line": 75,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "selected = [path for path in files(root) if path.suffix.lower() in CODE_EXTENSIONS]",
+        "kind": "decision",
+        "line": 77,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "formatted = f\"{tokens / 1_000_000:.1f}M\" if tokens >= 1_000_000 else f\"{tokens / 1_000:.1f}k\" if tokens >= 1_000 else str(tokens)",
+        "kind": "decision",
+        "line": 81,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if tokens < 20_000:",
+        "kind": "decision",
+        "line": 83,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 101,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given generated or vendored directories, exclude them unless explicitly included.",
+        "kind": "decision",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "2. Analyze directory structure and token counts",
+        "kind": "privacy",
+        "line": 32,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- 20-64k tokens \u2192 2-3k token node",
+        "kind": "privacy",
+        "line": 66,
+        "path": "references/templates.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"=== Token Estimate: {root.name} ===\\n\\nTotal tokens: ~{formatted} ({tokens})\\nFile count: {len(selected)}\\n\")",
+        "kind": "privacy",
+        "line": 82,
+        "path": "scripts/intent_tools.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(\"Threshold: 20-64k\\nRecommendation: Good candidate for 2-3k token Intent Node\")",
+        "kind": "privacy",
+        "line": 86,
+        "path": "scripts/intent_tools.py"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Detect** - Check if Intent Layer exists",
+        "kind": "verification",
+        "line": 56,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `intent_tools.py detect-state` - Check Intent Layer state",
+        "kind": "verification",
+        "line": 64,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Validate: one root, READ-FIRST directive, <4k tokens per node",
+        "kind": "verification",
+        "line": 37,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do NOT create for: every directory, simple utilities, test folders (unless complex).",
+        "kind": "verification",
+        "line": 55,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `scripts/intent_tools.py detect-state` - Check Intent Layer state (none/partial/complete)",
+        "kind": "verification",
+        "line": 68,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\u2192 Purpose: Owns payment lifecycle: initiation \u2192 validation \u2192 processing \u2192 settlement.",
+        "kind": "verification",
+        "line": 71,
+        "path": "references/capture-protocol.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Owns payment lifecycle: initiation \u2192 validation \u2192 processing \u2192 settlement.",
+        "kind": "verification",
+        "line": 49,
+        "path": "references/node-examples.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Don't bypass validation layer",
+        "kind": "verification",
+        "line": 47,
+        "path": "references/templates.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "48c32706fbc8fac48de606acdf80f4063eb8881118ddccc297317c42f1c8c84c",
+  "generated_at": "2026-09-24T13:57:59.555403Z",
+  "inventory": [
+    {
+      "bytes": 2662,
+      "kind": "other",
+      "language": null,
+      "path": "README.md",
+      "sha256": "d708559b159dd514a9e4a43f0bb5cb0c0f9012dc203d5ba58d0d75e6510fd953"
+    },
+    {
+      "bytes": 2354,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "b555712ed3800f273b3dac8aa33aaade025ba61e801b51e76d8948169769c090"
+    },
+    {
+      "bytes": 408,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "7a2f2f15ab8d661d450bbe1b764896ef502fb750a23011b1bbc5e1674f14da22"
+    },
+    {
+      "bytes": 2279,
+      "kind": "reference",
+      "language": null,
+      "path": "references/capture-protocol.md",
+      "sha256": "ea9030275c14062bedecfc19003bf8cb733706b806c9421ced4a787548d1ade4"
+    },
+    {
+      "bytes": 3355,
+      "kind": "reference",
+      "language": null,
+      "path": "references/node-examples.md",
+      "sha256": "7f60ee0264909988c703327d44e1a82c5c0816831be27926c3e2df92cb2999db"
+    },
+    {
+      "bytes": 1597,
+      "kind": "reference",
+      "language": null,
+      "path": "references/templates.md",
+      "sha256": "5a404f7368820dc7dadee325c1b90856d398927efdfb35242393878a25e7010e"
+    },
+    {
+      "bytes": 4324,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/intent_tools.py",
+      "sha256": "55caef3eec97140831b0d65217a569cae6a5aa85e2a470b580d98dbbf68022fb"
+    },
+    {
+      "bytes": 379,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "447fdbfe737180d2785c2247a9c039864f0849c61087318511e2e55063a0932b"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 8,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 3,
+    "script_files": 1,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 17358
+  },
+  "target": {
+    "description": "Set up hierarchical AGENTS.md intent context for codebases.",
+    "name": "intent-layer",
+    "path": "skills/intent-layer",
+    "version": null
+  }
+}
