@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 15,
+    "decisions": 20,
+    "execution": 3,
+    "privacy": 0,
+    "verification": 14
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "using-git-worktrees"
+  },
+  "generated_at": "2026-09-24T13:58:51.532046Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Create or verify an isolated Git worktree for parallel or branch-isolated work; github-issue-to-pr composes it for the complete lifecycle.",
+    "fingerprint": "5d1f30d195e4c676a68f74c2c2b1261ef78830a1265691e32a1bb7ed77bb77e4",
+    "name": "using-git-worktrees",
+    "version": null
+  }
+}
