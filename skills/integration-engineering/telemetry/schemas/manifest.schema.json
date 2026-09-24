@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "skilltelemetry.manifest.v1",
+  "title": "Skill Telemetry Manifest v1",
+  "type": "object",
+  "required": ["schema", "generated_at", "target", "deployment", "storage", "capture", "promotion"],
+  "properties": {
+    "schema": {"const": "skilltelemetry.manifest.v1"},
+    "generated_at": {"type": "string"},
+    "target": {
+      "type": "object",
+      "required": ["name", "fingerprint"],
+      "properties": {
+        "name": {"type": "string"},
+        "description": {"type": ["string", "null"]},
+        "version": {"type": ["string", "null"]},
+        "fingerprint": {"type": "string"}
+      }
+    },
+    "deployment": {"type": "object"},
+    "storage": {"type": "object"},
+    "capture": {"type": "object"},
+    "promotion": {"type": "object"}
+  },
+  "additionalProperties": true
+}
