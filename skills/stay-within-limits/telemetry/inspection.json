@@ -1,0 +1,459 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "- Resumes only after re-checking that the actual window or block is clear.",
+        "kind": "boundary",
+        "line": 15,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Carries the remaining plan, verification steps, and delegation stop",
+        "kind": "boundary",
+        "line": 17,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "remains, include the next wave's scope, verification commands, and stop",
+        "kind": "boundary",
+        "line": 48,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "windows and allowances are version-sensitive; do not assume a fixed plan limit.",
+        "kind": "boundary",
+        "line": 10,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "has not selected a threshold, use 95% only when a first-party signal reports a",
+        "kind": "boundary",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Wait for the wave to finish. Do not interrupt in-flight subagents just to",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. If any reported window is at or above the chosen threshold, stop launching",
+        "kind": "boundary",
+        "line": 22,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. On resume, re-check the real window or block before continuing. Do not trust",
+        "kind": "boundary",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the current usage state as **UNKNOWN** and ask the user to provide or confirm",
+        "kind": "boundary",
+        "line": 38,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not install or execute a third-party usage meter merely to infer Codex quota",
+        "kind": "boundary",
+        "line": 42,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "state. Do not convert cost, tokens, messages, elapsed time, or another",
+        "kind": "boundary",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "continue only when the window is safely below the threshold.",
+        "kind": "boundary",
+        "line": 57,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "stop conditions, if delegation will resume.",
+        "kind": "boundary",
+        "line": 68,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use cron or recurring schedules only for recurring fresh-session work.",
+        "kind": "boundary",
+        "line": 76,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Avoid short-interval polling for things the host will notify you about, such as",
+        "kind": "boundary",
+        "line": 78,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Normal:** Given usage data between waves, continue only while the next bounded wave fits.",
+        "kind": "boundary",
+        "line": 3,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "runs work in bounded waves, and pauses before it crosses the limit instead of",
+        "kind": "decision",
+        "line": 7,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Checks 5-hour and weekly usage before substantial work and between waves.",
+        "kind": "decision",
+        "line": 12,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Pauses new work when either window reaches 95% of its limit.",
+        "kind": "decision",
+        "line": 14,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Resumes only after re-checking that the actual window or block is clear.",
+        "kind": "decision",
+        "line": 15,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Makes wake prompts self-contained so work can continue after a long pause.",
+        "kind": "decision",
+        "line": 16,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## When To Use It",
+        "kind": "decision",
+        "line": 22,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When Codex CLI does not expose a better first-party usage signal, use:",
+        "kind": "decision",
+        "line": 33,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "rule to reschedule if the limit is still too high. If more delegated work",
+        "kind": "decision",
+        "line": 47,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use `--update-instructions` when you want the 5-hour and weekly limit convention",
+        "kind": "decision",
+        "line": 60,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Check before launching substantial work and between bounded waves. If the user",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "has not selected a threshold, use 95% only when a first-party signal reports a",
+        "kind": "decision",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. Run a bounded wave of work. Default to at most 3 parallel subagents unless",
+        "kind": "decision",
+        "line": 17,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. If any reported window is at or above the chosen threshold, stop launching",
+        "kind": "decision",
+        "line": 22,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "work and schedule a self-contained resume when that window should clear.",
+        "kind": "decision",
+        "line": 23,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. On resume, re-check the real window or block before continuing. Do not trust",
+        "kind": "decision",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`/status` is an interactive Codex command, not a shell command. If this agent",
+        "kind": "decision",
+        "line": 36,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the first-party reading before an automated pause/resume decision depends on",
+        "kind": "decision",
+        "line": 39,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "provider's blocks into a Codex percentage unless current first-party",
+        "kind": "decision",
+        "line": 44,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When a wake/resume tool is available, schedule a wakeup for:",
+        "kind": "decision",
+        "line": 49,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If the runtime clamps wake delays to 60-3600 seconds, chain wakeups for longer",
+        "kind": "decision",
+        "line": 55,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "waits. Each wakeup should re-check usage, reschedule if still over budget, and",
+        "kind": "decision",
+        "line": 56,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "continue only when the window is safely below the threshold.",
+        "kind": "decision",
+        "line": 57,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The previous block/window identifier when available.",
+        "kind": "decision",
+        "line": 65,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "stop conditions, if delegation will resume.",
+        "kind": "decision",
+        "line": 68,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use a wake/resume tool when the agent needs instructions attached to the",
+        "kind": "decision",
+        "line": 72,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "after a long sleep is acceptable; preserving the limit matters more.",
+        "kind": "decision",
+        "line": 80,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If you pause, tell the user which window is over threshold, the observed usage,",
+        "kind": "decision",
+        "line": 84,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the source of that reading, when you scheduled or expect the next check, and",
+        "kind": "decision",
+        "line": 85,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "what work remains. If usage is UNKNOWN, say so rather than claiming the work is",
+        "kind": "decision",
+        "line": 86,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a near-cap reading, defer the next expensive wave after safe local cleanup.",
+        "kind": "decision",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "## Codex CLI Usage Check",
+        "kind": "verification",
+        "line": 31,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "previous check rather than trusting elapsed time alone.",
+        "kind": "verification",
+        "line": 41,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "plan, the 95% pause threshold, the wave throttle, the exact usage check, and the",
+        "kind": "verification",
+        "line": 46,
+        "path": "README.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Check before launching substantial work and between bounded waves. If the user",
+        "kind": "verification",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Check current usage with a first-party host signal.",
+        "kind": "verification",
+        "line": 21,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. On resume, re-check the real window or block before continuing. Do not trust",
+        "kind": "verification",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "waits. Each wakeup should re-check usage, reschedule if still over budget, and",
+        "kind": "verification",
+        "line": 56,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The check-then-reschedule rule.",
+        "kind": "verification",
+        "line": 62,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The first-party usage signal to check.",
+        "kind": "verification",
+        "line": 64,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the source of that reading, when you scheduled or expect the next check, and",
+        "kind": "verification",
+        "line": 85,
+        "path": "SKILL.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "7d208766421dc884ff3ff8379847746ac6f78f9fad292bac5fde362c025485a1",
+  "generated_at": "2026-09-24T13:58:32.972113Z",
+  "inventory": [
+    {
+      "bytes": 2419,
+      "kind": "other",
+      "language": null,
+      "path": "README.md",
+      "sha256": "707c6b10ea6c7e4f2f06363c14c64647e92fc03f382f89ee31f24729cf4e7d98"
+    },
+    {
+      "bytes": 3720,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "d0851461c0427fcea7fe36380de0372e93be0f023bec6656ea57d3b06f5fda4f"
+    },
+    {
+      "bytes": 301,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "3f32e5c3ce3ca32cbcff767e7f08912e23c10d26ab2015c5c051ed9bf8ca163e"
+    },
+    {
+      "bytes": 325,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "7677551c37bf3aa1df7d5450b97531ac7a18fafbca8d2b933a4256ae6f9b3479"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 4,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 6765
+  },
+  "target": {
+    "description": "Keep long-running or parallel work within usage limits by checking between waves and pausing safely.",
+    "name": "stay-within-limits",
+    "path": "skills/stay-within-limits",
+    "version": null
+  }
+}
