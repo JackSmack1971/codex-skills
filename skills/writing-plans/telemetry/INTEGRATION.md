@@ -14,41 +14,38 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual drafting/validate/save sequence (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before extracting feature name/date | `run.started` | `task_category` (`plan`/`task_list`/`implementation_design`) |
+| After drafting the plan content | `decision` (`phase=draft`) | `sections_included`, `scope_rejected` |
+| After `scripts/plan_tools.py validate` | `verification` (`phase=validate`) | `validate_status`, `placeholder_hit_count`, `task_count`; preceding `retry` event if repaired |
+| After `scripts/plan_tools.py save` | `verification` (`phase=save`) | `save_status`, `output_location` |
+| Before returning output | `run.finished` | `task_count`, `placeholder_hit_count`, `output_location`, `save_status` |
 
-- `SKILL.md:11` — - **Trigger and exclusion:** Use when a concrete implementation plan or task list is requested before coding; exclude direct implementation and vague discovery, routing to feature-implementation or product-discovery.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:21` — Use this skill when the user asks for a plan, task list, implementation design, or a plan before coding. Extract a short hyphenated feature name, use today's date, and default to `docs/superpowers/plans/` unless the user gives another location.
-- `SKILL.md:33` — The validator reports placeholder hits and task count as JSON. Fix every placeholder hit before saving. Do not require `run_command`, shell quoting, a specific shell, a subagent product, or a Git repository; Codex can execute the commands directly and the user chooses the handoff.
-- `scripts/plan_tools.py:23` — if args.command == "date":
-- `scripts/plan_tools.py:26` — if args.command == "save":
-- `scripts/plan_tools.py:30` — if not path.is_file() or not path.stat().st_size:
-- `scripts/plan_tools.py:37` — if not path.is_file():
-- `scripts/plan_tools.py:41` — hits = [f"{i}:{line}" for i, line in enumerate(lines, 1) if any(p.lower() in line.lower() for p in FORBIDDEN)]
-- `scripts/plan_tools.py:42` — result = {"plan_path": str(path), "task_count": sum(line.startswith("### Task ") for line in lines), "placeholder_hits": hits, "placeholder_hit_count": len(hits), "spec_gaps": [], "type_inconsistencies": [], "status": "FAIL" if hits else "PASS"}
-- `scripts/plan_tools.py:47` — if __name__ == "__main__":
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:3` — description: "Create concrete TDD-first implementation plans with file maps and validation."
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:23` — Keep the plan independently executable: state the goal, architecture, stack, exact files, test-first steps, commands, expected results, and commit boundary. Reject specs that combine unrelated subsystems instead of hiding the split in one oversized plan.
-- `SKILL.md:29` — python scripts/plan_tools.py validate --plan-path <path>
-- `VERIFICATION.md:3` — - Bash date/save/validation helpers were replaced with `scripts/plan_tools.py`.
-- `VERIFICATION.md:4` — - Date, save, and JSON validation commands run on Python 3.14 in this workspace.
-- `scripts/plan_tools.py:9` — FORBIDDEN = ("TBD", "TODO", "implement later", "fill in details", "Add appropriate error handling", "add validation", "handle edge cases")
-- `scripts/plan_tools.py:16` — validate = sub.add_parser("validate")
-- `scripts/plan_tools.py:17` — validate.add_argument("--plan-path", required=True)
-- `tests/evaluation-cases.md:3` — 1. **Normal:** Given a feature specification, produce a TDD-first plan with file map, dependencies, and validation commands.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:21` — "plan, task list, implementation design" request types and the default `docs/superpowers/plans/` location — became `task_category`/`output_location`.
+- `SKILL.md:23` — "state the goal, architecture, stack, exact files, test-first steps, commands, expected results, and commit boundary. Reject specs that combine unrelated subsystems" — became `sections_included`/`scope_rejected`.
+- `SKILL.md:29-30` — `plan_tools.py validate` and "the validator reports placeholder hits and task count as JSON. Fix every placeholder hit before saving." — became `validate_status`, `placeholder_hit_count`, `task_count`, and the retry-on-repair guidance.
+- `scripts/plan_tools.py:42` — the validator's own `{"task_count", "placeholder_hit_count", "status"}` JSON fields — reused verbatim as the `validate`-phase evidence fields.
+- `scripts/plan_tools.py:26-34` — the `save` subcommand's `SAVED`/error outcome — became `save_status`.
 
 ### Execution candidates
 
-- `scripts/plan_tools.py:29` — path.write_text(args.content, encoding="utf-8")
+- `scripts/plan_tools.py`'s `date`, `validate`, and `save` subcommands are folded into the `draft`/`validate`/`save` events above rather than instrumented as separate subprocess-call events, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

@@ -32,3 +32,39 @@ python scripts/worktree.py verify-ignore --dir .worktrees
 ```
 
 The current workspace is not a Git repository, so this skill must report that fact rather than create metadata or silently fall back to a copy.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before running `detect`, start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<create_worktree|verify_only|cleanup>" --invocation explicit)
+   ```
+2. After `detect` and `verify-ignore`, record the detection check:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase detect \
+     --evidence-json '{"worktrees_dir_status":"<FOUND_BOTH|FOUND_DOTWORKTREES|FOUND_WORKTREES|NOT_FOUND>","ignore_status":"<IGNORED|NOT_IGNORED>"}'
+   ```
+3. After `path` and `create`, record the creation decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase create \
+     --evidence-json '{"branch_collision":<true|false>,"create_status":"<CREATED|BRANCH_EXISTS|ERROR|not_a_git_repo>"}'
+   ```
+4. After `setup` and `test`, record the baseline check:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"setup_status":"<SETUP_COMPLETE|skipped|error>","test_status":"<PASS|FAIL|NO_TEST_RUNNER>","baseline_failures":<N>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"worktree_created":<true|false>,"branch_collision":<true|false>,"test_status":"<PASS|FAIL|NO_TEST_RUNNER>"}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g. `missing_git_repo`,
+   `branch_collision`, `setup_failure`, `test_failure`) when the workflow
+   stopped under Failure/stop instead of completing the worktree.

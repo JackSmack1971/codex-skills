@@ -14,51 +14,39 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual red-green-refactor cycle (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before the red stage | `run.started` | `task_category` (`feature`/`bug_fix`/`refactor`/`test_change`) |
+| After the red stage (`--stage red`) | `verification` (`phase=red`) | `stage_result`, `runner_detected`, `mocks_used` |
+| After the green stage (`--stage green`) | `verification` (`phase=green`) | `stage_result`, `retry_count` |
+| After the refactor stage (`--stage refactor`) | `verification` (`phase=refactor`) | `stage_result`, `refactor_performed` |
+| Before returning output | `run.finished` | `stages_reached`, `final_stage_result` |
 
-- `SKILL.md:11` — - **Trigger and exclusion:** Use only when the request explicitly requires a red-green-refactor TDD cycle; exclude broader QA without TDD, routing to testing-qa.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:21` — Write one behavior test first, run it, and require a genuine failure (`FAIL_CORRECT`) before implementation. Then implement the smallest change, run the target and full suite (`ALL_PASS`), refactor only under green, and run the full suite again. A passing red test or a test-runner error stops the cycle.
-- `references/testing-anti-patterns.md:5` — - Do not add mocks when a small real collaborator is available; mock only external or nondeterministic boundaries.
-- `scripts/run_tdd_cycle.py:11` — args = command + ([test_path] if test_path else [])
-- `scripts/run_tdd_cycle.py:21` — if (root / "pyproject.toml").exists() or (root / "pytest.ini").exists() or (root / "tox.ini").exists():
-- `scripts/run_tdd_cycle.py:24` — if package.exists():
-- `scripts/run_tdd_cycle.py:26` — if "vitest" in data:
-- `scripts/run_tdd_cycle.py:28` — if "jest" in data:
-- `scripts/run_tdd_cycle.py:30` — if '"test"' in data:
-- `scripts/run_tdd_cycle.py:40` — if not Path(args.test_path).is_file():
-- `scripts/run_tdd_cycle.py:44` — if command is None:
-- `scripts/run_tdd_cycle.py:48` — full_code, full_output = (target_code, target_output) if args.stage == "red" else run(command)
-- `scripts/run_tdd_cycle.py:49` — if args.stage == "red":
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:2` — name: test-driven-development
-- `SKILL.md:3` — description: "Use only for a requested feature, bug fix, refactor, or test change that explicitly needs a red-green-refactor TDD cycle gated by local results. For broader QA planning or execution without TDD, use testing-qa."
-- `SKILL.md:4` — compatibility: Requires Python 3.11+ and the project's existing test runner.
-- `SKILL.md:7` — # Test-Driven Development
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:21` — Write one behavior test first, run it, and require a genuine failure (`FAIL_CORRECT`) before implementation. Then implement the smallest change, run the target and full suite (`ALL_PASS`), refactor only under green, and run the full suite again. A passing red test or a test-runner error stops the cycle.
-- `SKILL.md:26` — python scripts/run_tdd_cycle.py --test-path <path> --stage red|green|refactor
-- `SKILL.md:29` — The helper detects the project's supported test runner (including pytest,
-- `SKILL.md:31` — invokes a shell command through `eval`. Do not invent a test path or claim
-- `VERIFICATION.md:5` — - This repository has no project test runner, so the expected local result is a bounded no-runner error.
-- `references/testing-anti-patterns.md:3` — - Do not call a test green because it imported successfully; assert the behavior.
-- `references/testing-anti-patterns.md:4` — - Do not make the red test fail from a typo, missing fixture, or unavailable dependency.
-- `references/testing-anti-patterns.md:7` — - Do not hide a full-suite regression behind a focused test result.
-- `scripts/run_tdd_cycle.py:13` — proc = subprocess.run(args, capture_output=True, text=True, check=False)
-- `scripts/run_tdd_cycle.py:21` — if (root / "pyproject.toml").exists() or (root / "pytest.ini").exists() or (root / "tox.ini").exists():
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:3` — description's feature/bug fix/refactor/test change scope — became `task_category`.
+- `SKILL.md:21` — red/green/refactor cycle description and the `FAIL_CORRECT`/`ALL_PASS` terms — became the per-phase `stage_result` enums.
+- `SKILL.md:26` — `--stage red|green|refactor` flag — became the three `verification` phases.
+- `SKILL.md:29-31` — helper detects pytest/Vitest/Jest — became `runner_detected`.
+- `references/testing-anti-patterns.md:5` — mock only external or nondeterministic boundaries — became `mocks_used`.
+- `scripts/run_tdd_cycle.py:49-58` — the `stage_result` values (`FAIL_CORRECT`, `PASS_UNEXPECTED`, `ERROR`, `TARGET_FAIL`, `REGRESSION`, `ALL_PASS`) the helper itself emits — became the enum values used across every phase and `final_stage_result`.
 
 ### Execution candidates
 
-- `VERIFICATION.md:4` — - Target is cross-platform and uses `subprocess.run` with argument arrays.
-- `scripts/run_tdd_cycle.py:6` — import subprocess
-- `scripts/run_tdd_cycle.py:13` — proc = subprocess.run(args, capture_output=True, text=True, check=False)
+- `scripts/run_tdd_cycle.py`'s own JSON `stage_result` output is captured directly by the per-phase `verification` events above rather than instrumented as a separate subprocess-call event, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 

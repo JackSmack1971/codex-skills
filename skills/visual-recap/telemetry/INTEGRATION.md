@@ -14,39 +14,41 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Inventory → read block schema/wireframe guidance →
+author → self-review → validate/render → publish workflow (superseding the
+generic candidate scan below, which is kept only as provenance for why these
+points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before "Inventory" | `run.started` | `task_category` (`pr`/`branch`/`commit`/`diff`) |
+| After "Inventory" | `decision` (`phase=inventory`) | `change_surfaces`, `key_change_tabs_count` |
+| After "author grounded recap" | `operation` (`phase=author`) | `block_types_used`, `wireframe_used`, `wireframe_variant` |
+| After "self-review → validate/render" | `verification` (`phase=validate`) | `block_catalog_validated`, `secrets_redacted`, `tabs_within_budget` |
+| Before "publish" | `run.finished` | `publish_mode`, `block_types_used`, `key_change_tabs_count` |
+| When a routed-back annotation overturns the recap | `user.correction` | `correction` |
 
-- `SKILL.md:16` — shared abstractions before authoring.
-- `SKILL.md:17` — - Always publish a structured plan: UI headline when relevant, outcome
-- `SKILL.md:21` — - Read the live block catalog before writing blocks; use exact runtime tags and
-- `SKILL.md:33` — self-review → validate/render → publish. Stop when a required diff, visual
-- `SKILL.md:39` — [wireframe reference](../references/wireframe.md) before any wireframe.
-- `references/entrypoint-guidance.md:11` — when relevant, short outcome narrative, schema/API blocks when changed,
-- `references/entrypoint-guidance.md:14` — Use wireframes for rendered UI changes, with before/after when comparison helps,
-- `references/entrypoint-guidance.md:15` — after-only for additive changes, and a sequence when the change is stateful or
-- `references/entrypoint-guidance.md:17` — states, components, and paths. Read `references/wireframe.md` before authoring
-- `references/entrypoint-guidance.md:18` — any wireframe and visually inspect rendered output when a browser is available.
-- `references/entrypoint-guidance.md:22` — Read the live block catalog before authoring; exact tags, required `id` fields,
-- `references/entrypoint-guidance.md:25` — before/after code, and `annotated-code` for genuinely new code. Ground every
-- `references/entrypoint-guidance.md:44` — hosted Plan tool; run the local check and serve the local bridge. Otherwise
-- `references/entrypoint-guidance.md:51` — If the Plan connector or block catalog is unavailable, stop and tell the user
-- `references/entrypoint-guidance.md:56` — Stop when the connector/block catalog cannot be validated, a required diff or
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:33` — self-review → validate/render → publish. Stop when a required diff, visual
-- `SKILL.md:34` — fact, connector/schema check, or safe redaction is unavailable; never invent
-- `references/entrypoint-guidance.md:44` — hosted Plan tool; run the local check and serve the local bridge. Otherwise
-- `references/wireframe.md:60` — `check`, `chevronDown`, `chevronUp`, `chevronLeft`, `chevronRight`, `dots`/`more`,
-- `tests/evaluation-cases.md:3` — 1. **Normal:** Given a diff with interacting files, produce a recap matching actual files and validation.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:9-10` — description's PR/branch/commit/diff scope — became `task_category`.
+- `SKILL.md:15-16` — "Inventory meaningful UI states, routes, roles, files, schemas, APIs, and shared abstractions before authoring." — became `change_surfaces`.
+- `SKILL.md:19-20` — wireframes for rendered UI changes, entry/interaction/destination/permission states — became `wireframe_used`/`wireframe_variant`.
+- `SKILL.md:23-24` — "Build data-model, api-endpoint, file-tree, diff, and annotated-code blocks mechanically from the real diff." — became `block_types_used`.
+- `SKILL.md:25-26` — "Keep key diffs focused, summarized, annotated, and grouped in horizontal tabs" plus `references/entrypoint-guidance.md`'s 3–8 tab / ~150 line budgets — became `key_change_tabs_count`/`tabs_within_budget`.
+- `SKILL.md:27-28` — "Keep private recaps gated... redact secrets... route reviewer annotations back into the plan/code loop." — became `publish_mode`, `secrets_redacted`, and the `user.correction` block.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument (the plan-service tool calls it drives are external MCP tools, not local scripts).
 
 ## Hook evidence
 

@@ -14,22 +14,35 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual behavior (superseding the generic candidate scan below,
+which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before reading the profile | `run.started` | `task_category` (`advisory_suggestion`/`state_update`) |
+| After validating opt-in/profile | `verification` (`phase=validate`) | `opt_in_confirmed`, `profile_provided`, `legacy_config_avoided` |
+| After selecting signals | `decision` (`phase=select`) | `signal_categories`, `signals_selected_count` |
+| Before returning output | `run.finished` | `output_mode`, `signal_categories`, `state_mutated` |
+| When the user later rejects/changes the suggestion | `user.correction` | `original_output_mode`, `correction` |
 
-- `SKILL.md:9` — This is an opt-in design aid, not an always-on worker. Use it only when the user explicitly enables it and provides a JSON profile. Read the profile, select the strongest signals for fonts, colors, layout density, and aesthetic direction, and add them as suggestions to the current design brief.
-- `SKILL.md:11` — Never invent a profile, infer preferences from hidden session history, write to a legacy runtime config file, or mutate a file without an explicit path and user approval. Current-turn instructions always win. Preserve the supplied JSON schema when the user explicitly requests an approved/rejected update; otherwise return a proposed JSON patch or design-token block rather than writing state.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- None detected statically.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:9` — opt-in-only aid, signal categories (fonts, colors, layout density, aesthetic direction) — became `signal_categories`, `opt_in_confirmed`, `profile_provided`.
+- `SKILL.md:11` — never invent a profile / never write to a legacy runtime config file / preserve schema on an explicit approved-or-rejected update, otherwise return a proposed patch or token block — became `legacy_config_avoided`, `output_mode`, `state_mutated`, `task_category`.
+- `SKILL.md:13` — keep the profile path, opt-in flag, and output artifact visible in the response — informed tracking `output_mode`/`state_mutated` through to `run.finished`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

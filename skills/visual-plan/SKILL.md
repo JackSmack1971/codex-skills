@@ -37,3 +37,42 @@ sharing, setup, and examples: [entrypoint guidance](references/entrypoint-guidan
 Read these authoritative references as needed: [wireframe](references/wireframe.md),
 [canvas](references/canvas.md), [document quality](references/document-quality.md),
 and [exemplar](references/exemplar.md).
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before "Inspect", start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<fresh_plan|from_existing_plan>" --invocation explicit)
+   ```
+2. After "choose surface", record the surface decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase choose_surface \
+     --evidence-json '{"surface_mode":"<document_only|ui_first|prototype_first|design_first|visual_intake>","tool_mapped":"<create-visual-plan|create-ui-plan|create-prototype-plan|create-plan-design|create-visual-questions>"}'
+   ```
+3. After "self-review", record the review check:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase self_review --outcome <success|failure> \
+     --evidence-json '{"factual_grounding_checked":<true|false>,"accessibility_checked":<true|false>,"hard_to_reverse_decisions_flagged":<N>,"unresolved_questions_count":<N>}'
+   ```
+4. Before "publish and hand off", close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"surface_mode":"<document_only|ui_first|prototype_first|design_first|visual_intake>","publish_mode":"<hosted|local_files>","unresolved_questions_count":<N>,"approval_requested":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` (e.g. `connector_unavailable`,
+   `missing_required_facts`, `auth_unavailable`) when the workflow stopped
+   under a stop condition instead of publishing a plan.
+
+If a reviewer's anchored feedback later overturns a hard-to-reverse decision
+or recommended default this run surfaced, record it so plan quality is
+visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"correction":"<default_rejected|scope_changed|surface_mode_wrong>"}'
+```

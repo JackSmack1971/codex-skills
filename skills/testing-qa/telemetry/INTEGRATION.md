@@ -14,38 +14,41 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual numbered Workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (primary QA focus) |
+| After step 1 (define risk and test pyramid) | `decision` (`phase=scope`) | `pyramid_layers`, `risk_level` |
+| After steps 2-4 (run commands, browser work, record failures) | `verification` (`phase=execute`) | `commands_run`, `commands_unavailable`, `regressions_found`, `pre_existing_failures` |
+| After step 5 (verify before completion) | `verification` (`phase=final_check`) | `acceptance_criteria_checked`, `error_paths_checked`, `security_boundaries_checked`, `accessibility_checked`, `docs_checked` |
+| Before returning output | `run.finished` | `pyramid_layers`, `regressions_found`, `overall_status` |
+| When a maintainer later overturns the verdict | `user.correction` | `original_status`, `correction` |
 
-- `SKILL.md:3` — description: "Use to choose or run proportionate QA checks across unit, integration, browser, performance, security, or release quality for an existing change. Do not use when the requested workflow is specifically red-green-refactor TDD; use test-driven-development."
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:24` — 2. Run the project's documented test, lint, type-check, security, and build commands when they exist.
-- `SKILL.md:27` — 5. Before completion, verify the acceptance criteria, error paths, security boundaries, accessibility basics, and changed documentation.
-- `SKILL.md:29` — The related `test-driven-development`, `security-best-practices`, and `pr-review` skills may be invoked when their narrower scope is actually requested. Do not reference unavailable skills or use `@skill` launcher syntax.
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the calibration analysis an improvement agent should run over these
+fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:3` — description: "Use to choose or run proportionate QA checks across unit, integration, browser, performance, security, or release quality for an existing change. Do not use when the requested workflow is specifically red-green-refactor TDD; use test-driven-development."
-- `SKILL.md:4` — compatibility: Requires the project's existing test and QA tools; no runner or dependency is assumed.
-- `SKILL.md:11` — - **Trigger and exclusion:** Use to choose or run proportionate QA for an existing change; exclude an explicitly required red-green-refactor cycle, routing to test-driven-development.
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:21` — Use this workflow to choose the smallest test strategy that proves the requested behavior. Inspect the repository first, reuse its existing runner, and report unavailable tooling as UNKNOWN instead of installing a framework by default.
-- `SKILL.md:23` — 1. Define the risk and test pyramid: focused unit checks first, integration checks for boundaries, and E2E/browser checks only for critical user paths.
-- `SKILL.md:24` — 2. Run the project's documented test, lint, type-check, security, and build commands when they exist.
-- `SKILL.md:25` — 3. For browser work, use the in-app browser skill or the project's existing automation; do not assume Playwright, Jest, pytest, or coverage thresholds.
-- `SKILL.md:27` — 5. Before completion, verify the acceptance criteria, error paths, security boundaries, accessibility basics, and changed documentation.
-- `SKILL.md:29` — The related `test-driven-development`, `security-best-practices`, and `pr-review` skills may be invoked when their narrower scope is actually requested. Do not reference unavailable skills or use `@skill` launcher syntax.
-- `VERIFICATION.md:4` — - No test framework or coverage threshold was invented.
-- `tests/evaluation-cases.md:4` — 2. **Negative:** Given no reproducible target or test evidence, report the gap rather than claiming QA passed.
-- `tests/evaluation-cases.md:5` — 3. **Boundary:** Given security, performance, or rollback risk, include the relevant specialized check.
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:3` — description's unit/integration/browser/performance/security/release-quality scope — became `task_category` and the `pyramid_layers`/`commands_run` enums.
+- `SKILL.md:23` — step 1's risk/test-pyramid definition — became `pyramid_layers`, `risk_level`.
+- `SKILL.md:24` — step 2's documented test/lint/type-check/security/build commands — became `commands_run`.
+- `SKILL.md:21` — "report unavailable tooling as UNKNOWN instead of installing a framework by default" — became `commands_unavailable` and the `overall_status: unknown` option.
+- `SKILL.md:26` — step 4's failure recording, separating pre-existing failures from regressions — became `regressions_found`/`pre_existing_failures`.
+- `SKILL.md:27` — step 5's pre-completion verification checklist — became the `final_check` boolean fields.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

@@ -14,27 +14,39 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Workflow steps (superseding the generic candidate scan
+below, which is kept only as provenance for why these points were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (`plan_only`/`implement`) |
+| After step 2 (trace the smallest path) | `decision` (`phase=trace`) | `layers_touched`, `stubs_used` |
+| After steps 3-4 (identify contracts, implement/plan in dependency order) | `decision` (`phase=scope`) | `contracts_changed`, `cross_cutting_escalated` |
+| After step 5 (verify success and failure paths) | `verification` (`phase=verify`) | `success_path_verified`, `failure_path_verified` |
+| Before returning output | `run.finished` | `layers_touched`, `follow_up_slices_count`, `repo_left_runnable` |
 
-- `SKILL.md:11` — - **Trigger and exclusion:** Use when one user action must be traced across interface, service, persistence, and verification; exclude ordinary feature delivery, routing to feature-implementation.
-- `SKILL.md:12` — - **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.
-- `SKILL.md:19` — - **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.
-- `SKILL.md:36` — follow-up slices. If implementing, leave the repository in a runnable state.
-- `SKILL.md:44` — ship the slice, `test-driven-development` only when TDD is explicit, and
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this skill's runs.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:13` — - **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.
-- `SKILL.md:31` — 5. Verify the success path and its most important failure path end to end.
-- `SKILL.md:44` — ship the slice, `test-driven-development` only when TDD is explicit, and
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:26` — step 1's user action and observable success condition — informed `task_category` framing.
+- `SKILL.md:27-28` — step 2's entry-point-through-domain-logic-to-storage trace — became `layers_touched`.
+- `SKILL.md:29` — step 3's contracts/schema identification — became `contracts_changed`.
+- `SKILL.md:30` — step 4's "implement or plan in dependency order, keeping stubs explicit" — became `stubs_used` and the `plan_only`/`implement` split in `task_category`.
+- `SKILL.md:31` — step 5's success-path and failure-path verification — became `success_path_verified`/`failure_path_verified`.
+- `SKILL.md:40-41` — the Boundary section's "escalate cross-cutting requirements" rule — became `cross_cutting_escalated`.
+- `SKILL.md:35-36` — the Output section's "explicit follow-up slices" and "leave the repository in a runnable state" — became `follow_up_slices_count`/`repo_left_runnable`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 
