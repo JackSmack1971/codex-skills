@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 62,
+    "decisions": 196,
+    "execution": 31,
+    "privacy": 1,
+    "verification": 66
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "skill-creator"
+  },
+  "generated_at": "2026-09-24T14:01:04.801092Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Create or improve general standalone Open Agent skill work, including metadata, descriptions, tests, and migration; exclude named-library docs and plugin packaging.",
+    "fingerprint": "cc4171d128cb258f97b95df8b679db7df2f9e8ee491b0267c6a4c8262aabc6f8",
+    "name": "skill-creator",
+    "version": null
+  }
+}
