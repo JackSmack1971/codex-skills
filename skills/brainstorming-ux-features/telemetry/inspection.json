@@ -1,0 +1,3004 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "Default to the full workflow unless the user explicitly requests only ideas or only a specification.",
+        "kind": "boundary",
+        "line": 27,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The JSON file is the canonical handoff artifact. It MUST validate against `resources/feature-brief.schema.json` and the semantic checks in `scripts/validate_feature_brief.py`.",
+        "kind": "boundary",
+        "line": 39,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Select one feature unless the user explicitly requests ideas-only output.",
+        "kind": "boundary",
+        "line": 44,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Mark uncertainty explicitly; never fabricate research, metrics, users, or repository facts.",
+        "kind": "boundary",
+        "line": 47,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Ideas-only: return a ranked shortlist of 5-8 candidates with the same evidence, outcome, vertical-slice, and duplication checks used by the full workflow. Do not write a `.feature.json` file.",
+        "kind": "boundary",
+        "line": 51,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Specification-only: produce the selected implementation-ready `.feature.json` contract with no extra portfolio output.",
+        "kind": "boundary",
+        "line": 52,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Stop only when the artifact validates, or when a blocking unknown cannot be resolved from available evidence. In the latter case, emit no implementation-ready contract; report the evidence gap and the smallest question needed to unblock it.",
+        "kind": "boundary",
+        "line": 73,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Inspect only what is useful. Prefer this order:",
+        "kind": "boundary",
+        "line": 77,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not treat an assumption as evidence. Include exact repository paths when available. If no repository is accessible, proceed using user context and assumptions, but lower `evidence_confidence` scores and make implementation paths provisional.",
+        "kind": "boundary",
+        "line": 93,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Each candidate MUST include:",
+        "kind": "boundary",
+        "line": 108,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Reject candidates that are cosmetic without a user outcome, duplicate current behavior, depend on invented demand, cannot be measured, or require a platform rewrite to prove value.",
+        "kind": "boundary",
+        "line": 117,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use `scripts/score_candidates.py` for deterministic ranking. Select the highest-scoring candidate that also has a coherent vertical slice. Do not select a low-value feature merely because it is easy.",
+        "kind": "boundary",
+        "line": 147,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`scripts/score_candidates.py` only computes and sorts numeric totals; if the top candidates are within 3 points, do the tie-break review manually using the order above before selecting one.",
+        "kind": "boundary",
+        "line": 156,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Every state type required by the schema MUST be represented. Mark a state `applicable: false` only with a specific reason.",
+        "kind": "boundary",
+        "line": 174,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Acceptance criteria MUST be testable Given/When/Then contracts. Avoid subjective terms such as \"intuitive,\" \"clean,\" \"fast,\" or \"user-friendly\" unless paired with an observable threshold.",
+        "kind": "boundary",
+        "line": 176,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Translate the feature into independently executable work items. Each work item MUST contain:",
+        "kind": "boundary",
+        "line": 180,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use dependency IDs to define execution order. Put only dependency-free work in parallel groups. Include stop conditions for contract conflicts, missing paths, failed migrations, security violations, inaccessible dependencies, and failing validation.",
+        "kind": "boundary",
+        "line": 189,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Downstream agents must be able to implement the feature without rediscovering product intent. They may refine local mechanics but must not silently change scope, success metrics, acceptance criteria, security boundaries, or non-goals.",
+        "kind": "boundary",
+        "line": 191,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Do not hand the artifact to implementation agents while validation fails.",
+        "kind": "boundary",
+        "line": 204,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- For ideas-only requests, return concise markdown with the ranked shortlist, top idea, and the evidence that supports it.",
+        "kind": "boundary",
+        "line": 211,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never leave `TODO`, `TBD`, placeholder markers, or empty required strings in a strict artifact.",
+        "kind": "boundary",
+        "line": 218,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not invent user research, analytics, support volume, or repository behavior.",
+        "kind": "boundary",
+        "line": 233,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not introduce dark patterns, coercive defaults, hidden consent, or artificial urgency.",
+        "kind": "boundary",
+        "line": 234,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- For destructive migrations or removals, create a reviewed plan; do not execute them as part of ideation.",
+        "kind": "boundary",
+        "line": 238,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Reject feature creep that is not required for the measured user outcome.",
+        "kind": "boundary",
+        "line": 239,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Read only the files needed for the current step; all are linked directly here.",
+        "kind": "boundary",
+        "line": 244,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### E3a \u2014 Ideas-only request",
+        "kind": "boundary",
+        "line": 53,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Brainstorm the highest-value UX ideas for this repository, but do not write a feature specification.",
+        "kind": "boundary",
+        "line": 58,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### E3b \u2014 Specification-only request",
+        "kind": "boundary",
+        "line": 67,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The agent can identify execution order, parallel work, paths, dependencies, verification, and stop conditions without asking for product intent.",
+        "kind": "boundary",
+        "line": 129,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] No nested reference chain is required",
+        "kind": "boundary",
+        "line": 190,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] Invalid fixtures still fail for the intended reason",
+        "kind": "boundary",
+        "line": 193,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"measurable_outcome\": \"Reduce inputs required to create recurring task types.\",",
+        "kind": "boundary",
+        "line": 180,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"guardrail\": \"Do not increase duplicate task creation or repeated save requests.\"",
+        "kind": "boundary",
+        "line": 239,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Do not persist secrets or attachment binary data in local draft storage\",",
+        "kind": "boundary",
+        "line": 273,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"The recovery UI must not imply success before server confirmation\"",
+        "kind": "boundary",
+        "line": 275,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"recovery\": \"No recovery is required; clear the temporary draft only after confirmation.\",",
+        "kind": "boundary",
+        "line": 344,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"not_applicable_reason\": \"The recovery panel is shown only for a populated task draft that has already passed client validation.\"",
+        "kind": "boundary",
+        "line": 363,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"experience\": \"Explain the failure category, confirm draft preservation, and expose only valid recovery actions.\",",
+        "kind": "boundary",
+        "line": 370,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"experience\": \"State that the task cannot be saved with current access and avoid suggesting repeated retries.\",",
+        "kind": "boundary",
+        "line": 379,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"not_applicable_reason\": \"The task save contract is atomic for the MVP, so the server cannot confirm only part of the task payload.\"",
+        "kind": "boundary",
+        "line": 408,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"experience\": \"Stop the submission attempt, retain the draft, and confirm that nothing was sent.\",",
+        "kind": "boundary",
+        "line": 424,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verification\": \"Run the failure flow using only the keyboard and confirm focus restoration after retry.\"",
+        "kind": "boundary",
+        "line": 442,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Do not expose raw server errors or imply that retry is guaranteed to succeed.\"",
+        "kind": "boundary",
+        "line": 463,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Store only the validated text fields required to reconstruct the editor state.\",",
+        "kind": "boundary",
+        "line": 522,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Clear the temporary draft only after confirmed save or explicit discard.\",",
+        "kind": "boundary",
+        "line": 523,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"A confirmed save clears only the matching temporary draft.\"",
+        "kind": "boundary",
+        "line": 534,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"The panel exposes only valid recovery actions for each failure category.\",",
+        "kind": "boundary",
+        "line": 566,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Verify that permission failures never bypass authorization or expose retry when it cannot succeed.\"",
+        "kind": "boundary",
+        "line": 589,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Do not add a server migration for the MVP.\"",
+        "kind": "boundary",
+        "line": 610,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Normalize existing save failures in the client; no public API contract change is required for the MVP.\"",
+        "kind": "boundary",
+        "line": 613,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Never record task title, description, assignees, or attachment content in analytics.\",",
+        "kind": "boundary",
+        "line": 647,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Do not persist attachment binaries or credentials in local storage.\"",
+        "kind": "boundary",
+        "line": 650,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if the existing save API cannot support idempotent retry or distinguish ambiguous completion.\",",
+        "kind": "boundary",
+        "line": 768,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if preserving the draft would store prohibited data or bypass the current security boundary.\",",
+        "kind": "boundary",
+        "line": 769,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if repository evidence contradicts the assumed task editor or draft-store seams.\",",
+        "kind": "boundary",
+        "line": 770,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if required tests, lint, type checks, or feature-contract validation fail.\"",
+        "kind": "boundary",
+        "line": 771,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [",
+        "kind": "boundary",
+        "line": 7,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"project\", \"requested_focus\", \"evidence\"],",
+        "kind": "boundary",
+        "line": 38,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"selected_candidate_id\", \"selection_rationale\", \"candidates\"],",
+        "kind": "boundary",
+        "line": 52,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"statement\", \"affected_users\", \"jobs_to_be_done\", \"current_friction\", \"evidence_refs\"],",
+        "kind": "boundary",
+        "line": 67,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"user_value\", \"product_value\", \"metrics\"],",
+        "kind": "boundary",
+        "line": 79,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"mvp\", \"in_scope\", \"non_goals\", \"assumptions\", \"constraints\"],",
+        "kind": "boundary",
+        "line": 89,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"entry_points\", \"primary_flow\", \"alternate_flows\", \"states\", \"accessibility\", \"content_guidance\", \"user_controls\"],",
+        "kind": "boundary",
+        "line": 101,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"architecture_fit\", \"work_items\", \"data_changes\", \"api_changes\", \"analytics_events\", \"security_privacy\"],",
+        "kind": "boundary",
+        "line": 115,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"unit\", \"integration\", \"end_to_end\", \"accessibility\", \"manual\"],",
+        "kind": "boundary",
+        "line": 133,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"feature_flag\", \"phases\", \"rollback_triggers\", \"rollback_plan\", \"observability\"],",
+        "kind": "boundary",
+        "line": 145,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"execution_order\", \"parallel_groups\", \"stop_conditions\", \"completion_evidence\"],",
+        "kind": "boundary",
+        "line": 159,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"type\", \"source\", \"observation\", \"relevance\"],",
+        "kind": "boundary",
+        "line": 172,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"user_pain\", \"frequency_or_reach\", \"ux_leverage\", \"strategic_fit\", \"evidence_confidence\", \"implementation_feasibility\", \"differentiation\"],",
+        "kind": "boundary",
+        "line": 184,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"title\", \"problem\", \"target_user\", \"evidence_refs\", \"measurable_outcome\", \"vertical_slice\", \"duplication_check\", \"minimum_gates\", \"scores\", \"risk_penalty\", \"total_score\", \"disposition\"],",
+        "kind": "boundary",
+        "line": 198,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"concrete_problem\", \"distinct\", \"measurable\", \"end_to_end_mvp\", \"constraint_compatible\"],",
+        "kind": "boundary",
+        "line": 211,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"name\", \"kind\", \"definition\", \"baseline\", \"target\", \"instrumentation\", \"review_window\", \"guardrail\"],",
+        "kind": "boundary",
+        "line": 229,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"actor\", \"action\", \"system_response\", \"success_condition\"],",
+        "kind": "boundary",
+        "line": 245,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"name\", \"trigger\", \"steps\", \"resolution\"],",
+        "kind": "boundary",
+        "line": 257,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"type\", \"applicable\", \"trigger\", \"experience\", \"recovery\", \"not_applicable_reason\"],",
+        "kind": "boundary",
+        "line": 268,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"area\", \"requirement\", \"verification\"],",
+        "kind": "boundary",
+        "line": 282,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"path\", \"operation\", \"rationale\"],",
+        "kind": "boundary",
+        "line": 292,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"title\", \"objective\", \"paths\", \"instructions\", \"dependencies\", \"verification\", \"done_when\"],",
+        "kind": "boundary",
+        "line": 302,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"name\", \"trigger\", \"properties\", \"purpose\"],",
+        "kind": "boundary",
+        "line": 317,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"given\", \"when\", \"then\", \"verification\"],",
+        "kind": "boundary",
+        "line": 328,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"risk\", \"likelihood\", \"impact\", \"mitigation\", \"owner\"],",
+        "kind": "boundary",
+        "line": 340,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"question\", \"blocking\", \"owner\", \"default_if_unanswered\"],",
+        "kind": "boundary",
+        "line": 353,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this standard to scope, write, review, implement, and approve user-facing feature proposals. A proposal is ready only when it defines a real user problem, an end-to-end solution, measurable outcomes, explicit risks, testable accessibility behavior, implementation evidence, and a safe rollout and rollback plan.",
+        "kind": "boundary",
+        "line": 28,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Required feature proposal contract](#required-feature-proposal-contract)",
+        "kind": "boundary",
+        "line": 34,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Required state coverage](#required-state-coverage)",
+        "kind": "boundary",
+        "line": 39,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Rollout, stop conditions, and rollback](#rollout-stop-conditions-and-rollback)",
+        "kind": "boundary",
+        "line": 45,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Must** indicates a release-blocking requirement.",
+        "kind": "boundary",
+        "line": 66,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Should** indicates the preferred approach. Deviations require a written rationale.",
+        "kind": "boundary",
+        "line": 67,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Required feature proposal contract",
+        "kind": "boundary",
+        "line": 70,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Every proposal must contain the following sections. Use `not applicable` only with a specific explanation.",
+        "kind": "boundary",
+        "line": 72,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "11. Risks, rollout, stop conditions, and rollback",
+        "kind": "boundary",
+        "line": 84,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not turn an assumption into a metric, frequency claim, user quote, or statement of user intent.",
+        "kind": "boundary",
+        "line": 95,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Every material fact must include an evidence note or stable link. Every inference must identify the facts that support it. Every assumption must include an owner and validation plan when it can materially affect scope, risk, or success criteria.",
+        "kind": "boundary",
+        "line": 97,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "validation_plan: \"<required for material assumptions>\"",
+        "kind": "boundary",
+        "line": 109,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The problem statement must identify:",
+        "kind": "boundary",
+        "line": 120,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not begin with a preferred solution. Describe the problem in terms that allow more than one credible solution to be considered.",
+        "kind": "boundary",
+        "line": 130,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The MVP must let one target user complete one valuable job end to end. It must include the smallest interface, behavior, content, state handling, instrumentation, and verification needed to learn whether the user outcome improved.",
+        "kind": "boundary",
+        "line": 134,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "An MVP must define:",
+        "kind": "boundary",
+        "line": 136,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Required instrumentation",
+        "kind": "boundary",
+        "line": 142,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Reject infrastructure-only MVPs unless the infrastructure itself creates an observable user benefit. Internal capability is an implementation milestone, not a user outcome.",
+        "kind": "boundary",
+        "line": 147,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "A flow is incomplete if a downstream implementer must invent product behavior to finish it.",
+        "kind": "boundary",
+        "line": 172,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Required state coverage",
+        "kind": "boundary",
+        "line": 174,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Avoid:",
+        "kind": "boundary",
+        "line": 203,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The proposal must state:",
+        "kind": "boundary",
+        "line": 214,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- What confirmation is required",
+        "kind": "boundary",
+        "line": 218,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Acceptance criteria must describe observable behavior rather than claim generic compliance.",
+        "kind": "boundary",
+        "line": 228,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Avoidance of redundant re-entry within the same process unless required for security or validity",
+        "kind": "boundary",
+        "line": 248,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Authentication paths that do not rely unnecessarily on memory, transcription, puzzles, or cognitive tests",
+        "kind": "boundary",
+        "line": 249,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Accessibility acceptance criteria must identify the expected behavior, test method, supported platforms, and evidence location.",
+        "kind": "boundary",
+        "line": 252,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Users must be able to understand:",
+        "kind": "boundary",
+        "line": 256,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- What can fail, be incomplete, or be wrong",
+        "kind": "boundary",
+        "line": 264,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Require privacy or security review when a feature:",
+        "kind": "boundary",
+        "line": 267,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Where human review is required",
+        "kind": "boundary",
+        "line": 284,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not use human-like language or interface cues that conceal automation, overstate certainty, or imply capabilities the system does not have.",
+        "kind": "boundary",
+        "line": 291,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Every metric must define:",
+        "kind": "boundary",
+        "line": 297,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "guardrail: \"<harm the team must not optimize through>\"",
+        "kind": "boundary",
+        "line": 325,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "decision_rule: \"<continue, revise, stop, or roll back condition>\"",
+        "kind": "boundary",
+        "line": 327,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Avoid vanity metrics unless they directly represent the intended user job. A metric is invalid if it can improve while the user outcome becomes worse.",
+        "kind": "boundary",
+        "line": 330,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The implementation section must identify:",
+        "kind": "boundary",
+        "line": 336,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Documentation that must change",
+        "kind": "boundary",
+        "line": 346,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Mark paths as `provisional` when repository access or verification is unavailable. Do not present an inferred path as confirmed.",
+        "kind": "boundary",
+        "line": 350,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not require downstream agents to infer:",
+        "kind": "boundary",
+        "line": 352,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Required tests",
+        "kind": "boundary",
+        "line": 360,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Rollout, stop conditions, and rollback",
+        "kind": "boundary",
+        "line": 363,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Every proposal must define:",
+        "kind": "boundary",
+        "line": 365,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Stop conditions",
+        "kind": "boundary",
+        "line": 373,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If the feature can fail silently or partially, describe how the team will detect the condition and protect affected users.",
+        "kind": "boundary",
+        "line": 379,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "A rollout plan is incomplete when it says only \u201cmonitor after launch.\u201d It must state what will be monitored, by whom, for how long, and what decision follows each threshold.",
+        "kind": "boundary",
+        "line": 381,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "A feature proposal is ready for implementation only when:",
+        "kind": "boundary",
+        "line": 385,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Required states are covered or explicitly ruled out",
+        "kind": "boundary",
+        "line": 394,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Rollout, stop conditions, and rollback are executable",
+        "kind": "boundary",
+        "line": 400,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] Required states are covered or specifically ruled out",
+        "kind": "boundary",
+        "line": 440,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] Required privacy and security reviews are identified",
+        "kind": "boundary",
+        "line": 451,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] Risks, rollout, stop conditions, rollback, and ownership are present",
+        "kind": "boundary",
+        "line": 460,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The document owner must review this standard when any referenced baseline changes materially, including accessibility standards, privacy or security requirements, AI governance expectations, or repository delivery practices.",
+        "kind": "boundary",
+        "line": 466,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "def fail(message: str, code: int, as_json: bool) -> int:",
+        "kind": "boundary",
+        "line": 23,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{candidate.get('id', '<unknown>')}: scores must be an object\")",
+        "kind": "boundary",
+        "line": 32,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{candidate.get('id', '<unknown>')}: {key} must be numeric\")",
+        "kind": "boundary",
+        "line": 38,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{candidate.get('id', '<unknown>')}: {key} must be between 0 and 5\")",
+        "kind": "boundary",
+        "line": 40,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{candidate.get('id', '<unknown>')}: risk_penalty must be between 0 and 15\")",
+        "kind": "boundary",
+        "line": 45,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return fail(f\"input file not found: {args.input}\", 2, args.json)",
+        "kind": "boundary",
+        "line": 58,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return fail(f\"cannot read input: {exc}\", 2, args.json)",
+        "kind": "boundary",
+        "line": 63,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return fail(f\"invalid JSON at line {exc.lineno}, column {exc.colno}: {exc.msg}\", 3, args.json)",
+        "kind": "boundary",
+        "line": 65,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return fail(\"input must contain a non-empty candidates array\", 4, args.json)",
+        "kind": "boundary",
+        "line": 76,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(\"each candidate must be an object\")",
+        "kind": "boundary",
+        "line": 82,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return fail(str(exc), 4, args.json)",
+        "kind": "boundary",
+        "line": 90,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return fail(f\"cannot write input: {exc}\", 5, args.json)",
+        "kind": "boundary",
+        "line": 98,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{pointer(path)}: value must be one of {schema['enum']}\")",
+        "kind": "boundary",
+        "line": 80,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "for required in schema.get(\"required\", []):",
+        "kind": "boundary",
+        "line": 106,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if required not in instance:",
+        "kind": "boundary",
+        "line": 107,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{pointer(path)}: missing required property '{required}'\")",
+        "kind": "boundary",
+        "line": 108,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"$.feature_id: must equal 'uxf-' + slug\")",
+        "kind": "boundary",
+        "line": 174,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"$.decision.candidates: exactly one candidate must have disposition 'selected'\")",
+        "kind": "boundary",
+        "line": 192,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"$.decision: selected_candidate_id must match the selected candidate\")",
+        "kind": "boundary",
+        "line": 194,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"$.decision: selected candidate must have the highest total_score\")",
+        "kind": "boundary",
+        "line": 198,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"$.outcomes.metrics: exactly one primary metric is required\")",
+        "kind": "boundary",
+        "line": 222,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"$.ux_design.states[{index}].{field}: required when applicable is true\")",
+        "kind": "boundary",
+        "line": 237,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"$.ux_design.states[{index}].not_applicable_reason: must be empty when applicable is true\")",
+        "kind": "boundary",
+        "line": 239,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"$.ux_design.states[{index}].not_applicable_reason: required when applicable is false\")",
+        "kind": "boundary",
+        "line": 242,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"$.agent_handoff.execution_order: must contain every work item exactly once\")",
+        "kind": "boundary",
+        "line": 280,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"$.agent_handoff.execution_order: {dependency} must precede {item_id}\")",
+        "kind": "boundary",
+        "line": 286,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. **Negative:** Given only a feature wish, label assumptions instead of presenting them as findings.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "Generate evidence-backed UX feature ideas and, when requested, convert the strongest candidate into a deterministic implementation contract for downstream agents.",
+        "kind": "decision",
+        "line": 9,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Default to the full workflow unless the user explicitly requests only ideas or only a specification.",
+        "kind": "decision",
+        "line": 27,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- User goal, product area, or UX concern when supplied",
+        "kind": "decision",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Select one feature unless the user explicitly requests ideas-only output.",
+        "kind": "decision",
+        "line": 44,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Stop only when the artifact validates, or when a blocking unknown cannot be resolved from available evidence. In the latter case, emit no implementation-ready contract; report the evidence gap and the smallest question needed to unblock it.",
+        "kind": "decision",
+        "line": 73,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not treat an assumption as evidence. Include exact repository paths when available. If no repository is accessible, proceed using user context and assumptions, but lower `evidence_confidence` scores and make implementation paths provisional.",
+        "kind": "decision",
+        "line": 93,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Apply the minimum gates first. A candidate is ineligible if any answer is `false`:",
+        "kind": "decision",
+        "line": 121,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When scores are within 3 points, prefer in order:",
+        "kind": "decision",
+        "line": 149,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`scripts/score_candidates.py` only computes and sorts numeric totals; if the top candidates are within 3 points, do the tie-break review manually using the order above before selecting one.",
+        "kind": "decision",
+        "line": 156,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Read `resources/ux-principles.md` before finalizing the selected feature.",
+        "kind": "decision",
+        "line": 160,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Acceptance criteria MUST be testable Given/When/Then contracts. Avoid subjective terms such as \"intuitive,\" \"clean,\" \"fast,\" or \"user-friendly\" unless paired with an observable threshold.",
+        "kind": "decision",
+        "line": 176,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. If validation fails, fix every reported error and run it again.",
+        "kind": "decision",
+        "line": 202,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Minimize collection of personal or sensitive data; define retention and deletion behavior when data is added.",
+        "kind": "decision",
+        "line": 235,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Run these evaluations with a fresh Codex run. Test at least one economical, balanced, and high-reasoning model when available.",
+        "kind": "decision",
+        "line": 3,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Repository evidence is inspected before ideas are finalized.",
+        "kind": "decision",
+        "line": 25,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Skill does not trigger unless feature ideation or a UX implementation contract is also requested.",
+        "kind": "decision",
+        "line": 51,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] Example validates after every schema or validator change",
+        "kind": "decision",
+        "line": 192,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"requested_focus\": \"Reduce abandonment when saving a task fails\",",
+        "kind": "decision",
+        "line": 10,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"observation\": \"Users report retyping task details after intermittent save failures.\",",
+        "kind": "decision",
+        "line": 23,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"problem\": \"Users lose confidence and may repeat work when a task save fails without a clear recovery path.\",",
+        "kind": "decision",
+        "line": 49,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"measurable_outcome\": \"Reduce abandoned task edits after save failures.\",",
+        "kind": "decision",
+        "line": 56,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"vertical_slice\": \"Show contextual guidance during the first task creation and dismiss it after completion.\",",
+        "kind": "decision",
+        "line": 88,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"statement\": \"When saving a task fails, collaborators receive a generic error without knowing whether their draft is preserved or what action will safely complete the save.\",",
+        "kind": "decision",
+        "line": 206,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"target\": \"Increase after rollout, with a target set after baseline collection\",",
+        "kind": "decision",
+        "line": 236,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"review_window\": \"Four weeks after general availability\",",
+        "kind": "decision",
+        "line": 238,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"definition\": \"Count of support reports or in-product feedback claiming task content was lost after a save failure.\",",
+        "kind": "decision",
+        "line": 245,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"target\": \"No increase and a downward trend after rollout\",",
+        "kind": "decision",
+        "line": 247,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"guardrail\": \"Investigate every confirmed content-loss case before expanding rollout.\"",
+        "kind": "decision",
+        "line": 250,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"mvp\": \"Preserve the current task draft after a failed save and present an inline recovery panel with retry, copy, and dismiss actions.\",",
+        "kind": "decision",
+        "line": 255,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"The recovery UI must not imply success before server confirmation\"",
+        "kind": "decision",
+        "line": 275,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"action\": \"Selects retry after connectivity or service availability improves.\",",
+        "kind": "decision",
+        "line": 301,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Restore the panel after another failed save\"",
+        "kind": "decision",
+        "line": 323,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"recovery\": \"No recovery is required; clear the temporary draft only after confirmation.\",",
+        "kind": "decision",
+        "line": 344,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"recovery\": \"Restore controls if the request fails or times out.\",",
+        "kind": "decision",
+        "line": 353,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"recovery\": \"Retry when allowed, copy content, or exit after acknowledging that the draft remains available.\",",
+        "kind": "decision",
+        "line": 371,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"trigger\": \"The user's session expires before the save request completes.\",",
+        "kind": "decision",
+        "line": 387,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"recovery\": \"After sign-in, retry the save from the preserved draft.\",",
+        "kind": "decision",
+        "line": 389,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"experience\": \"State that the draft is preserved locally and retry becomes available when connectivity returns.\",",
+        "kind": "decision",
+        "line": 397,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"recovery\": \"Let the user retry manually after reconnection or copy the content immediately.\",",
+        "kind": "decision",
+        "line": 398,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"recovery\": \"When the user returns, offer retry or copy from the preserved draft.\",",
+        "kind": "decision",
+        "line": 416,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"trigger\": \"The user cancels an in-flight save or backs out before the request finishes.\",",
+        "kind": "decision",
+        "line": 423,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"requirement\": \"All recovery actions are keyboard reachable and focus moves to the recovery heading after a failed save.\",",
+        "kind": "decision",
+        "line": 441,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verification\": \"Run the failure flow using only the keyboard and confirm focus restoration after retry.\"",
+        "kind": "decision",
+        "line": 442,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Lead with whether the draft is safe before explaining the technical failure.\",",
+        "kind": "decision",
+        "line": 461,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Exit through the existing editor navigation after copying content\"",
+        "kind": "decision",
+        "line": 469,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Clear the temporary draft only after confirmed save or explicit discard.\",",
+        "kind": "decision",
+        "line": 523,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"A failed save leaves the current draft available after the request completes.\",",
+        "kind": "decision",
+        "line": 533,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Move focus to the panel heading after failure and restore focus after successful retry.\",",
+        "kind": "decision",
+        "line": 555,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Verify that permission failures never bypass authorization or expose retry when it cannot succeed.\"",
+        "kind": "decision",
+        "line": 589,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Expire temporary drafts and clear them after confirmed save or explicit discard.\",",
+        "kind": "decision",
+        "line": 649,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"when\": \"The failure response is received\",",
+        "kind": "decision",
+        "line": 657,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"when\": \"The user activates Retry save\",",
+        "kind": "decision",
+        "line": 664,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"when\": \"The recovery panel is displayed\",",
+        "kind": "decision",
+        "line": 671,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"given\": \"The recovery panel receives keyboard focus after a failed save\",",
+        "kind": "decision",
+        "line": 677,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"when\": \"The user navigates through its controls\",",
+        "kind": "decision",
+        "line": 678,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Enable for a small cohort after zero confirmed draft-loss regressions.\",",
+        "kind": "decision",
+        "line": 708,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Expand after primary and guardrail metrics remain healthy.\"",
+        "kind": "decision",
+        "line": 709,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"risk\": \"Retry behavior could create duplicate tasks if the original response is lost after a successful server write.\",",
+        "kind": "decision",
+        "line": 730,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"default_if_unanswered\": \"Use the existing draft-store expiration; otherwise expire after twenty-four hours.\"",
+        "kind": "decision",
+        "line": 751,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if the existing save API cannot support idempotent retry or distinguish ambiguous completion.\",",
+        "kind": "decision",
+        "line": 768,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if preserving the draft would store prohibited data or bypass the current security boundary.\",",
+        "kind": "decision",
+        "line": 769,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if repository evidence contradicts the assumed task editor or draft-store seams.\",",
+        "kind": "decision",
+        "line": 770,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if required tests, lint, type checks, or feature-contract validation fail.\"",
+        "kind": "decision",
+        "line": 771,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"required\": [\"id\", \"given\", \"when\", \"then\", \"verification\"],",
+        "kind": "decision",
+        "line": 328,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"when\": {\"type\": \"string\", \"minLength\": 5},",
+        "kind": "decision",
+        "line": 332,
+        "path": "resources/feature-brief.schema.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this standard to scope, write, review, implement, and approve user-facing feature proposals. A proposal is ready only when it defines a real user problem, an end-to-end solution, measurable outcomes, explicit risks, testable accessibility behavior, implementation evidence, and a safe rollout and rollback plan.",
+        "kind": "decision",
+        "line": 28,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [When to use this standard](#when-to-use-this-standard)",
+        "kind": "decision",
+        "line": 32,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## When to use this standard",
+        "kind": "decision",
+        "line": 51,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Every material fact must include an evidence note or stable link. Every inference must identify the facts that support it. Every assumption must include an owner and validation plan when it can materially affect scope, risk, or success criteria.",
+        "kind": "decision",
+        "line": 97,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "decision_impact: \"<what changes if this claim is wrong>\"",
+        "kind": "decision",
+        "line": 108,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When <context>, <user> struggles to <job> because <friction>, causing <observable cost>.",
+        "kind": "decision",
+        "line": 117,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Reject infrastructure-only MVPs unless the infrastructure itself creates an observable user benefit. Internal capability is an implementation milestone, not a user outcome.",
+        "kind": "decision",
+        "line": 147,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Information shown before commitment",
+        "kind": "decision",
+        "line": 154,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Return-after-time-away behavior",
+        "kind": "decision",
+        "line": 161,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- One unrecoverable or blocked flow when applicable",
+        "kind": "decision",
+        "line": 170,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "A flow is incomplete if a downstream implementer must invent product behavior to finish it.",
+        "kind": "decision",
+        "line": 172,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Focus restoration after dialogs, menus, route changes, errors, and asynchronous updates",
+        "kind": "decision",
+        "line": 236,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Avoidance of redundant re-entry within the same process unless required for security or validity",
+        "kind": "decision",
+        "line": 248,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Require privacy or security review when a feature:",
+        "kind": "decision",
+        "line": 267,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The model or capability boundary, when known",
+        "kind": "decision",
+        "line": 280,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- What happens when the AI is unavailable or refuses",
+        "kind": "decision",
+        "line": 286,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- A non-AI fallback when the user could otherwise be blocked",
+        "kind": "decision",
+        "line": 287,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Avoid vanity metrics unless they directly represent the intended user job. A metric is invalid if it can improve while the user outcome becomes worse.",
+        "kind": "decision",
+        "line": 330,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Mark paths as `provisional` when repository access or verification is unavailable. Do not present an inferred path as confirmed.",
+        "kind": "decision",
+        "line": 350,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If the feature can fail silently or partially, describe how the team will detect the condition and protect affected users.",
+        "kind": "decision",
+        "line": 379,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "A rollout plan is incomplete when it says only \u201cmonitor after launch.\u201d It must state what will be monitored, by whom, for how long, and what decision follows each threshold.",
+        "kind": "decision",
+        "line": 381,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "A feature proposal is ready for implementation only when:",
+        "kind": "decision",
+        "line": 385,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] Persistence and return-after-time-away behavior are defined",
+        "kind": "decision",
+        "line": 443,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The document owner must review this standard when any referenced baseline changes materially, including accessibility standards, privacy or security requirements, AI governance expectations, or repository delivery practices.",
+        "kind": "decision",
+        "line": 466,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(json.dumps(payload, separators=(\",\", \":\")) if as_json else f\"ERROR: {message}\")",
+        "kind": "decision",
+        "line": 25,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(scores, dict):",
+        "kind": "decision",
+        "line": 31,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(value, (int, float)) or isinstance(value, bool):",
+        "kind": "decision",
+        "line": 37,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not 0 <= float(value) <= 5:",
+        "kind": "decision",
+        "line": 39,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(penalty, (int, float)) or isinstance(penalty, bool) or not 0 <= float(penalty) <= 15:",
+        "kind": "decision",
+        "line": 44,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not args.input.is_file():",
+        "kind": "decision",
+        "line": 57,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(data, list):",
+        "kind": "decision",
+        "line": 67,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(candidates, list) or not candidates:",
+        "kind": "decision",
+        "line": 75,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(candidate, dict):",
+        "kind": "decision",
+        "line": 81,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(candidate_id, str) or not candidate_id:",
+        "kind": "decision",
+        "line": 84,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.write:",
+        "kind": "decision",
+        "line": 94,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.json:",
+        "kind": "decision",
+        "line": 101,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 109,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not parts:",
+        "kind": "decision",
+        "line": 36,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return \"$\" + \"\".join(f\"[{part}]\" if part.isdigit() else f\".{part}\" for part in parts)",
+        "kind": "decision",
+        "line": 38,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not ref.startswith(\"#/\"):",
+        "kind": "decision",
+        "line": 42,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(node, dict):",
+        "kind": "decision",
+        "line": 48,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"$ref\" in schema:",
+        "kind": "decision",
+        "line": 58,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if expected == \"object\":",
+        "kind": "decision",
+        "line": 64,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not type_ok:",
+        "kind": "decision",
+        "line": 75,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"enum\" in schema and instance not in schema[\"enum\"]:",
+        "kind": "decision",
+        "line": 79,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(instance, str):",
+        "kind": "decision",
+        "line": 82,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(instance) < schema.get(\"minLength\", 0):",
+        "kind": "decision",
+        "line": 83,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pattern and re.search(pattern, instance) is None:",
+        "kind": "decision",
+        "line": 86,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if is_number(instance):",
+        "kind": "decision",
+        "line": 89,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"minimum\" in schema and instance < schema[\"minimum\"]:",
+        "kind": "decision",
+        "line": 90,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"maximum\" in schema and instance > schema[\"maximum\"]:",
+        "kind": "decision",
+        "line": 92,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(instance, list):",
+        "kind": "decision",
+        "line": 95,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(instance) < schema.get(\"minItems\", 0):",
+        "kind": "decision",
+        "line": 96,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"maxItems\" in schema and len(instance) > schema[\"maxItems\"]:",
+        "kind": "decision",
+        "line": 98,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(item_schema, dict):",
+        "kind": "decision",
+        "line": 101,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(instance, dict):",
+        "kind": "decision",
+        "line": 105,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if required not in instance:",
+        "kind": "decision",
+        "line": 107,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if schema.get(\"additionalProperties\") is False:",
+        "kind": "decision",
+        "line": 111,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if key not in properties:",
+        "kind": "decision",
+        "line": 113,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if key in instance:",
+        "kind": "decision",
+        "line": 117,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, str):",
+        "kind": "decision",
+        "line": 123,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(item_id, str):",
+        "kind": "decision",
+        "line": 138,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if item_id in seen:",
+        "kind": "decision",
+        "line": 139,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if node in visiting:",
+        "kind": "decision",
+        "line": 155,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if node in visited:",
+        "kind": "decision",
+        "line": 157,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if visit(dependency):",
+        "kind": "decision",
+        "line": 161,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if data.get(\"feature_id\") != f\"uxf-{data.get('slug', '')}\":",
+        "kind": "decision",
+        "line": 173,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "evidence_ids = {item.get(\"id\") for item in evidence if isinstance(item, dict)}",
+        "kind": "decision",
+        "line": 177,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "candidate_ids = {item.get(\"id\") for item in candidates if isinstance(item, dict)}",
+        "kind": "decision",
+        "line": 182,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if selected_id not in candidate_ids:",
+        "kind": "decision",
+        "line": 187,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "selected = [item for item in candidates if item.get(\"disposition\") == \"selected\"]",
+        "kind": "decision",
+        "line": 190,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(selected) != 1:",
+        "kind": "decision",
+        "line": 191,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if float(selected[0].get(\"total_score\", 0)) < highest:",
+        "kind": "decision",
+        "line": 197,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if ref not in evidence_ids:",
+        "kind": "decision",
+        "line": 202,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if candidate.get(\"disposition\") == \"selected\" and not all(gates.values()):",
+        "kind": "decision",
+        "line": 205,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not math.isclose(expected, actual, abs_tol=0.05):",
+        "kind": "decision",
+        "line": 210,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if ref not in evidence_ids:",
+        "kind": "decision",
+        "line": 216,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "primary_metrics = [metric for metric in metrics if metric.get(\"kind\") == \"primary\"]",
+        "kind": "decision",
+        "line": 220,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(primary_metrics) != 1:",
+        "kind": "decision",
+        "line": 221,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "state_types = [item.get(\"type\") for item in states if isinstance(item, dict)]",
+        "kind": "decision",
+        "line": 225,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "duplicated_states = {state for state in state_types if state_types.count(state) > 1}",
+        "kind": "decision",
+        "line": 227,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if missing_states:",
+        "kind": "decision",
+        "line": 228,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if duplicated_states:",
+        "kind": "decision",
+        "line": 230,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if applicable is True:",
+        "kind": "decision",
+        "line": 234,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not str(state.get(field, \"\")).strip():",
+        "kind": "decision",
+        "line": 236,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"$.ux_design.states[{index}].{field}: required when applicable is true\")",
+        "kind": "decision",
+        "line": 237,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if str(state.get(\"not_applicable_reason\", \"\")).strip():",
+        "kind": "decision",
+        "line": 238,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"$.ux_design.states[{index}].not_applicable_reason: must be empty when applicable is true\")",
+        "kind": "decision",
+        "line": 239,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not str(state.get(\"not_applicable_reason\", \"\")).strip():",
+        "kind": "decision",
+        "line": 241,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"$.ux_design.states[{index}].not_applicable_reason: required when applicable is false\")",
+        "kind": "decision",
+        "line": 242,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "work_ids = {item.get(\"id\") for item in work_items if isinstance(item, dict)}",
+        "kind": "decision",
+        "line": 245,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if item_id in item_dependencies:",
+        "kind": "decision",
+        "line": 254,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if dependency not in work_ids:",
+        "kind": "decision",
+        "line": 257,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if repo_root is not None:",
+        "kind": "decision",
+        "line": 260,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if strict and operation in {\"modify\", \"delete\"} and not candidate_path.exists():",
+        "kind": "decision",
+        "line": 270,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if strict and operation == \"create\" and candidate_path.exists():",
+        "kind": "decision",
+        "line": 272,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if graph_has_cycle(dependencies):",
+        "kind": "decision",
+        "line": 275,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if set(execution_order) != work_ids or len(execution_order) != len(work_ids):",
+        "kind": "decision",
+        "line": 279,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if positions[dependency] > positions[item_id]:",
+        "kind": "decision",
+        "line": 285,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if dependency in seen:",
+        "kind": "decision",
+        "line": 292,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(group_set) != len(group):",
+        "kind": "decision",
+        "line": 300,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if item_id not in work_ids:",
+        "kind": "decision",
+        "line": 303,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if ancestors(item_id) & group_set:",
+        "kind": "decision",
+        "line": 305,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if strict:",
+        "kind": "decision",
+        "line": 320,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if data.get(\"status\") != \"ready_for_implementation\":",
+        "kind": "decision",
+        "line": 321,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if PLACEHOLDER_RE.search(value):",
+        "kind": "decision",
+        "line": 324,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "blocking = [q.get(\"id\") for q in data.get(\"open_questions\", []) if q.get(\"blocking\") is True]",
+        "kind": "decision",
+        "line": 326,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if blocking:",
+        "kind": "decision",
+        "line": 327,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if as_json:",
+        "kind": "decision",
+        "line": 341,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not args.feature_file.is_file():",
+        "kind": "decision",
+        "line": 361,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not args.schema.is_file():",
+        "kind": "decision",
+        "line": 363,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.repo_root is not None and not args.repo_root.is_dir():",
+        "kind": "decision",
+        "line": 365,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(data, dict):",
+        "kind": "decision",
+        "line": 379,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if errors:",
+        "kind": "decision",
+        "line": 385,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 390,
+        "path": "scripts/validate_feature_brief.py"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "medium",
+        "excerpt": "\"guardrail\": \"Do not increase duplicate task creation or repeated save requests.\"",
+        "kind": "execution",
+        "line": 239,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"system_response\": \"The application resubmits the current draft once and shows progress without duplicating requests.\",",
+        "kind": "execution",
+        "line": 302,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Confirm a double activation cannot create duplicate save requests.\"",
+        "kind": "execution",
+        "line": 694,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "args.input.write_text(json.dumps(data, indent=2, ensure_ascii=False) + \"\\n\", encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 96,
+        "path": "scripts/score_candidates.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "visiting.remove(node)",
+        "kind": "execution",
+        "line": 163,
+        "path": "scripts/validate_feature_brief.py"
+      }
+    ],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "\"Preserve current task authorization checks on every retry\",",
+        "kind": "privacy",
+        "line": 274,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"name\": \"Non-retryable authorization failure\",",
+        "kind": "privacy",
+        "line": 308,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"resolution\": \"The user retains the entered content without bypassing authorization.\"",
+        "kind": "privacy",
+        "line": 315,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"trigger\": \"Authorization is missing or revoked during save.\",",
+        "kind": "privacy",
+        "line": 378,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Ensure retry requests retain existing authorization and idempotency behavior.\"",
+        "kind": "privacy",
+        "line": 494,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Verify that permission failures never bypass authorization or expose retry when it cannot succeed.\"",
+        "kind": "privacy",
+        "line": 589,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Failure and recovery events contain no task content or personal data.\",",
+        "kind": "privacy",
+        "line": 603,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Apply existing authorization checks to every retry request.\",",
+        "kind": "privacy",
+        "line": 648,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"then\": \"Retry is unavailable, the reason is explained, and the user can copy the draft without bypassing authorization\",",
+        "kind": "privacy",
+        "line": 672,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Authorization bypass or sensitive content in telemetry\"",
+        "kind": "privacy",
+        "line": 714,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Event payload inspection showing no task content or personal data.\",",
+        "kind": "privacy",
+        "line": 775,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- changes to permissions, personal data, or retention",
+        "kind": "privacy",
+        "line": 19,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- A feature that collects personal data, expands retention, or requests a new permission",
+        "kind": "privacy",
+        "line": 59,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Changes authentication or authorization behavior",
+        "kind": "privacy",
+        "line": 272,
+        "path": "resources/ux-principles.md"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "- [Validation loop](#6-validation-loop)",
+        "kind": "verification",
+        "line": 20,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The JSON file is the canonical handoff artifact. It MUST validate against `resources/feature-brief.schema.json` and the semantic checks in `scripts/validate_feature_brief.py`.",
+        "kind": "verification",
+        "line": 39,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] 9. Validate, fix, and revalidate",
+        "kind": "verification",
+        "line": 69,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] 10. Report the selected feature, path, score, and validation status",
+        "kind": "verification",
+        "line": 70,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- A duplication check against existing capabilities",
+        "kind": "verification",
+        "line": 115,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use dependency IDs to define execution order. Put only dependency-free work in parallel groups. Include stop conditions for contract conflicts, missing paths, failed migrations, security violations, inaccessible dependencies, and failing validation.",
+        "kind": "verification",
+        "line": 189,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## 6. Validation loop",
+        "kind": "verification",
+        "line": 193,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. If validation fails, fix every reported error and run it again.",
+        "kind": "verification",
+        "line": 202,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Do not hand the artifact to implementation agents while validation fails.",
+        "kind": "verification",
+        "line": 204,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Validation: PASS",
+        "kind": "verification",
+        "line": 227,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `scripts/validate_feature_brief.py` \u2014 schema, semantic, path, and graph validation",
+        "kind": "verification",
+        "line": 251,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Windows smoke check: `python scripts/validate_feature_brief.py --help`.",
+        "kind": "verification",
+        "line": 5,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Run these evaluations with a fresh Codex run. Test at least one economical, balanced, and high-reasoning model when available.",
+        "kind": "verification",
+        "line": 3,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Quality regression checklist](#quality-regression-checklist)",
+        "kind": "verification",
+        "line": 10,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Fix the failing unit test in src/parser.test.ts.",
+        "kind": "verification",
+        "line": 46,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Quality regression checklist",
+        "kind": "verification",
+        "line": 185,
+        "path": "resources/evaluations.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"not_applicable_reason\": \"The recovery panel is shown only for a populated task draft that has already passed client validation.\"",
+        "kind": "verification",
+        "line": 363,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verification\": \"Verify live-region output with at least one supported screen reader.\"",
+        "kind": "verification",
+        "line": 447,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm test -- saveFailure\"",
+        "kind": "verification",
+        "line": 498,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm test -- recoverableTaskDraft\"",
+        "kind": "verification",
+        "line": 530,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm test -- TaskSaveRecoveryPanel\",",
+        "kind": "verification",
+        "line": 562,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm run test:a11y -- TaskSaveRecoveryPanel\"",
+        "kind": "verification",
+        "line": 563,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"rationale\": \"Verifies the user-visible vertical slice and regression behavior.\"",
+        "kind": "verification",
+        "line": 583,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Verify that permission failures never bypass authorization or expose retry when it cannot succeed.\"",
+        "kind": "verification",
+        "line": 589,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm test\",",
+        "kind": "verification",
+        "line": 596,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm run test:e2e -- task-save-recovery\",",
+        "kind": "verification",
+        "line": 597,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm run lint\",",
+        "kind": "verification",
+        "line": 598,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"npm run typecheck\"",
+        "kind": "verification",
+        "line": 599,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verification\": \"Automated integration test with a simulated retryable failure\"",
+        "kind": "verification",
+        "line": 659,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verification\": \"End-to-end test with request counting and draft-store assertion\"",
+        "kind": "verification",
+        "line": 666,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verification\": \"Integration test for permission category plus keyboard interaction check\"",
+        "kind": "verification",
+        "line": 673,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verification\": \"Automated accessibility checks plus documented screen-reader smoke test\"",
+        "kind": "verification",
+        "line": 680,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Test mapping of retryable, offline, permission, terminal, and unknown errors.\",",
+        "kind": "verification",
+        "line": 685,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Test temporary draft create, replace, expire, and clear behavior.\"",
+        "kind": "verification",
+        "line": 686,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Test editor content preservation across failed save and successful retry.\",",
+        "kind": "verification",
+        "line": 689,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Test allowed actions for every normalized failure category.\"",
+        "kind": "verification",
+        "line": 690,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Verify keyboard flow, focus placement, live announcements, non-color cues, and reduced motion.\"",
+        "kind": "verification",
+        "line": 697,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Verify copy behavior across supported browsers and confirm copied content excludes hidden metadata.\",",
+        "kind": "verification",
+        "line": 700,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Enable for internal test workspaces and validate event payloads.\",",
+        "kind": "verification",
+        "line": 707,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"mitigation\": \"Reuse or add an idempotent attempt identifier and test ambiguous network completion.\",",
+        "kind": "verification",
+        "line": 733,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Stop if required tests, lint, type checks, or feature-contract validation fail.\"",
+        "kind": "verification",
+        "line": 771,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Passing unit, integration, end-to-end, accessibility, lint, and type-check commands.\",",
+        "kind": "verification",
+        "line": 774,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Feature-flag disablement test proving the existing save path still works.\",",
+        "kind": "verification",
+        "line": 776,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Acceptance-criteria matrix mapping every criterion to test evidence.\"",
+        "kind": "verification",
+        "line": 777,
+        "path": "resources/example.feature.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Assumption:** unverified and explicitly marked for validation",
+        "kind": "verification",
+        "line": 93,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Every material fact must include an evidence note or stable link. Every inference must identify the facts that support it. Every assumption must include an owner and validation plan when it can materially affect scope, risk, or success criteria.",
+        "kind": "verification",
+        "line": 97,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "For this skill package, the validation scope is the full state set below. Use the state section to record the trigger, experience, and recovery for each applicable state; capture the detailed actions, persistence, analytics, and verification in the surrounding proposal sections rather than repeating them in every state entry:",
+        "kind": "verification",
+        "line": 176,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Accessibility acceptance criteria must identify the expected behavior, test method, supported platforms, and evidence location.",
+        "kind": "verification",
+        "line": 252,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Material assumptions have validation plans",
+        "kind": "verification",
+        "line": 390,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [ ] Material assumptions include owners and validation plans",
+        "kind": "verification",
+        "line": 432,
+        "path": "resources/ux-principles.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate a UX feature contract with no third-party dependencies.",
+        "kind": "verification",
+        "line": 2,
+        "path": "scripts/validate_feature_brief.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4 schema or semantic validation failure",
+        "kind": "verification",
+        "line": 8,
+        "path": "scripts/validate_feature_brief.py"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "2db124c4017f66f2529cf2e95260c99d38c490734c8eeb53056af76a9a80cfb6",
+  "generated_at": "2026-09-24T13:57:02.002450Z",
+  "inventory": [
+    {
+      "bytes": 11135,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "7840262fae62bd81f43afc288d840f025e3369411595071fa3b9736e2b4583e2"
+    },
+    {
+      "bytes": 333,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "bc02a4acd27ed65e297759ead256178eb93c2dbd47bc69c4eb41b89f774ef4e8"
+    },
+    {
+      "bytes": 5118,
+      "kind": "other",
+      "language": null,
+      "path": "resources/evaluations.md",
+      "sha256": "379b8fc1dae097f38b95bd76d56394ef4204d1e4ce3b2c46bb7944396f180516"
+    },
+    {
+      "bytes": 33259,
+      "kind": "other",
+      "language": null,
+      "path": "resources/example.feature.json",
+      "sha256": "fb133597e7ea12f41b449e685afd2c123a4da6a293a729cb3f454af65c8dd960"
+    },
+    {
+      "bytes": 16893,
+      "kind": "other",
+      "language": null,
+      "path": "resources/feature-brief.schema.json",
+      "sha256": "4e1f470d4a8b5ef83f1facfe0b9d2d23660131082a94561893a4ce053985d778"
+    },
+    {
+      "bytes": 17991,
+      "kind": "other",
+      "language": null,
+      "path": "resources/ux-principles.md",
+      "sha256": "7020d5632fd24c864d71cb0ddbea0e1a95c42302b951b33e281a25a383b9bd7e"
+    },
+    {
+      "bytes": 4307,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/score_candidates.py",
+      "sha256": "52e55a5a40b1080028f1a46219d3f354a98b945218f53da142fc1ea78b5fe9ac"
+    },
+    {
+      "bytes": 17546,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/validate_feature_brief.py",
+      "sha256": "dc59ac1701d6edd8ff3925a6e51a159e940ca947b8049bbd541915a7acafac39"
+    },
+    {
+      "bytes": 412,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "f44cb49bba4876e637ea7438ee51b44de78ca339608e33972aa00c190bf6bce0"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 9,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 0,
+    "script_files": 2,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 106994
+  },
+  "target": {
+    "description": "Brainstorm, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
+    "name": "brainstorming-ux-features",
+    "path": "skills/brainstorming-ux-features",
+    "version": null
+  }
+}
