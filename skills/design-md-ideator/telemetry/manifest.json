@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 101,
+    "decisions": 173,
+    "execution": 2,
+    "privacy": 66,
+    "verification": 24
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "design-md-ideator"
+  },
+  "generated_at": "2026-09-24T13:57:20.448697Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Create, refine, reconstruct, or validate a standalone DESIGN.md design-system source of truth.",
+    "fingerprint": "c156fa044d399cc6ff1f5920150c2fc112cd405d3e13dc260cae6326b81101ab",
+    "name": "design-md-ideator",
+    "version": null
+  }
+}
