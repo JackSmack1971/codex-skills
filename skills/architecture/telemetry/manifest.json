@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 9,
+    "decisions": 8,
+    "execution": 0,
+    "privacy": 0,
+    "verification": 1
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "architecture"
+  },
+  "generated_at": "2026-09-24T13:56:59.718123Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Create or evaluate architecture decisions and system designs with constraints, alternatives, and trade-offs.",
+    "fingerprint": "721c4be7f1ad06f3e06647cc9287cdafd41392b9f1c6c821a482322ad8e5d6e2",
+    "name": "architecture",
+    "version": null
+  }
+}
