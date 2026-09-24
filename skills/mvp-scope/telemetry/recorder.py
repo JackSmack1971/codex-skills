@@ -179,13 +179,27 @@ def _register_run(root: Path, run_id: str, path: Path, **extra: Any) -> None:
     state.write_text(json.dumps(existing, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def _active_run_path(root: Path) -> Path:
-    return root / "state" / "active_run.json"
+NOSESSION_BUCKET = "nosession"
 
 
-def get_active_run(root: Path) -> dict[str, Any] | None:
-    """The most recently started run for this sidecar that has not yet finished (or been marked interrupted)."""
-    path = _active_run_path(root)
+def session_bucket(session_hash: str | None) -> str:
+    """Bucket key for the active-run pointer. Runs/hooks with no known session id all
+    share the `nosession` bucket (preserving prior single-session behavior); a run/hook
+    with a session id gets its own bucket, so unrelated sessions never see each other's
+    active run."""
+    return session_hash or NOSESSION_BUCKET
+
+
+def _active_run_path(root: Path, bucket: str) -> Path:
+    safe = re.sub(r"[^A-Za-z0-9]+", "-", bucket).strip("-") or NOSESSION_BUCKET
+    return root / "state" / "active_run" / f"{safe}.json"
+
+
+def get_active_run(root: Path, bucket: str) -> dict[str, Any] | None:
+    """The most recently started run in this session's bucket that has not yet finished
+    (or been marked interrupted). Scoped per-bucket so a concurrent, unrelated session
+    never sees (or clobbers) another session's active run."""
+    path = _active_run_path(root, bucket)
     if not path.exists():
         return None
     try:
@@ -195,8 +209,8 @@ def get_active_run(root: Path) -> dict[str, Any] | None:
     return value if value.get("run_id") else None
 
 
-def set_active_run(root: Path, value: dict[str, Any] | None) -> None:
-    path = _active_run_path(root)
+def set_active_run(root: Path, bucket: str, value: dict[str, Any] | None) -> None:
+    path = _active_run_path(root, bucket)
     path.parent.mkdir(parents=True, exist_ok=True)
     if value is None:
         try:
@@ -325,8 +339,9 @@ def cmd_start(args: argparse.Namespace, sidecar_root: Path) -> int:
     run_id = args.run_id or str(uuid.uuid4())
     manifest = load_manifest(sidecar_root)
     root = data_root(sidecar_root, manifest)
+    bucket = session_bucket(hash_identifier(root, args.session_id))
 
-    stale = get_active_run(root)
+    stale = get_active_run(root, bucket)
     if stale and str(stale.get("run_id")) != run_id:
         _close_interrupted_run(sidecar_root, root, stale, reason="next_run_started")
 
@@ -354,7 +369,7 @@ def cmd_start(args: argparse.Namespace, sidecar_root: Path) -> int:
         model=args.model,
         session_id_hash=event["source"]["session_id_hash"],
     )
-    set_active_run(root, {
+    set_active_run(root, bucket, {
         "run_id": run_id,
         "started_at": event["timestamp"],
         "task_category": args.task_category,
@@ -423,9 +438,10 @@ def cmd_finish(args: argparse.Namespace, sidecar_root: Path) -> int:
     })
     emit(sidecar_root, event)
 
-    active = get_active_run(root)
+    bucket = session_bucket(state.get("session_id_hash"))
+    active = get_active_run(root, bucket)
     if active and str(active.get("run_id")) == args.run_id:
-        set_active_run(root, None)
+        set_active_run(root, bucket, None)
     append_run_index(root, {
         "run_id": args.run_id,
         "started_at": state.get("started_at"),

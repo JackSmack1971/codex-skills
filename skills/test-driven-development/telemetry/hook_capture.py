@@ -23,6 +23,7 @@ from recorder import (
     load_config,
     load_manifest,
     redact,
+    session_bucket,
     set_active_run,
 )
 
@@ -50,7 +51,7 @@ def find_first_number(value: Any, names: set[str]) -> int | float | None:
     return None
 
 
-def _close_interrupted(sidecar: Path, root: Path, active: dict[str, Any], *, reason: str) -> None:
+def _close_interrupted(sidecar: Path, root: Path, bucket: str, active: dict[str, Any], *, reason: str) -> None:
     manifest = load_manifest(sidecar)
     config = load_config(sidecar)
     target = manifest.get("target", {})
@@ -94,7 +95,7 @@ def _close_interrupted(sidecar: Path, root: Path, active: dict[str, Any], *, rea
         "outcome": "interrupted",
         "task_category": active.get("task_category"),
     })
-    set_active_run(root, None)
+    set_active_run(root, bucket, None)
 
 
 def main() -> int:
@@ -110,19 +111,20 @@ def main() -> int:
     event_name = str(payload.get("hook_event_name") or "unknown")
     session_id = str(payload.get("session_id") or "")
     turn_id = str(payload.get("turn_id") or "")
-    session_hash = hash_identifier(root, session_id) or "nosession"
+    session_hash = hash_identifier(root, session_id)
     turn_hash = hash_identifier(root, turn_id) or "noturn"
+    bucket = session_bucket(session_hash)
 
-    # Correlate to the semantic run currently in flight for this sidecar (if any), rather than
-    # stranding execution evidence in the `ambient` bucket forever. Scoped to the same session
-    # when a session id is known, so unrelated concurrent sessions don't cross-attribute.
-    active = get_active_run(root)
-    correlated = bool(active) and (
-        not active.get("session_id_hash") or active.get("session_id_hash") == session_hash
-    )
+    # Correlate to the semantic run currently in flight for *this session's bucket* (if any),
+    # rather than stranding execution evidence in the `ambient` bucket forever. The bucket
+    # lookup is exact (no cross-bucket fallback), so a hook from one session can never be
+    # attributed to another session's run, and a concurrent session's run is never falsely
+    # marked interrupted by this session's activity.
+    active = get_active_run(root, bucket)
+    correlated = bool(active)
 
     if event_name in CLOSING_HOOKS and correlated:
-        _close_interrupted(sidecar, root, active, reason=f"hook:{event_name}")
+        _close_interrupted(sidecar, root, bucket, active, reason=f"hook:{event_name}")
         return 0
 
     target = manifest.get("target", {})
@@ -153,7 +155,7 @@ def main() -> int:
             evidence["observed_status_code"] = code
 
     run_id = str(active["run_id"]) if correlated else (
-        "ambient-" + hashlib.sha256(f"{session_hash}:{turn_hash}".encode()).hexdigest()[:24]
+        "ambient-" + hashlib.sha256(f"{bucket}:{turn_hash}".encode()).hexdigest()[:24]
     )
 
     event = {
