@@ -1,0 +1,180 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use when product behavior stores durable data and entities, constraints, or access paths must be designed; exclude migration execution, routing to database-migrations.",
+        "kind": "boundary",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "boundary",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Inputs:** Require the requested target and the repository, user, authority, and assumption evidence named by this package; identify material gaps instead of guessing.",
+        "kind": "boundary",
+        "line": 14,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Failure/stop:** Stop on conflicting scope, missing authority, unsafe state, or unverifiable completion, plus any stricter stop condition in this package.",
+        "kind": "boundary",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Runtime claims:** Claim only behavior supported by observed files, tools, commands, or tests; do not claim implicit routing accuracy or unavailable integrations.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Model the facts the product must preserve, then add only constraints and access",
+        "kind": "boundary",
+        "line": 21,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Define identifiers, required/optional fields, uniqueness, foreign keys,",
+        "kind": "boundary",
+        "line": 27,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Identify read/write patterns and add only necessary indexes.",
+        "kind": "boundary",
+        "line": 29,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not choose a database vendor or add fields for hypothetical future use",
+        "kind": "boundary",
+        "line": 42,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "without a stated constraint. Never weaken integrity merely to simplify code.",
+        "kind": "boundary",
+        "line": 43,
+        "path": "SKILL.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "compatibility: Requires domain requirements and repository/database context when available.",
+        "kind": "decision",
+        "line": 4,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use when product behavior stores durable data and entities, constraints, or access paths must be designed; exclude migration execution, routing to database-migrations.",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "decision",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "decision",
+        "line": 19,
+        "path": "SKILL.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "2. **Negative:** Given mutable user-controlled identifiers, reject a model with no uniqueness or authorization boundary.",
+        "kind": "privacy",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.",
+        "kind": "verification",
+        "line": 13,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "validation constraints, timestamps, and deletion behavior.",
+        "kind": "verification",
+        "line": 28,
+        "path": "SKILL.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "a50e957eb29d947902ba791c5d92478350bfeff3caebf1b12f4ea5f080085f4b",
+  "generated_at": "2026-09-24T13:57:13.096989Z",
+  "inventory": [
+    {
+      "bytes": 2704,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "3c2cbff2c7cde7d640691c4208bebcef47dd35979d1a0e70f2e1a7f44cc88195"
+    },
+    {
+      "bytes": 386,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "2ac9a4e3e6563dd7f57a1930575b61f00918ce9d1668c70478a753a5de1b5fa8"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 2,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 3090
+  },
+  "target": {
+    "description": "Design or review durable data models, relationships, constraints, indexes, lifecycle, and concurrency assumptions.",
+    "name": "data-modeling",
+    "path": "skills/data-modeling",
+    "version": null
+  }
+}
