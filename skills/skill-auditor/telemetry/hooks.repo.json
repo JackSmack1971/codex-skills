@@ -1,0 +1,60 @@
+{
+  "description": "Privacy-aware ambient telemetry for a target skill. Review and trust before use.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"$(git rev-parse --show-toplevel)/skills/skill-auditor/telemetry/hook_capture.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"$(git rev-parse --show-toplevel)/skills/skill-auditor/telemetry/hook_capture.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"$(git rev-parse --show-toplevel)/skills/skill-auditor/telemetry/hook_capture.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"$(git rev-parse --show-toplevel)/skills/skill-auditor/telemetry/hook_capture.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "python3 \"$(git rev-parse --show-toplevel)/skills/skill-auditor/telemetry/hook_capture.py\"",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
+}
