@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 24,
+    "decisions": 70,
+    "execution": 4,
+    "privacy": 3,
+    "verification": 4
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "skill-installer"
+  },
+  "generated_at": "2026-09-24T13:58:26.213459Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Install Codex skills from curated sources or GitHub repositories.",
+    "fingerprint": "75738c6e137ed8c333d35f5477d61a1a8668356770a1cad73bcb3a34c1b25faf",
+    "name": "skill-installer",
+    "version": null
+  }
+}
