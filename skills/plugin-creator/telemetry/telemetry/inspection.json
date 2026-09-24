@@ -1,0 +1,2367 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "# Plugin names are normalized to lower-case hyphen-case and must be <= 64 chars.",
+        "kind": "boundary",
+        "line": 17,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The scaffold starts with valid defaults and must not contain `[TODO: ...]` placeholders.",
+        "kind": "boundary",
+        "line": 25,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Only specify `--marketplace-name <name>` when the default `personal` marketplace name is already",
+        "kind": "boundary",
+        "line": 34,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Only use a repo/team marketplace when the user specifically asks for that destination:",
+        "kind": "boundary",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Repo/team marketplace creation is opt-in through both `--path` and `--marketplace-path`, only",
+        "kind": "boundary",
+        "line": 112,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `--marketplace-name` is an exception path. Use it only when the default `personal` marketplace",
+        "kind": "boundary",
+        "line": 114,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not use `--marketplace-name` to rename an existing marketplace file in place. If the file",
+        "kind": "boundary",
+        "line": 116,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "already exists, its top-level `name` must already match.",
+        "kind": "boundary",
+        "line": 117,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Each generated marketplace entry must include all of:",
+        "kind": "boundary",
+        "line": 126,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Override defaults only when the user explicitly specifies another allowed value.",
+        "kind": "boundary",
+        "line": 133,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use `--force` only when intentionally replacing an existing marketplace entry for the same plugin name.",
+        "kind": "boundary",
+        "line": 159,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Required behavior",
+        "kind": "boundary",
+        "line": 187,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not remove required structure; keep `.codex-plugin/plugin.json` present.",
+        "kind": "boundary",
+        "line": 190,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not leave `[TODO: ...]` placeholders in plugin manifests.",
+        "kind": "boundary",
+        "line": 191,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If creating files inside an existing plugin path, use `--force` only when overwrite is intentional.",
+        "kind": "boundary",
+        "line": 194,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Add `policy.products` only when the user explicitly asks for that override.",
+        "kind": "boundary",
+        "line": 197,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Only use `--marketplace-name` when creating a new marketplace file whose name should not be",
+        "kind": "boundary",
+        "line": 199,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If Codex would need approval to write the marketplace file, ask for that approval before",
+        "kind": "boundary",
+        "line": 201,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- For updates to an existing local plugin during development, do not hand-edit marketplace config",
+        "kind": "boundary",
+        "line": 205,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not tell the user to run `codex plugin marketplace add` for the default personal-marketplace",
+        "kind": "boundary",
+        "line": 208,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not add `pluginName` or `hostId` query parameters to these deeplinks. Codex derives both after",
+        "kind": "boundary",
+        "line": 222,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not emit the `View <normalized plugin name>` or `Share <normalized plugin name>` links when no marketplace entry was",
+        "kind": "boundary",
+        "line": 224,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "flow first and only then switch to this reinstall flow.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Only use a manual cachebuster override when the user explicitly asks for one or when a workflow",
+        "kind": "boundary",
+        "line": 32,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`~/.agents/plugins/marketplace.json`. You do not need `codex plugin marketplace add` for that",
+        "kind": "boundary",
+        "line": 65,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "marketplace flow. If it is not local, stop and help the user resolve the mismatch before",
+        "kind": "boundary",
+        "line": 79,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Preserve the existing version prefix and replace only the suffix.",
+        "kind": "boundary",
+        "line": 94,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Replace the existing Codex cachebuster instead of appending another one. Do not keep incrementing",
+        "kind": "boundary",
+        "line": 109,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not tell the user to run `codex plugin marketplace add` for the default personal-marketplace",
+        "kind": "boundary",
+        "line": 123,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the selected marketplace is not local, stop and help the user resolve that mismatch rather",
+        "kind": "boundary",
+        "line": 135,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the plugin source is not already the source referenced by the chosen marketplace entry, stop",
+        "kind": "boundary",
+        "line": 137,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `name` (`string`): Plugin identifier (kebab-case, no spaces). Required if `plugin.json` is provided and used as manifest name and component namespace.",
+        "kind": "boundary",
+        "line": 53,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Screenshot entries must be PNG filenames and stored under `./assets/`.",
+        "kind": "boundary",
+        "line": 111,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `skills`, `hooks`, and string-valued `mcpServers` are supplemented on top of default component discovery; they do not replace defaults.",
+        "kind": "boundary",
+        "line": 117,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Custom path values must follow the plugin root convention and naming/namespacing rules.",
+        "kind": "boundary",
+        "line": 118,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- For a Git-backed plugin at the repository root, use `{\"source\": \"url\", \"url\": \"https://github.com/owner/repo.git\"}` and omit `path`. Use `git-subdir` plus a `./` path only when the plugin is nested.",
+        "kind": "boundary",
+        "line": 175,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Replace an existing entry for the same plugin only when overwrite is intentional.",
+        "kind": "boundary",
+        "line": 193,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use a repo/team marketplace only when the user specifically requests that destination.",
+        "kind": "boundary",
+        "line": 195,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Only override the marketplace `name` when the default `personal` name is already taken or",
+        "kind": "boundary",
+        "line": 196,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Plugin manifests must include real values for `name`, `version`, `description`,",
+        "kind": "boundary",
+        "line": 206,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`author.name`, and the required `interface` fields.",
+        "kind": "boundary",
+        "line": 207,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `version` must use strict semver.",
+        "kind": "boundary",
+        "line": 208,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `websiteURL`, `privacyPolicyURL`, and `termsOfServiceURL` must be absolute `https://` URLs when",
+        "kind": "boundary",
+        "line": 209,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `composerIcon`, `logo`, `logoDark`, and `screenshots` must point to real files inside the plugin archive when",
+        "kind": "boundary",
+        "line": 211,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `apps` should appear in `plugin.json` only when `.app.json` actually exists.",
+        "kind": "boundary",
+        "line": 213,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(\"Plugin name must include at least one letter or digit.\")",
+        "kind": "boundary",
+        "line": 35,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(\"Marketplace name must include at least one letter or digit.\")",
+        "kind": "boundary",
+        "line": 45,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Marketplace name may only contain ASCII letters, digits, `_`, and `-`.\"",
+        "kind": "boundary",
+        "line": 48,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(\"marketplace.json field 'interface' must be an object.\")",
+        "kind": "boundary",
+        "line": 121,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{marketplace_path} must contain a JSON object.\")",
+        "kind": "boundary",
+        "line": 139,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{marketplace_path} must contain a non-empty string 'name'.\")",
+        "kind": "boundary",
+        "line": 146,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{marketplace_path} field 'plugins' must be an array.\")",
+        "kind": "boundary",
+        "line": 156,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Pass an explicit repo path only when a repo/team plugin is intended.\"",
+        "kind": "boundary",
+        "line": 203,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Pass a repo-rooted marketplace path only when a repo/team plugin is intended.\"",
+        "kind": "boundary",
+        "line": 226,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Marketplace name to seed into a new marketplace.json. Use this only when the default \"",
+        "kind": "boundary",
+        "line": 232,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{marketplace_path} must contain a JSON object.\")",
+        "kind": "boundary",
+        "line": 36,
+        "path": "scripts/read_marketplace_name.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{marketplace_path} must contain a non-empty string 'name'.\")",
+        "kind": "boundary",
+        "line": 39,
+        "path": "scripts/read_marketplace_name.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{manifest_path} must contain a non-empty string 'version'.\")",
+        "kind": "boundary",
+        "line": 40,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(f\"{manifest_path} must contain a JSON object.\")",
+        "kind": "boundary",
+        "line": 54,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(\"Cachebuster must contain at least one letter or digit.\")",
+        "kind": "boundary",
+        "line": 60,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"`.codex-plugin/plugin.json` must be valid JSON\")",
+        "kind": "boundary",
+        "line": 68,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"`.codex-plugin/plugin.json` must contain a JSON object\")",
+        "kind": "boundary",
+        "line": 71,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"plugin.json field `version` must be strict semver\")",
+        "kind": "boundary",
+        "line": 117,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"plugin.json field `interface.defaultPrompt` or `interface.default_prompt` is required\"",
+        "kind": "boundary",
+        "line": 174,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"plugin.json field `interface.capabilities` must be an array of strings\")",
+        "kind": "boundary",
+        "line": 180,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"plugin.json field `interface.brandColor` must use `#RRGGBB`\")",
+        "kind": "boundary",
+        "line": 187,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"plugin.json field `interface.screenshots` must be an array\")",
+        "kind": "boundary",
+        "line": 192,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"plugin.json field `{key}` must be an object\")",
+        "kind": "boundary",
+        "line": 211,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"plugin.json field `{field}` must be a non-empty string\")",
+        "kind": "boundary",
+        "line": 226,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"plugin.json field `{field}` must be a non-empty string\")",
+        "kind": "boundary",
+        "line": 243,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"plugin.json field `{prefix}.{key}` must be an absolute `https://` URL\")",
+        "kind": "boundary",
+        "line": 268,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"plugin.json field `{key}` must resolve to `{expected}`\")",
+        "kind": "boundary",
+        "line": 282,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"plugin.json field `mcpServers` must be a string path or object\")",
+        "kind": "boundary",
+        "line": 308,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"`.app.json` field `apps` must be an object\")",
+        "kind": "boundary",
+        "line": 326,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"`.app.json` app `{key}` must be an object\")",
+        "kind": "boundary",
+        "line": 330,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"`.app.json` app `{key}` field `id` must be a non-empty string\")",
+        "kind": "boundary",
+        "line": 337,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"`.app.json` app `{key}` field `category` must be a non-empty string\"",
+        "kind": "boundary",
+        "line": 341,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{field_label} must be an object\")",
+        "kind": "boundary",
+        "line": 366,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{source_label} server names must be non-empty strings\")",
+        "kind": "boundary",
+        "line": 370,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{source_label} server `{key}` must be an object\")",
+        "kind": "boundary",
+        "line": 372,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{label} is required when its plugin.json field is present\")",
+        "kind": "boundary",
+        "line": 381,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{label} must contain valid JSON\")",
+        "kind": "boundary",
+        "line": 386,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{label} must contain a JSON object\")",
+        "kind": "boundary",
+        "line": 389,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` must start with YAML frontmatter\")",
+        "kind": "boundary",
+        "line": 425,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` frontmatter must be valid YAML\")",
+        "kind": "boundary",
+        "line": 434,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` frontmatter must be an object\")",
+        "kind": "boundary",
+        "line": 437,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` frontmatter field `name` must be non-empty\")",
+        "kind": "boundary",
+        "line": 441,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"skill `{skill_root.name}` frontmatter field `description` must be non-empty\"",
+        "kind": "boundary",
+        "line": 445,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"skill `{skill_root.name}` frontmatter field `disable-model-invocation` must be false\"",
+        "kind": "boundary",
+        "line": 452,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` agent YAML must be valid YAML\")",
+        "kind": "boundary",
+        "line": 477,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` agent YAML must be an object\")",
+        "kind": "boundary",
+        "line": 480,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` agent field `interface` must be an object\")",
+        "kind": "boundary",
+        "line": 491,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"skill `{skill_root.name}` agent field `interface.{field}` must be non-empty\"",
+        "kind": "boundary",
+        "line": 511,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"skill `{skill_root.name}` agent field `interface.brand_color` must use `#RRGGBB`\"",
+        "kind": "boundary",
+        "line": 527,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"skill `{skill_root.name}` agent field `interface.default_prompt` must be non-empty\"",
+        "kind": "boundary",
+        "line": 534,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"skill `{skill_root.name}` agent field `policy` must be an object\")",
+        "kind": "boundary",
+        "line": 540,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"`policy.allow_implicit_invocation` must be a boolean\"",
+        "kind": "boundary",
+        "line": 556,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"skill `{skill_root.name}` agent field `dependencies` must be an object\"",
+        "kind": "boundary",
+        "line": 563,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{label} must be a non-empty relative path\")",
+        "kind": "boundary",
+        "line": 614,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{label} must stay inside the plugin archive\")",
+        "kind": "boundary",
+        "line": 618,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{label} must stay inside the plugin archive\")",
+        "kind": "boundary",
+        "line": 622,
+        "path": "scripts/validate_plugin.py"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "Before relying on manifest fields, commands, or packaging behavior, detect the",
+        "kind": "decision",
+        "line": 9,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Edit `<plugin-path>/.codex-plugin/plugin.json` when the request gives specific metadata.",
+        "kind": "decision",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Generate or update the personal marketplace entry when the plugin should appear in Codex UI ordering:",
+        "kind": "decision",
+        "line": 27,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Only specify `--marketplace-name <name>` when the default `personal` marketplace name is already",
+        "kind": "decision",
+        "line": 34,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Only use a repo/team marketplace when the user specifically asks for that destination:",
+        "kind": "decision",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When the user specifies a marketplace path, make sure that marketplace is actually installed before",
+        "kind": "decision",
+        "line": 52,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Before handing back a generated plugin, run:",
+        "kind": "decision",
+        "line": 69,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Prefer the helper default cachebuster unless the user explicitly asks for a specific override.",
+        "kind": "decision",
+        "line": 82,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Creates or updates `~/.agents/plugins/marketplace.json` when `--with-marketplace` is set.",
+        "kind": "decision",
+        "line": 93,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the marketplace file does not exist yet, seed a personal marketplace root before adding the first plugin entry.",
+        "kind": "decision",
+        "line": 94,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "when the user specifically requests it.",
+        "kind": "decision",
+        "line": 113,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `--marketplace-name` is an exception path. Use it only when the default `personal` marketplace",
+        "kind": "decision",
+        "line": 114,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not use `--marketplace-name` to rename an existing marketplace file in place. If the file",
+        "kind": "decision",
+        "line": 116,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the user specifies a different marketplace path, treat that marketplace as needing explicit installation via `codex plugin marketplace add`.",
+        "kind": "decision",
+        "line": 118,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Prefer `scripts/read_marketplace_name.py` when you need the marketplace name from any",
+        "kind": "decision",
+        "line": 119,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Treat plugin order in `plugins[]` as render order in Codex. Append new entries unless a user explicitly asks to reorder the list.",
+        "kind": "decision",
+        "line": 124,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Override defaults only when the user explicitly specifies another allowed value.",
+        "kind": "decision",
+        "line": 133,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Treat `policy.products` as an override. Omit it unless the user explicitly requests product gating.",
+        "kind": "decision",
+        "line": 141,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use `--force` only when intentionally replacing an existing marketplace entry for the same plugin name.",
+        "kind": "decision",
+        "line": 159,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the target marketplace file does not exist yet, create it with top-level `\"name\"`, an `\"interface\"` object containing `\"displayName\"`, and a `plugins` array, then add the new entry.",
+        "kind": "decision",
+        "line": 160,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Keep `apps` and `mcpServers` out of `plugin.json` unless their companion files are actually created.",
+        "kind": "decision",
+        "line": 192,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If creating files inside an existing plugin path, use `--force` only when overwrite is intentional.",
+        "kind": "decision",
+        "line": 194,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- When generating marketplace entries, always write `policy.installation`, `policy.authentication`, and `category` even if their values are defaults.",
+        "kind": "decision",
+        "line": 196,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Add `policy.products` only when the user explicitly asks for that override.",
+        "kind": "decision",
+        "line": 197,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Only use `--marketplace-name` when creating a new marketplace file whose name should not be",
+        "kind": "decision",
+        "line": 199,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If Codex would need approval to write the marketplace file, ask for that approval before",
+        "kind": "decision",
+        "line": 201,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "proceeding. If the user prefers to run the write themselves, provide the exact scaffold command",
+        "kind": "decision",
+        "line": 202,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the user provided a non-default `--marketplace-path`, make sure that marketplace is installed",
+        "kind": "decision",
+        "line": 211,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "before giving reinstall instructions. Use `codex plugin marketplace add <path-to-marketplace-root>`",
+        "kind": "decision",
+        "line": 212,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "when that explicit marketplace has not been configured yet.",
+        "kind": "decision",
+        "line": 213,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- When the workflow created or updated a marketplace-backed plugin, end the final user-facing",
+        "kind": "decision",
+        "line": 214,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "path from the scaffolded plugin. URL-encode the path segment and query value when needed.",
+        "kind": "decision",
+        "line": 221,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not add `pluginName` or `hostId` query parameters to these deeplinks. Codex derives both after",
+        "kind": "decision",
+        "line": 222,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not emit the `View <normalized plugin name>` or `Share <normalized plugin name>` links when no marketplace entry was",
+        "kind": "decision",
+        "line": 224,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "iterating on an existing local plugin, plus the new-thread pickup behavior after reinstall",
+        "kind": "decision",
+        "line": 233,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before handing back a generated plugin, run the bundled validator; it validates",
+        "kind": "decision",
+        "line": 238,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the plugin manifest and every packaged skill manifest without depending on a",
+        "kind": "decision",
+        "line": 239,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "default_prompt: \"Use $plugin-creator to scaffold a valid plugin in the personal marketplace, then validate it before handing it back.\"",
+        "kind": "decision",
+        "line": 4,
+        "path": "agents/openai.yaml"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this reference when a plugin already exists and the request is about updating the plugin during",
+        "kind": "decision",
+        "line": 3,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "depending on your current working directory.",
+        "kind": "decision",
+        "line": 7,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## When To Use This Flow",
+        "kind": "decision",
+        "line": 9,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this flow when all of the following are true:",
+        "kind": "decision",
+        "line": 11,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If the user still needs the initial plugin entry or marketplace structure created, use the scaffold",
+        "kind": "decision",
+        "line": 17,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Prefer the default helper behavior here. If you omit `--cachebuster`, the helper uses a UTC",
+        "kind": "decision",
+        "line": 29,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Only use a manual cachebuster override when the user explicitly asks for one or when a workflow",
+        "kind": "decision",
+        "line": 32,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The helper uses Python's home-directory resolution and prints the marketplace name to use when",
+        "kind": "decision",
+        "line": 49,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. If the plugin is not using the personal marketplace file, check which configured local",
+        "kind": "decision",
+        "line": 69,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If the plugin is not in the personal marketplace file, confirm which marketplace entry points at",
+        "kind": "decision",
+        "line": 76,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the plugin source you are editing and make sure that marketplace is still local. If it is a",
+        "kind": "decision",
+        "line": 77,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "marketplace flow. If it is not local, stop and help the user resolve the mismatch before",
+        "kind": "decision",
+        "line": 79,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. If the plugin lives in a different confirmed local marketplace, substitute that marketplace",
+        "kind": "decision",
+        "line": 82,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Treat the preserved prefix as everything before `+`.",
+        "kind": "decision",
+        "line": 95,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`python3 scripts/read_marketplace_name.py` and use the printed value when constructing",
+        "kind": "decision",
+        "line": 118,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the name before constructing reinstall commands.",
+        "kind": "decision",
+        "line": 122,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the user specified a different marketplace path, make sure that marketplace is installed",
+        "kind": "decision",
+        "line": 125,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "before giving install or reinstall instructions. Non-default marketplace paths are not",
+        "kind": "decision",
+        "line": 126,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use `codex plugin list` when the plugin lives in a different configured marketplace and you need",
+        "kind": "decision",
+        "line": 128,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If a non-default local marketplace has not been configured yet, install it with",
+        "kind": "decision",
+        "line": 130,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`codex plugin marketplace add <path-to-marketplace-root>` before telling the user to run",
+        "kind": "decision",
+        "line": 131,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the plugin is not in the personal marketplace file, confirm that the selected marketplace is",
+        "kind": "decision",
+        "line": 133,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "local before telling the user to reinstall from it.",
+        "kind": "decision",
+        "line": 134,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the selected marketplace is not local, stop and help the user resolve that mismatch rather",
+        "kind": "decision",
+        "line": 135,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the plugin source is not already the source referenced by the chosen marketplace entry, stop",
+        "kind": "decision",
+        "line": 137,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## After Reinstall",
+        "kind": "decision",
+        "line": 140,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "After reinstalling, prompt the user to start a new thread for testing. That is the safe boundary for",
+        "kind": "decision",
+        "line": 142,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `name` (`string`): Plugin identifier (kebab-case, no spaces). Required if `plugin.json` is provided and used as manifest name and component namespace.",
+        "kind": "decision",
+        "line": 53,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Include at most 3 strings. Entries after the first 3 are ignored and will not be included.",
+        "kind": "decision",
+        "line": 103,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "personal marketplace unless the caller explicitly requests a repo-local destination:",
+        "kind": "decision",
+        "line": 124,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- For a Git-backed plugin at the repository root, use `{\"source\": \"url\", \"url\": \"https://github.com/owner/repo.git\"}` and omit `path`. Use `git-subdir` plus a `./` path only when the plugin is nested.",
+        "kind": "decision",
+        "line": 175,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `products` (`array` of `string`, optional): Product override for this plugin entry. Omit it unless product gating is explicitly requested.",
+        "kind": "decision",
+        "line": 183,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- When creating a new marketplace file from scratch, seed `interface.displayName` alongside top-level `name`.",
+        "kind": "decision",
+        "line": 189,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Treat `policy.products` as an override and omit it unless explicitly requested.",
+        "kind": "decision",
+        "line": 191,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Append new entries unless the user explicitly requests reordering.",
+        "kind": "decision",
+        "line": 192,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Replace an existing entry for the same plugin only when overwrite is intentional.",
+        "kind": "decision",
+        "line": 193,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use a repo/team marketplace only when the user specifically requests that destination.",
+        "kind": "decision",
+        "line": 195,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Only override the marketplace `name` when the default `personal` name is already taken or",
+        "kind": "decision",
+        "line": 196,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `websiteURL`, `privacyPolicyURL`, and `termsOfServiceURL` must be absolute `https://` URLs when",
+        "kind": "decision",
+        "line": 209,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `composerIcon`, `logo`, `logoDark`, and `screenshots` must point to real files inside the plugin archive when",
+        "kind": "decision",
+        "line": 211,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `apps` should appear in `plugin.json` only when `.app.json` actually exists.",
+        "kind": "decision",
+        "line": 213,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "paths when those files exist; omit them when the package has no such component.",
+        "kind": "decision",
+        "line": 217,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Run `scripts/validate_plugin.py <plugin-path>` before handing back a generated plugin. It adds one",
+        "kind": "decision",
+        "line": 218,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not plugin_name:",
+        "kind": "decision",
+        "line": 34,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(plugin_name) > MAX_PLUGIN_NAME_LENGTH:",
+        "kind": "decision",
+        "line": 36,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not marketplace_name:",
+        "kind": "decision",
+        "line": 44,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if re.fullmatch(r\"[A-Za-z0-9_-]+\", marketplace_name) is None:",
+        "kind": "decision",
+        "line": 46,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if with_mcp:",
+        "kind": "decision",
+        "line": 76,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if with_apps:",
+        "kind": "decision",
+        "line": 78,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if interface is not None and not isinstance(interface, dict):",
+        "kind": "decision",
+        "line": 120,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if marketplace_path.exists():",
+        "kind": "decision",
+        "line": 133,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(payload, dict):",
+        "kind": "decision",
+        "line": 138,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if marketplace_name is not None:",
+        "kind": "decision",
+        "line": 144,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(existing_marketplace_name, str) or not existing_marketplace_name.strip():",
+        "kind": "decision",
+        "line": 145,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if existing_marketplace_name != marketplace_name:",
+        "kind": "decision",
+        "line": 147,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(plugins, list):",
+        "kind": "decision",
+        "line": 155,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(entry, dict) and entry.get(\"name\") == plugin_name:",
+        "kind": "decision",
+        "line": 161,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not force:",
+        "kind": "decision",
+        "line": 162,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.exists() and not force:",
+        "kind": "decision",
+        "line": 176,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.exists() and not force:",
+        "kind": "decision",
+        "line": 185,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Pass an explicit repo path only when a repo/team plugin is intended.\"",
+        "kind": "decision",
+        "line": 203,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Pass a repo-rooted marketplace path only when a repo/team plugin is intended.\"",
+        "kind": "decision",
+        "line": 226,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Marketplace name to seed into a new marketplace.json. Use this only when the default \"",
+        "kind": "decision",
+        "line": 232,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if plugin_name != raw_plugin_name:",
+        "kind": "decision",
+        "line": 261,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.marketplace_name is not None:",
+        "kind": "decision",
+        "line": 265,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if enabled:",
+        "kind": "decision",
+        "line": 286,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.with_mcp:",
+        "kind": "decision",
+        "line": 289,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.with_apps:",
+        "kind": "decision",
+        "line": 296,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.with_marketplace:",
+        "kind": "decision",
+        "line": 305,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.with_marketplace:",
+        "kind": "decision",
+        "line": 319,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 323,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(payload, dict):",
+        "kind": "decision",
+        "line": 35,
+        "path": "scripts/read_marketplace_name.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(name, str) or not name.strip():",
+        "kind": "decision",
+        "line": 38,
+        "path": "scripts/read_marketplace_name.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 43,
+        "path": "scripts/read_marketplace_name.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Rewrite a local plugin's version so it preserves everything before '+' and uses \"",
+        "kind": "decision",
+        "line": 20,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(version, str) or not version.strip():",
+        "kind": "decision",
+        "line": 39,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not manifest_path.is_file():",
+        "kind": "decision",
+        "line": 50,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(payload, dict):",
+        "kind": "decision",
+        "line": 53,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not sanitized:",
+        "kind": "decision",
+        "line": 59,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 73,
+        "path": "scripts/update_plugin_cachebuster.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if errors:",
+        "kind": "decision",
+        "line": 38,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if manifest is None:",
+        "kind": "decision",
+        "line": 50,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file():",
+        "kind": "decision",
+        "line": 59,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(payload, dict):",
+        "kind": "decision",
+        "line": 70,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, str):",
+        "kind": "decision",
+        "line": 77,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if TODO_MARKER in value:",
+        "kind": "decision",
+        "line": 78,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, list):",
+        "kind": "decision",
+        "line": 81,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, dict):",
+        "kind": "decision",
+        "line": 85,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if version is not None and SEMVER_RE.fullmatch(version) is None:",
+        "kind": "decision",
+        "line": 116,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if author is not None:",
+        "kind": "decision",
+        "line": 121,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if manifest.get(\"apps\") is not None:",
+        "kind": "decision",
+        "line": 131,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if interface is None:",
+        "kind": "decision",
+        "line": 139,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"defaultPrompt\" not in interface and \"default_prompt\" not in interface:",
+        "kind": "decision",
+        "line": 172,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(capabilities, list) or not all(",
+        "kind": "decision",
+        "line": 177,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if brand_color is not None and (",
+        "kind": "decision",
+        "line": 184,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(screenshots, list):",
+        "kind": "decision",
+        "line": 191,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(value, dict):",
+        "kind": "decision",
+        "line": 210,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "field = f\"{prefix}.{key}\" if prefix is not None else key",
+        "kind": "decision",
+        "line": 224,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(value, str) or not value.strip():",
+        "kind": "decision",
+        "line": 225,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if value is None:",
+        "kind": "decision",
+        "line": 239,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "field = f\"{prefix}.{key}\" if prefix is not None else key",
+        "kind": "decision",
+        "line": 241,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(value, str) or not value.strip():",
+        "kind": "decision",
+        "line": 242,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if value is None:",
+        "kind": "decision",
+        "line": 264,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parsed = urlparse(value) if isinstance(value, str) else None",
+        "kind": "decision",
+        "line": 266,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if parsed is None or parsed.scheme != \"https\" or not parsed.netloc:",
+        "kind": "decision",
+        "line": 267,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if value is None:",
+        "kind": "decision",
+        "line": 278,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "normalized = normalize_contract_path(value) if isinstance(value, str) else None",
+        "kind": "decision",
+        "line": 280,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if normalized != expected:",
+        "kind": "decision",
+        "line": 281,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if value is None:",
+        "kind": "decision",
+        "line": 291,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, str):",
+        "kind": "decision",
+        "line": 293,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, dict):",
+        "kind": "decision",
+        "line": 300,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.is_absolute():",
+        "kind": "decision",
+        "line": 313,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if payload is None:",
+        "kind": "decision",
+        "line": 321,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(apps, dict):",
+        "kind": "decision",
+        "line": 325,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(value, dict):",
+        "kind": "decision",
+        "line": 329,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(app_id, str) or not app_id.strip():",
+        "kind": "decision",
+        "line": 336,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if category is not None and (not isinstance(category, str) or not category.strip()):",
+        "kind": "decision",
+        "line": 339,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if payload is None:",
+        "kind": "decision",
+        "line": 347,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(servers, dict):",
+        "kind": "decision",
+        "line": 365,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(key, str) or not key.strip():",
+        "kind": "decision",
+        "line": 369,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(value, dict):",
+        "kind": "decision",
+        "line": 371,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file():",
+        "kind": "decision",
+        "line": 380,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{label} is required when its plugin.json field is present\")",
+        "kind": "decision",
+        "line": 381,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(payload, dict):",
+        "kind": "decision",
+        "line": 388,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not skills_root.is_dir():",
+        "kind": "decision",
+        "line": 406,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if skill_root.name.startswith(\".\") or not skill_root.is_dir():",
+        "kind": "decision",
+        "line": 409,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not skill_md_path.is_file():",
+        "kind": "decision",
+        "line": 416,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not contents.startswith(\"---\\n\"):",
+        "kind": "decision",
+        "line": 424,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if frontmatter_end == -1:",
+        "kind": "decision",
+        "line": 428,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(frontmatter, dict):",
+        "kind": "decision",
+        "line": 436,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(skill_name, str) or not skill_name.strip():",
+        "kind": "decision",
+        "line": 440,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(description, str) or not description.strip():",
+        "kind": "decision",
+        "line": 443,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if disable_model_invocation is None:",
+        "kind": "decision",
+        "line": 448,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if disable_model_invocation not in (None, False):",
+        "kind": "decision",
+        "line": 450,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if agent_yaml_path.is_file():",
+        "kind": "decision",
+        "line": 455,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(payload, dict):",
+        "kind": "decision",
+        "line": 479,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(interface, dict):",
+        "kind": "decision",
+        "line": 490,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(value, str) or not value.strip():",
+        "kind": "decision",
+        "line": 509,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if brand_color is not None and (",
+        "kind": "decision",
+        "line": 523,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if default_prompt is not None and (",
+        "kind": "decision",
+        "line": 530,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if policy is not None:",
+        "kind": "decision",
+        "line": 538,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(policy, dict):",
+        "kind": "decision",
+        "line": 539,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if allow_implicit_invocation is not None and not isinstance(",
+        "kind": "decision",
+        "line": 550,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if dependencies is not None:",
+        "kind": "decision",
+        "line": 560,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(dependencies, dict):",
+        "kind": "decision",
+        "line": 561,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "field = f\"{prefix}.{key}\" if prefix is not None else key",
+        "kind": "decision",
+        "line": 584,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if raw_path is None:",
+        "kind": "decision",
+        "line": 600,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "label = field if field.startswith(\"skill `\") else f\"plugin.json field `{field}`\"",
+        "kind": "decision",
+        "line": 612,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(raw_path, str) or not raw_path.strip():",
+        "kind": "decision",
+        "line": 613,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if candidate.is_absolute() or any(part in {\"\", \".\", \"..\"} for part in candidate.parts):",
+        "kind": "decision",
+        "line": 617,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not resolved_path.is_relative_to(allowed_root.resolve()):",
+        "kind": "decision",
+        "line": 621,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not resolved_path.is_file():",
+        "kind": "decision",
+        "line": 624,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 628,
+        "path": "scripts/validate_plugin.py"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "high",
+        "excerpt": "with path.open() as handle:",
+        "kind": "execution",
+        "line": 104,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "with path.open(\"w\") as handle:",
+        "kind": "execution",
+        "line": 179,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "with path.open(\"w\") as handle:",
+        "kind": "execution",
+        "line": 188,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "manifest_path.write_text(json.dumps(manifest, indent=2) + \"\\n\", encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 44,
+        "path": "scripts/update_plugin_cachebuster.py"
+      }
+    ],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "outside Codex depends on a specific token:",
+        "kind": "privacy",
+        "line": 33,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `0.1.0+codex.old-token` \u2192 `0.1.0+codex.local-20260519-184516`",
+        "kind": "privacy",
+        "line": 105,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "help=\"Optional cachebuster token to embed in the plugin version\",",
+        "kind": "privacy",
+        "line": 27,
+        "path": "scripts/update_plugin_cachebuster.py"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "installed tooling and verify the current plugin contract.",
+        "kind": "verification",
+        "line": 10,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Omit unsupported plugin manifest fields that validation rejects, including `hooks`.",
+        "kind": "verification",
+        "line": 193,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "and then continue from validation or subsequent plugin edits instead of leaving the workflow",
+        "kind": "verification",
+        "line": 203,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Validation",
+        "kind": "verification",
+        "line": 235,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Python AST check passed for all helper scripts.",
+        "kind": "verification",
+        "line": 3,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "default_prompt: \"Use $plugin-creator to scaffold a valid plugin in the personal marketplace, then validate it before handing it back.\"",
+        "kind": "verification",
+        "line": 4,
+        "path": "agents/openai.yaml"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "path, and `codex plugin marketplace list` is not the right check for whether that default",
+        "kind": "verification",
+        "line": 66,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. If the plugin is not using the personal marketplace file, check which configured local",
+        "kind": "verification",
+        "line": 69,
+        "path": "references/installing-and-updating.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### Plugin validation notes",
+        "kind": "verification",
+        "line": 202,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "intentional preflight check that rejects leftover `[TODO: ...]` placeholders.",
+        "kind": "verification",
+        "line": 219,
+        "path": "references/plugin-json-spec.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "description=\"Create a plugin skeleton with a validation-ready plugin.json.\"",
+        "kind": "verification",
+        "line": 195,
+        "path": "scripts/create_basic_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate a generated plugin against the plugin ingestion contract.\"\"\"",
+        "kind": "verification",
+        "line": 2,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser = argparse.ArgumentParser(description=\"Validate a local Codex plugin.\")",
+        "kind": "verification",
+        "line": 29,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(\"Plugin validation failed:\")",
+        "kind": "verification",
+        "line": 39,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"Plugin validation passed: {plugin_root}\")",
+        "kind": "verification",
+        "line": 43,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"plugin.json field `{key}` is not accepted by plugin validation\")",
+        "kind": "verification",
+        "line": 111,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"plugin.json field `{prefix}.{key}` is not accepted by plugin validation\")",
+        "kind": "verification",
+        "line": 253,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{prefix} field `{key}` is not accepted by plugin validation\")",
+        "kind": "verification",
+        "line": 401,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"skill `{skill_root.name}` agent field `{field}` is not accepted by plugin validation\"",
+        "kind": "verification",
+        "line": 586,
+        "path": "scripts/validate_plugin.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. Scaffold a temporary plugin with `scripts/create_basic_plugin.py`; assert `.codex-plugin/plugin.json` exists and has no TODO placeholders.",
+        "kind": "verification",
+        "line": 3,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Run `scripts/validate_plugin.py` against that temporary plugin; assert exit 0.",
+        "kind": "verification",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "476f65a43a5f504fc933959d3f86fe1889a5391a70010b52a6b1e60e88d339d6",
+  "generated_at": "2026-09-24T14:00:56.608912Z",
+  "inventory": [
+    {
+      "bytes": 11229,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "119b54d89aadd85eee6b5d7c3a1065b11eadebbf9355686c6b760b6ffb1e0b05"
+    },
+    {
+      "bytes": 327,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "faf7808f99d9bbe0f87840f118da67000eca9f184812f063cdc98dadc0698e87"
+    },
+    {
+      "bytes": 345,
+      "kind": "other",
+      "language": null,
+      "path": "agents/openai.yaml",
+      "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+    },
+    {
+      "bytes": 1322,
+      "kind": "asset",
+      "language": null,
+      "path": "assets/plugin-creator-small.svg",
+      "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+    },
+    {
+      "bytes": 1563,
+      "kind": "asset",
+      "language": null,
+      "path": "assets/plugin-creator.png",
+      "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+    },
+    {
+      "bytes": 6017,
+      "kind": "reference",
+      "language": null,
+      "path": "references/installing-and-updating.md",
+      "sha256": "4dc1728ba11cdad366cad501aa04cd25cafba0c08d66d4b1d2d33e7af77f1319"
+    },
+    {
+      "bytes": 9634,
+      "kind": "reference",
+      "language": null,
+      "path": "references/plugin-json-spec.md",
+      "sha256": "f8f4af518395de9872dc16e65789c004d476aa162a52a329942913d3f36feebe"
+    },
+    {
+      "bytes": 11509,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/create_basic_plugin.py",
+      "sha256": "c38c98fae8a02e4fa41e502db2185ec714b2cb81e955dfc1f705b59954eb90cc"
+    },
+    {
+      "bytes": 1545,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/read_marketplace_name.py",
+      "sha256": "6a3b1520f9b318e0d600a4bea814b367bcae01eef542bd33813be1fdee0772e9"
+    },
+    {
+      "bytes": 2764,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/update_plugin_cachebuster.py",
+      "sha256": "517df51adae84c881fbd279c04b10b52312760a2c7682e11edfce7929111dcb6"
+    },
+    {
+      "bytes": 21809,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/validate_plugin.py",
+      "sha256": "4e84c911479e4d158d723ed8ccc881d3499e580fbf5650e60d379a1a25ac3186"
+    },
+    {
+      "bytes": 367,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "6317100a56fc9f0919438ce9abe4bb03e4e58ba3a905c2764b2f110ed24845e3"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 12,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 2,
+    "script_files": 4,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 66868
+  },
+  "target": {
+    "description": "Create or update Codex plugin manifests, optional plugin structure, and marketplace metadata; use skill-creator or context7-skill-wizard for standalone skills.",
+    "name": "plugin-creator",
+    "path": "skills/plugin-creator",
+    "version": null
+  }
+}

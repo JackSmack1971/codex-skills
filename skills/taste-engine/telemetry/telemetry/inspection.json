@@ -1,0 +1,109 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "This is an opt-in design aid, not an always-on worker. Use it only when the user explicitly enables it and provides a JSON profile. Read the profile, select the strongest signals for fonts, colors, layout density, and aesthetic direction, and add them as suggestions to the current design brief.",
+        "kind": "boundary",
+        "line": 9,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Never invent a profile, infer preferences from hidden session history, write to a legacy runtime config file, or mutate a file without an explicit path and user approval. Current-turn instructions always win. Preserve the supplied JSON schema when the user explicitly requests an approved/rejected update; otherwise return a proposed JSON patch or design-token block rather than writing state.",
+        "kind": "boundary",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Source-only metadata and legacy-runtime paths were not copied.",
+        "kind": "boundary",
+        "line": 3,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Target has only supported `name`, `description`, and `compatibility` metadata.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "VERIFICATION.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "This is an opt-in design aid, not an always-on worker. Use it only when the user explicitly enables it and provides a JSON profile. Read the profile, select the strongest signals for fonts, colors, layout density, and aesthetic direction, and add them as suggestions to the current design brief.",
+        "kind": "decision",
+        "line": 9,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Never invent a profile, infer preferences from hidden session history, write to a legacy runtime config file, or mutate a file without an explicit path and user approval. Current-turn instructions always win. Preserve the supplied JSON schema when the user explicitly requests an approved/rejected update; otherwise return a proposed JSON patch or design-token block rather than writing state.",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "Never invent a profile, infer preferences from hidden session history, write to a legacy runtime config file, or mutate a file without an explicit path and user approval. Current-turn instructions always win. Preserve the supplied JSON schema when the user explicitly requests an approved/rejected update; otherwise return a proposed JSON patch or design-token block rather than writing state.",
+        "kind": "privacy",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Codex does not provide the source runtime's command registry. Treat synchronization and token application as conversational operations and keep the profile path, opt-in flag, and output artifact visible in the response.",
+        "kind": "privacy",
+        "line": 13,
+        "path": "SKILL.md"
+      }
+    ],
+    "verification": []
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "ceca3db9f0c0075a167c721282cfb6c1132c91043ec2c9d1c7343db2d5bdbfe7",
+  "generated_at": "2026-09-24T13:58:40.868788Z",
+  "inventory": [
+    {
+      "bytes": 1179,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "165f505403a19e43122dbc053ac1510c4fc91e3b87302786629e1c99d59cb23c"
+    },
+    {
+      "bytes": 243,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "8a731f6803307395a322b335792b70c8183918b36d4a0596239c50b0b3300761"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 2,
+    "has_evals": false,
+    "has_hooks": false,
+    "has_tests": false,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 0,
+    "text_bytes_scanned": 1422
+  },
+  "target": {
+    "description": "Apply an explicitly enabled user-maintained design preference profile to UI/UX briefs.",
+    "name": "taste-engine",
+    "path": "skills/taste-engine",
+    "version": null
+  }
+}

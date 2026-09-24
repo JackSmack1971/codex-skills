@@ -1,0 +1,1940 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "boundary",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Inputs:** Require the requested target and the repository, user, authority, and assumption evidence named by this package; identify material gaps instead of guessing.",
+        "kind": "boundary",
+        "line": 14,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Failure/stop:** Stop on conflicting scope, missing authority, unsafe state, or unverifiable completion, plus any stricter stop condition in this package.",
+        "kind": "boundary",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Runtime claims:** Claim only behavior supported by observed files, tools, commands, or tests; do not claim implicit routing accuracy or unavailable integrations.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Create or upgrade a repository README as an operating manual plus trust contract. Ground every claim in repository evidence. Mark uncertain claims as `[INFERRED]`. Do not invent badges, commands, URLs, features, policies, screenshots, public APIs, deployment targets, or roadmap commitments.",
+        "kind": "boundary",
+        "line": 21,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `$ARGUMENTS` may include `--audit-only`, `--no-write`, and `--output <path>`.",
+        "kind": "boundary",
+        "line": 25,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never read secret-bearing files such as `.env`, `.npmrc`, private keys, credential stores, or untracked local config.",
+        "kind": "boundary",
+        "line": 40,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use `references/readme-blueprint.md` for required structure, section rules, repo-type adaptations, and the 30-point rubric.",
+        "kind": "boundary",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use `references/hook-guidance.md` only when the user wants this README workflow enforced by Codex CLI hooks.",
+        "kind": "boundary",
+        "line": 44,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If `--audit-only` is present, do not edit files. Return current score, gaps, and exact proposed changes.",
+        "kind": "boundary",
+        "line": 53,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Run only safe, read-oriented validation commands unless the user explicitly requested command execution evidence.",
+        "kind": "boundary",
+        "line": 60,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not expose secrets. Use `.env.example`, `.env.sample`, or documented config only.",
+        "kind": "boundary",
+        "line": 64,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not execute install, build, test, deploy, database, network, package-publish, or migration commands unless the user explicitly asks for live verification.",
+        "kind": "boundary",
+        "line": 65,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not add badges for CI, release, coverage, package registries, or chat communities unless the target exists.",
+        "kind": "boundary",
+        "line": 66,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not link to governance files that are absent; write `[TBD]` or state the file is missing.",
+        "kind": "boundary",
+        "line": 67,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not create roadmaps from imagination. Use issues, project docs, TODO comments, release notes, or user-provided plans.",
+        "kind": "boundary",
+        "line": 68,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not overwrite project-specific warnings, license terms, security notices, or contribution rules without preserving their substance.",
+        "kind": "boundary",
+        "line": 69,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "A completed README update must include:",
+        "kind": "boundary",
+        "line": 73,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Directory structure with important paths only.",
+        "kind": "boundary",
+        "line": 79,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Configuration from safe example files only.",
+        "kind": "boundary",
+        "line": 80,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Block or require confirmation for commands that are not needed for README generation:",
+        "kind": "boundary",
+        "line": 7,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Allow read-only repository discovery and safe bundled scripts:",
+        "kind": "boundary",
+        "line": 15,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "After repository scans, summarize only the inventory sections needed for the README. After README writes, run the quality checker and surface the score, missing sections, broken local links, and unresolved `[INFERRED]` or `[TBD]` items.",
+        "kind": "boundary",
+        "line": 24,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Stop / TaskCompleted policy",
+        "kind": "boundary",
+        "line": 26,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not allow a completion claim unless one of these is true:",
+        "kind": "boundary",
+        "line": 28,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `--audit-only` was used and the response includes current score, gaps, and proposed changes.",
+        "kind": "boundary",
+        "line": 30,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this blueprint to create README files that function as an operating manual plus a trust contract. Adapt the order only when the repository type clearly benefits from a different flow.",
+        "kind": "boundary",
+        "line": 28,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Package manager | lockfiles and packageManager fields | Do not guess when multiple managers conflict. |",
+        "kind": "boundary",
+        "line": 40,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Install command | lockfiles, manifest, existing docs | Mark `[INFERRED]` if convention-only. |",
+        "kind": "boundary",
+        "line": 42,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Deployment target | Dockerfile, compose, CI, cloud config | Do not invent hosting. |",
+        "kind": "boundary",
+        "line": 47,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| CI provider | `.github/workflows`, GitLab, Azure, CircleCI files | Link only existing workflow paths. |",
+        "kind": "boundary",
+        "line": 49,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Major directories | top-level project dirs | Include important dirs only. |",
+        "kind": "boundary",
+        "line": 50,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Environment variables | `.env.example`, `.env.sample`, docs | Never read `.env` values. |",
+        "kind": "boundary",
+        "line": 52,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Contribution files | CONTRIBUTING, PR templates, issue templates | Link only existing files. |",
+        "kind": "boundary",
+        "line": 53,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Add only badges that point to real local or remote evidence.",
+        "kind": "boundary",
+        "line": 82,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The opening sentence must state what the project is, who it helps, and why it matters.",
+        "kind": "boundary",
+        "line": 83,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Avoid vague claims such as \u201cpowerful,\u201d \u201cmodern,\u201d \u201crobust,\u201d \u201cnext-generation,\u201d or \u201cAI-powered\u201d unless the repository proves the claim.",
+        "kind": "boundary",
+        "line": 84,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not write \u201cconfigure as needed\u201d without naming required variables or config paths.",
+        "kind": "boundary",
+        "line": 101,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Remove marketing-only features that cannot be tied to repository evidence.",
+        "kind": "boundary",
+        "line": 107,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use a compact Mermaid diagram when it helps the reader understand the system. For applications, show user/client, frontend or CLI, backend/core runtime, storage, and external APIs only when those components exist. For libraries, show package/module flow. Explain every node in plain English.",
+        "kind": "boundary",
+        "line": 111,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Show important directories only. Add a short comment explaining why each path matters. Do not dump every file.",
+        "kind": "boundary",
+        "line": 115,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use a table with variable, required status, default, source, and description. Use safe example files only. Never expose actual secrets. If no config is found, state that no required environment variables were discovered.",
+        "kind": "boundary",
+        "line": 133,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Table | Required columns |",
+        "kind": "boundary",
+        "line": 141,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not claim commands pass unless fresh output has been observed.",
+        "kind": "boundary",
+        "line": 152,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Include at least three likely issues. Prefer repo-specific symptoms from package manager, runtime, environment variables, ports, database setup, auth, build tools, or missing external services. Each row must include symptom, likely cause, and exact fix.",
+        "kind": "boundary",
+        "line": 156,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use `Unknown` when no version is declared. Use `[INFERRED]` only when a claim is strongly implied but not explicitly declared.",
+        "kind": "boundary",
+        "line": 165,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not invent maintenance policy. If missing, recommend files or scripts to add.",
+        "kind": "boundary",
+        "line": 176,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use a table for Code of Conduct, Security, License, Maintainers, and Support. Link only to files that exist. Use `[TBD]` for missing governance areas.",
+        "kind": "boundary",
+        "line": 184,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Keep it short. Use existing issues, project docs, TODO comments, release notes, or user input. Do not invent commitments.",
+        "kind": "boundary",
+        "line": 188,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Smart contract/Web3 | Chain support, contract addresses only if present, toolchain, deployment safety, ABI generation, wallet flows, audit status. |",
+        "kind": "boundary",
+        "line": 204,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Governance | Missing | License only | Some links | Contribution, security, license, support status |",
+        "kind": "boundary",
+        "line": 220,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise SystemExit(f\"path must be inside root: {resolved}\") from exc",
+        "kind": "boundary",
+        "line": 45,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise SystemExit(f\"README quality score {result['total']} is below required minimum {args.min_score}\")",
+        "kind": "boundary",
+        "line": 299,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "This script is read-only and deliberately ignores secret-bearing files. It uses",
+        "kind": "boundary",
+        "line": 4,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "only the Python standard library so it can run in restricted Codex CLI hosts.",
+        "kind": "boundary",
+        "line": 5,
+        "path": "scripts/scan_repo.py"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "decision",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "decision",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Run `git rev-parse --show-toplevel` when git is available.",
+        "kind": "decision",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If not a git repo, use the current working directory as the root and say so in the final report.",
+        "kind": "decision",
+        "line": 33,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Read the generated inventory output before drafting.",
+        "kind": "decision",
+        "line": 38,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Directly inspect the most important source files named by the inventory before making claims.",
+        "kind": "decision",
+        "line": 39,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use `references/hook-guidance.md` only when the user wants this README workflow enforced by Codex CLI hooks.",
+        "kind": "decision",
+        "line": 44,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If a command is a strong convention but not explicitly present, either omit it or mark it `[INFERRED]`.",
+        "kind": "decision",
+        "line": 48,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If `--audit-only` is present, do not edit files. Return current score, gaps, and exact proposed changes.",
+        "kind": "decision",
+        "line": 53,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If `--no-write` is present, output the complete proposed README content in the response.",
+        "kind": "decision",
+        "line": 54,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Otherwise create or update the output path using the generated README.",
+        "kind": "decision",
+        "line": 55,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "6. Verify before completion.",
+        "kind": "decision",
+        "line": 57,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the score is below 24, fix the README and rerun the quality check once.",
+        "kind": "decision",
+        "line": 59,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Run only safe, read-oriented validation commands unless the user explicitly requested command execution evidence.",
+        "kind": "decision",
+        "line": 60,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not execute install, build, test, deploy, database, network, package-publish, or migration commands unless the user explicitly asks for live verification.",
+        "kind": "decision",
+        "line": 65,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not add badges for CI, release, coverage, package registries, or chat communities unless the target exists.",
+        "kind": "decision",
+        "line": 66,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Architecture or module flow when useful.",
+        "kind": "decision",
+        "line": 78,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Developer command center when scripts, workflows, CLIs, agents, or automation exist.",
+        "kind": "decision",
+        "line": 81,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use these rules when a project wants the README workflow enforced by Codex CLI lifecycle hooks. Keep hook implementation outside this skill package in the project or user Codex CLI settings. The skill remains usable without hooks.",
+        "kind": "decision",
+        "line": 3,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Package installation or dependency updates unless the user explicitly requested live verification.",
+        "kind": "decision",
+        "line": 12,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `git rev-parse`, `git status --short`, `git remote -v` when needed.",
+        "kind": "decision",
+        "line": 17,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "After repository scans, summarize only the inventory sections needed for the README. After README writes, run the quality checker and surface the score, missing sections, broken local links, and unresolved `[INFERRED]` or `[TBD]` items.",
+        "kind": "decision",
+        "line": 24,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not allow a completion claim unless one of these is true:",
+        "kind": "decision",
+        "line": 28,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "When this workflow uses a delegated Codex pass, the delegated run should return a compact mailbox summary to the parent session:",
+        "kind": "decision",
+        "line": 36,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this blueprint to create README files that function as an operating manual plus a trust contract. Adapt the order only when the repository type clearly benefits from a different flow.",
+        "kind": "decision",
+        "line": 28,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Capture these facts before writing:",
+        "kind": "decision",
+        "line": 32,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Repo type | source layout, entry points, manifests, CI | Mark `[INFERRED]` if heuristic. |",
+        "kind": "decision",
+        "line": 37,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Framework/runtime | package deps, pyproject, Cargo.toml, go.mod, Dockerfile | Include version when present. |",
+        "kind": "decision",
+        "line": 39,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Package manager | lockfiles and packageManager fields | Do not guess when multiple managers conflict. |",
+        "kind": "decision",
+        "line": 40,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Install command | lockfiles, manifest, existing docs | Mark `[INFERRED]` if convention-only. |",
+        "kind": "decision",
+        "line": 42,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Build command | scripts, Makefile, CI | Omit if absent. |",
+        "kind": "decision",
+        "line": 44,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Test command | scripts, Makefile, CI, test config | State honestly if none found. |",
+        "kind": "decision",
+        "line": 45,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Lint/typecheck | scripts, config files, CI | Separate lint and typecheck when possible. |",
+        "kind": "decision",
+        "line": 46,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| License | LICENSE file or manifest license field | If absent, say no license file was found. |",
+        "kind": "decision",
+        "line": 48,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Avoid vague claims such as \u201cpowerful,\u201d \u201cmodern,\u201d \u201crobust,\u201d \u201cnext-generation,\u201d or \u201cAI-powered\u201d unless the repository proves the claim.",
+        "kind": "decision",
+        "line": 84,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Include these subsections when applicable:",
+        "kind": "decision",
+        "line": 88,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Include expected output when known from scripts, docs, or observed safe command output.",
+        "kind": "decision",
+        "line": 99,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- When configuration exists, reference `.env.example`, `.env.sample`, or documented config files.",
+        "kind": "decision",
+        "line": 100,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use a compact Mermaid diagram when it helps the reader understand the system. For applications, show user/client, frontend or CLI, backend/core runtime, storage, and external APIs only when those components exist. For libraries, show package/module flow. Explain every node in plain English.",
+        "kind": "decision",
+        "line": 111,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| CLI | Install command, command reference, examples, options, exit behavior if documented. |",
+        "kind": "decision",
+        "line": 124,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use a table with variable, required status, default, source, and description. Use safe example files only. Never expose actual secrets. If no config is found, state that no required environment variables were discovered.",
+        "kind": "decision",
+        "line": 133,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this section when the repo has scripts, Make targets, CLIs, agents, workflows, hooks, or automation. Include command, category, when to use, source, and purpose.",
+        "kind": "decision",
+        "line": 137,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "For AI-agent repositories, also include these tables when evidence exists:",
+        "kind": "decision",
+        "line": 139,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Skills / Workflows | Skill or workflow, when to invoke, what it checks, source path |",
+        "kind": "decision",
+        "line": 144,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Include actual test, lint, typecheck, and build commands when present.",
+        "kind": "decision",
+        "line": 149,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- State honestly when no tests or no CI are found.",
+        "kind": "decision",
+        "line": 150,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Recommend the shortest grounded verification path before opening a PR.",
+        "kind": "decision",
+        "line": 151,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not claim commands pass unless fresh output has been observed.",
+        "kind": "decision",
+        "line": 152,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use real versions from manifests and lockfiles when possible:",
+        "kind": "decision",
+        "line": 160,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use `Unknown` when no version is declared. Use `[INFERRED]` only when a claim is strongly implied but not explicitly declared.",
+        "kind": "decision",
+        "line": 165,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Platform notes for Windows, WSL, macOS, Docker, or Linux when relevant",
+        "kind": "decision",
+        "line": 174,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not invent maintenance policy. If missing, recommend files or scripts to add.",
+        "kind": "decision",
+        "line": 176,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If contribution files exist, link to them. If not, include a short honest note: \u201cContribution guidelines are not yet formalized. Please open an issue before large changes.\u201d",
+        "kind": "decision",
+        "line": 180,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "If a license file exists, name it and link it. If no license file exists, say: \u201cNo license file was found. Add a license before publishing or accepting contributions.\u201d",
+        "kind": "decision",
+        "line": 192,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Web app | Quickstart, env vars, screenshots if real, architecture, routes/API, deployment, troubleshooting. |",
+        "kind": "decision",
+        "line": 198,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| CLI tool | Install, command reference, examples, exit codes if documented, config, shell completion if present. |",
+        "kind": "decision",
+        "line": 199,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Smart contract/Web3 | Chain support, contract addresses only if present, toolchain, deployment safety, ABI generation, wallet flows, audit status. |",
+        "kind": "decision",
+        "line": 204,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before completing, verify:",
+        "kind": "decision",
+        "line": 225,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_absolute():",
+        "kind": "decision",
+        "line": 39,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if match:",
+        "kind": "decision",
+        "line": 57,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not match:",
+        "kind": "decision",
+        "line": 70,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "end = start + next_match.start() if next_match else len(text)",
+        "kind": "decision",
+        "line": 74,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "rows = [line for line in block.splitlines() if line.strip().startswith(\"|\") and line.strip().endswith(\"|\")]",
+        "kind": "decision",
+        "line": 79,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "data_rows = [line for line in rows if not re.match(r\"^\\|\\s*-+\", line.strip()) and \"---\" not in line]",
+        "kind": "decision",
+        "line": 80,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return max(0, len(data_rows) - 1) if data_rows else 0",
+        "kind": "decision",
+        "line": 81,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"://\" in link or link.startswith(\"#\") or link.startswith(\"mailto:\"):",
+        "kind": "decision",
+        "line": 88,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if clean:",
+        "kind": "decision",
+        "line": 91,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not candidate.exists():",
+        "kind": "decision",
+        "line": 105,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "missing_sections = [name for name in REQUIRED_SECTIONS if not has_section(text, [name])]",
+        "kind": "decision",
+        "line": 113,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "opening = \"\\n\".join(text.splitlines()[1:10]) if title_present else \"\"",
+        "kind": "decision",
+        "line": 126,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if title_present and re.search(r\"\\bis\\s+(an?|the)\\b|\\bhelps\\b|\\bfor\\b\", opening, re.IGNORECASE):",
+        "kind": "decision",
+        "line": 127,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if quickstart and \"install\" in quickstart.lower() and \"run\" in quickstart.lower() and \"verify\" in quickstart.lower() and \"```\" in quickstart:",
+        "kind": "decision",
+        "line": 138,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if placeholder_hits:",
+        "kind": "decision",
+        "line": 148,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if present_sections >= 13 and \"table of contents\" in lower:",
+        "kind": "decision",
+        "line": 159,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if code_blocks >= 4 and command_center and testing:",
+        "kind": "decision",
+        "line": 171,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"```mermaid\" in architecture.lower() and (\"component\" in architecture.lower() or \"roles\" in architecture.lower()):",
+        "kind": "decision",
+        "line": 182,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if rows >= 3:",
+        "kind": "decision",
+        "line": 194,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if maintenance and code_blocks >= 4 and (\"fresh clone\" in maintenance.lower() or \"updating\" in maintenance.lower()):",
+        "kind": "decision",
+        "line": 205,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if governance and \"security\" in governance.lower() and \"license\" in governance.lower() and license_section:",
+        "kind": "decision",
+        "line": 217,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "scores[\"Governance\"] = 2 if \"license\" in lower else 1",
+        "kind": "decision",
+        "line": 220,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"stack inventory\" in lower and (\"developer command center\" in lower or \"api\" in lower or \"agents\" in lower or \"cli\" in lower):",
+        "kind": "decision",
+        "line": 225,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result[\"missing_sections\"]:",
+        "kind": "decision",
+        "line": 258,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result[\"placeholder_hits\"]:",
+        "kind": "decision",
+        "line": 263,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result[\"broken_local_links\"]:",
+        "kind": "decision",
+        "line": 268,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not root.exists() or not root.is_dir():",
+        "kind": "decision",
+        "line": 287,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not readme.exists():",
+        "kind": "decision",
+        "line": 290,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.format == \"json\":",
+        "kind": "decision",
+        "line": 294,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result[\"total\"] < args.min_score:",
+        "kind": "decision",
+        "line": 298,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 302,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.exists() or not path.is_dir():",
+        "kind": "decision",
+        "line": 127,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.name in SECRET_FILENAMES and path.name not in SAFE_ENV_EXAMPLES:",
+        "kind": "decision",
+        "line": 138,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.stat().st_size > max_bytes:",
+        "kind": "decision",
+        "line": 141,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if candidate.exists() and candidate.is_file():",
+        "kind": "decision",
+        "line": 156,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "dirs[:] = [d for d in dirs if not is_ignored_dir(current_path / d)]",
+        "kind": "decision",
+        "line": 165,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.name in SECRET_FILENAMES and path.name not in SAFE_ENV_EXAMPLES:",
+        "kind": "decision",
+        "line": 168,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if count >= max_files:",
+        "kind": "decision",
+        "line": 172,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not text:",
+        "kind": "decision",
+        "line": 179,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if key in raw:",
+        "kind": "decision",
+        "line": 186,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "data[\"scripts\"] = raw.get(\"scripts\", {}) if isinstance(raw.get(\"scripts\"), dict) else {}",
+        "kind": "decision",
+        "line": 188,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not text:",
+        "kind": "decision",
+        "line": 196,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if tomllib is not None:",
+        "kind": "decision",
+        "line": 198,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "project = raw.get(\"project\", {}) if isinstance(raw, dict) else {}",
+        "kind": "decision",
+        "line": 201,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "tool = raw.get(\"tool\", {}) if isinstance(raw, dict) else {}",
+        "kind": "decision",
+        "line": 202,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"tool_sections\": sorted(tool.keys()) if isinstance(tool, dict) else [],",
+        "kind": "decision",
+        "line": 211,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if match:",
+        "kind": "decision",
+        "line": 219,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if match:",
+        "kind": "decision",
+        "line": 229,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if module:",
+        "kind": "decision",
+        "line": 239,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if version:",
+        "kind": "decision",
+        "line": 241,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if line.startswith(\"\\t\") or line.lstrip().startswith(\"#\"):",
+        "kind": "decision",
+        "line": 250,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if match and not match.group(1).startswith(\".\"):",
+        "kind": "decision",
+        "line": 253,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not line or line.startswith(\"#\") or line.startswith(\"export \") is False and \"=\" not in line:",
+        "kind": "decision",
+        "line": 263,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if line.startswith(\"export \"):",
+        "kind": "decision",
+        "line": 265,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if re.match(r\"^[A-Za-z_][A-Za-z0-9_]*$\", key):",
+        "kind": "decision",
+        "line": 268,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(package_manager, str):",
+        "kind": "decision",
+        "line": 275,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (root / filename).exists():",
+        "kind": "decision",
+        "line": 284,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (root / \"package.json\").exists():",
+        "kind": "decision",
+        "line": 286,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pm == \"npm\":",
+        "kind": "decision",
+        "line": 292,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pm == \"pnpm\":",
+        "kind": "decision",
+        "line": 294,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pm == \"yarn\":",
+        "kind": "decision",
+        "line": 296,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pm == \"bun\":",
+        "kind": "decision",
+        "line": 298,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if package_json:",
+        "kind": "decision",
+        "line": 307,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pm:",
+        "kind": "decision",
+        "line": 308,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pm == \"npm\":",
+        "kind": "decision",
+        "line": 309,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "install = \"npm ci\" if (root / \"package-lock.json\").exists() else \"npm install\"",
+        "kind": "decision",
+        "line": 310,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "install = \"pnpm install --frozen-lockfile\" if (root / \"pnpm-lock.yaml\").exists() else \"pnpm install\"",
+        "kind": "decision",
+        "line": 312,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "install = \"yarn install --frozen-lockfile\" if (root / \"yarn.lock\").exists() else \"yarn install\"",
+        "kind": "decision",
+        "line": 314,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "scripts = package_json.get(\"scripts\", {}) if isinstance(package_json.get(\"scripts\"), dict) else {}",
+        "kind": "decision",
+        "line": 320,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if script in scripts:",
+        "kind": "decision",
+        "line": 332,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (root / \"requirements.txt\").exists():",
+        "kind": "decision",
+        "line": 334,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pyproject:",
+        "kind": "decision",
+        "line": 336,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pyproject.get(\"name\"):",
+        "kind": "decision",
+        "line": 337,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(scripts, dict):",
+        "kind": "decision",
+        "line": 340,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "tool_sections = set(pyproject.get(\"tool_sections\", [])) if isinstance(pyproject.get(\"tool_sections\"), list) else set()",
+        "kind": "decision",
+        "line": 343,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"pytest\" in tool_sections:",
+        "kind": "decision",
+        "line": 344,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"ruff\" in tool_sections:",
+        "kind": "decision",
+        "line": 346,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"mypy\" in tool_sections:",
+        "kind": "decision",
+        "line": 348,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if lowered in {\"test\", \"tests\"}:",
+        "kind": "decision",
+        "line": 353,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.exists():",
+        "kind": "decision",
+        "line": 364,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"mit license\" in text:",
+        "kind": "decision",
+        "line": 366,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"apache license\" in text:",
+        "kind": "decision",
+        "line": 368,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"gnu general public license\" in text:",
+        "kind": "decision",
+        "line": 370,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"bsd\" in text and \"redistribution\" in text:",
+        "kind": "decision",
+        "line": 372,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "license_value = data.get(\"license\") if isinstance(data, dict) else None",
+        "kind": "decision",
+        "line": 376,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(license_value, str) and license_value.strip():",
+        "kind": "decision",
+        "line": 377,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if language:",
+        "kind": "decision",
+        "line": 386,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \".agents\" in [p.name for p in root.iterdir() if p.is_dir()] or (root / \"AGENTS.md\").exists():",
+        "kind": "decision",
+        "line": 393,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if any(dep in deps for dep in [\"next\", \"react\", \"svelte\", \"@sveltejs/kit\", \"vite\", \"vue\", \"angular\"]):",
+        "kind": "decision",
+        "line": 395,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if package_json.get(\"bin\") or pyproject.get(\"scripts\"):",
+        "kind": "decision",
+        "line": 397,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (root / \"go.mod\").exists() or (root / \"Cargo.toml\").exists() or pyproject.get(\"name\"):",
+        "kind": "decision",
+        "line": 399,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"Solidity\" in languages:",
+        "kind": "decision",
+        "line": 401,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not workflow_dir.exists():",
+        "kind": "decision",
+        "line": 408,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return sorted(rel(path, root) for path in workflow_dir.glob(\"*.y*ml\") if path.is_file())",
+        "kind": "decision",
+        "line": 410,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "for path in sorted([p for p in root.iterdir() if p.is_dir()], key=lambda p: p.name.lower()):",
+        "kind": "decision",
+        "line": 415,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if is_ignored_dir(path) or path.name.startswith(\".\") and path.name not in {\".github\", \".agents\"}:",
+        "kind": "decision",
+        "line": 416,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if child.is_file() and child.name not in SECRET_FILENAMES:",
+        "kind": "decision",
+        "line": 421,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(sample_files) >= 3:",
+        "kind": "decision",
+        "line": 423,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (root / candidate).exists():",
+        "kind": "decision",
+        "line": 442,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "package_json = parse_package_json(root / \"package.json\") if (root / \"package.json\").exists() else {}",
+        "kind": "decision",
+        "line": 449,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "pyproject = parse_pyproject(root / \"pyproject.toml\") if (root / \"pyproject.toml\").exists() else {}",
+        "kind": "decision",
+        "line": 450,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "cargo = parse_cargo(root / \"Cargo.toml\") if (root / \"Cargo.toml\").exists() else {}",
+        "kind": "decision",
+        "line": 451,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "go_mod = parse_go_mod(root / \"go.mod\") if (root / \"go.mod\").exists() else {}",
+        "kind": "decision",
+        "line": 452,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if makefile.exists():",
+        "kind": "decision",
+        "line": 455,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "value for value in [package_json.get(\"name\"), pyproject.get(\"name\"), cargo.get(\"name\"), go_mod.get(\"module\"), root.name] if value",
+        "kind": "decision",
+        "line": 466,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if names:",
+        "kind": "decision",
+        "line": 492,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not inventory.get(\"important_files\"):",
+        "kind": "decision",
+        "line": 506,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if commands:",
+        "kind": "decision",
+        "line": 511,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not inventory.get(\"major_directories\"):",
+        "kind": "decision",
+        "line": 523,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not inventory.get(\"ci_workflows\"):",
+        "kind": "decision",
+        "line": 529,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if env_examples:",
+        "kind": "decision",
+        "line": 534,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "lines.append(f\"- {key.replace('_', ' ').title()}: `{value}`\" if value else f\"- {key.replace('_', ' ').title()}: [TBD]\")",
+        "kind": "decision",
+        "line": 545,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.format == \"json\":",
+        "kind": "decision",
+        "line": 558,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 564,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given local README edits, preserve unrelated content and report conflicts before overwrite.",
+        "kind": "decision",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "medium",
+        "excerpt": "- Network and deployment actions: package publishing, Docker push, git push, cloud deploy, database migration, remote curl scripts.",
+        "kind": "execution",
+        "line": 11,
+        "path": "references/hook-guidance.md"
+      }
+    ],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "- Never read secret-bearing files such as `.env`, `.npmrc`, private keys, credential stores, or untracked local config.",
+        "kind": "privacy",
+        "line": 40,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Secret-bearing reads: `.env`, `.npmrc`, private keys, credential stores, cloud credential files, SSH keys.",
+        "kind": "privacy",
+        "line": 10,
+        "path": "references/hook-guidance.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "This script is read-only and deliberately ignores secret-bearing files. It uses",
+        "kind": "privacy",
+        "line": 4,
+        "path": "scripts/scan_repo.py"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use to create, improve, audit, or verify a repository README or maintainer guide; exclude changelog reconstruction, routing to changelog-updater.",
+        "kind": "verification",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.",
+        "kind": "verification",
+        "line": 13,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "6. Verify before completion.",
+        "kind": "verification",
+        "line": 57,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If the score is below 24, fix the README and rerun the quality check once.",
+        "kind": "verification",
+        "line": 59,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Run only safe, read-oriented validation commands unless the user explicitly requested command execution evidence.",
+        "kind": "verification",
+        "line": 60,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not execute install, build, test, deploy, database, network, package-publish, or migration commands unless the user explicitly asks for live verification.",
+        "kind": "verification",
+        "line": 65,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Quickstart with prerequisites, install, run, and verify steps using grounded commands.",
+        "kind": "verification",
+        "line": 76,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Final self-check](#final-self-check)",
+        "kind": "verification",
+        "line": 27,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Test command | scripts, Makefile, CI, test config | State honestly if none found. |",
+        "kind": "verification",
+        "line": 45,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Lint/typecheck | scripts, config files, CI | Separate lint and typecheck when possible. |",
+        "kind": "verification",
+        "line": 46,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Verify",
+        "kind": "verification",
+        "line": 94,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Include actual test, lint, typecheck, and build commands when present.",
+        "kind": "verification",
+        "line": 149,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Final self-check",
+        "kind": "verification",
+        "line": 223,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before completing, verify:",
+        "kind": "verification",
+        "line": 225,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- They can verify it works or see that no verification exists.",
+        "kind": "verification",
+        "line": 229,
+        "path": "references/readme-blueprint.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if quickstart and \"install\" in quickstart.lower() and \"run\" in quickstart.lower() and \"verify\" in quickstart.lower() and \"```\" in quickstart:",
+        "kind": "verification",
+        "line": 138,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "notes[\"Quickstart\"] = \"Quickstart should include install, run, and verify commands.\"",
+        "kind": "verification",
+        "line": 146,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "lines.append(f\"# README Quality Check: {result['total']}/{result['max']}\")",
+        "kind": "verification",
+        "line": 251,
+        "path": "scripts/readme_quality_check.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"test\": \"test\",",
+        "kind": "verification",
+        "line": 325,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"lint\": \"lint\",",
+        "kind": "verification",
+        "line": 326,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"typecheck\": \"typecheck\",",
+        "kind": "verification",
+        "line": 327,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"check\": \"verification\",",
+        "kind": "verification",
+        "line": 328,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"pytest\" in tool_sections:",
+        "kind": "verification",
+        "line": 344,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "commands.append({\"category\": \"test\", \"command\": \"python -m pytest\", \"source\": \"pyproject.toml tool.pytest [INFERRED]\"})",
+        "kind": "verification",
+        "line": 345,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "commands.append({\"category\": \"lint\", \"command\": \"python -m ruff check .\", \"source\": \"pyproject.toml tool.ruff [INFERRED]\"})",
+        "kind": "verification",
+        "line": 347,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"mypy\" in tool_sections:",
+        "kind": "verification",
+        "line": 348,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "commands.append({\"category\": \"typecheck\", \"command\": \"python -m mypy .\", \"source\": \"pyproject.toml tool.mypy [INFERRED]\"})",
+        "kind": "verification",
+        "line": 349,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if lowered in {\"test\", \"tests\"}:",
+        "kind": "verification",
+        "line": 353,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "category = \"test\"",
+        "kind": "verification",
+        "line": 354,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "elif lowered in {\"lint\", \"typecheck\", \"check\", \"verify\", \"build\", \"dev\", \"run\", \"start\", \"install\"}:",
+        "kind": "verification",
+        "line": 355,
+        "path": "scripts/scan_repo.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Normal:** Given build and test commands, write a README whose commands match repository files.",
+        "kind": "verification",
+        "line": 3,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "ef77a67f3723ef94a5a2bbd925b512bdd15c60f4df0346f1d4944c4be4c31a3d",
+  "generated_at": "2026-09-24T14:00:48.324268Z",
+  "inventory": [
+    {
+      "bytes": 6268,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "a0fbc3fce9216fd3dba4f2a134de375f081801e921e674b8a1608147d4b1cd29"
+    },
+    {
+      "bytes": 375,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "012d13a07b12eb00c6bd3289c582264ee8f9878f82c2126fc4cd2ae352527bf7"
+    },
+    {
+      "bytes": 2245,
+      "kind": "reference",
+      "language": null,
+      "path": "references/hook-guidance.md",
+      "sha256": "c3a56d9f49704854a5bda2cdae2d78e89e702cb1d6da91da57a8a27f41c479e6"
+    },
+    {
+      "bytes": 11103,
+      "kind": "reference",
+      "language": null,
+      "path": "references/readme-blueprint.md",
+      "sha256": "490970411bf038b1509aa0797c70e9409861d8b0bd77d132a8aae4fa11641e75"
+    },
+    {
+      "bytes": 11273,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/readme_quality_check.py",
+      "sha256": "aca54be8b950af1ff58fa35c0ec268992bc95b3317cbccd3024a3da7ede32b7f"
+    },
+    {
+      "bytes": 22100,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/scan_repo.py",
+      "sha256": "d5ede9c5a7032f449dc1c1cda8033478734bb61ccf47a5f73b38ed7beb15a60a"
+    },
+    {
+      "bytes": 361,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "f4fa0b243c957453b1c77d83b37814329aef8c3897934f3af1889a206a9f2b93"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 7,
+    "has_evals": true,
+    "has_hooks": true,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 2,
+    "script_files": 2,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 53725
+  },
+  "target": {
+    "description": "Create or upgrade grounded repository README operational manuals.",
+    "name": "generating-readmes",
+    "path": "skills/generating-readmes",
+    "version": null
+  }
+}

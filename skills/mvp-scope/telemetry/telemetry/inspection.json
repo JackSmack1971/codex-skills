@@ -1,0 +1,115 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Use to turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions before specification or architecture. Do not use to discover the problem or write detailed feature behavior; use product-discovery or product-spec.\"",
+        "kind": "boundary",
+        "line": 3,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "must support a user outcome or a necessary safety/operational constraint.",
+        "kind": "boundary",
+        "line": 10,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Classify items as Must have, Should have, Later, or Explicitly won't build.",
+        "kind": "boundary",
+        "line": 16,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not silently drop a requested safety, accessibility, compliance, or data-",
+        "kind": "boundary",
+        "line": 29,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Normal:** Given a broad capability list, classify must-have, later, and won't-build items with rationale.",
+        "kind": "boundary",
+        "line": 3,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a compliance or safety requirement, keep it in must-have even when reducing scope.",
+        "kind": "boundary",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Use to turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions before specification or architecture. Do not use to discover the problem or write detailed feature behavior; use product-discovery or product-spec.\"",
+        "kind": "decision",
+        "line": 3,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "loss requirement. Flag it as a constraint even when it is not user-visible.",
+        "kind": "decision",
+        "line": 30,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a compliance or safety requirement, keep it in must-have even when reducing scope.",
+        "kind": "decision",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [],
+    "verification": []
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "ada006203ec2abce07f26003873493fae45bd858efd99c230a0a67b59648378f",
+  "generated_at": "2026-09-24T13:58:03.260490Z",
+  "inventory": [
+    {
+      "bytes": 1408,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "b10f942dfc7cbfb19025f8ecf5456915cd2ad6b6a42b64e84617ca56976db40f"
+    },
+    {
+      "bytes": 371,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "c20575ab7f586c6cead1412f0391419670f8bc52704bf5cd0d917fb0cbf333cd"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 2,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 1779
+  },
+  "target": {
+    "description": "Use to turn a product idea or capability list into explicit must-have, later, and won't-build scope decisions before specification or architecture. Do not use to discover the problem or write detailed feature behavior; use product-discovery or product-spec.",
+    "name": "mvp-scope",
+    "path": "skills/mvp-scope",
+    "version": null
+  }
+}

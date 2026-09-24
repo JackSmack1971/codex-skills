@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 53,
+    "decisions": 59,
+    "execution": 0,
+    "privacy": 5,
+    "verification": 6
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "context-doctor"
+  },
+  "generated_at": "2026-09-24T13:57:07.117690Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Audit Codex context loading, skills discovery, config, hooks, MCP, subagents, compaction, and model settings read-only; use skill-auditor for skill packages.",
+    "fingerprint": "89fe937a1d8556df10a55c898f470b155e9b8d999124dabf09a721e8b06c248e",
+    "name": "context-doctor",
+    "version": null
+  }
+}

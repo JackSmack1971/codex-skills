@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 9,
+    "decisions": 7,
+    "execution": 0,
+    "privacy": 0,
+    "verification": 2
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "database-migrations"
+  },
+  "generated_at": "2026-09-24T13:57:16.705417Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Plan, implement, or review safe persistent schema changes, backfills, compatibility windows, verification, and rollback.",
+    "fingerprint": "e9e68c8e8382035f08ff35ee6b86fd6ed92722252118e7183f950d32cfb0ca03",
+    "name": "database-migrations",
+    "version": null
+  }
+}

@@ -1,0 +1,2703 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "compatibility: Requires Git and Python 3.10 or later. GitHub CLI is optional and used only for read-only owner verification.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Create or audit GitHub CODEOWNERS from repository evidence. Treat `$mode` as `generate` when omitted. Treat `$owner_map` as optional. Only accept `generate` or `audit`.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never invent, guess, or synthesize GitHub usernames, organization names, or team slugs.",
+        "kind": "boundary",
+        "line": 22,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Prefer visible GitHub teams with explicit write access. Use an individual only for a personal repository or when the supplied owner map explicitly authorizes that exception.",
+        "kind": "boundary",
+        "line": 23,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not change repository rulesets, branch protection, team membership, permissions, or bot bypass settings.",
+        "kind": "boundary",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Write only `.github/CODEOWNERS`; GitHub checks `.github/` before root and `docs/`.",
+        "kind": "boundary",
+        "line": 25,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Keep the file under 3 MiB. Put comments on separate lines. Do not use `!`, character ranges, or an escaped leading `#` pattern.",
+        "kind": "boundary",
+        "line": 27,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use blank-owner rules only for an explicitly documented generated or low-risk path. Never use them to bypass review on security, CI/CD, release, dependency, infrastructure, authentication, authorization, cryptography, database schema, or policy files.",
+        "kind": "boundary",
+        "line": 28,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Repository evidence: tracked files, manifests, architecture, Git history, existing ownership files, governance documents, and read-only GitHub metadata when `gh` is installed and authenticated.",
+        "kind": "boundary",
+        "line": 35,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. Resolve the repository root with `git rev-parse --show-toplevel`. Stop with a precise error outside a Git worktree.",
+        "kind": "boundary",
+        "line": 39,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Create an untracked state directory using `git rev-parse --git-path codex-codeowners`; do not place analysis artifacts in the working tree.",
+        "kind": "boundary",
+        "line": 41,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Run the read-only GitHub discovery script. A missing CLI, missing authentication, or insufficient API scope is a recoverable condition, not permission to invent owners.",
+        "kind": "boundary",
+        "line": 50,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "6. Read the active CODEOWNERS file and the governance files identified by the inventory. Existing handles are evidence only until their current access is verified.",
+        "kind": "boundary",
+        "line": 58,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not modify files.",
+        "kind": "boundary",
+        "line": 63,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "10. Do not infer GitHub handles from commit author names or email addresses. Use Git history only to identify domain concentration, review-load risk, abandoned areas, and likely ownership boundaries.",
+        "kind": "boundary",
+        "line": 76,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Add dual-team ownership only where two independent knowledge domains are genuinely required; remember that GitHub accepts approval from any listed owner, not all listed owners.",
+        "kind": "boundary",
+        "line": 80,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Keep unit tests with their product domain. Give integration or system test suites a separate QA owner only when the repository structure supports it.",
+        "kind": "boundary",
+        "line": 81,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use a fallback only when the repository archetype and verified team capacity justify the notification load.",
+        "kind": "boundary",
+        "line": 82,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "12. If any required production domain lacks a verified owner, do not write `.github/CODEOWNERS`. Produce a concise ownership-gap report listing exact paths and the owner roles that must be mapped.",
+        "kind": "boundary",
+        "line": 85,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "13. Create `ownership-plan.json` in the state directory. Every owner used by a rule must appear in `verified_owners`; every blank-owner rule must use `intent: unowned` and include a non-empty rationale.",
+        "kind": "boundary",
+        "line": 86,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- ruleset recommendations as advisory text only.",
+        "kind": "boundary",
+        "line": 115,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not claim success unless the target file exists in generate mode, validation exits zero, `.github/CODEOWNERS` is self-owned, and the working-tree diff is limited to the expected file.",
+        "kind": "boundary",
+        "line": 117,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `Stop` or `TaskCompleted`: require a zero-error validation result and an expected-only diff.",
+        "kind": "boundary",
+        "line": 123,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use a documented Codex project hook or rule only when deterministic enforcement is explicitly requested; this skill package does not ship a runtime hook configuration.",
+        "kind": "boundary",
+        "line": 126,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **No verified owners:** supply a repository-relative owner map or authenticate `gh` with repository and organization read access. Do not weaken verification.",
+        "kind": "boundary",
+        "line": 130,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Large unowned set:** add a justified fallback or explicit domain rules; do not hide the gap with blank-owner exceptions.",
+        "kind": "boundary",
+        "line": 133,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Generated or vendored files dominate reviews:** add a narrowly scoped blank-owner override only after verifying the path is reproducible and protected against manual edits elsewhere.",
+        "kind": "boundary",
+        "line": 134,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**[Steps]** Classify as a modular application; place a justified fallback first only when a verified steward team exists; assign product ownership to the service; assign platform ownership to workflows; assign database plus product ownership to migrations; add `.github/CODEOWNERS` self-ownership; validate last-match behavior and coverage.",
+        "kind": "boundary",
+        "line": 140,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Consider intentional unownership only when all are true](#consider-intentional-unownership-only-when-all-are-true)",
+        "kind": "boundary",
+        "line": 18,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "CODEOWNERS is review routing, not a directory catalog. Optimize for weak team ownership: contributors may change any area, while a stable team acts as steward. Avoid two extremes:",
+        "kind": "boundary",
+        "line": 24,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Assign system integration suites only when a distinct QA function exists.",
+        "kind": "boundary",
+        "line": 43,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use multiple listed owners to widen qualified review coverage, not to simulate multi-team approval; GitHub requires only one listed owner's approval.",
+        "kind": "boundary",
+        "line": 62,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The file applies per branch and must exist on the pull request base branch.",
+        "kind": "boundary",
+        "line": 68,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The file must be smaller than 3 MiB.",
+        "kind": "boundary",
+        "line": 69,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Owners must be existing users, verified email identities, or visible teams with explicit write access. Prefer `@organization/team`.",
+        "kind": "boundary",
+        "line": 76,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Never place a catch-all after specialized rules. Avoid late file-extension patterns because they override every earlier matching domain rule.",
+        "kind": "boundary",
+        "line": 91,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### Consider intentional unownership only when all are true",
+        "kind": "boundary",
+        "line": 113,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not derive handles from Git author names, commit emails, directory names, package scopes, chat mentions, or organizational role titles. Git history is evidence for boundary design and bus-factor risk only.",
+        "kind": "boundary",
+        "line": 130,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Using CODEOWNERS as the only enforcement layer without recommending branch rules or repository rulesets.",
+        "kind": "boundary",
+        "line": 142,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Report but do not apply:",
+        "kind": "boundary",
+        "line": 146,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- require pull requests before merging;",
+        "kind": "boundary",
+        "line": 148,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- require review from code owners;",
+        "kind": "boundary",
+        "line": 149,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- configure required approval counts in rulesets or branch protection;",
+        "kind": "boundary",
+        "line": 151,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The renderer accepts a single JSON object. Build it against this contract; do not add undeclared fields that obscure ownership evidence.",
+        "kind": "boundary",
+        "line": 3,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `owners` | array of strings | Non-empty; every value must exist in `verified_owners` |",
+        "kind": "boundary",
+        "line": 20,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `write_access` | boolean | Must be `true` |",
+        "kind": "boundary",
+        "line": 30,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `visible` | boolean | Must be `true` for teams |",
+        "kind": "boundary",
+        "line": 31,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "For organization repositories, individual users require an explicit exception and the renderer's `--allow-organization-individuals` flag.",
+        "kind": "boundary",
+        "line": 33,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Required invariants",
+        "kind": "boundary",
+        "line": 53,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"--name-only\",",
+        "kind": "boundary",
+        "line": 240,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"note\": \"Author names are boundary evidence only and must not be converted into GitHub handles.\",",
+        "kind": "boundary",
+        "line": 302,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Discover read-only GitHub owner candidates with explicit repository access.\"\"\"",
+        "kind": "boundary",
+        "line": 2,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Only teams with verified non-secret visibility and push, maintain, or admin permission are eligible team owners.\",",
+        "kind": "boundary",
+        "line": 185,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"This script performs read-only GitHub API calls and never changes repository access.\",",
+        "kind": "boundary",
+        "line": 186,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--plan\", required=True, help=\"Ownership plan JSON path\")",
+        "kind": "boundary",
+        "line": 48,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "help=\"Output path. The renderer intentionally accepts only .github/CODEOWNERS.\",",
+        "kind": "boundary",
+        "line": 52,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "help=\"Permit explicit individual owners in an organization repository. Use only with documented authorization.\",",
+        "kind": "boundary",
+        "line": 57,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "def require(condition: bool, message: str, errors: list[str]) -> None:",
+        "kind": "boundary",
+        "line": 62,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(\"Plan root must be a JSON object\")",
+        "kind": "boundary",
+        "line": 75,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(plan.get(\"version\") == 1, \"version must be exactly 1\", errors)",
+        "kind": "boundary",
+        "line": 85,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(plan.get(\"archetype\") in ALLOWED_ARCHETYPES, \"archetype is missing or unsupported\", errors)",
+        "kind": "boundary",
+        "line": 86,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(plan.get(\"repository\"), str) and bool(plan.get(\"repository\")), \"repository is required\", errors)",
+        "kind": "boundary",
+        "line": 87,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(plan.get(\"repository\") == expected, f\"repository must match origin: {expected}\", errors)",
+        "kind": "boundary",
+        "line": 93,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(raw_verified, list) and bool(raw_verified), \"verified_owners must be a non-empty array\", errors)",
+        "kind": "boundary",
+        "line": 107,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{prefix} must be an object\")",
+        "kind": "boundary",
+        "line": 113,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(handle, str) and validate_owner_handle(handle), f\"{prefix}.handle is invalid or placeholder-like\", errors)",
+        "kind": "boundary",
+        "line": 116,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(item.get(\"kind\") in ALLOWED_KINDS, f\"{prefix}.kind is unsupported\", errors)",
+        "kind": "boundary",
+        "line": 117,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(item.get(\"verification\") in ALLOWED_VERIFICATION, f\"{prefix}.verification is unsupported\", errors)",
+        "kind": "boundary",
+        "line": 118,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(item.get(\"write_access\") is True, f\"{prefix}.write_access must be true\", errors)",
+        "kind": "boundary",
+        "line": 119,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(item.get(\"visible\") is True, f\"{prefix}.visible must be true for teams\", errors)",
+        "kind": "boundary",
+        "line": 121,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(handle, str) and \"/\" in handle, f\"{prefix}.handle must use @organization/team format\", errors)",
+        "kind": "boundary",
+        "line": 122,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"supply --allow-organization-individuals only after explicit authorization\"",
+        "kind": "boundary",
+        "line": 126,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(\"fallback must be null or an object\")",
+        "kind": "boundary",
+        "line": 136,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(owners, list) and bool(owners), \"fallback.owners must be non-empty\", errors)",
+        "kind": "boundary",
+        "line": 139,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(fallback.get(\"rationale\"), str) and bool(fallback.get(\"rationale\", \"\").strip()), \"fallback.rationale is required\", errors)",
+        "kind": "boundary",
+        "line": 140,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(owner in verified, f\"fallback owner is not verified: {owner}\", errors)",
+        "kind": "boundary",
+        "line": 143,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(sections, list) and bool(sections), \"sections must be a non-empty array\", errors)",
+        "kind": "boundary",
+        "line": 146,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{section_prefix} must be an object\")",
+        "kind": "boundary",
+        "line": 152,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(section.get(\"title\"), str) and bool(section.get(\"title\", \"\").strip()), f\"{section_prefix}.title is required\", errors)",
+        "kind": "boundary",
+        "line": 154,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(rules, list) and bool(rules), f\"{section_prefix}.rules must be non-empty\", errors)",
+        "kind": "boundary",
+        "line": 156,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append(f\"{prefix} must be an object\")",
+        "kind": "boundary",
+        "line": 162,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(pattern, str) and bool(pattern.strip()), f\"{prefix}.pattern is required\", errors)",
+        "kind": "boundary",
+        "line": 165,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(not pattern.startswith(\"!\"), f\"{prefix}.pattern cannot use negation\", errors)",
+        "kind": "boundary",
+        "line": 167,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(\"[\" not in pattern and \"]\" not in pattern, f\"{prefix}.pattern cannot use character ranges\", errors)",
+        "kind": "boundary",
+        "line": 168,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(not pattern.startswith(\"#\"), f\"{prefix}.pattern cannot start with #\", errors)",
+        "kind": "boundary",
+        "line": 169,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(intent in ALLOWED_INTENTS, f\"{prefix}.intent is unsupported\", errors)",
+        "kind": "boundary",
+        "line": 174,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(owners, list), f\"{prefix}.owners must be an array\", errors)",
+        "kind": "boundary",
+        "line": 176,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(rule.get(\"source\") in ALLOWED_SOURCES, f\"{prefix}.source is unsupported\", errors)",
+        "kind": "boundary",
+        "line": 177,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(rule.get(\"rationale\"), str) and bool(rule.get(\"rationale\", \"\").strip()), f\"{prefix}.rationale is required\", errors)",
+        "kind": "boundary",
+        "line": 178,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(isinstance(comment, str) and \"\\n\" not in comment and \"\\r\" not in comment, f\"{prefix}.comment must be one line\", errors)",
+        "kind": "boundary",
+        "line": 181,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(bool(owners), f\"{prefix} owned rule requires at least one owner\", errors)",
+        "kind": "boundary",
+        "line": 184,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(not owners, f\"{prefix} unowned rule must have an empty owner list\", errors)",
+        "kind": "boundary",
+        "line": 186,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "require(owner in verified, f\"{prefix} references unverified owner: {owner}\", errors)",
+        "kind": "boundary",
+        "line": 188,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise ValueError(\"Output must be exactly .github/CODEOWNERS\")",
+        "kind": "boundary",
+        "line": 233,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"--fail-on-unowned\",",
+        "kind": "boundary",
+        "line": 121,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"generate-codeowners self-test: FAIL\\n{exc}\", file=sys.stderr)",
+        "kind": "boundary",
+        "line": 149,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"--fail-on-unowned\",",
+        "kind": "boundary",
+        "line": 43,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "help=\"Treat any unowned tracked file as an error. Do not use when deliberate blank-owner exceptions exist.\",",
+        "kind": "boundary",
+        "line": 45,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append({\"line\": number, \"code\": \"inline-comment\", \"message\": \"Comments must be on their own line\"})",
+        "kind": "boundary",
+        "line": 88,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "warnings.append({\"line\": rules[index].line, \"code\": \"fully-shadowed-rule\", \"message\": f\"Pattern matches {raw_count} tracked files but never wins last-match evaluation: {rules[index].pattern}\"})",
+        "kind": "boundary",
+        "line": 180,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append({\"line\": target_coverage.get(\"line\") if target_coverage else None, \"code\": \"self-unowned\", \"message\": \".github/CODEOWNERS must resolve to at least one owner\"})",
+        "kind": "boundary",
+        "line": 185,
+        "path": "scripts/validate_codeowners.py"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "Create or audit GitHub CODEOWNERS from repository evidence. Treat `$mode` as `generate` when omitted. Treat `$owner_map` as optional. Only accept `generate` or `audit`.",
+        "kind": "decision",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Prefer visible GitHub teams with explicit write access. Use an individual only for a personal repository or when the supplied owner map explicitly authorizes that exception.",
+        "kind": "decision",
+        "line": 23,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Write only `.github/CODEOWNERS`; GitHub checks `.github/` before root and `docs/`.",
+        "kind": "decision",
+        "line": 25,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Repository evidence: tracked files, manifests, architecture, Git history, existing ownership files, governance documents, and read-only GitHub metadata when `gh` is installed and authenticated.",
+        "kind": "decision",
+        "line": 35,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Read `references/design-policy.md`. Read `references/ownership-plan-schema.md` before creating a plan.",
+        "kind": "decision",
+        "line": 40,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "8. In `generate` mode, classify the repository before designing rules:",
+        "kind": "decision",
+        "line": 64,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- small or mixed repository when evidence is insufficient for a stronger classification.",
+        "kind": "decision",
+        "line": 70,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Keep unit tests with their product domain. Give integration or system test suites a separate QA owner only when the repository structure supports it.",
+        "kind": "decision",
+        "line": 81,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use a fallback only when the repository archetype and verified team capacity justify the notification load.",
+        "kind": "decision",
+        "line": 82,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Add increasingly specific overrides after broad rules.",
+        "kind": "decision",
+        "line": 83,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "12. If any required production domain lacks a verified owner, do not write `.github/CODEOWNERS`. Produce a concise ownership-gap report listing exact paths and the owner roles that must be mapped.",
+        "kind": "decision",
+        "line": 85,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not claim success unless the target file exists in generate mode, validation exits zero, `.github/CODEOWNERS` is self-owned, and the working-tree diff is limited to the expected file.",
+        "kind": "decision",
+        "line": 117,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `PostToolUse`: rerun validation after the target file changes.",
+        "kind": "decision",
+        "line": 122,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use a documented Codex project hook or rule only when deterministic enforcement is explicitly requested; this skill package does not ship a runtime hook configuration.",
+        "kind": "decision",
+        "line": 126,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Generated or vendored files dominate reviews:** add a narrowly scoped blank-owner override only after verifying the path is reproducible and protected against manual edits elsewhere.",
+        "kind": "decision",
+        "line": 134,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**[Steps]** Classify as a modular application; place a justified fallback first only when a verified steward team exists; assign product ownership to the service; assign platform ownership to workflows; assign database plus product ownership to migrations; add `.github/CODEOWNERS` self-ownership; validate last-match behavior and coverage.",
+        "kind": "decision",
+        "line": 140,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- [Consider intentional unownership only when all are true](#consider-intentional-unownership-only-when-all-are-true)",
+        "kind": "decision",
+        "line": 18,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- A global fallback is optional and often unnecessary when all stable surfaces are explicit.",
+        "kind": "decision",
+        "line": 37,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Assign system integration suites only when a distinct QA function exists.",
+        "kind": "decision",
+        "line": 43,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Put platform defaults before product overrides.",
+        "kind": "decision",
+        "line": 49,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use a verified core-maintainer fallback when contributor trust is low.",
+        "kind": "decision",
+        "line": 55,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use this ordering unless repository evidence requires a documented exception:",
+        "kind": "decision",
+        "line": 80,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "8. explicit ownership of `.github/CODEOWNERS` when a later rule could otherwise override it.",
+        "kind": "decision",
+        "line": 89,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Never place a catch-all after specialized rules. Avoid late file-extension patterns because they override every earlier matching domain rule.",
+        "kind": "decision",
+        "line": 91,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- component documentation when product teams maintain it.",
+        "kind": "decision",
+        "line": 111,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### Consider intentional unownership only when all are true",
+        "kind": "decision",
+        "line": 113,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Broad extension rules after domain rules.",
+        "kind": "decision",
+        "line": 136,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Inline comments after owners.",
+        "kind": "decision",
+        "line": 137,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Creating one rule per file when a stable directory boundary exists.",
+        "kind": "decision",
+        "line": 141,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- require pull requests before merging;",
+        "kind": "decision",
+        "line": 148,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- dismiss stale approvals when new commits are pushed where appropriate;",
+        "kind": "decision",
+        "line": 150,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `repository` | string | Exact `owner/repository` value from the GitHub remote when available |",
+        "kind": "decision",
+        "line": 10,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| `fallback` | object or null | Null when no repository-wide fallback is justified |",
+        "kind": "decision",
+        "line": 12,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `.github/CODEOWNERS` resolves to at least one owner after last-match evaluation.",
+        "kind": "decision",
+        "line": 62,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.stat().st_size > max_bytes:",
+        "kind": "decision",
+        "line": 142,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"package.json\" in files:",
+        "kind": "decision",
+        "line": 154,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(data, dict) and \"workspaces\" in data:",
+        "kind": "decision",
+        "line": 156,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, list):",
+        "kind": "decision",
+        "line": 159,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if name in files:",
+        "kind": "decision",
+        "line": 172,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"Cargo.toml\" in files:",
+        "kind": "decision",
+        "line": 175,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if re.search(r\"^\\s*\\[workspace\\]\\s*$\", cargo_text, re.MULTILINE):",
+        "kind": "decision",
+        "line": 178,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(parts) >= 2 and parts[0] in DOMAIN_ROOTS:",
+        "kind": "decision",
+        "line": 190,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pattern.search(path)",
+        "kind": "decision",
+        "line": 208,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if language != \"Other\"",
+        "kind": "decision",
+        "line": 218,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"generated_files\": sum(1 for path in members if is_probably_generated(path)),",
+        "kind": "decision",
+        "line": 221,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if proc.returncode != 0:",
+        "kind": "decision",
+        "line": 246,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if current_author is None:",
+        "kind": "decision",
+        "line": 255,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if raw_line.startswith(\"@@AUTHOR@@\"):",
+        "kind": "decision",
+        "line": 264,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path or current_author is None:",
+        "kind": "decision",
+        "line": 269,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if domain == \"<root>\":",
+        "kind": "decision",
+        "line": 272,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"/\" not in path:",
+        "kind": "decision",
+        "line": 273,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "concentration = (leaders[0][1] / total) if total and leaders else 0.0",
+        "kind": "decision",
+        "line": 283,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "top_dirs = {path.split(\"/\", 1)[0] for path in files if \"/\" in path}",
+        "kind": "decision",
+        "line": 309,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "service_count = sum(1 for item in domains if item[\"path\"].startswith(\"services/\"))",
+        "kind": "decision",
+        "line": 310,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "app_count = sum(1 for item in domains if item[\"path\"].startswith(\"apps/\"))",
+        "kind": "decision",
+        "line": 311,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if item[\"path\"].startswith((\"packages/\", \"libs/\", \"modules/\", \"crates/\", \"plugins/\"))",
+        "kind": "decision",
+        "line": 315,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if any(pattern.search(path) for category, pattern in RISK_PATTERNS if category == \"infrastructure\")",
+        "kind": "decision",
+        "line": 320,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if Path(path).suffix.lower() in LANGUAGE_BY_SUFFIX",
+        "kind": "decision",
+        "line": 325,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if workspace[\"detected\"] and (service_count + app_count + package_count >= 6):",
+        "kind": "decision",
+        "line": 331,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if name in files",
+        "kind": "decision",
+        "line": 354,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "remote_url = remote_proc.stdout.strip() if remote_proc.returncode == 0 else \"\"",
+        "kind": "decision",
+        "line": 379,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parsed_remote = parse_github_remote(remote_url) if remote_url else None",
+        "kind": "decision",
+        "line": 380,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "manifests = sorted(path for path in files if Path(path).name in MANIFEST_NAMES)",
+        "kind": "decision",
+        "line": 382,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "governance = sorted(path for path in files if Path(path).name in GOVERNANCE_NAMES)",
+        "kind": "decision",
+        "line": 383,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pattern.search(path):",
+        "kind": "decision",
+        "line": 391,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if active:",
+        "kind": "decision",
+        "line": 395,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (repo / path).is_file()",
+        "kind": "decision",
+        "line": 404,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if total_commits_proc.returncode == 0 and total_commits_proc.stdout.strip().isdigit()",
+        "kind": "decision",
+        "line": 411,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if parsed_remote",
+        "kind": "decision",
+        "line": 423,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if language != \"Other\"",
+        "kind": "decision",
+        "line": 436,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"count\": sum(1 for path in files if is_probably_generated(path)),",
+        "kind": "decision",
+        "line": 451,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"examples\": [path for path in files if is_probably_generated(path)][:50],",
+        "kind": "decision",
+        "line": 452,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.output",
+        "kind": "decision",
+        "line": 463,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"active_codeowners\": existing[\"active_path\"] if existing else None,",
+        "kind": "decision",
+        "line": 474,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 484,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if check and proc.returncode != 0:",
+        "kind": "decision",
+        "line": 39,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not candidate.exists():",
+        "kind": "decision",
+        "line": 48,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if proc.returncode != 0:",
+        "kind": "decision",
+        "line": 51,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_absolute():",
+        "kind": "decision",
+        "line": 59,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if match:",
+        "kind": "decision",
+        "line": 95,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if proc.returncode != 0:",
+        "kind": "decision",
+        "line": 108,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if item",
+        "kind": "decision",
+        "line": 113,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if max_files is not None and len(files) > max_files:",
+        "kind": "decision",
+        "line": 115,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Raise --max-files deliberately after reviewing runtime impact.\"",
+        "kind": "decision",
+        "line": 118,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if token[index] == \"\\\\\" and index + 1 < len(token):",
+        "kind": "decision",
+        "line": 127,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if escaped:",
+        "kind": "decision",
+        "line": 142,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if char == \"\\\\\":",
+        "kind": "decision",
+        "line": 146,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if char in \" \\t\":",
+        "kind": "decision",
+        "line": 149,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if current:",
+        "kind": "decision",
+        "line": 150,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if escaped:",
+        "kind": "decision",
+        "line": 155,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if current:",
+        "kind": "decision",
+        "line": 157,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pattern.startswith(\"#\"):",
+        "kind": "decision",
+        "line": 168,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if char == \"*\":",
+        "kind": "decision",
+        "line": 178,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if i + 1 < len(pattern) and pattern[i + 1] == \"*\":",
+        "kind": "decision",
+        "line": 179,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if anchored:",
+        "kind": "decision",
+        "line": 196,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if directory:",
+        "kind": "decision",
+        "line": 199,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if directory:",
+        "kind": "decision",
+        "line": 205,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if anchored or has_slash:",
+        "kind": "decision",
+        "line": 210,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if candidate.is_file():",
+        "kind": "decision",
+        "line": 227,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if value not in seen:",
+        "kind": "decision",
+        "line": 257,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if paginate:",
+        "kind": "decision",
+        "line": 27,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if proc.returncode != 0:",
+        "kind": "decision",
+        "line": 31,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not text:",
+        "kind": "decision",
+        "line": 34,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if paginate:",
+        "kind": "decision",
+        "line": 36,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if index >= len(text):",
+        "kind": "decision",
+        "line": 44,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(value, list):",
+        "kind": "decision",
+        "line": 47,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.output",
+        "kind": "decision",
+        "line": 69,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if remote_proc.returncode != 0:",
+        "kind": "decision",
+        "line": 74,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not parsed:",
+        "kind": "decision",
+        "line": 80,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if shutil.which(\"gh\") is None:",
+        "kind": "decision",
+        "line": 87,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if auth.returncode != 0:",
+        "kind": "decision",
+        "line": 99,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(metadata, dict):",
+        "kind": "decision",
+        "line": 111,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if owner_type == \"Organization\":",
+        "kind": "decision",
+        "line": 117,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(raw_teams, list):",
+        "kind": "decision",
+        "line": 120,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(team, dict):",
+        "kind": "decision",
+        "line": 122,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not slug:",
+        "kind": "decision",
+        "line": 127,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not privacy:",
+        "kind": "decision",
+        "line": 131,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(team_details, dict):",
+        "kind": "decision",
+        "line": 134,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if owner_type == \"User\":",
+        "kind": "decision",
+        "line": 156,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"visibility\": metadata.get(\"visibility\") or (\"private\" if metadata.get(\"private\") else \"public\"),",
+        "kind": "decision",
+        "line": 174,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "[item for item in teams if item[\"write_access\"] and item[\"visible\"]],",
+        "kind": "decision",
+        "line": 179,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 195,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not condition:",
+        "kind": "decision",
+        "line": 63,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(payload, dict):",
+        "kind": "decision",
+        "line": 74,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parsed = parse_github_remote(remote_proc.stdout.strip()) if remote_proc.returncode == 0 else None",
+        "kind": "decision",
+        "line": 90,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if parsed:",
+        "kind": "decision",
+        "line": 91,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if github_state.is_file():",
+        "kind": "decision",
+        "line": 96,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(raw_verified, list):",
+        "kind": "decision",
+        "line": 109,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(item, dict):",
+        "kind": "decision",
+        "line": 112,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if item.get(\"kind\") == \"team\":",
+        "kind": "decision",
+        "line": 120,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if item.get(\"kind\") == \"user\" and organization_repo and not allow_org_individuals:",
+        "kind": "decision",
+        "line": 123,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"supply --allow-organization-individuals only after explicit authorization\"",
+        "kind": "decision",
+        "line": 126,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(handle, str):",
+        "kind": "decision",
+        "line": 128,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if handle in verified:",
+        "kind": "decision",
+        "line": 129,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if fallback is not None:",
+        "kind": "decision",
+        "line": 134,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(fallback, dict):",
+        "kind": "decision",
+        "line": 135,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(owners, list):",
+        "kind": "decision",
+        "line": 141,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(sections, list):",
+        "kind": "decision",
+        "line": 147,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(section, dict):",
+        "kind": "decision",
+        "line": 151,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(rules, list):",
+        "kind": "decision",
+        "line": 157,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(rule, dict):",
+        "kind": "decision",
+        "line": 161,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(pattern, str):",
+        "kind": "decision",
+        "line": 166,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pattern in seen_patterns:",
+        "kind": "decision",
+        "line": 170,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if comment is not None:",
+        "kind": "decision",
+        "line": 180,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(owners, list):",
+        "kind": "decision",
+        "line": 182,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if intent == \"owned\":",
+        "kind": "decision",
+        "line": 183,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(fallback, dict):",
+        "kind": "decision",
+        "line": 202,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if isinstance(comment, str) and comment.strip():",
+        "kind": "decision",
+        "line": 217,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if output_relative.as_posix() != \".github/CODEOWNERS\":",
+        "kind": "decision",
+        "line": 232,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if output.parent != (repo / \".github\").resolve():",
+        "kind": "decision",
+        "line": 235,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if errors:",
+        "kind": "decision",
+        "line": 241,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(encoded) >= MAX_BYTES:",
+        "kind": "decision",
+        "line": 248,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if output.exists():",
+        "kind": "decision",
+        "line": 253,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"backup\": str(backup) if backup else None,",
+        "kind": "decision",
+        "line": 264,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"rules\": sum(len(section[\"rules\"]) for section in plan[\"sections\"]) + (1 if plan.get(\"fallback\") else 0),",
+        "kind": "decision",
+        "line": 267,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 276,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(sys.argv) < 2:",
+        "kind": "decision",
+        "line": 9,
+        "path": "scripts/run_python.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if proc.returncode != expected:",
+        "kind": "decision",
+        "line": 15,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not inventory.is_file():",
+        "kind": "decision",
+        "line": 42,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not target.is_file():",
+        "kind": "decision",
+        "line": 107,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if report[\"errors\"]:",
+        "kind": "decision",
+        "line": 126,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"late-catch-all\" not in invalid.stdout:",
+        "kind": "decision",
+        "line": 138,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 145,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "help=\"Treat any unowned tracked file as an error. Do not use when deliberate blank-owner exceptions exist.\",",
+        "kind": "decision",
+        "line": 45,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not stripped or stripped.startswith(\"#\"):",
+        "kind": "decision",
+        "line": 68,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not tokens:",
+        "kind": "decision",
+        "line": 71,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if raw_pattern.startswith(\"\\\\#\") or pattern.startswith(\"#\"):",
+        "kind": "decision",
+        "line": 77,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pattern.startswith(\"!\"):",
+        "kind": "decision",
+        "line": 79,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"[\" in pattern or \"]\" in pattern:",
+        "kind": "decision",
+        "line": 81,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not pattern:",
+        "kind": "decision",
+        "line": 83,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if owner.startswith(\"#\"):",
+        "kind": "decision",
+        "line": 87,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not owners:",
+        "kind": "decision",
+        "line": 92,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.file:",
+        "kind": "decision",
+        "line": 104,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "path = candidate if candidate.is_absolute() else repo / candidate",
+        "kind": "decision",
+        "line": 106,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if active is None:",
+        "kind": "decision",
+        "line": 114,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file():",
+        "kind": "decision",
+        "line": 118,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if size >= MAX_BYTES:",
+        "kind": "decision",
+        "line": 124,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not rules:",
+        "kind": "decision",
+        "line": 131,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(lines) > 1:",
+        "kind": "decision",
+        "line": 138,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if index > 0 and is_broad(rule.raw_pattern):",
+        "kind": "decision",
+        "line": 142,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append({\"line\": rule.line, \"code\": \"late-catch-all\", \"message\": \"Catch-all appears after specific rules and overrides them\"})",
+        "kind": "decision",
+        "line": 143,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if index > 0 and is_extension_glob(rule.raw_pattern):",
+        "kind": "decision",
+        "line": 144,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if relative_target not in files:",
+        "kind": "decision",
+        "line": 149,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pattern_matches(rule.raw_pattern, file_path):",
+        "kind": "decision",
+        "line": 159,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if selected is None:",
+        "kind": "decision",
+        "line": 163,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"reason\": \"owned\" if selected.owners else \"blank-owner-rule\",",
+        "kind": "decision",
+        "line": 173,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if raw_count == 0:",
+        "kind": "decision",
+        "line": 177,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if path.relative_to(repo).as_posix() == \".github/CODEOWNERS\":",
+        "kind": "decision",
+        "line": 183,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not target_coverage or not target_coverage[\"owned\"]:",
+        "kind": "decision",
+        "line": 184,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "errors.append({\"line\": target_coverage.get(\"line\") if target_coverage else None, \"code\": \"self-unowned\", \"message\": \".github/CODEOWNERS must resolve to at least one owner\"})",
+        "kind": "decision",
+        "line": 185,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if owner.startswith(\"@\") and \"/\" in owner:",
+        "kind": "decision",
+        "line": 193,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if owner_kinds[\"user\"]:",
+        "kind": "decision",
+        "line": 200,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "unowned = [path for path, item in coverage.items() if not item[\"owned\"]]",
+        "kind": "decision",
+        "line": 203,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "no_match = [path for path, item in coverage.items() if item[\"reason\"] == \"no-match\"]",
+        "kind": "decision",
+        "line": 204,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "blank_unowned = [path for path, item in coverage.items() if item[\"reason\"] == \"blank-owner-rule\"]",
+        "kind": "decision",
+        "line": 205,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if no_match:",
+        "kind": "decision",
+        "line": 207,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.fail_on_unowned and unowned:",
+        "kind": "decision",
+        "line": 209,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.json_out:",
+        "kind": "decision",
+        "line": 236,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return 1 if errors else 0",
+        "kind": "decision",
+        "line": 242,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 248,
+        "path": "scripts/validate_codeowners.py"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "high",
+        "excerpt": "import subprocess",
+        "kind": "execution",
+        "line": 10,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": ") -> subprocess.CompletedProcess[str]:",
+        "kind": "execution",
+        "line": 29,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "proc = subprocess.run(",
+        "kind": "execution",
+        "line": 31,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "stdout=subprocess.PIPE,",
+        "kind": "execution",
+        "line": 35,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "stderr=subprocess.PIPE,",
+        "kind": "execution",
+        "line": 36,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "temp.write_text(content, encoding=\"utf-8\", newline=\"\\n\")",
+        "kind": "execution",
+        "line": 67,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "proc = subprocess.run(",
+        "kind": "execution",
+        "line": 101,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "stdout=subprocess.PIPE,",
+        "kind": "execution",
+        "line": 105,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "stderr=subprocess.PIPE,",
+        "kind": "execution",
+        "line": 106,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "import subprocess",
+        "kind": "execution",
+        "line": 7,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "def run(args: list[str], cwd: Path, expected: int = 0) -> subprocess.CompletedProcess[str]:",
+        "kind": "execution",
+        "line": 13,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "proc = subprocess.run(args, cwd=str(cwd), check=False, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)",
+        "kind": "execution",
+        "line": 14,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "(repo / \"services/payments/app.py\").write_text(\"print('ok')\\n\", encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 33,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "(repo / \".github/workflows/ci.yml\").write_text(\"name: CI\\n\", encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 34,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "(repo / \"pyproject.toml\").write_text(\"[project]\\nname='fixture'\\n\", encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 35,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "plan_path.write_text(json.dumps(plan, indent=2) + \"\\n\", encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 103,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "target.write_text(",
+        "kind": "execution",
+        "line": 129,
+        "path": "scripts/self_test.py"
+      }
+    ],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "- Use blank-owner rules only for an explicitly documented generated or low-risk path. Never use them to bypass review on security, CI/CD, release, dependency, infrastructure, authentication, authorization, cryptography, database schema, or policy files.",
+        "kind": "privacy",
+        "line": 28,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- authentication, authorization, cryptography, signing, secret-handling, and policy engines;",
+        "kind": "privacy",
+        "line": 102,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Empty or secret teams, teams without explicit write access, or stale handles.",
+        "kind": "privacy",
+        "line": 138,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "(\"authentication-authorization\", re.compile(r\"(?:^|/)(?:auth|authentication|authorization|iam|rbac|permissions?|policy)(?:/|$)\", re.I)),",
+        "kind": "privacy",
+        "line": 110,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "def unescape_pattern_token(token: str) -> str:",
+        "kind": "privacy",
+        "line": 123,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "while index < len(token):",
+        "kind": "privacy",
+        "line": 126,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if token[index] == \"\\\\\" and index + 1 < len(token):",
+        "kind": "privacy",
+        "line": 127,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "result.append(token[index + 1])",
+        "kind": "privacy",
+        "line": 128,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "result.append(token[index])",
+        "kind": "privacy",
+        "line": 131,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "visible = privacy_verified and privacy.lower() != \"secret\"",
+        "kind": "privacy",
+        "line": 139,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"Only teams with verified non-secret visibility and push, maintain, or admin permission are eligible team owners.\",",
+        "kind": "privacy",
+        "line": 185,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "help=\"Permit explicit individual owners in an organization repository. Use only with documented authorization.\",",
+        "kind": "privacy",
+        "line": 57,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"supply --allow-organization-individuals only after explicit authorization\"",
+        "kind": "privacy",
+        "line": 126,
+        "path": "scripts/render_codeowners.py"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "- Keep unit tests with their product domain. Give integration or system test suites a separate QA owner only when the repository structure supports it.",
+        "kind": "verification",
+        "line": 81,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "15. Validate immediately:",
+        "kind": "verification",
+        "line": 95,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "--json-out \"$(git rev-parse --git-path codex-codeowners)/validation.json\"",
+        "kind": "verification",
+        "line": 101,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not claim success unless the target file exists in generate mode, validation exits zero, `.github/CODEOWNERS` is self-owned, and the working-tree diff is limited to the expected file.",
+        "kind": "verification",
+        "line": 117,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `PostToolUse`: rerun validation after the target file changes.",
+        "kind": "verification",
+        "line": 122,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `Stop` or `TaskCompleted`: require a zero-error validation result and an expected-only diff.",
+        "kind": "verification",
+        "line": 123,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `SubagentStop`: return the generated path, validation JSON path, coverage counts, and unresolved warnings.",
+        "kind": "verification",
+        "line": 124,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**[Steps]** Classify as a modular application; place a justified fallback first only when a verified steward team exists; assign product ownership to the service; assign platform ownership to workflows; assign database plus product ownership to migrations; add `.github/CODEOWNERS` self-ownership; validate last-match behavior and coverage.",
+        "kind": "verification",
+        "line": 140,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "**[Output]** `.github/CODEOWNERS`, an untracked inventory and validation report under the Git metadata directory, and a final summary identifying ownership sources, exceptions, and ruleset recommendations.",
+        "kind": "verification",
+        "line": 142,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Windows smoke check: `python scripts/run_python.py scripts/validate_codeowners.py --help`.",
+        "kind": "verification",
+        "line": 7,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- validate CODEOWNERS on changes and on a schedule;",
+        "kind": "verification",
+        "line": 153,
+        "path": "references/design-policy.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The owner map is evidence, not an instruction to skip repository analysis. Validate each recommended path against tracked files and final precedence.",
+        "kind": "verification",
+        "line": 71,
+        "path": "references/ownership-plan-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "check=False,",
+        "kind": "verification",
+        "line": 244,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "remote_proc = run([\"git\", \"remote\", \"get-url\", \"origin\"], repo, check=False)",
+        "kind": "verification",
+        "line": 378,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "total_commits_proc = run([\"git\", \"rev-list\", \"--count\", \"HEAD\"], repo, check=False)",
+        "kind": "verification",
+        "line": 408,
+        "path": "scripts/analyze_repository.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "check: bool = True,",
+        "kind": "verification",
+        "line": 27,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "check=False,",
+        "kind": "verification",
+        "line": 34,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if check and proc.returncode != 0:",
+        "kind": "verification",
+        "line": 39,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "proc = run([\"git\", \"rev-parse\", \"--show-toplevel\"], candidate, check=False)",
+        "kind": "verification",
+        "line": 50,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "check=False,",
+        "kind": "verification",
+        "line": 104,
+        "path": "scripts/codeowners_common.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "proc = run(command, repo, check=False)",
+        "kind": "verification",
+        "line": 30,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "remote_proc = run([\"git\", \"remote\", \"get-url\", \"origin\"], repo, check=False)",
+        "kind": "verification",
+        "line": 73,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "auth = run([\"gh\", \"auth\", \"status\", \"--hostname\", \"github.com\"], repo, check=False)",
+        "kind": "verification",
+        "line": 98,
+        "path": "scripts/discover_github_owners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate an ownership plan and atomically render .github/CODEOWNERS.\"\"\"",
+        "kind": "verification",
+        "line": 2,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "remote_proc = run([\"git\", \"remote\", \"get-url\", \"origin\"], repo, check=False)",
+        "kind": "verification",
+        "line": 89,
+        "path": "scripts/render_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Run a dependency-free smoke test for all bundled CODEOWNERS scripts.\"\"\"",
+        "kind": "verification",
+        "line": 2,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "proc = subprocess.run(args, cwd=str(cwd), check=False, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)",
+        "kind": "verification",
+        "line": 14,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "with tempfile.TemporaryDirectory(prefix=\"generate-codeowners-test-\") as temp:",
+        "kind": "verification",
+        "line": 25,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "validation = state / \"validation.json\"",
+        "kind": "verification",
+        "line": 110,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "str(validation),",
+        "kind": "verification",
+        "line": 120,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "report = json.loads(validation.read_text(encoding=\"utf-8\"))",
+        "kind": "verification",
+        "line": 125,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise RuntimeError(f\"Unexpected validation errors: {report['errors']}\")",
+        "kind": "verification",
+        "line": 127,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise RuntimeError(\"Negative validation test did not detect a late catch-all\")",
+        "kind": "verification",
+        "line": 139,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(\"generate-codeowners self-test: PASS\")",
+        "kind": "verification",
+        "line": 141,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"generate-codeowners self-test: FAIL\\n{exc}\", file=sys.stderr)",
+        "kind": "verification",
+        "line": 149,
+        "path": "scripts/self_test.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate GitHub CODEOWNERS syntax, precedence, path coverage, and governance risks.\"\"\"",
+        "kind": "verification",
+        "line": 2,
+        "path": "scripts/validate_codeowners.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "assert selected_index is not None",
+        "kind": "verification",
+        "line": 166,
+        "path": "scripts/validate_codeowners.py"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "a6a6d090870296e763fa5dbeb553869f740873bc096c437ae5a736274d6dbefe",
+  "generated_at": "2026-09-24T13:57:31.287864Z",
+  "inventory": [
+    {
+      "bytes": 9445,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "b3b2fbc18cbc087feac627b30651b3b133dfbeaab362fbad15e9524758d300a7"
+    },
+    {
+      "bytes": 504,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "5f5780224496b0a9cb4f9810d4fa004a650a9dba1fb4f2eff3f715133d6d800b"
+    },
+    {
+      "bytes": 7596,
+      "kind": "reference",
+      "language": null,
+      "path": "references/design-policy.md",
+      "sha256": "24ad2d1da21ff4da0a0f6b572e71dff3e98f12a1bc6e7659ccd6f778ade7f88c"
+    },
+    {
+      "bytes": 3345,
+      "kind": "reference",
+      "language": null,
+      "path": "references/ownership-plan-schema.md",
+      "sha256": "7ba172eb6e115d5aaf90de9ee95d4aa7451735499b15be5c25a476125d041197"
+    },
+    {
+      "bytes": 17582,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/analyze_repository.py",
+      "sha256": "93ecae2ccfabafd7c20cd0316ac74bff31d164360de00e8f6fcd2c9fdd332d00"
+    },
+    {
+      "bytes": 7783,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/codeowners_common.py",
+      "sha256": "8a8cb47b858fa2a3d0389346e2cb0755b389d7a9aa09e0ba45810743850cbc13"
+    },
+    {
+      "bytes": 8297,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/discover_github_owners.py",
+      "sha256": "bb9960a45cd00ad2084d5c933f33978dcca1342b17ad6cf3e52802a87ffd0a4a"
+    },
+    {
+      "bytes": 12435,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/render_codeowners.py",
+      "sha256": "daf6ce235c2a08f6ef1afe2eaf254554c4e75441f25643e91f1e83344f4cad7c"
+    },
+    {
+      "bytes": 277,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/run_python.py",
+      "sha256": "5fbe9a8f6d60246ad1a66bffd454bc4cb2d5f9e6c2c6c95bd52d0948f9d1703a"
+    },
+    {
+      "bytes": 5830,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/self_test.py",
+      "sha256": "e58405c33a33f4723c620fd5df0c0a10e531efa6cf9b3ee9dc664399747d0601"
+    },
+    {
+      "bytes": 10786,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/validate_codeowners.py",
+      "sha256": "9c44d32ddf26d2160cfbdd7f2bb9a1face6f9c0e79b05dca40d78e0f728c86ce"
+    },
+    {
+      "bytes": 362,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "6fd25154f10d64a425749b46c70f475bcf361d0e20b731fd05da1420306a19b4"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 12,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 2,
+    "script_files": 7,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 84242
+  },
+  "target": {
+    "description": "Analyze repository architecture, history, risk boundaries, and verified GitHub ownership to generate or audit CODEOWNERS.",
+    "name": "generate-codeowners",
+    "path": "skills/generate-codeowners",
+    "version": null
+  }
+}

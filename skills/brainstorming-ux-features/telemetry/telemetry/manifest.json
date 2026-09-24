@@ -1,0 +1,60 @@
+{
+  "candidate_counts": {
+    "boundaries": 163,
+    "decisions": 180,
+    "execution": 5,
+    "privacy": 14,
+    "verification": 52
+  },
+  "capture": {
+    "ambient_hook_attribution": "ambient",
+    "default_content_policy": "metadata",
+    "identifier_policy": "locally_salted_sha256",
+    "raw_command_text": false,
+    "raw_prompt_text": false,
+    "tool_response_body": false
+  },
+  "deployment": {
+    "hook_shell": "posix",
+    "mode": "repo",
+    "runtime_data_precedence": [
+      "SKILL_TELEMETRY_DATA_DIR",
+      "PLUGIN_DATA",
+      "sidecar_root"
+    ],
+    "target_path_hint": "brainstorming-ux-features"
+  },
+  "generated_at": "2026-09-24T13:57:02.002759Z",
+  "generator": {
+    "name": "skill-telemetry-engineer",
+    "version": "0.1.1"
+  },
+  "promotion": {
+    "auto_promote_evals": false,
+    "auto_rewrite_target": false,
+    "evidence_ladder": [
+      "observation",
+      "evidence",
+      "finding",
+      "eval_candidate",
+      "reviewed_invariant"
+    ],
+    "requires_review": true
+  },
+  "schema": "skilltelemetry.manifest.v1",
+  "storage": {
+    "ambient": "ambient/",
+    "derived": "derived/",
+    "derived_version_control": true,
+    "promoted_evals": "evals/regressions/",
+    "raw": "raw/",
+    "raw_version_control": false,
+    "state": "state/"
+  },
+  "target": {
+    "description": "Brainstorm, evaluate, prioritize, and specify UX-focused product features from repository and user evidence.",
+    "fingerprint": "2db124c4017f66f2529cf2e95260c99d38c490734c8eeb53056af76a9a80cfb6",
+    "name": "brainstorming-ux-features",
+    "version": null
+  }
+}

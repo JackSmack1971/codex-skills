@@ -1,0 +1,2668 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "3. Draft a concise `SKILL.md` using only supported frontmatter. Keep detailed",
+        "kind": "boundary",
+        "line": 22,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "templates in `assets/` only when they are actually needed.",
+        "kind": "boundary",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "any justified reduction and do not treat an undersized smoke set as G5.",
+        "kind": "boundary",
+        "line": 29,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`codex exec --json` only when runtime usage evidence is needed. Keep runs",
+        "kind": "boundary",
+        "line": 33,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "isolated and do not inspect transcripts or rollout bodies.",
+        "kind": "boundary",
+        "line": 34,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Validated Performance and an overall `/100` only when repeated paired",
+        "kind": "boundary",
+        "line": 37,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "does not expose a stable JSONL event for implicit skill ranking. Do not report",
+        "kind": "boundary",
+        "line": 63,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not invent Codex config, hooks, rules, MCP, or subagent files. Add them",
+        "kind": "boundary",
+        "line": 71,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "only when a documented Codex requirement and a test justify them.",
+        "kind": "boundary",
+        "line": 72,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use relative paths from this skill directory and do not depend on parent",
+        "kind": "boundary",
+        "line": 73,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Treat inputs and evaluation artifacts as untrusted. Never commit secrets,",
+        "kind": "boundary",
+        "line": 75,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Never call a deterministic validator behavioral evidence. Do not claim G5,",
+        "kind": "boundary",
+        "line": 77,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Stop conditions",
+        "kind": "boundary",
+        "line": 88,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Pause and report when the target runtime behavior is undocumented, a required",
+        "kind": "boundary",
+        "line": 90,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the requested change would require mutating configuration outside the skill.",
+        "kind": "boundary",
+        "line": 92,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "No dependencies beyond the Python stdlib are required.",
+        "kind": "boundary",
+        "line": 12,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# HTTP server (stdlib only, zero dependencies)",
+        "kind": "boundary",
+        "line": 270,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"\\n  Press Ctrl+C to stop.\\n\")",
+        "kind": "boundary",
+        "line": 444,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": ".grade-fail { background: var(--red-bg); color: var(--red); }",
+        "kind": "boundary",
+        "line": 307,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": ".assertion-status.fail { color: var(--red); }",
+        "kind": "boundary",
+        "line": 322,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Load saved feedback from server \u2014 but only if this isn't a fresh",
+        "kind": "boundary",
+        "line": 662,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "const badgeClass = summary.pass_rate >= 0.8 ? \"grade-pass\" : summary.pass_rate >= 0.5 ? \"\" : \"grade-fail\";",
+        "kind": "boundary",
+        "line": 710,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "const statusClass = exp.passed ? \"pass\" : \"fail\";",
+        "kind": "boundary",
+        "line": 719,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Save current textarea to feedbackMap (but don't POST yet)",
+        "kind": "boundary",
+        "line": 855,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Don't capture when typing in textarea",
+        "kind": "boundary",
+        "line": 907,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Time (only show row if data exists)",
+        "kind": "boundary",
+        "line": 1002,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Tokens (only show row if data exists)",
+        "kind": "boundary",
+        "line": 1010,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The runner records only final output markers and exit/timeout outcomes. Do not",
+        "kind": "boundary",
+        "line": 40,
+        "path": "references/benchmark-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "only when supplied by Codex runtime telemetry.",
+        "kind": "boundary",
+        "line": 49,
+        "path": "references/benchmark-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "within one benchmark and do not compare runs with different prompts or timeout",
+        "kind": "boundary",
+        "line": 52,
+        "path": "references/benchmark-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "observation \u2192 verification \u2192 completion and defines sufficient stop evidence.",
+        "kind": "boundary",
+        "line": 14,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Report static results only as `Design Readiness: X/50 \u2014 UNVALIDATED`. Do not",
+        "kind": "boundary",
+        "line": 53,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Critical violations must remain zero. Evaluate efficiency on successful runs;",
+        "kind": "boundary",
+        "line": 92,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "## Required scorecard",
+        "kind": "boundary",
+        "line": 105,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- G1\u2013G5 as PASS, FAIL, or UNVALIDATED;",
+        "kind": "boundary",
+        "line": 110,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Validated Performance `/50` only when evidence is sufficient;",
+        "kind": "boundary",
+        "line": 119,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Classification: FAIL / PASS / STRONG / EXCELLENT / EXCEPTIONAL / UNVALIDATED",
+        "kind": "boundary",
+        "line": 126,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use `EXCEPTIONAL` only when repeated evaluation demonstrates material",
+        "kind": "boundary",
+        "line": 133,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"Warning: expectation in {grading_file} missing required fields (text, passed, evidence): {exp}\")",
+        "kind": "boundary",
+        "line": 160,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": ".fail { color: #c44; }",
+        "kind": "boundary",
+        "line": 115,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "css_class = \"pass\" if did_pass else \"fail\"",
+        "kind": "boundary",
+        "line": 273,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "css_class = \"pass\" if did_pass else \"fail\"",
+        "kind": "boundary",
+        "line": 285,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Ask Codex for a revised skill description from evaluation evidence.\"\"\"",
+        "kind": "boundary",
+        "line": 2,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Return only the replacement text between <new_description> and </new_description>.",
+        "kind": "boundary",
+        "line": 20,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "[codex, \"exec\", \"--ephemeral\", \"--skip-git-repo-check\", \"-s\", \"read-only\",",
+        "kind": "boundary",
+        "line": 34,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--eval-results\", required=True)",
+        "kind": "boundary",
+        "line": 51,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--skill-path\", required=True)",
+        "kind": "boundary",
+        "line": 52,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate a Codex skill with only the Python standard library.\"\"\"",
+        "kind": "boundary",
+        "line": 2,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return False, \"name must be lowercase kebab-case and <= 64 characters\"",
+        "kind": "boundary",
+        "line": 37,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return False, \"name must match the skill directory\"",
+        "kind": "boundary",
+        "line": 39,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "return False, \"description must be non-empty, <= 1024 characters, and contain no angle brackets\"",
+        "kind": "boundary",
+        "line": 45,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "invocation and require the candidate to print SKILL_USED when it actually",
+        "kind": "boundary",
+        "line": 6,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"Use the repository skill at .agents/skills/{skill_name}/SKILL.md for this evaluation. Do not use a user or system skill with the same name. Do not edit files.\\n\"",
+        "kind": "boundary",
+        "line": 28,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"-s\", \"read-only\", \"-C\", str(project_root), \"-o\", str(output), prompt]",
+        "kind": "boundary",
+        "line": 35,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--eval-set\", required=True)",
+        "kind": "boundary",
+        "line": 74,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--skill-path\", required=True)",
+        "kind": "boundary",
+        "line": 75,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--eval-set\", required=True)",
+        "kind": "boundary",
+        "line": 22,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--skill-path\", required=True)",
+        "kind": "boundary",
+        "line": 23,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "These cases catch obvious regressions during authoring. They do not replace the",
+        "kind": "boundary",
+        "line": 3,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "corpus, repetitions, matched baseline, or scorecard required by the bundled",
+        "kind": "boundary",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "reject the claim and require evidence instead.",
+        "kind": "boundary",
+        "line": 10,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a skill with executable helpers, require deterministic",
+        "kind": "boundary",
+        "line": 11,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "Before relying on CLI or skill-contract behavior, detect the local runtime and",
+        "kind": "decision",
+        "line": 9,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Inspect the existing skill and repository conventions before editing. For a",
+        "kind": "decision",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "templates in `assets/` only when they are actually needed.",
+        "kind": "decision",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "State the value hypothesis before testing. Build positive, negative, and",
+        "kind": "decision",
+        "line": 26,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "the contract's default corpus and repetition counts when practical; record",
+        "kind": "decision",
+        "line": 28,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "state with outcome rubrics fixed before results. Use",
+        "kind": "decision",
+        "line": 31,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`codex exec` when available, capture exit status and final output, and use",
+        "kind": "decision",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`codex exec --json` only when runtime usage evidence is needed. Keep runs",
+        "kind": "decision",
+        "line": 33,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Validated Performance and an overall `/100` only when repeated paired",
+        "kind": "decision",
+        "line": 37,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `scripts/package_skill.py`: creates a `.skill` archive after validation.",
+        "kind": "decision",
+        "line": 50,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "only when a documented Codex requirement and a test justify them.",
+        "kind": "decision",
+        "line": 72,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Pause and report when the target runtime behavior is undocumented, a required",
+        "kind": "decision",
+        "line": 90,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": ".toggle .slider::before { content: \"\"; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }",
+        "kind": "decision",
+        "line": 35,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": ".toggle input:checked + .slider::before { transform: translateX(20px); }",
+        "kind": "decision",
+        "line": 37,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (group !== lastGroup) {",
+        "kind": "decision",
+        "line": 82,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if ext in MIME_OVERRIDES:",
+        "kind": "decision",
+        "line": 53,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not current.is_dir():",
+        "kind": "decision",
+        "line": 68,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if outputs_dir.is_dir():",
+        "kind": "decision",
+        "line": 72,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if run:",
+        "kind": "decision",
+        "line": 74,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if child.is_dir() and child.name not in skip:",
+        "kind": "decision",
+        "line": 80,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if candidate.exists():",
+        "kind": "decision",
+        "line": 91,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if prompt:",
+        "kind": "decision",
+        "line": 98,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not prompt:",
+        "kind": "decision",
+        "line": 101,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if outputs_dir.is_dir():",
+        "kind": "decision",
+        "line": 109,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if f.is_file() and f.name not in METADATA_FILES:",
+        "kind": "decision",
+        "line": 111,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Load grading if present",
+        "kind": "decision",
+        "line": 114,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if candidate.exists():",
+        "kind": "decision",
+        "line": 117,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if grading:",
+        "kind": "decision",
+        "line": 122,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if ext in TEXT_EXTENSIONS:",
+        "kind": "decision",
+        "line": 139,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if feedback_path.exists():",
+        "kind": "decision",
+        "line": 208,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if r.get(\"feedback\", \"\").strip()",
+        "kind": "decision",
+        "line": 214,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if run_id not in result:",
+        "kind": "decision",
+        "line": 229,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if previous:",
+        "kind": "decision",
+        "line": 248,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if data.get(\"feedback\"):",
+        "kind": "decision",
+        "line": 250,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if data.get(\"outputs\"):",
+        "kind": "decision",
+        "line": 252,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if benchmark:",
+        "kind": "decision",
+        "line": 261,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if pid_str.strip():",
+        "kind": "decision",
+        "line": 281,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result.stdout.strip():",
+        "kind": "decision",
+        "line": 286,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(\"Note: lsof not found, cannot check if port is in use\", file=sys.stderr)",
+        "kind": "decision",
+        "line": 291,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if self.path == \"/\" or self.path == \"/index.html\":",
+        "kind": "decision",
+        "line": 318,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if self.benchmark_path and self.benchmark_path.exists():",
+        "kind": "decision",
+        "line": 322,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if self.feedback_path.exists():",
+        "kind": "decision",
+        "line": 336,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if self.path == \"/api/feedback\":",
+        "kind": "decision",
+        "line": 347,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not isinstance(data, dict) or \"reviews\" not in data:",
+        "kind": "decision",
+        "line": 352,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not workspace.is_dir():",
+        "kind": "decision",
+        "line": 392,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not runs:",
+        "kind": "decision",
+        "line": 397,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.previous_workspace:",
+        "kind": "decision",
+        "line": 405,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "benchmark_path = args.benchmark.resolve() if args.benchmark else None",
+        "kind": "decision",
+        "line": 408,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if benchmark_path and benchmark_path.exists():",
+        "kind": "decision",
+        "line": 410,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.static:",
+        "kind": "decision",
+        "line": 416,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Port still in use after kill attempt \u2014 find a free one",
+        "kind": "decision",
+        "line": 430,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if previous:",
+        "kind": "decision",
+        "line": 440,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if benchmark_path:",
+        "kind": "decision",
+        "line": 442,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 455,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<div class=\"instructions\">Review each output and leave feedback below. Navigate with arrow keys or buttons. When done, copy feedback and paste into Codex.</div>",
+        "kind": "decision",
+        "line": 552,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Load saved feedback from server \u2014 but only if this isn't a fresh",
+        "kind": "decision",
+        "line": 662,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// iteration (indicated by previous_feedback being present). When",
+        "kind": "decision",
+        "line": 663,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!hasPrevious) {",
+        "kind": "decision",
+        "line": 668,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!run.grading) {",
+        "kind": "decision",
+        "line": 690,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (exp.evidence) {",
+        "kind": "decision",
+        "line": 724,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!prevOutputs || prevOutputs.length === 0) {",
+        "kind": "decision",
+        "line": 748,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (file.type === \"text\") {",
+        "kind": "decision",
+        "line": 783,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "} else if (file.type === \"image\") {",
+        "kind": "decision",
+        "line": 787,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "} else if (file.type === \"pdf\") {",
+        "kind": "decision",
+        "line": 792,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "} else if (file.type === \"xlsx\") {",
+        "kind": "decision",
+        "line": 796,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "} else if (file.type === \"binary\") {",
+        "kind": "decision",
+        "line": 798,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (text.trim() === \"\") {",
+        "kind": "decision",
+        "line": 826,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (feedback.trim()) {",
+        "kind": "decision",
+        "line": 835,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (text.trim() === \"\") {",
+        "kind": "decision",
+        "line": 858,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Don't capture when typing in textarea",
+        "kind": "decision",
+        "line": 907,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (e.target.tagName === \"TEXTAREA\") return;",
+        "kind": "decision",
+        "line": 908,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (e.key === \"ArrowLeft\" || e.key === \"ArrowUp\") {",
+        "kind": "decision",
+        "line": 910,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "} else if (e.key === \"ArrowRight\" || e.key === \"ArrowDown\") {",
+        "kind": "decision",
+        "line": 913,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (file.data_uri) return file.data_uri;",
+        "kind": "decision",
+        "line": 921,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (file.data_b64) return \"data:application/octet-stream;base64,\" + file.data_b64;",
+        "kind": "decision",
+        "line": 922,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (file.type === \"text\") return \"data:text/plain;charset=utf-8,\" + encodeURIComponent(file.content);",
+        "kind": "decision",
+        "line": 923,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!data) return;",
+        "kind": "decision",
+        "line": 944,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (metadata.skill_name) html += \"<strong>\" + escapeHtml(metadata.skill_name) + \"</strong> &mdash; \";",
+        "kind": "decision",
+        "line": 959,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (metadata.timestamp) html += metadata.timestamp + \" &mdash; \";",
+        "kind": "decision",
+        "line": 960,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (metadata.evals_run) html += \"Evals: \" + metadata.evals_run.join(\", \") + \" &mdash; \";",
+        "kind": "decision",
+        "line": 961,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!stat) return \"\u2014\";",
+        "kind": "decision",
+        "line": 969,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!val) return \"\";",
+        "kind": "decision",
+        "line": 977,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (n > 0) return \"benchmark-delta-positive\";",
+        "kind": "decision",
+        "line": 979,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (n < 0) return \"benchmark-delta-negative\";",
+        "kind": "decision",
+        "line": 980,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Time (only show row if data exists)",
+        "kind": "decision",
+        "line": 1002,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (a.time_seconds || b.time_seconds) {",
+        "kind": "decision",
+        "line": 1003,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Tokens (only show row if data exists)",
+        "kind": "decision",
+        "line": 1010,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (a.tokens || b.tokens) {",
+        "kind": "decision",
+        "line": 1011,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Per-eval breakdown (if runs data available)",
+        "kind": "decision",
+        "line": 1020,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (runs.length > 0) {",
+        "kind": "decision",
+        "line": 1022,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (hasTime) html += \"<th>Time (s)</th>\";",
+        "kind": "decision",
+        "line": 1037,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (hasErrors) html += \"<th>Crashes During Execution</th>\";",
+        "kind": "decision",
+        "line": 1038,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (configRuns.length === 0) continue;",
+        "kind": "decision",
+        "line": 1047,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (hasTime) html += \"<td>\" + (r.time_seconds != null ? r.time_seconds.toFixed(1) : \"\u2014\") + \"</td>\";",
+        "kind": "decision",
+        "line": 1059,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (hasErrors) html += \"<td>\" + (r.errors || 0) + \"</td>\";",
+        "kind": "decision",
+        "line": 1060,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (hasTime) {",
+        "kind": "decision",
+        "line": 1072,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (hasErrors) html += \"<td></td>\";",
+        "kind": "decision",
+        "line": 1076,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (hasAnyExpectations) {",
+        "kind": "decision",
+        "line": 1087,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (!seen.has(exp.text)) {",
+        "kind": "decision",
+        "line": 1094,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (exp) {",
+        "kind": "decision",
+        "line": 1117,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (notes.length > 0) {",
+        "kind": "decision",
+        "line": 1135,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "only when supplied by Codex runtime telemetry.",
+        "kind": "decision",
+        "line": 49,
+        "path": "references/benchmark-schema.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Workflow ownership and routing | 8 | Concrete recurring workflow; what, when, and neighbor boundary are explicit. |",
+        "kind": "decision",
+        "line": 29,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "| Deterministic mechanisms | 5 | Mechanical Coverage \u22650.90 after maintenance, portability, and security costs. |",
+        "kind": "decision",
+        "line": 33,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Define the primary value hypothesis and outcome rubric before viewing results.",
+        "kind": "decision",
+        "line": 58,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Unless cost or risk makes the default impractical, use at least:",
+        "kind": "decision",
+        "line": 59,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "states. If the default corpus is reduced, document the reason and classify the",
+        "kind": "decision",
+        "line": 69,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "result as insufficient for G5 unless equivalent statistical evidence exists.",
+        "kind": "decision",
+        "line": 70,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Validated Performance `/50` only when evidence is sufficient;",
+        "kind": "decision",
+        "line": 119,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Use `EXCEPTIONAL` only when repeated evaluation demonstrates material",
+        "kind": "decision",
+        "line": 133,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not values:",
+        "kind": "decision",
+        "line": 47,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if n > 1:",
+        "kind": "decision",
+        "line": 53,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if runs_dir.exists():",
+        "kind": "decision",
+        "line": 76,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if metadata_path.exists():",
+        "kind": "decision",
+        "line": 88,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not config_dir.is_dir():",
+        "kind": "decision",
+        "line": 102,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not list(config_dir.glob(\"run-*\")):",
+        "kind": "decision",
+        "line": 105,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if config not in results:",
+        "kind": "decision",
+        "line": 108,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not grading_file.exists():",
+        "kind": "decision",
+        "line": 115,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result[\"time_seconds\"] == 0.0 and timing_file.exists():",
+        "kind": "decision",
+        "line": 140,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Extract metrics if available",
+        "kind": "decision",
+        "line": 149,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not result.get(\"tokens\"):",
+        "kind": "decision",
+        "line": 152,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"text\" not in exp or \"passed\" not in exp:",
+        "kind": "decision",
+        "line": 159,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not runs:",
+        "kind": "decision",
+        "line": 188,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Calculate delta between the first two configs (if two exist)",
+        "kind": "decision",
+        "line": 206,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(configs) >= 2:",
+        "kind": "decision",
+        "line": 207,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "primary = run_summary.get(configs[0], {}) if configs else {}",
+        "kind": "decision",
+        "line": 211,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "configs = [k for k in run_summary if k != \"delta\"]",
+        "kind": "decision",
+        "line": 286,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "config_a = configs[0] if len(configs) >= 1 else \"config_a\"",
+        "kind": "decision",
+        "line": 287,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "config_b = configs[1] if len(configs) >= 2 else \"config_b\"",
+        "kind": "decision",
+        "line": 288,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if benchmark.get(\"notes\"):",
+        "kind": "decision",
+        "line": 325,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not args.benchmark_dir.exists():",
+        "kind": "decision",
+        "line": 364,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "configs = [k for k in run_summary if k != \"delta\"]",
+        "kind": "decision",
+        "line": 388,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 399,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Generate HTML report from loop output data. If auto_refresh is True, adds a meta refresh tag.\"\"\"",
+        "kind": "decision",
+        "line": 17,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "title_prefix = html.escape(skill_name + \" \\u2014 \") if skill_name else \"\"",
+        "kind": "decision",
+        "line": 20,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if history:",
+        "kind": "decision",
+        "line": 25,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if history[0].get(\"test_results\"):",
+        "kind": "decision",
+        "line": 28,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "refresh_tag = '    <meta http-equiv=\"refresh\" content=\"5\">\\n' if auto_refresh else \"\"",
+        "kind": "decision",
+        "line": 32,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<strong>Optimizing your skill's description.</strong> This page updates automatically as Codex tests different versions of your skill's description. Each row is an iteration \u2014 a new description attempt. The columns show test queries: green checkmarks mean the skill triggered correctly (or correctly didn't trigger), red crosses mean it got it wrong. The \"Train\" score shows performance on queries used to improve the description; the \"Test\" score shows performance on held-out queries the optimizer ",
+        "kind": "decision",
+        "line": 151,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<p><strong>Best Score:</strong> {data.get('best_score', 'N/A')} {'(test)' if best_test_score else '(train)'}</p>",
+        "kind": "decision",
+        "line": 162,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "polarity = \"positive-col\" if qinfo[\"should_trigger\"] else \"negative-col\"",
+        "kind": "decision",
+        "line": 192,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "polarity = \"positive-col\" if qinfo[\"should_trigger\"] else \"negative-col\"",
+        "kind": "decision",
+        "line": 197,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if test_queries:",
+        "kind": "decision",
+        "line": 206,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "test_by_query = {r[\"query\"]: r for r in test_results} if test_results else {}",
+        "kind": "decision",
+        "line": 224,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if r.get(\"should_trigger\", True):",
+        "kind": "decision",
+        "line": 234,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if total > 0:",
+        "kind": "decision",
+        "line": 245,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if ratio >= 0.8:",
+        "kind": "decision",
+        "line": 247,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "row_class = \"best-row\" if iteration == best_iter else \"\"",
+        "kind": "decision",
+        "line": 256,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "icon = \"\u2713\" if did_pass else \"\u2717\"",
+        "kind": "decision",
+        "line": 272,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "css_class = \"pass\" if did_pass else \"fail\"",
+        "kind": "decision",
+        "line": 273,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "icon = \"\u2713\" if did_pass else \"\u2717\"",
+        "kind": "decision",
+        "line": 284,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "css_class = \"pass\" if did_pass else \"fail\"",
+        "kind": "decision",
+        "line": 285,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.input == \"-\":",
+        "kind": "decision",
+        "line": 311,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.output:",
+        "kind": "decision",
+        "line": 318,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 325,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result.returncode or not output.is_file():",
+        "kind": "decision",
+        "line": 38,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if \"<new_description>\" in text:",
+        "kind": "decision",
+        "line": 41,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not description or len(description) > 1024:",
+        "kind": "decision",
+        "line": 44,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (parent / \".agents\").is_dir()), skill_path.parent))",
+        "kind": "decision",
+        "line": 60,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 64,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not ok:",
+        "kind": "decision",
+        "line": 20,
+        "path": "scripts/package_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file() or any(part in EXCLUDED_DIRS for part in relative.parts):",
+        "kind": "decision",
+        "line": 28,
+        "path": "scripts/package_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if fnmatch.fnmatch(path.name, \"*.pyc\") or path.name == \".DS_Store\":",
+        "kind": "decision",
+        "line": 30,
+        "path": "scripts/package_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 36,
+        "path": "scripts/package_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(sys.argv) not in {2, 3}:",
+        "kind": "decision",
+        "line": 37,
+        "path": "scripts/package_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(package_skill(sys.argv[1], sys.argv[2] if len(sys.argv) == 3 else None))",
+        "kind": "decision",
+        "line": 39,
+        "path": "scripts/package_skill.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not path.is_file():",
+        "kind": "decision",
+        "line": 14,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not lines or lines[0].strip() != \"---\":",
+        "kind": "decision",
+        "line": 17,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "end = next(i for i, line in enumerate(lines[1:], 1) if line.strip() == \"---\")",
+        "kind": "decision",
+        "line": 20,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not line.strip() or line.startswith((\" \", \"\\t\")):",
+        "kind": "decision",
+        "line": 26,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if unexpected:",
+        "kind": "decision",
+        "line": 31,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "for line in lines[1:end] if \":\" in line and not line.startswith((\" \", \"\\t\"))}",
+        "kind": "decision",
+        "line": 34,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not re.fullmatch(r\"[a-z0-9]+(?:-[a-z0-9]+)*\", name) or len(name) > 64:",
+        "kind": "decision",
+        "line": 36,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if root.name != name:",
+        "kind": "decision",
+        "line": 38,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if description in {\">\", \"|\", \">-\", \"|-\"}:",
+        "kind": "decision",
+        "line": 41,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if line.startswith((\"  \", \"\\t\")))",
+        "kind": "decision",
+        "line": 43,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not description or len(description) > 1024 or \"<\" in description or \">\" in description:",
+        "kind": "decision",
+        "line": 44,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 49,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if len(sys.argv) != 2:",
+        "kind": "decision",
+        "line": 50,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "raise SystemExit(0 if ok else 1)",
+        "kind": "decision",
+        "line": 54,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "invocation and require the candidate to print SKILL_USED when it actually",
+        "kind": "decision",
+        "line": 6,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "f\"If you followed that skill, end your final answer with {expected}.\"",
+        "kind": "decision",
+        "line": 30,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if os.name == \"nt\":",
+        "kind": "decision",
+        "line": 41,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if process.returncode != 0 or not output.is_file():",
+        "kind": "decision",
+        "line": 48,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "passed = rate >= threshold if should_trigger else rate < threshold",
+        "kind": "decision",
+        "line": 61,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not (skill_path / \"SKILL.md\").is_file():",
+        "kind": "decision",
+        "line": 81,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (parent / \".agents\").is_dir()), skill_path.parent)",
+        "kind": "decision",
+        "line": 86,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 91,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if (parent / \".agents\").is_dir()), skill_path.parent)",
+        "kind": "decision",
+        "line": 31,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if result[\"summary\"][\"failed\"] == 0:",
+        "kind": "decision",
+        "line": 40,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if args.results_dir:",
+        "kind": "decision",
+        "line": 49,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 55,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not lines or lines[0].strip() != \"---\":",
+        "kind": "decision",
+        "line": 9,
+        "path": "scripts/utils.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "end = next(i for i, line in enumerate(lines[1:], 1) if line.strip() == \"---\")",
+        "kind": "decision",
+        "line": 12,
+        "path": "scripts/utils.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if line.startswith(\"name:\"):",
+        "kind": "decision",
+        "line": 21,
+        "path": "scripts/utils.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if value in {\">\", \"|\", \">-\", \"|-\"}:",
+        "kind": "decision",
+        "line": 25,
+        "path": "scripts/utils.py"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "high",
+        "excerpt": "import subprocess",
+        "kind": "execution",
+        "line": 21,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "result = subprocess.run(",
+        "kind": "execution",
+        "line": 276,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "except subprocess.TimeoutExpired:",
+        "kind": "execution",
+        "line": 288,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "self.feedback_path.write_text(json.dumps(data, indent=2) + \"\\n\")",
+        "kind": "execution",
+        "line": 354,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "args.static.write_text(html)",
+        "kind": "execution",
+        "line": 419,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "const resp = await fetch(\"/api/feedback\");",
+        "kind": "execution",
+        "line": 670,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "content.classList.remove(\"open\");",
+        "kind": "execution",
+        "line": 698,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "document.getElementById(\"grades-arrow\").classList.remove(\"open\");",
+        "kind": "execution",
+        "line": 699,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "content.classList.remove(\"open\");",
+        "kind": "execution",
+        "line": 755,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "document.getElementById(\"prev-outputs-arrow\").classList.remove(\"open\");",
+        "kind": "execution",
+        "line": 756,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "fetch(\"/api/feedback\", {",
+        "kind": "execution",
+        "line": 840,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "fetch(\"/api/feedback\", {",
+        "kind": "execution",
+        "line": 872,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "document.getElementById(\"done-overlay\").classList.remove(\"visible\");",
+        "kind": "execution",
+        "line": 894,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "setTimeout(() => toast.classList.remove(\"visible\"), 2000);",
+        "kind": "execution",
+        "line": 902,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "document.querySelectorAll(\".view-tab\").forEach(t => t.classList.remove(\"active\"));",
+        "kind": "execution",
+        "line": 935,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "document.querySelectorAll(\".view-panel\").forEach(p => p.classList.remove(\"active\"));",
+        "kind": "execution",
+        "line": 936,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "with open(metadata_path) as mf:",
+        "kind": "execution",
+        "line": 90,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "with open(grading_file) as f:",
+        "kind": "execution",
+        "line": 120,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "with open(timing_file) as tf:",
+        "kind": "execution",
+        "line": 142,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "with open(output_json, \"w\") as f:",
+        "kind": "execution",
+        "line": 376,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "with open(output_md, \"w\") as f:",
+        "kind": "execution",
+        "line": 382,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "Path(args.output).write_text(html_output)",
+        "kind": "execution",
+        "line": 319,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "import subprocess",
+        "kind": "execution",
+        "line": 7,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "result = subprocess.run(",
+        "kind": "execution",
+        "line": 33,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "import subprocess",
+        "kind": "execution",
+        "line": 14,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "process = subprocess.Popen(command, cwd=project_root, stdout=subprocess.PIPE,",
+        "kind": "execution",
+        "line": 36,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "stderr=subprocess.PIPE, text=True)",
+        "kind": "execution",
+        "line": 37,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "except subprocess.TimeoutExpired:",
+        "kind": "execution",
+        "line": 40,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "subprocess.run([\"taskkill\", \"/PID\", str(process.pid), \"/T\", \"/F\"],",
+        "kind": "execution",
+        "line": 42,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "import subprocess",
+        "kind": "execution",
+        "line": 6,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "high",
+        "excerpt": "(destination / \"results.json\").write_text(text + \"\\n\", encoding=\"utf-8\")",
+        "kind": "execution",
+        "line": 52,
+        "path": "scripts/run_loop.py"
+      }
+    ],
+    "privacy": [
+      {
+        "confidence": "medium",
+        "excerpt": "metric has `mean`, `stddev`, `min`, and `max`. Runtime token values are included",
+        "kind": "privacy",
+        "line": 48,
+        "path": "references/benchmark-schema.md"
+      }
+    ],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "and validation behavior explicit.",
+        "kind": "verification",
+        "line": 13,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "evidence is sufficient. Static or deterministic validation leaves G5",
+        "kind": "verification",
+        "line": 38,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "and check for material regressions.",
+        "kind": "verification",
+        "line": 42,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "8. Validate the package from the repository root. Check metadata, relative",
+        "kind": "verification",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `scripts/quick_validate.py`: dependency-free metadata and package validation.",
+        "kind": "verification",
+        "line": 49,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `scripts/package_skill.py`: creates a `.skill` archive after validation.",
+        "kind": "verification",
+        "line": 50,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- `eval-viewer/generate_review.py --static`: produces a reviewable HTML file",
+        "kind": "verification",
+        "line": 55,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "only when a documented Codex requirement and a test justify them.",
+        "kind": "verification",
+        "line": 72,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "unknown behavior, and validation evidence. Leave the source package untouched.",
+        "kind": "verification",
+        "line": 86,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Codex command or schema is unavailable, a test needs external credentials, or",
+        "kind": "verification",
+        "line": 91,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<title>Eval Set Review - __SKILL_NAME_PLACEHOLDER__</title>",
+        "kind": "verification",
+        "line": 9,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<h1>Eval Set Review: <span id=\"skill-name\">__SKILL_NAME_PLACEHOLDER__</span></h1>",
+        "kind": "verification",
+        "line": 44,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<button class=\"btn btn-export\" onclick=\"exportEvalSet()\">Export Eval Set</button>",
+        "kind": "verification",
+        "line": 49,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<tbody id=\"eval-body\"></tbody>",
+        "kind": "verification",
+        "line": 60,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "const tbody = document.getElementById('eval-body');",
+        "kind": "verification",
+        "line": 71,
+        "path": "assets/eval_review.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Generate and serve a review page for eval results.",
+        "kind": "verification",
+        "line": 2,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(\"Note: lsof not found, cannot check if port is in use\", file=sys.stderr)",
+        "kind": "verification",
+        "line": 291,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "picks up new eval outputs without restarting the server.",
+        "kind": "verification",
+        "line": 297,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser = argparse.ArgumentParser(description=\"Generate and serve eval review\")",
+        "kind": "verification",
+        "line": 373,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"\\n  Eval Viewer\")",
+        "kind": "verification",
+        "line": 435,
+        "path": "eval-viewer/generate_review.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<title>Eval Review</title>",
+        "kind": "verification",
+        "line": 10,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<h1>Eval Review: <span id=\"skill-name\"></span></h1>",
+        "kind": "verification",
+        "line": 551,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Per-eval breakdown (if runs data available)",
+        "kind": "verification",
+        "line": 1020,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "html += \"<h3 style='font-family: Poppins, sans-serif; margin-bottom: 0.75rem;'>Per-Eval Breakdown</h3>\";",
+        "kind": "verification",
+        "line": 1025,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "const evalName = evalRuns[0] && evalRuns[0].eval_name ? evalRuns[0].eval_name : \"Eval \" + evalId;",
+        "kind": "verification",
+        "line": 1032,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "// Per-assertion detail for this eval",
+        "kind": "verification",
+        "line": 1081,
+        "path": "eval-viewer/viewer.html"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "regression.",
+        "kind": "verification",
+        "line": 20,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "deterministic validation, or one successful run cannot pass it.",
+        "kind": "verification",
+        "line": 23,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "### Material-value test",
+        "kind": "verification",
+        "line": 82,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Material regression:",
+        "kind": "verification",
+        "line": 129,
+        "path": "references/high-leverage-skill-evaluation.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\u2514\u2500\u2500 eval-N/",
+        "kind": "verification",
+        "line": 19,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\u2514\u2500\u2500 eval-N/",
+        "kind": "verification",
+        "line": 30,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Support both layouts: eval dirs directly under benchmark_dir, or under runs/",
+        "kind": "verification",
+        "line": 74,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "elif list(benchmark_dir.glob(\"eval-*\")):",
+        "kind": "verification",
+        "line": 78,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(f\"No eval directories found in {benchmark_dir} or {benchmark_dir / 'runs'}\")",
+        "kind": "verification",
+        "line": 81,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "for eval_idx, eval_dir in enumerate(sorted(search_dir.glob(\"eval-*\"))):",
+        "kind": "verification",
+        "line": 86,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Extract timing \u2014 check grading.json first, then sibling timing.json",
+        "kind": "verification",
+        "line": 136,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Determine eval IDs from results",
+        "kind": "verification",
+        "line": 256,
+        "path": "scripts/aggregate_benchmark.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "showing each description attempt with check/x for each test case.",
+        "kind": "verification",
+        "line": 5,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Distinguishes between train and test queries.",
+        "kind": "verification",
+        "line": 6,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Get all unique queries from train and test sets, with should_trigger info",
+        "kind": "verification",
+        "line": 22,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "th.test-col {",
+        "kind": "verification",
+        "line": 96,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "td.test-result {",
+        "kind": "verification",
+        "line": 111,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": ".test-label { color: #6a9bcc; font-size: 10px; font-weight: bold; }",
+        "kind": "verification",
+        "line": 133,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "th.test-col.positive-col { border-bottom: 3px solid #788c5d; }",
+        "kind": "verification",
+        "line": 137,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "th.test-col.negative-col { border-bottom: 3px solid #c44; }",
+        "kind": "verification",
+        "line": 138,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": ".swatch-test { background: #6a9bcc; }",
+        "kind": "verification",
+        "line": 144,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<strong>Optimizing your skill's description.</strong> This page updates automatically as Codex tests different versions of your skill's description. Each row is an iteration \u2014 a new description attempt. The columns show test queries: green checkmarks mean the skill triggered correctly (or correctly didn't trigger), red crosses mean it got it wrong. The \"Train\" score shows performance on queries used to improve the description; the \"Test\" score shows performance on held-out queries the optimizer ",
+        "kind": "verification",
+        "line": 151,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<p><strong>Best Score:</strong> {data.get('best_score', 'N/A')} {'(test)' if best_test_score else '(train)'}</p>",
+        "kind": "verification",
+        "line": 162,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<p><strong>Iterations:</strong> {data.get('iterations_run', 0)} | <strong>Train:</strong> {data.get('train_size', '?')} | <strong>Test:</strong> {data.get('test_size', '?')}</p>",
+        "kind": "verification",
+        "line": 163,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<span class=\"legend-item\"><span class=\"legend-swatch swatch-test\"></span> Test</span>",
+        "kind": "verification",
+        "line": 174,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "<th>Test</th>",
+        "kind": "verification",
+        "line": 186,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Add column headers for test queries (different color)",
+        "kind": "verification",
+        "line": 195,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "html_parts.append(f'                <th class=\"test-col {polarity}\">{html.escape(qinfo[\"query\"])}</th>\\n')",
+        "kind": "verification",
+        "line": 198,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "# Add result for each test query (with different background)",
+        "kind": "verification",
+        "line": 277,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "html_parts.append(f'                <td class=\"result test-result {css_class}\">{icon}<span class=\"rate\">{triggers}/{runs}</span></td>\\n')",
+        "kind": "verification",
+        "line": 287,
+        "path": "scripts/generate_report.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "[codex, \"exec\", \"--ephemeral\", \"--skip-git-repo-check\", \"-s\", \"read-only\",",
+        "kind": "verification",
+        "line": 34,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--eval-results\", required=True)",
+        "kind": "verification",
+        "line": 51,
+        "path": "scripts/improve_description.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Validate a Codex skill with only the Python standard library.\"\"\"",
+        "kind": "verification",
+        "line": 2,
+        "path": "scripts/quick_validate.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "with tempfile.TemporaryDirectory(prefix=\"codex-skill-eval-\") as temp:",
+        "kind": "verification",
+        "line": 32,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "command = [codex, \"exec\", \"--ephemeral\", \"--skip-git-repo-check\",",
+        "kind": "verification",
+        "line": 34,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--eval-set\", required=True)",
+        "kind": "verification",
+        "line": 74,
+        "path": "scripts/run_eval.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--eval-set\", required=True)",
+        "kind": "verification",
+        "line": 22,
+        "path": "scripts/run_loop.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"query\": \"Read the skill instructions and summarize the package validation rule in one sentence.\",",
+        "kind": "verification",
+        "line": 3,
+        "path": "tests/codex-smoke-eval.json"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "validation while keeping subjective behavior cases separate.",
+        "kind": "verification",
+        "line": 12,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"prompt\": \"Check the package metadata.\",",
+        "kind": "verification",
+        "line": 4,
+        "path": "tests/review-fixture/eval-0/eval_metadata.json"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "cc4171d128cb258f97b95df8b679db7df2f9e8ee491b0267c6a4c8262aabc6f8",
+  "generated_at": "2026-09-24T14:01:04.800734Z",
+  "inventory": [
+    {
+      "bytes": 5000,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "0a9a3c7fb52dd9d5e160f7d40daf92e4db402fc6d23118758677c882a56b2b68"
+    },
+    {
+      "bytes": 7104,
+      "kind": "asset",
+      "language": null,
+      "path": "assets/eval_review.html",
+      "sha256": "9e965acf4232e31bea7527dde4d429cef27c748dd4e24852873184aee8b8c550"
+    },
+    {
+      "bytes": 15821,
+      "kind": "other",
+      "language": "python",
+      "path": "eval-viewer/generate_review.py",
+      "sha256": "727e0507e0e8684aa52330d42ef650541391f27469875e59aa199073c0a9b508"
+    },
+    {
+      "bytes": 38934,
+      "kind": "other",
+      "language": null,
+      "path": "eval-viewer/viewer.html",
+      "sha256": "16074a1933212084d7590e19039f531c48fb9238c4820f8a945622e7999f36a4"
+    },
+    {
+      "bytes": 1460,
+      "kind": "reference",
+      "language": null,
+      "path": "references/benchmark-schema.md",
+      "sha256": "1d7c923b72475d99378a88697997737eb66eb2aa5e973679a856feaa8236bf9c"
+    },
+    {
+      "bytes": 5892,
+      "kind": "reference",
+      "language": null,
+      "path": "references/high-leverage-skill-evaluation.md",
+      "sha256": "1f062650685b67d80e0a378205c6a6f0612763a7052ff3998f92ad24e4a9ad2f"
+    },
+    {
+      "bytes": 35,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/__init__.py",
+      "sha256": "c02d47a67bb2c5da2ac853f6da8ad840ebae4fbe851be221130085491908a34e"
+    },
+    {
+      "bytes": 14341,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/aggregate_benchmark.py",
+      "sha256": "7af066bb7d5154e41b22c2793fb7f57e8723929baf343d1b961dde4065e6566b"
+    },
+    {
+      "bytes": 12846,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/generate_report.py",
+      "sha256": "c4fb0ca9cd15e867ef04a3ac947fbe4bdf56446ebfefd692e77f677f13370a4b"
+    },
+    {
+      "bytes": 2653,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/improve_description.py",
+      "sha256": "9b5582e02fe9d2ebfbb1ad62ec3a3af793a77e3b99d8559657d5bc36e9a3c0c6"
+    },
+    {
+      "bytes": 1413,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/package_skill.py",
+      "sha256": "3e893433d81449b59d0ec83065cd1b60b8504229b4d9f426ac3b7826a8dff659"
+    },
+    {
+      "bytes": 2232,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/quick_validate.py",
+      "sha256": "946a1f33052afcbbffd44b368d2fd565faa33510634a81a0c73f5a21043919b5"
+    },
+    {
+      "bytes": 4099,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/run_eval.py",
+      "sha256": "4f1e802c5ef875464e23b0eb3a1121cd6a005b1ef6e6a72b8c847209bec80c28"
+    },
+    {
+      "bytes": 2186,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/run_loop.py",
+      "sha256": "05f3aef2209660ca3f756a9208d476d8145d93b53d5cd10d21752c7fe2f89ee5"
+    },
+    {
+      "bytes": 1311,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/utils.py",
+      "sha256": "25995ce4d9e7532a5a3b64319b618c8bb987dcd39437044c872d3f11ac30a852"
+    },
+    {
+      "bytes": 142,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/codex-smoke-eval.json",
+      "sha256": "1e19d12ee26847804fa435586e022a9c636df240005e40ccf37e5445c2455572"
+    },
+    {
+      "bytes": 652,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "ae2db5115ed07d6719470d821bb67e7d9296e95ec99fe715ea76a895576d4c8d"
+    },
+    {
+      "bytes": 120,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/review-fixture/eval-0/eval_metadata.json",
+      "sha256": "5a1f20aa3031f2da613566a9543f7d86c9cba446ab8f572eb40598b048f4336e"
+    },
+    {
+      "bytes": 27,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/review-fixture/eval-0/outputs/result.txt",
+      "sha256": "d406697828553911100d689df002f6029641dde83501d96cb1c72c39c45829d9"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 19,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 2,
+    "script_files": 9,
+    "test_or_eval_files": 4,
+    "text_bytes_scanned": 116268
+  },
+  "target": {
+    "description": "Create or improve general standalone Open Agent skill work, including metadata, descriptions, tests, and migration; exclude named-library docs and plugin packaging.",
+    "name": "skill-creator",
+    "path": "skills/skill-creator",
+    "version": null
+  }
+}

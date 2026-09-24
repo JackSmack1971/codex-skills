@@ -1,0 +1,370 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "compatibility: Requires Python 3.11+; the bundled scanner is read-only.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "cases fit. If more than 20% do not fit, revise the abstraction.",
+        "kind": "boundary",
+        "line": 26,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "initial `cascade_score` with `post_cascade_score`. Do not claim success",
+        "kind": "boundary",
+        "line": 30,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "configuration details before proposing a refactor. Do not mutate files merely",
+        "kind": "boundary",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The scanner is read-only and bounded to the requested path. Do not execute",
+        "kind": "boundary",
+        "line": 48,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Changed: Bash runner became `scripts/scan_cascade_signals.py`; Claude-only frontmatter and `run_command` wording were removed.",
+        "kind": "boundary",
+        "line": 8,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "The scanner is read-only. Results are environment-dependent because the",
+        "kind": "boundary",
+        "line": 21,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"\"\"Read-only heuristic scan for simplification-cascade signals.\"\"\"",
+        "kind": "boundary",
+        "line": 2,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. Run with a missing path; it exits nonzero and emits only a bounded error.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Inspect the target package for Claude-only frontmatter or `run_command`.",
+        "kind": "boundary",
+        "line": 8,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "that collapses multiple components into one. Run the local scan before",
+        "kind": "decision",
+        "line": 10,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. Extract a target directory from the request. Use `.` when none is given.",
+        "kind": "decision",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "4. If the score is zero and all lists are empty, report: `No cascade signals",
+        "kind": "decision",
+        "line": 22,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "5. Otherwise, list the variations, state the unifying principle as",
+        "kind": "decision",
+        "line": 24,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "cases fit. If more than 20% do not fit, revise the abstraction.",
+        "kind": "decision",
+        "line": 26,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "7. When changes have been applied, rerun with `--verify` and compare the",
+        "kind": "decision",
+        "line": 29,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "unless the latter is lower.",
+        "kind": "decision",
+        "line": 31,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "configuration details before proposing a refactor. Do not mutate files merely",
+        "kind": "decision",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "real before/after target.",
+        "kind": "decision",
+        "line": 50,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "least three eliminations, rerun with `--verify` after an actual refactor, and",
+        "kind": "decision",
+        "line": 59,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "BRANCH_RE = re.compile(r\"^\\s*(if|elif|else if|case|switch|catch|except)\\b\")",
+        "kind": "decision",
+        "line": 11,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "path for path in target.rglob(\"*\") if path.is_file() and path.suffix in suffixes",
+        "kind": "decision",
+        "line": 17,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if any(abs(count - seen) < seen // 7 + 1 and count > 20 for seen in seen_counts):",
+        "kind": "decision",
+        "line": 29,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if branches > len(lines) // 8 and branches > 4:",
+        "kind": "decision",
+        "line": 37,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if keys > 50:",
+        "kind": "decision",
+        "line": 43,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"post_cascade_score\" if verify else \"cascade_score\": score,",
+        "kind": "decision",
+        "line": 58,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"status\": \"SIGNALS_FOUND\" if score else \"NO_SIGNALS\",",
+        "kind": "decision",
+        "line": 60,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if not target.is_dir():",
+        "kind": "decision",
+        "line": 70,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "if __name__ == \"__main__\":",
+        "kind": "decision",
+        "line": 77,
+        "path": "scripts/scan_cascade_signals.py"
+      }
+    ],
+    "execution": [],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "`Everything here is a special case of [X].`, and test whether all detected",
+        "kind": "verification",
+        "line": 25,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "7. When changes have been applied, rerun with `--verify` and compare the",
+        "kind": "verification",
+        "line": 29,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "least three eliminations, rerun with `--verify` after an actual refactor, and",
+        "kind": "verification",
+        "line": 59,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Preserved: JSON scan fields, score calculation, duplicate/special-case/config heuristics, and verify-mode field.",
+        "kind": "verification",
+        "line": 7,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "python .agents/skills/simplification-cascades/scripts/scan_cascade_signals.py --path .agents/skills/simplification-cascades --verify",
+        "kind": "verification",
+        "line": 18,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Normal and `--verify` scans completed with valid JSON and a zero score on",
+        "kind": "verification",
+        "line": 27,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- The repository TDD runner reports no supported project test runner; direct",
+        "kind": "verification",
+        "line": 34,
+        "path": "VERIFICATION.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "def scan(target: Path, verify: bool) -> dict:",
+        "kind": "verification",
+        "line": 21,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"verify_mode\": verify,",
+        "kind": "verification",
+        "line": 54,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "\"post_cascade_score\" if verify else \"cascade_score\": score,",
+        "kind": "verification",
+        "line": 58,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "parser.add_argument(\"--verify\", action=\"store_true\")",
+        "kind": "verification",
+        "line": 67,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "print(json.dumps(scan(target, args.verify), indent=2))",
+        "kind": "verification",
+        "line": 73,
+        "path": "scripts/scan_cascade_signals.py"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. Run with `--verify`; the score key is `post_cascade_score`.",
+        "kind": "verification",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "5e2178c65be2e49a9aae0f798476ad8accf5820064bb6cd7952f0ff2e78f07d7",
+  "generated_at": "2026-09-24T13:58:23.014887Z",
+  "inventory": [
+    {
+      "bytes": 2483,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "dda495f516e982901b1876230efd8e11dc8221f8b53982d6e702208bc8904122"
+    },
+    {
+      "bytes": 1564,
+      "kind": "other",
+      "language": null,
+      "path": "VERIFICATION.md",
+      "sha256": "61d807caf59ae430a733d658a8b8442706e7ea1225905e583de2f285dee4be76"
+    },
+    {
+      "bytes": 484,
+      "kind": "other",
+      "language": null,
+      "path": "examples/example_output.json",
+      "sha256": "648ff2eaf0e1c22e0e65b167d4c7cdf064d237c70e8b679ce4d24892d633aed2"
+    },
+    {
+      "bytes": 2926,
+      "kind": "script",
+      "language": "python",
+      "path": "scripts/scan_cascade_signals.py",
+      "sha256": "23ffcd08d703c7d143b8450e7718c015460ebed3c36656e4d39c914cae8e43de"
+    },
+    {
+      "bytes": 482,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "b3d194c1eedf1f105a9f1369dd61908153e4d6c922b16e9adc34b50cf9795f82"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 5,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [
+      "python"
+    ],
+    "reference_files": 0,
+    "script_files": 1,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 7939
+  },
+  "target": {
+    "description": "Find one unifying insight that removes duplicated logic, special cases, or redundant components.",
+    "name": "simplification-cascades",
+    "path": "skills/simplification-cascades",
+    "version": null
+  }
+}

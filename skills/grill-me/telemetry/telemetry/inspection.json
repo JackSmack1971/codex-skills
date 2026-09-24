@@ -1,0 +1,74 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling.\"",
+        "kind": "boundary",
+        "line": 3,
+        "path": "SKILL.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling.\"",
+        "kind": "decision",
+        "line": 3,
+        "path": "SKILL.md"
+      }
+    ],
+    "execution": [],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling.\"",
+        "kind": "verification",
+        "line": 3,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "missing constraints, test alternatives, and keep questioning until the plan or",
+        "kind": "verification",
+        "line": 10,
+        "path": "SKILL.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "498e911b452bd1c6a5ea42e3252d12dc5c46d3e0ee938b34c2d6a0e028492a0b",
+  "generated_at": "2026-09-24T13:57:41.909408Z",
+  "inventory": [
+    {
+      "bytes": 445,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "826997b785c80f35dfa62f23b2eabb904f4e119cd3ec5bd45ee513eb44b4ad96"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 1,
+    "has_evals": false,
+    "has_hooks": false,
+    "has_tests": false,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 0,
+    "text_bytes_scanned": 445
+  },
+  "target": {
+    "description": "Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling.",
+    "name": "grill-me",
+    "path": "skills/grill-me",
+    "version": null
+  }
+}
