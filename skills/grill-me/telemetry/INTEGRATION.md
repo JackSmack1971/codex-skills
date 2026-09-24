@@ -14,22 +14,36 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual (delegated) session shape (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before the interrogation starts | `run.started` | `task_category` (`plan` \| `design`) |
+| After the questioning runs its course | `decision` (`phase=interrogate`) | `questions_asked`, `assumptions_challenged`, `constraints_exposed`, `alternatives_tested`, `answer_sources` |
+| Before enacting the plan or design | `verification` (`phase=confirm`) | `materially_sharper`, `shared_understanding_confirmed` |
+| Before returning to the user | `run.finished` | `questions_asked`, `materially_sharper`, `shared_understanding_confirmed` |
+| When the user later rejects a recommendation or names a gap | `user.correction` | `correction`, `detail` |
 
-- `SKILL.md:3` — description: "Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling."
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and why each one matters to an improvement agent reviewing this alias's
+sessions.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:3` — description: "Compatibility alias for grilling. Use only when the user explicitly invokes /grill-me; for a new interactive plan or design stress-test, use grilling."
-- `SKILL.md:10` — missing constraints, test alternatives, and keep questioning until the plan or
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:3` — description: "Compatibility alias for grilling... for a new interactive plan or design stress-test, use grilling." — became the `plan`/`design` `task_category` enum.
+- `SKILL.md:9-11` — "Challenge assumptions, expose missing constraints, test alternatives, and keep questioning until the plan or design is materially sharper." — became `assumptions_challenged`, `constraints_exposed`, `alternatives_tested`, and `materially_sharper`.
 
 ### Execution candidates
 
-- None detected statically.
+- None detected statically; this skill has no bundled scripts to instrument.
 
 ## Hook evidence
 

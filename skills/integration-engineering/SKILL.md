@@ -29,3 +29,43 @@ providers, and requests are unreliable.
 Do not guess undocumented provider behavior or retry non-idempotent operations
 blindly. Stop when credentials, provider policy, or authoritative version
 information is missing.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before Workflow step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<api|sdk|webhook|oauth|other>" --invocation explicit)
+   ```
+2. After step 2 (define credentials/configuration boundaries), record the
+   configuration decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase configure \
+     --evidence-json '{"credentials_source":"<env|secret_manager|other>","fails_fast_on_missing_config":<true|false>,"sandbox_mode_used":<true|false>}'
+   ```
+3. After steps 3-4 (implement the minimal request/event flow and, for
+   webhooks, verify authenticity and handle duplicates), record the
+   implementation decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase implement \
+     --evidence-json '{"timeout_set":<true|false>,"retry_strategy":"<none|fixed|exponential_backoff|idempotency_key>","idempotency_handled":<true|false>,"webhook_signature_verified":<true|false|null>,"duplicate_handling":<true|false|null>}'
+   ```
+4. After step 6 (verify success, provider failure, timeout, rate limit,
+   malformed response, and repeated-delivery behavior), record the
+   verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome <success|failure> \
+     --evidence-json '{"scenarios_verified":["<subset of success,provider_failure,timeout,rate_limit,malformed_response,repeated_delivery>"]}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"integration_type":"<api|sdk|webhook|oauth|other>","retry_strategy":"<none|fixed|exponential_backoff|idempotency_key>","scenarios_verified_count":<N>,"test_mode_coverage_added":<true|false>,"metrics_added":<true|false>,"runbook_added":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow
+   stopped under Boundary instead of producing a working integration.

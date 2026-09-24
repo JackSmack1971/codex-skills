@@ -355,3 +355,36 @@ If installation is not possible in this environment, tell the user which depende
 - `references/codex-network.md`: fallback-only network/sandbox troubleshooting for CLI mode.
 - `scripts/image_gen.py`: fallback-only CLI implementation. Do not load or use it unless the user explicitly chooses CLI mode or explicitly confirms a transparent request's true CLI transparency fallback.
 - `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: local post-processing helper for built-in transparent-image requests.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before Workflow step 1 (decide the top-level mode), start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<photorealistic-natural|product-mockup|ui-mockup|infographic-diagram|scientific-educational|ads-marketing|productivity-visual|logo-brand|illustration-story|stylized-concept|historical-scene|text-localization|identity-preserve|precise-object-edit|lighting-weather|background-extraction|style-transfer|compositing|sketch-to-render>" --invocation explicit)
+   ```
+2. After Workflow step 4 (decide the execution strategy), record the
+   mode/intent/strategy decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase plan \
+     --evidence-json '{"mode":"<built_in|cli_fallback>","intent":"<generate|edit>","execution_strategy":"<single_asset|repeated_built_in_calls|cli_generate_batch>","transparency_requested":<true|false>}'
+   ```
+3. After Workflow step 12 (inspect outputs and validate), record the
+   validation check:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"subject_match":<true|false>,"style_match":<true|false>,"text_accuracy_checked":<true|false>,"invariants_preserved":<true|false>,"alpha_validated":<true|false|null>,"iteration_count":<N>}'
+   ```
+4. Before Workflow step 18 (report the final saved path(s)), close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"use_case":"<taxonomy slug>","mode":"<built_in|cli_fallback>","execution_strategy":"<single_asset|repeated_built_in_calls|cli_generate_batch>","asset_count":<N>,"transparency_used":<true|false>,"saved_to_workspace":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the built-in tool
+   failed and no authorized fallback was used, or the user declined to
+   proceed.

@@ -442,3 +442,67 @@ python3 -m unittest discover -s <skill-root>/tests -v
 
 Only state **Done & Verified** when metadata, direct-reference structure, JSON, Python compilation, tests, issue-plan validation, and package layout all pass with fresh evidence.
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the audit uninterrupted and never let it block or
+change the output.
+
+1. Before Default-workflow step 1 (Preflight), start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<audit|audit_publish|maintenance|verify>" --invocation explicit)
+   ```
+2. After step 1 (Preflight the checkout and tools), record the preflight
+   verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase preflight --outcome <success|failure> \
+     --evidence-json '{"remote_mode":"<auto|on|off>","gh_available":<true|false>,"python_version_ok":<true|false>}'
+   ```
+3. After step 5 (Perform evidence-backed semantic snapshot alignment),
+   record the semantic-review decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase semantic \
+     --evidence-json '{"supplemental_findings_added":<N>,"semantic_mismatch_found":<true|false>}'
+   ```
+4. After steps 6-7 (generate/validate the issue plan; publish when
+   explicitly requested), record the issue-plan decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase issues \
+     --evidence-json '{"issue_count":<N>,"destructive_flagged_count":<N>,"publish_mode":"<draft|published>","published":<true|false>}'
+   ```
+5. When step 8/9 destructive label or worktree maintenance plans are
+   generated and applied (only in Maintenance mode), record the maintenance
+   operation:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event operation --phase maintenance \
+     --evidence-json '{"label_prune_candidates":<N>,"worktree_prune_candidates":<N>,"digest_confirmed":<true|false>,"applied":<true|false>}'
+   ```
+6. After step 10 (Re-audit and record verification evidence / the
+   Verification loop), record the verification result:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase verify --outcome <success|failure> \
+     --evidence-json '{"resolved_findings":<N>,"remaining_findings":<N>,"new_findings":<N>,"verification_commands_passed":<true|false>}'
+   ```
+7. Before returning the Output contract, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"mode":"<audit|audit_publish|maintenance|verify>","issue_count":<N>,"published":<true|false>,"unresolved_critical_high":<N>,"coverage_degraded":<true|false>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when a Failure-handling
+   condition stopped the workflow (missing `gh` in `on` mode, changed HEAD
+   before publication, validation failure, etc.) instead of completing the
+   audit.
+
+On Windows where `python3` is unavailable, use `py -3` or `python` with the
+same arguments, matching this skill's own convention.
+
+If a maintainer later closes a published issue as invalid or "wontfix", or
+a finding this run reported is proven incorrect, record it as its own event
+so calibration drift is visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"correction":"<issue_closed_invalid|finding_incorrect>","category":"<git|github_automation|documentation|remote_state>"}'
+```
+

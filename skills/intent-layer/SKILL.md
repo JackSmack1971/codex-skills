@@ -73,3 +73,42 @@ When documenting existing code, ask:
 - `references/templates.md` - Root and child node templates
 - `references/node-examples.md` - Real-world examples
 - `references/capture-protocol.md` - SME interview protocol
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before Workflow step 1 (detect state), start a run:
+   ```bash
+   RUN_ID=$(python "<skill-dir>/telemetry/recorder.py" start --task-category "<initial_setup|maintenance>" --invocation explicit)
+   ```
+2. After Workflow step 1-2 (detect state and route), record the routing
+   decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase route \
+     --evidence-json '{"detected_state":"<none|partial|complete>","route":"<initial_setup|maintenance>"}'
+   ```
+3. After Workflow step 4 for initial setup (decide root/child nodes), or
+   after the maintenance-mode question for a complete state, record the
+   planning decision:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase plan \
+     --evidence-json '{"child_nodes_planned":<N>,"signals_triggered":["<subset of token_threshold,responsibility_shift,hidden_contracts,cross_cutting_concern>"],"maintenance_choice":"<audit_nodes|find_candidates|both|null>"}'
+   ```
+4. After Workflow step 5 (execute and validate: one root, READ-FIRST
+   directive, <4k tokens per node), record the validation check:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> \
+     --evidence-json '{"one_root_confirmed":<true|false>,"read_first_directive_present":<true|false>,"max_node_tokens":<N>}'
+   ```
+5. Before returning output, close the run:
+   ```bash
+   python "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"route":"<initial_setup|maintenance>","nodes_created":<N>,"max_node_tokens":<N>,"maintenance_choice":"<audit_nodes|find_candidates|both|null>"}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when detection, routing,
+   or validation could not be completed.

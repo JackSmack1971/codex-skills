@@ -14,49 +14,41 @@ Instrument high-value semantic boundaries only. Do not turn the target `SKILL.md
 
 The recorder prints the `run_id` on `start`. Pass that ID explicitly to later semantic events. Full commands may be supplied to `--command`; the recorder hashes them instead of storing them under the default policy.
 
-## Static candidates from the target
+## Wired instrumentation
 
-These are inspection hints, not runtime facts.
+`SKILL.md`'s `## Telemetry` section wires the following semantic events into
+this skill's actual Required-workflow steps (superseding the generic
+candidate scan below, which is kept only as provenance for why these points
+were chosen).
 
-### Decision candidates
+| SKILL.md step | Event | Tailored evidence fields |
+|---|---|---|
+| Before step 1 | `run.started` | `task_category` (Invocation mode) |
+| After step 1 (establish scope) / Invocation parsing | `decision` (`phase=scope`) | `effort`, `focus`, `branch_scoped` |
+| After step 4 (reopen and reject candidates) | `verification` (`phase=vet`) | `candidates_considered`, `candidates_rejected`, `rejection_reasons` |
+| After step 8 (validate plans, scan sensitive output) | `verification` (`phase=validate`) | `plan_validation_exit_code`, `sensitive_output_flagged`, `retry_count`; preceding `retry` event if repaired |
+| Before returning output | `run.finished` | `focus`, `effort`, `findings_count`, `plans_written` |
+| When a maintainer or executing agent later disputes the work | `user.correction` | `correction`, `detail` |
 
-- `SKILL.md:4` — compatibility: Requires filesystem-readable project files; Git history is used only when available.
-- `SKILL.md:18` — `advisor-plans/` when `plans/` already has another purpose. Scratch data
-- `SKILL.md:25` — require rotation when exposure is plausible.
-- `SKILL.md:26` — - If the user requests execution or external publication, stop and ask for a
-- `SKILL.md:44` — verification commands. Stop rather than guessing when scope is unclear.
-- `SKILL.md:63` — selection, plan the top 3–5 corrective findings after dependency adjustment.
-- `SKILL.md:76` — Stop when repository scope, evidence, a required safe command, or an
-- `SKILL.md:77` — architectural/product decision cannot be established. Stop when live code has
-- `references/audit-playbook.md:18` — - Evidence first. A pattern becomes a finding only when a concrete path, symbol, and impact are established.
-- `references/audit-playbook.md:50` — - dependency advisories only when reachable in runtime or distribution paths,
-- `references/audit-playbook.md:71` — Map risk before counting lines:
-- `references/audit-playbook.md:104` — - Major migrations only after estimating changed packages, compatibility risks, rollout order, and rollback.
-- `references/audit-playbook.md:117` — - absent agent instructions only when agents materially work in the repository.
-- `references/finding-contract.md:16` — When the host supports preloaded skills or custom subagents, preload only the audit guidance needed for that auditor. Do not assume subagents inherit the parent conversation or safety rules.
-- `references/finding-contract.md:43` — "impact": "An authenticated user could receive an invoice belonging to another tenant when IDs are known or exposed.",
+See `SCHEMA.md`'s "Tailored signals for this skill" section for field types
+and the effort/focus/rejection-reason aggregation an improvement agent
+should run over these fields.
 
-### Verification candidates
+### Static candidates from the target (provenance only)
 
-- `SKILL.md:67` — 8. Validate persisted plans and scan them for sensitive output:
-- `references/audit-playbook.md:34` — - check-then-act concurrency and missing transactions,
-- `references/audit-playbook.md:47` — - schema validation, mass assignment, upload constraints, archive extraction,
-- `references/audit-playbook.md:73` — - critical paths with no regression coverage,
-- `references/audit-playbook.md:75` — - tests that assert mocks, snapshots without semantic assertions, or order-dependent behavior,
-- `references/audit-playbook.md:113` — - inconsistent formatting/typecheck/lint enforcement,
-- `references/audit-playbook.md:142` — State the user value, evidence, trade-offs, coarse effort, and the cheapest validation step. Do not propose generic category features.
-- `references/plan-spec.md:68` — - `exact/new-test.ts` (create)
-- `references/plan-spec.md:86` — **Verify**: `<command>`
-- `references/plan-spec.md:93` — **Verify**: `<command>`
-- `references/plan-spec.md:96` — ## Test plan
-- `references/plan-spec.md:98` — - Test file and cases: happy path, original regression, named boundaries.
-- `references/plan-spec.md:99` — - Existing exemplar test to follow.
-- `references/plan-spec.md:107` — | Typecheck/build | `<command>` | exit 0 | yes |
-- `references/plan-spec.md:108` — | Full regression | `<command>` | all pass or documented bounded exception | yes |
+These are the inspection hints the fields above were derived from, not
+additional instrumentation to add.
+
+- `SKILL.md:33-38` — Invocation section (`effort`, `focus`, `branch`, `next`/`features`/`roadmap`, `plan <request>`, `review-plan <path>`) — became `task_category`, `effort`, `focus`, `branch_scoped`.
+- `SKILL.md:50-51` — Required workflow step 4: "Independently reopen every cited location. Reject stale, duplicate, generic, unreachable, or intentionally documented candidates." — became `candidates_considered`, `candidates_rejected`, and the `rejection_reasons` enum.
+- `SKILL.md:67-72` — Required workflow step 8: `validate_plan.py` / `scan_sensitive_output.py` — became `plan_validation_exit_code`, `sensitive_output_flagged`.
+- `SKILL.md:74-79` — Stop conditions — became the `--outcome failure`/`--failure-class` guidance on `finish`.
+- `SKILL.md:61-63` — Step 6 (present vetted findings; plan top 3-5 after dependency adjustment) — became `findings_count`/`plans_written` on `finish`.
+- `SKILL.md:26` — "If the user requests execution or external publication, stop and ask for a separate explicitly authorized implementation workflow." — informed the `user.correction` block, since this skill's plan is handed to a separate executing agent that can report back infeasibility.
 
 ### Execution candidates
 
-- None detected statically.
+- `scripts/rank_findings.py`, `scripts/validate_plan.py`, and `scripts/scan_sensitive_output.py` remain uninstrumented directly; their outcomes are captured through the `vet`/`validate`/`finish` events above instead of per-subprocess-call instrumentation, per the "high-value semantic boundaries only" principle.
 
 ## Hook evidence
 
