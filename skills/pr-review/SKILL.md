@@ -182,3 +182,48 @@ Before finishing, verify:
 [Output]
 A validated PR review draft with `Decision: REQUEST_CHANGES`, two blocking findings, exact file evidence, smallest safe fixes, and verification steps.
 
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill's
+merge-risk calibration from real usage. Resolve `<skill-dir>` as the
+directory containing this loaded `SKILL.md`. Telemetry is observability
+only: if a `recorder.py` call errors, proceed with the review uninterrupted
+and never let it block, delay, or change the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "<pr_number|pr_url|branch_range|diff_file|base_head_flags>" --invocation explicit)
+   ```
+2. After step 1 (collect bounded PR context), record collection health:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase collect --outcome <success|failure> \
+     --evidence-json '{"diff_truncated":<true|false>,"gh_available":<true|false>}'
+   ```
+3. After step 4 (decide findings), record the merge-risk decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase decide \
+     --evidence-json '{"decision":"<REQUEST_CHANGES|COMMENT|APPROVE>","blocking_findings":<N>,"non_blocking_findings":<N>,"finding_categories":["<subset of correctness,security,data_integrity,reliability,test_coverage,performance,maintainability,style>"],"risk_areas_touched":["<subset of auth,payment_or_irreversible,migrations_or_jobs,dependencies_or_ci,generated_or_vendored,none>"]}'
+   ```
+4. After step 6 (validate before final output), record the validation result;
+   if `validate_review.py` failed and was repaired, emit a `retry` event
+   first with `--failure-class` describing the defect:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase validate --outcome <success|failure> --exit-code <N> --retry-count <N>
+   ```
+5. Before returning output (after optional step 7), close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"decision":"<REQUEST_CHANGES|COMMENT|APPROVE>","blocking_findings":<N>,"submitted":<true|false>,"submission_outcome":"<success|failure|not_attempted>"}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow
+   stopped under Failure/stop instead of producing a validated review.
+
+If a human reviewer or maintainer later overturns this run's decision (e.g.
+approves a PR this skill flagged `REQUEST_CHANGES`, or a flagged finding is
+dismissed as incorrect), record it as its own event so calibration drift is
+visible without re-running the skill:
+```bash
+python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event user.correction \
+  --evidence-json '{"original_decision":"<...>","correction":"<finding_dismissed|decision_overturned>","finding_category":"<...>"}'
+```
+

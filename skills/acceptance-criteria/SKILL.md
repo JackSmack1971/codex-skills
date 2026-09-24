@@ -40,3 +40,35 @@ criterion to the requirement it proves.
 
 Do not prescribe implementation, test framework, or UI styling unless the
 requirement explicitly demands it.
+
+## Telemetry
+
+Record tailored run signals so improvement agents can evaluate this skill
+from real usage. Resolve `<skill-dir>` as the directory containing this
+loaded `SKILL.md`. Telemetry is observability only: if a `recorder.py` call
+errors, proceed with the task uninterrupted and never let it block or change
+the output.
+
+1. Before step 1, start a run:
+   ```bash
+   RUN_ID=$(python3 "<skill-dir>/telemetry/recorder.py" start --task-category "criteria_generation" --invocation explicit)
+   ```
+2. After step 3 (criteria expressed as scenarios), record the format
+   decision:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event decision --phase express \
+     --evidence-json '{"format":"<gherkin|precise-statement>","criteria_count":<N>,"coverage_classes":["<subset of happy_path,validation_failure,boundary,empty_state,loading_state,error_state,permission,retry_recovery>"]}'
+   ```
+3. After step 4 (contradiction/untestable-language check), record
+   verification:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" event --run-id "$RUN_ID" --event verification --phase check --outcome success \
+     --evidence-json '{"contradictions_found":<N>,"untestable_flagged":<N>,"missing_actor_flagged":<true|false>}'
+   ```
+4. Before returning output, close the run:
+   ```bash
+   python3 "<skill-dir>/telemetry/recorder.py" finish --run-id "$RUN_ID" --outcome success \
+     --evidence-json '{"criteria_count":<N>,"format":"<gherkin|precise-statement>","unresolved_questions":<N>,"out_of_scope_items":<N>}'
+   ```
+   Use `--outcome failure` with a `--failure-class` when the workflow stopped
+   under Failure/stop instead of producing output.
