@@ -1,0 +1,474 @@
+{
+  "candidates": {
+    "boundaries": [
+      {
+        "confidence": "medium",
+        "excerpt": "description: \"Perform broad Git repository operations; use git-commit for commit-only, using-git-worktrees for isolation, and github-issue-to-pr for the complete lifecycle.\"",
+        "kind": "boundary",
+        "line": 3,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "boundary",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Inputs:** Require the requested target and the repository, user, authority, and assumption evidence named by this package; identify material gaps instead of guessing.",
+        "kind": "boundary",
+        "line": 14,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Failure/stop:** Stop on conflicting scope, missing authority, unsafe state, or unverifiable completion, plus any stricter stop condition in this package.",
+        "kind": "boundary",
+        "line": 15,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Runtime claims:** Claim only behavior supported by observed files, tools, commands, or tests; do not claim implicit routing accuracy or unavailable integrations.",
+        "kind": "boundary",
+        "line": 18,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "boundary",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Stop and report detached HEAD, unresolved conflicts, or an active",
+        "kind": "boundary",
+        "line": 32,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "modified file before touching it; never overwrite, restore, reset, clean,",
+        "kind": "boundary",
+        "line": 37,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not create or switch branches unless required. Verify current changes",
+        "kind": "boundary",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not work directly on a protected or default branch when the repository",
+        "kind": "boundary",
+        "line": 45,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "use `git pull --ff-only` only when fast-forward-only synchronization is",
+        "kind": "boundary",
+        "line": 48,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Resolve conflicts file by file. Never blanket-accept `ours` or `theirs`.",
+        "kind": "boundary",
+        "line": 52,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Stage explicit paths or hunks; avoid `git add -A`, `git add .`, and",
+        "kind": "boundary",
+        "line": 57,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Run the repository's required tests, lint, format, type-check, build, and",
+        "kind": "boundary",
+        "line": 68,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Commit only when explicitly requested or when an established workflow",
+        "kind": "boundary",
+        "line": 70,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Commit only the reviewed staged snapshot. Do not amend, squash, fixup,",
+        "kind": "boundary",
+        "line": 74,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Do not create, apply, drop, clear, or rewrite user stashes as a convenience.",
+        "kind": "boundary",
+        "line": 91,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Never use raw `--force`; an approved rewrite requires",
+        "kind": "boundary",
+        "line": 101,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "commit. Never bypass protections, required checks, signing, or rulesets.",
+        "kind": "boundary",
+        "line": 103,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "After a failed or unexpected Git command, stop further mutations and",
+        "kind": "boundary",
+        "line": 107,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "re-inspect state. Do not auto-reset, clean, force-push, delete, or resolve in",
+        "kind": "boundary",
+        "line": 108,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "2. **Negative:** Given an unresolved merge or rebase, stop and report it rather than issuing another mutation.",
+        "kind": "boundary",
+        "line": 4,
+        "path": "tests/evaluation-cases.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a destructive cleanup request, verify exact targets and require explicit approval.",
+        "kind": "boundary",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "decisions": [
+      {
+        "confidence": "medium",
+        "excerpt": "compatibility: Requires Git and a filesystem-readable repository when Git actions are requested.",
+        "kind": "decision",
+        "line": 4,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Trigger and exclusion:** Use for requested Git inspection, branching, synchronization, staging, merge, rebase, or recovery; exclude commit authoring when no other Git action is needed, routing to git-commit.",
+        "kind": "decision",
+        "line": 11,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **Bounded workflow:** Follow the skill's documented workflow in order, keep changes within the requested scope, and stop when its completion evidence is sufficient.",
+        "kind": "decision",
+        "line": 12,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- **References:** Resolve every required reference and script relative to this skill package; stop if a required bundled resource is absent.",
+        "kind": "decision",
+        "line": 19,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Before editing, inspect the repository root, `git status --short --branch`,",
+        "kind": "decision",
+        "line": 28,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Before synchronization, branch changes, deletion, or remote work, inspect",
+        "kind": "decision",
+        "line": 30,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "out of scope unless explicitly requested.",
+        "kind": "decision",
+        "line": 35,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "modified file before touching it; never overwrite, restore, reset, clean,",
+        "kind": "decision",
+        "line": 37,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not create or switch branches unless required. Verify current changes",
+        "kind": "decision",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not work directly on a protected or default branch when the repository",
+        "kind": "decision",
+        "line": 45,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Prefer `git fetch` plus explicit comparison when remote freshness matters;",
+        "kind": "decision",
+        "line": 47,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "use `git pull --ff-only` only when fast-forward-only synchronization is",
+        "kind": "decision",
+        "line": 48,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- If local and upstream history diverge, report ahead/behind state instead of",
+        "kind": "decision",
+        "line": 50,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- After staging, inspect status, the cached diff stat, the complete cached",
+        "kind": "decision",
+        "line": 59,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "security checks before committing when applicable.",
+        "kind": "decision",
+        "line": 69,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Commit only when explicitly requested or when an established workflow",
+        "kind": "decision",
+        "line": 70,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Use the documented commit convention, recent history, or otherwise a concise",
+        "kind": "decision",
+        "line": 72,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- After committing, report the hash, subject, scope, and verification run.",
+        "kind": "decision",
+        "line": 77,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Get explicit approval immediately before any operation that may discard work or",
+        "kind": "decision",
+        "line": 81,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before approved destructive work, state exactly what may be lost and create a",
+        "kind": "decision",
+        "line": 86,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "recoverable checkpoint when practical. For `git clean`, run a dry run first.",
+        "kind": "decision",
+        "line": 87,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before deleting a branch, verify it is not checked out elsewhere and whether",
+        "kind": "decision",
+        "line": 88,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "release, and deployment are explicit-request operations. Immediately before a",
+        "kind": "decision",
+        "line": 96,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`--dry-run` when practical.",
+        "kind": "decision",
+        "line": 99,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "`--force-with-lease=<ref>:<expected>` after verifying the expected remote",
+        "kind": "decision",
+        "line": 102,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "After a failed or unexpected Git command, stop further mutations and",
+        "kind": "decision",
+        "line": 107,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "response. Prefer the documented abort command when safe, and report partial",
+        "kind": "decision",
+        "line": 109,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "1. **Normal:** Given a requested branch operation, inspect status and refs before making the reversible change.",
+        "kind": "decision",
+        "line": 3,
+        "path": "tests/evaluation-cases.md"
+      }
+    ],
+    "execution": [
+      {
+        "confidence": "medium",
+        "excerpt": "recoverable checkpoint when practical. For `git clean`, run a dry run first.",
+        "kind": "execution",
+        "line": 87,
+        "path": "SKILL.md"
+      }
+    ],
+    "privacy": [],
+    "verification": [
+      {
+        "confidence": "medium",
+        "excerpt": "- **Output:** Return the skill's named artifact or decision, with evidence, unresolved assumptions, and validation results.",
+        "kind": "verification",
+        "line": 13,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Do not create or switch branches unless required. Verify current changes",
+        "kind": "verification",
+        "line": 43,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "diff, and `git diff --check`.",
+        "kind": "verification",
+        "line": 60,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Verify the staged snapshot contains no credentials, local environment files,",
+        "kind": "verification",
+        "line": 63,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "- Run the repository's required tests, lint, format, type-check, build, and",
+        "kind": "verification",
+        "line": 68,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "Before deleting a branch, verify it is not checked out elsewhere and whether",
+        "kind": "verification",
+        "line": 88,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "remote mutation, re-check status, branch, source and destination refs,",
+        "kind": "verification",
+        "line": 97,
+        "path": "SKILL.md"
+      },
+      {
+        "confidence": "medium",
+        "excerpt": "3. **Boundary:** Given a destructive cleanup request, verify exact targets and require explicit approval.",
+        "kind": "verification",
+        "line": 5,
+        "path": "tests/evaluation-cases.md"
+      }
+    ]
+  },
+  "caveats": [
+    "Static matches are hypotheses, not proof of runtime behavior.",
+    "Inspection did not execute or import target code.",
+    "Generated telemetry must not treat ambient Codex hooks as target-skill causation without attribution evidence."
+  ],
+  "fingerprint": "6a0e543a61c3905fa6cbc50afe6ab1fa2a77b8b2163cd261113b6efbe6b2784e",
+  "generated_at": "2026-09-24T13:57:35.042476Z",
+  "inventory": [
+    {
+      "bytes": 6150,
+      "kind": "skill_manifest",
+      "language": null,
+      "path": "SKILL.md",
+      "sha256": "d07bd009a941b299eaa835ec3739e5b18cd1937b518415fe367b42d1d44f772f"
+    },
+    {
+      "bytes": 378,
+      "kind": "test_or_eval",
+      "language": null,
+      "path": "tests/evaluation-cases.md",
+      "sha256": "8d9f4618bf7d6d29f805068e82b86f8088ad85828077cd2f472910170ff5a1bf"
+    }
+  ],
+  "schema": "skilltelemetry.inspection.v1",
+  "summary": {
+    "files": 2,
+    "has_evals": true,
+    "has_hooks": false,
+    "has_tests": true,
+    "languages": [],
+    "reference_files": 0,
+    "script_files": 0,
+    "test_or_eval_files": 1,
+    "text_bytes_scanned": 6528
+  },
+  "target": {
+    "description": "Perform broad Git repository operations; use git-commit for commit-only, using-git-worktrees for isolation, and github-issue-to-pr for the complete lifecycle.",
+    "name": "git-workflow",
+    "path": "skills/git-workflow",
+    "version": null
+  }
+}
